@@ -25,12 +25,12 @@ Three SRF10 sensors are used to detect obstacles in a range in excess of 180 deg
 
 ### Uan Videos
 
-{{< youtube FPV0CT1fllw >} caption="Movement check"}
+{{< youtube FPV0CT1fllw > caption="Movement check"}}
 
-{{< youtube YXiN4U6D0d0 >} caption="Movement test - no sensors"}
+{{< youtube YXiN4U6D0d0 > caption="Movement test - no sensors"}}
 
-{{< youtube aN-3VG71tAk >}  caption="Obstacle Avoidance"}
+{{< youtube aN-3VG71tAk >  caption="Obstacle Avoidance"}}
 
-{{< youtube B_s7-taF2DY >} caption="Wall following"}
+{{< youtube B_s7-taF2DY > caption="Wall following"}}
 
-{{< youtube uur0EpSXcQ4 >} caption="Complex Behaviour - go to destination and avoid obstacles encountered"}
+{{< youtube uur0EpSXcQ4 > caption="Complex Behaviour - go to destination and avoid obstacles encountered"}}
