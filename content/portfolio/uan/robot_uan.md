@@ -6,7 +6,7 @@ jobDate: 2012
 work: [robotics, electronics, programming]
 techs: [C, CSharp]
 designs: []
-thumbnail: item/robot.jpg
+thumbnail: uan/robot.jpg
 projectUrl: 
 tags: ["robot"]
 ---
