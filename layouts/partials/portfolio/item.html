@@ -1,7 +1,10 @@
 <div class="portfolio-list">
   <a href="{{.Permalink}}">
     <div class="portfolio-container">
-      <img title="{{.Title}}" alt="{{.Title}}" src="/portfolio/{{ .Params.Thumbnail }}" />
+      
+      <img class="portfolio-image" title="{{.Title}}"  alt="{{.Title}}" src="/portfolio/{{ .Params.Thumbnail }}" />
+
+      
       <div class="img-overlay">
       </div>
       <div class="portfolio-details">
@@ -10,5 +13,6 @@
         <p class="small">{{ .Params.jobDate }}</p>
       </div>
     </div>
+  
   </a>
 </div>
