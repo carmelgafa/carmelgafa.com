@@ -24,13 +24,13 @@ UAN consists of a number of panels connected to a common I2C bus. Power supply t
 Three SRF10 sensors are used to detect obstacles in a range in excess of 180 degrees. The SRF10 is very sensitive to objects below the boresight, and the sensors are mounted to aim slightly upwards in order to avoid continuous ground response. The Viper-LITE and Viper-I/O boards are mounted on the topmost panel, since the switches on the Viper-I/O are used to administer the robot, and the CompactFLASH must be easily accessible as it is used to store the robot configuration files.
 
 ### Uan Videos
-<!-- 
-{{< youtube FPV0CT1fllw > caption="Movement check"}}
 
-{{< youtube YXiN4U6D0d0 > caption="Movement test - no sensors"}}
+{{< youtube FPV0CT1fllw >}}
 
-{{< youtube aN-3VG71tAk >  caption="Obstacle Avoidance"}}
+{{< youtube YXiN4U6D0d0 >}}
 
-{{< youtube B_s7-taF2DY > caption="Wall following"}}
+{{< youtube aN-3VG71tAk >}}
 
-{{< youtube uur0EpSXcQ4 > caption="Complex Behaviour - go to destination and avoid obstacles encountered"}} -->
+{{< youtube B_s7-taF2DY >}}
+
+{{< youtube uur0EpSXcQ4 >}}
