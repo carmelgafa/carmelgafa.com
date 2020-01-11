@@ -86,6 +86,14 @@ author="Carmel Gafa"
   url = "/post/"
   weight = -100
 
+[[menu.main]]
+  identifier = "notes"
+  name = "Notes"
+  title = "My Notes"
+  url = "/note/"
+  weight = -90
+
+
 [sitemap]
   changefreq = "monthly"
   filename = "sitemap.xml"
