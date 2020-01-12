@@ -1,5 +1,5 @@
 ---
-title: Hugo Static Site Generator
+title: Fuzzy Logic
 description: My Notes Page
 images: ["/images/owl.jpg"]
 ---

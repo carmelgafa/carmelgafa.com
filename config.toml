@@ -24,7 +24,7 @@ author="Carmel Gafa"
 [params]
   breadcrumb = true
   accentColor = "#FD3519"
-  mainSections = ['portfolio'] # values: ['post', 'portfolio'] only accept one section, to be displayed bellow 404
+  mainSections = ['portfolio'] # values: ['post', 'portfolio', 'note'] only accept one section, to be displayed bellow 404
 
 [params.notFound]
   gopher = "/images/gopher.png" # checkout https://gopherize.me/
@@ -36,9 +36,10 @@ author="Carmel Gafa"
   # when automatically pulled. For instance in the 404 page
   post = "article"
   portfolio = "project"
+  note="note"
 
 [params.sidebar]
-  backgroundImage = "/images/bd.jpg" # header background image - default "/images/default_sidebar.jpg" - Photo by Tim Marshall on Unsplash
+  backgroundImage = "/images/bd.jpg"
   gradientOverlay = '' # default: rgba(0,0,0,0.4),rgba(0,0,0,0.4)
   logo = "/images/owl.jpeg"
 [params.assets]
@@ -87,7 +88,7 @@ author="Carmel Gafa"
   weight = -100
 
 [[menu.main]]
-  identifier = "notes"
+  identifier = "note"
   name = "Notes"
   title = "My Notes"
   url = "/note/"

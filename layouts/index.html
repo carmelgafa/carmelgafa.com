@@ -1,6 +1,7 @@
 {{ partial "header" .}}
 
 <h1>{{ .Title | markdownify }}</h1>
+
 {{ .Content }}
 
 <h2>Current Projects</h2>
@@ -10,6 +11,8 @@
       {{ partial "portfolio/item" .}}
     {{ else if in .Site.Params.mainSections "post" }}
       {{ partial "post/item" .}}
+    {{ else if in .Site.Params.mainSections "note" }}
+      {{ partial "note/item" .}}
     {{ end }}
   {{ end }}
 
