@@ -8,4 +8,17 @@ tags: ["example"]
 draft: false
 ---
 
-Example of a first post hello hello
+Example of a post using latex
+
+
+\begin{align}
+\dot{x} & = \sigma(y-x) \newline
+\dot{y} & = \rho x - y - xz \newline
+\dot{z} & = -\beta z + xy
+\end{align}
+
+\begin{equation}
+x=x^2
+\end{equation}
+
+$x_2$
