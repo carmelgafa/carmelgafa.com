@@ -1,6 +1,6 @@
 ---
-title: POST
-description: 'Posts Section'
+title: Post
+description: 'Blog'
 ---
 
-You'll add here a general introduction of your posts.
+Notes on the stuff I'm currently working on.

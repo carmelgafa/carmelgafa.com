@@ -6,9 +6,10 @@ publishDate: "2020-01-09T15:33:41+01:00"
 thumbnail: /post/images/portfolio-example.png
 tags: ["example"]
 draft: false
+summary: "use of mathjax"
 ---
 
-Example of a post using latex
+Example of a post using MathJax
 
 
 \begin{align}
