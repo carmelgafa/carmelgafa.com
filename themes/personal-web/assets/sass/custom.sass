@@ -94,23 +94,25 @@ header
 
     .portfolio-image
       width: 100%
+      
     .portfolio-container
       position: relative
       max-width: $max-width-content
       margin-bottom: $margin-blocks
+      
 
-      .portfolio-details
-        opacity: 0
-        display: none
-        width: 100%
-        padding: 2em 1em
-        color: $primary-color
-        +transition(opacity 0.4s ease)
+    .portfolio-details
+      opacity: 0
+      display: none
+      width: 100%
+      padding: 2em 1em
+      color: $primary-color
+      +transition(opacity 0.4s ease)
 
-        p, h2
-          text-align: center
-          margin-bottom: 0
-          position: relative
+      p, h2
+        text-align: center
+        margin-bottom: 0
+        position: relative
 
 
       .img-overlay
@@ -144,6 +146,7 @@ header
       +smartphone
         img
           margin-bottom: 0
+
 
         .img-overlay
           display: none

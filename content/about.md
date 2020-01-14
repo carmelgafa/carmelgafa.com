@@ -1,9 +1,6 @@
 ---
-title: ABOUT
-description: Carmel Gafa
-images: ["/images/owl.jpg"]
+title: About
 ---
 
 
-This is my about page. 
-
+This is my about page.

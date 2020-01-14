@@ -1,12 +1,12 @@
 ---
 title: Robot Uan
-description: 
+description:  Robot Uan
 date: "2020-01-09T10:58:22+01:00"
 jobDate: 2012
 work: [robotics, electronics, programming]
 techs: [C, CSharp]
 designs: []
-thumbnail: uan/robot.jpg
+thumbnail: uan/robot_uan.jpg
 projectUrl: 
 tags: ["robot"]
 ---
