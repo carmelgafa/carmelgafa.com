@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>POST on Carmel Gafa</title>
+    <link>/post/</link>
+    <description>Recent content in POST on Carmel Gafa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Jan 2020 10:50:32 +0100</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test Post</title>
+      <link>/post/item/test_post/</link>
+      <pubDate>Thu, 09 Jan 2020 10:50:32 +0100</pubDate>
+      
+      <guid>/post/item/test_post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>First Post</title>
+      <link>/post/first_post/</link>
+      <pubDate>Wed, 08 Jan 2020 15:33:41 +0100</pubDate>
+      
+      <guid>/post/first_post/</guid>
+      <description>Example of a first post hello hello</description>
+    </item>
+    
+  </channel>
+</rss>
