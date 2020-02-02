@@ -11,7 +11,7 @@ summary: "use of mathjax"
 
 1. Created a file mathjax_support in **/partials/head/**
 
-```
+```javascript
 <script type="text/javascript" async
 src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 MathJax.Hub.Config({
@@ -45,7 +45,7 @@ TeX: { equationNumbers: { autoNumber: "AMS" } }
 
 2. In **/partials/head/head.html** added the following line
 
-```
+```javascript
 {{ partial "head/mathjax_support.html" . }}
 ```
 
@@ -54,7 +54,7 @@ TeX: { equationNumbers: { autoNumber: "AMS" } }
 
 The follwoing code
 
-```
+```latex
 
 \begin{align}
 \dot{x} & = \sigma(y-x) \newline

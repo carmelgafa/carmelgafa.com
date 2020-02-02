@@ -21,7 +21,7 @@ The set definitions myst have the following format:
 
 The following example illustrated the creation of IT2FS using these methods
 
-```
+```python
 from type2fuzzy import IntervalType2FuzzySet
 from type2fuzzy import it2_kernikmendel_reduce
 import os
