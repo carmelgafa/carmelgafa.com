@@ -103,7 +103,7 @@ author="Carmel Gafa"
 [privacy]
   [privacy.googleAnalytics]
     anonymizeIP = true
-    disable = true
+    disable = false
     respectDoNotTrack = true
     useSessionStorage = false
   [privacy.twitter]
