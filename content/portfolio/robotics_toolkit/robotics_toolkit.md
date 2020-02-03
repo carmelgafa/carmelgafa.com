@@ -1,7 +1,7 @@
 ---
 title: Robotics Toolkit
 description: 
-date: "2020-02-02T15:13:06+01:00"
+date: "2020-01-08T10:58:22+01:00"
 jobDate: 2012
 work: [robotics, programming, fuzzy-logic]
 techs: [C, C-Sharp]
