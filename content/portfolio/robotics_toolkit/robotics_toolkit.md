@@ -21,5 +21,5 @@ Finally, a standard is necessary so that developers can implement robot controll
 The following components were developed as parts of this toolkit:
 
 1. Robosim, a generic simulation environment was constructed to verify robot controllers. The simulator can be used to test any control technique that can be used to drive mobile robots.
-2. UAN, a mobile robot based on the control methodology described abovewas developed. The implementation necessitated the investigation of interfacing techniques using the I2C protocol, and the implementation of .NET applications onto small embedded systems
+2. UAN, a mobile robot based on the control methodology described above was developed. The implementation necessitated the investigation of interfacing techniques using the I2C protocol, and the implementation of .NET applications onto small embedded systems
 3. A number of robot controllers amongst which the implementation of fuzzy behaviour controllers that used context dependent blending to coordinate individual behaviours. A language that can be used to define these controllers was also implemented.
