@@ -1,6 +1,7 @@
 ---
 title: So finally I organized my workshop
-description: "My new workbenck layout"
+description: "My new workbench layout"
+summary: Electronics Workshop Upgrade"
 date: "2020-01-24T11:53:38+01:00"
 publishDate: "2020-01-24T11:53:38+01:00"
 ---
