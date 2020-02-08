@@ -7,7 +7,7 @@ work: [fuzzy-logic, python]
 techs: [python]
 designs: []
 thumbnail: type2fuzzylibrary/type2fuzzy.jpg
-projectUrl: https://pypi.org/project/type2fuzzy/ ; http://t2fuzz.com
+projectUrl: http://t2fuzz.com
 ---
 
 A type-2 fuzzy logic library providing:
