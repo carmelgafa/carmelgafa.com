@@ -1,6 +1,6 @@
 ---
-title: Post
+title: Posts Section
 description: 'Blog'
 ---
 
-Notes on the stuff I'm currently working on.
+A list of posts on the projects and ideas I'm currently working on.

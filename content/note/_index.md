@@ -1,6 +1,6 @@
 ---
-title: Notes
+title: Notes Section
 description: 'Notes Section'
 ---
 
-Some notes on the stuff that I am trying to learn for my reference.
+Some notes material that I am trying to learn or need to refer to.

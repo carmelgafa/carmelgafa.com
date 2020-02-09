@@ -82,7 +82,7 @@ author="Carmel Gafa"
 
 [[menu.main]]
   identifier = "blog"
-  name = "Post"
+  name = "Posts"
   title = "Blog section"
   url = "/post/"
   weight = -100
