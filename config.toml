@@ -43,7 +43,7 @@ author="Carmel Gafa"
   gradientOverlay = '' # default: rgba(0,0,0,0.4),rgba(0,0,0,0.4)
   logo = "/images/owl.jpeg"
 [params.assets]
-  favicon = "/images/owl_icon.svg"
+  favicon = "/images/owl_icon.png"
   customCSS = ""
 
 [params.social]
