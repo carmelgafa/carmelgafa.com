@@ -10,5 +10,4 @@ publishDate: "2020-02-09T22:37:56+01:00"
 tags: []
 ---
 
-
-![CNC Mechanics Sketch](../cnc_mechanics.jpg)
+[CNC Mechanics Sketch](../cnc_mechanics.jpg)
