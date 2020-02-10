@@ -49,7 +49,6 @@ TeX: { equationNumbers: { autoNumber: "AMS" } }
 {{ partial "head/mathjax_support.html" . }}
 ```
 
-
 3. Example of a post using MathJax
 
 The follwoing code

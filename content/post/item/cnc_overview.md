@@ -17,4 +17,4 @@ Some components will be 3D printed or machined as necessary, preference will be 
 
 My first sketch illustrating this idea is shown in the figure below:
 
-![CNC Sketch](../cnc_overview.jpg)
+![CNC Sketch](/post/img/cnc_overview.jpg)
