@@ -12,4 +12,4 @@ This is a list of the stuff that I am working on at the moment.
 * IBM HR Dataset - Analysis and Prediction [Kaggle Page](https://www.kaggle.com/carmelgafa/ibm-hr-dataset-analysis-and-prediction)
 * Simulation of active suspension systems. [Presentation](/post/files/SimulationofPassiveandActiveSuspensi.pdf)
 * FuzzScript - A Fuzzy Logic Control Language. [CodeProject Page](https://www.codeproject.com/Articles/47795/FuzzScript-A-Fuzzy-Logic-Control-Language)
-* My first attempt to learn about Fuzzy Logic. [Elector electronics](Fuzzy Control Design & Simulation Toolkit)
+* My first attempt to learn about Fuzzy Logic. [Elector electronics](https://www.elektormagazine.com/index.php/magazine/elektor-199701/33764)
