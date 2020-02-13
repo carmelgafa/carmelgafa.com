@@ -1,5 +1,5 @@
 ---
-title: My first experience tinkering with a Microsoft MXChip IoT DevKit (a.k.a. DevKit)
+title: Tinkering with a Microsoft MXChip IoT DevKit
 description: Switching on an MXChip IoT DevKit
 thumbnail: 
 tags: ["IOT"]
