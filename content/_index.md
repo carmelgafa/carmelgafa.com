@@ -4,7 +4,8 @@ description: Welcome to this sample project
 images: ["/images/owl.jpg"]
 ---
 
-This is a list of the stuff that I am working on at the moment.
+This is a list of projects that I am working on at the moment.
+
 [Who am I](/about "Who am I")
 
 ### Some older or smaller projects
