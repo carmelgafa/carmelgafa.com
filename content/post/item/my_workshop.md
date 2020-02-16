@@ -1,5 +1,5 @@
 ---
-title: So finally I organized my workshop
+title: So finally I organized my electronics workbench
 description: "My new workbench layout"
 summary: Electronics Workshop Upgrade"
 date: "2020-01-24T11:53:38+01:00"
