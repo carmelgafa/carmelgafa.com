@@ -31,12 +31,12 @@ var.plot_variable()
 
 The above code snippet will create the variable and sets and will produce the following image:
 
-![Linguistic Variable 'age'](img\fuzzy_variable.jpeg)
+![Linguistic Variable 'age'](/note/fuzzy/img/fuzzy_variable.jpeg)
 
 It is also very useful to have the ability to generate a number of fuzzy sets automatically in a linguistic variable, as this technique is sometimes used in ML applications. The function **generate_sets** takes a parameter n so that
 
 ```latex
-number_of_sets = (2\times n) + 1
+$number_of_sets = (2\times n) + 1$
 ```
 The following code shows how the generation function can be used to generate 7 sets:
 
@@ -54,5 +54,5 @@ var.plot_variable()
 
 The following is obtained:
 
-![Linguistic Variable 'age'](img\fuzzy_variable_gen.jpeg)
+![Linguistic Variable 'age'](/note/fuzzy/img/fuzzy_variable_gen.jpeg)
 
