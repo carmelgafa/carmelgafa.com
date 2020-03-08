@@ -1,4 +1,14 @@
-# Type2Fuzzy Project
+---
+title: Type-2 Fuzzy Logic Library
+description: A Type-2 fuzzy logic implementation
+date: "2020-01-14T09:34:11+01:00"
+jobDate: 2019
+work: [fuzzy-logic, python]
+techs: [python]
+designs: []
+thumbnail: type2fuzzylibrary/type2fuzzy.jpg
+projectUrl: http://t2fuzz.com
+---
 
 A type-2 fuzzy logic library providing:
 
@@ -12,13 +22,15 @@ A type-2 fuzzy logic library providing:
 8. Tools to measure the performance of algorithms
 9. Tools to plot general, interval and z-sliced type-2 fuzzy sets and type-1 fuzzy sets and more
 10. Ways to define and work with type-1 fuzzy sets
-11. Ways to define and work linguistic variables
+11. Ways to define and work with linguistic variables
+
+and more
 
 All type2fuzzy wheels distributed on PyPI are BSD licensed.
 
 Examples of how this library was used to work some famous type-2 fuzzy logic papers can be found here:
 
-[Type2Fuzzy Library Github Page](https://github.com/carmelgafa/type2fuzzy_examples)
+[Type2Fuzzy Library Examples Repo](https://github.com/carmelgafa/type2fuzzy_examples)
 
 ## Website
 
