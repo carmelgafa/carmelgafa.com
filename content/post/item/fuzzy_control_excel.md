@@ -9,7 +9,7 @@ date: "2020-03-11T18:30:40+01:00"
 publishDate: "2020-03-11T18:30:40+01:00"
 ---
 
-I am currently extending my [type2fuzzy](/portfolio/type2fuzzylibrary/type2fuzzylibrary.md) so that  fuzzy controllers can be implemented through its codebase. The implementation is straightforward if you have the correct structures in place; using an inference system, the most popular of which was discussed by Mamdani (Mamdani, Ebrahim H. "Application of fuzzy algorithms for control of simple dynamic plant." Proceedings of the institution of electrical engineers. Vol. 121. No. 12. IET, 1974.). An illustration of the Mamdani inference system operation is below (taken from wikipedia):
+I am currently extending my [Type-2 Fuzzy Logic Library](/portfolio/type2fuzzylibrary/type2fuzzylibrary) so that  fuzzy controllers can be implemented through its codebase. The implementation is straightforward if you have the correct structures in place; using an inference system, the most popular of which was discussed by Mamdani (Mamdani, Ebrahim H. "Application of fuzzy algorithms for control of simple dynamic plant." Proceedings of the institution of electrical engineers. Vol. 121. No. 12. IET, 1974.). An illustration of the Mamdani inference system operation is below (taken from wikipedia):
 
 ![Mamdani FIS](/post/img/fuzzy_inference.jpg)
 
