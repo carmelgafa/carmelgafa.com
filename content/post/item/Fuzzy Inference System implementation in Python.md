@@ -9,7 +9,10 @@ date: "2020-06-24T14:43:21+02:00"
 publishDate: "2020-06-24T14:43:21+02:00"
 ---
 
+This article was first published in [Towards Data Science](https://towardsdatascience.com/fuzzy-inference-system-implementation-in-python-8af88d1f0a6e).
+
 ## Introduction
+
 In a [previous article](https://carmelgafa.com/post/item/a-very-brief-introduction-to-fuzzy-logic-and-fuzzy-systems/), we discussed the basics of fuzzy sets and fuzzy inferencing. The report also illustrated the construction of a possible control application using a fuzzy inferencing method. In this article, we will build a multi-input/multi-output fuzzy inference system using the Python programming language. It is assumed that the reader has a clear understanding of fuzzy inferencing and has read the article mentioned previously.
 
 All the code listed in this article is available on [Github](https://github.com/carmelgafa/ml_from_scratch/tree/master/fuzzy_inference).
