@@ -3,7 +3,7 @@
     <a href="{{.Permalink}}">{{ .Title }}</a>
   </h4>
   <p>{{ .Summary }}</p>
-  <div class="published-date">
+  <div class="published-date-list">
     {{ partial "svg" (dict "iconName" "calendar" "size" "18px")}}{{ .PublishDate.Format "January 2, 2006" }}
   </div>
   <div>&nbsp;</div>
