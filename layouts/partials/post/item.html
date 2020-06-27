@@ -4,8 +4,7 @@
   </h4>
   <p>{{ .Summary }}</p>
   <div class="published-date">
-    {{ partial "svg" (dict "iconName" "calendar" "size" "18px")}}
-    <span>{{ .PublishDate.Format "January 2, 2006" }}</span>
+    {{ partial "svg" (dict "iconName" "calendar" "size" "18px")}}{{ .PublishDate.Format "January 2, 2006" }}
   </div>
   <div>&nbsp;</div>
   <div class="read-more">
