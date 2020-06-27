@@ -3,8 +3,12 @@
     <a href="{{.Permalink}}">{{ .Title }}</a>
   </h4>
   <p>{{ .Summary }}</p>
+  <div class="">
+    {{ partial "svg" (dict "iconName" "calendar" "size" "18px")}}
+    <span>{{ .PublishDate.Format "January 2, 2006" }}</span>
+  </div>
   <div class="read-more">
     <a alt="{{.Title}}" href="{{.Permalink}}" />{{ partial "svg" (dict "iconName" "read" "size" "18px")}}
-    Read more</a>
+    Read more...</a>
   </div>
 </div>
