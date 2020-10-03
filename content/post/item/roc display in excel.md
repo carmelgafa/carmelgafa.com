@@ -1,9 +1,12 @@
 ---
 title: "Roc Display in Excel"
 date: "2020-10-03T14:41:37+02:00"
+publishDate: "2020-10-03T14:41:37+02:00"
 description: Investigation of classification algorithm metrics using Excel
+tags: [machine_learning]
+draft: Investigation of classification algorithm metrics using Excel
+summary: Investigation of classification algorithm metrics using Excel
 ---
-
 
 A binary classifier is a function that can be applied to features X to produce a Y value of true (1) or false (0). It is a supervised learning technique; therefore, a test set is extracted from the available data so that the model is validated before deployed in production.
 
