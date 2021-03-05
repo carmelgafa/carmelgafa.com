@@ -39,11 +39,11 @@ author="Carmel Gafa"
   note="note"
 
 [params.sidebar]
-  backgroundImage = "/images/bd.jpg"
+  backgroundImage = "/images/bd_2.jpeg"
   gradientOverlay = '' # default: rgba(0,0,0,0.4),rgba(0,0,0,0.4)
-  logo = "/images/owl.jpeg"
+  logo = "/images/icon.jpeg"
 [params.assets]
-  favicon = "/images/owl_icon.png"
+  favicon = "/images/owl_icon.jpeg"
   customCSS = ""
 
 [params.social]

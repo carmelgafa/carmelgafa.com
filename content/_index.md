@@ -1,7 +1,7 @@
 ---
 title: Work in progress home page
 description: Welcome to this sample project
-images: ["/images/owl.jpg"]
+images: ["/images/icon.jpeg"]
 ---
 
 This is a list of projects that I am working on at the moment.
