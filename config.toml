@@ -9,9 +9,9 @@ theme = "minimal"
     author = "Carmel Gafa"
     description = "Carmel Gafa"
     githubUsername = "#"
-    accent = "red"
+    accent = "#060608"
     showBorder = true
-    backgroundColor = "white"
+    backgroundColor = "#f7f8fa"
     font = "Raleway"
     highlight = true
     highlightStyle = "default"
@@ -52,7 +52,7 @@ theme = "minimal"
     weight = 2
 
 [[menu.icon]]
-    url = "https://www.linkedin.com/in/username/"
+    url = "https://www.linkedin.com/in/carmel-gafa-200aa37/"
     name = "fab fa-linkedin"
     weight = 4
 
