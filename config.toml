@@ -1,4 +1,4 @@
-baseURL = ""
+baseURL = "http://carmelgafa.com"
 languageCode = "en-us"
 title = "Work in Progress"
 theme = "minimal"
