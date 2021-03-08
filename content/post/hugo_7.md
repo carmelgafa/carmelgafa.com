@@ -1,7 +1,6 @@
 ---
 title: "Hugo Frontmatter"
 date: 2019-12-30T12:01:10+01:00
-summary: "Fromtmatter is the metadata on top of the hugo md files."
 tags: [hugo]
 ---
 

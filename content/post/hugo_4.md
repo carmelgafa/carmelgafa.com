@@ -1,7 +1,6 @@
 ---
 title: "Hugo themes"
 date: 2019-12-30T12:01:08+01:00
-summary: "How to use a custom theme"
 tags: [hugo]
 ---
 

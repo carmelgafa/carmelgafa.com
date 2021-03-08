@@ -1,9 +1,8 @@
 ---
 title: Fuzzy Inference System implementation in Python
-description: Building a Fuzzy System from scratch
 tags: [fuzzy]
 date: "2020-06-24T14:43:21+02:00"
-publishDate: "2020-06-24T14:43:21+02:00"
+draft: false
 ---
 
 This article was first published in [Towards Data Science](https://towardsdatascience.com/fuzzy-inference-system-implementation-in-python-8af88d1f0a6e).

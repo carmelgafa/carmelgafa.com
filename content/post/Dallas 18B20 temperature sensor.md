@@ -1,8 +1,6 @@
 ---
 title: Dallas 18B20 temperature sensor
-description: Reading temperature using the 18B20 chip
 date: "2020-06-27T16:25:12+02:00"
-publishDate: "2020-06-27T16:25:12+02:00"
 tags: [arduino]
 ---
 

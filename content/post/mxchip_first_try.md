@@ -1,9 +1,7 @@
 ---
 title: Tinkering with a Microsoft MXChip IoT DevKit
-description: Switching on an MXChip IoT DevKit
 tags: ["IOT"]
 date: "2020-02-10T16:12:58+01:00"
-publishDate: "2020-02-10T16:12:58+01:00"
 ---
 
 The MXChip IoT Devkit byt Microsoft is a very interesting device, loaded with sensors and promises easy setup.

@@ -1,9 +1,7 @@
 ---
 title: CNC Table Movement
-description: CNC machine movement consideration
 tags: ["cnc"]
 date: "2020-02-08T16:38:56+01:00"
-publishDate: "2020-02-08T16:38:56+01:00"
 ---
 
 There are two basic movement mechanisms that are used by CNC machines.

@@ -1,7 +1,6 @@
 ---
 title: "Hugo Taxonomies"
 date: 2019-12-30T13:31:51+01:00
-summary: "tagging and grouping content"
 tags: [hugo]
 ---
 

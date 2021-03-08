@@ -1,9 +1,8 @@
 ---
 title: A very brief introduction to Fuzzy Logic and Fuzzy Systems
-description: Fuzzy Logic and Fuzzy Systems Basics
 tags: [fuzzy]
 date: "2020-06-24T13:48:54+02:00"
-publishDate: "2020-06-24T13:48:54+02:00"
+draft: false
 ---
 
 This article was first published in [Towards Data Science](https://towardsdatascience.com/a-very-brief-introduction-to-fuzzy-logic-and-fuzzy-systems-d68d14b3a3b8).

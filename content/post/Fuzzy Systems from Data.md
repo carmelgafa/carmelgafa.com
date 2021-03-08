@@ -1,9 +1,7 @@
 ---
 title: Fuzzy Systems from Data
-description: Generating human-readable knowledge from sensor information
 tags: [fuzzy]
 date: "2020-06-25T08:59:58+02:00"
-publishDate: "2020-06-25T08:59:58+02:00"
 ---
 
 

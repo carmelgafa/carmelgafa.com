@@ -1,7 +1,6 @@
 ---
 title: "Hugo Templates"
 date: 2019-12-31T15:28:24+01:00
-summary: "templates of HTML for content"
 tags: [hugo]
 ---
 

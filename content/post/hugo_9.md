@@ -1,7 +1,6 @@
 ---
 title: "Shortcodes in Hugo"
 date: 2019-12-30T13:11:58+01:00
-summary: "shortcuts to things like youtube etc"
 tags: [hugo]
 ---
 

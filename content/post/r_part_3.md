@@ -1,9 +1,8 @@
 ---
 title: The R Notes - Part 3
-description: Part 3 of notes about the R language
 date: "2020-02-08T16:24:22+01:00"
-publishDate: "2020-02-08T16:24:22+01:00"
 tags: [r]
+draft: false
 ---
 
 ## Reading and Writing Data

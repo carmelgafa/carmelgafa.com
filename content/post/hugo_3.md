@@ -1,7 +1,6 @@
 ---
 title: "Create new Hugo website"
 date: 2019-12-30T12:01:07+01:00
-summary: "Creating a new site plus folder structure"
 tags: [hugo]
 ---
 

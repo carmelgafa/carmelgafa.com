@@ -1,7 +1,6 @@
 ---
 title: "Hugo Archetypes"
 date: 2019-12-30T12:01:11+01:00
-summary: "Archetypes define the format of frontmatter"
 tags: [hugo]
 ---
 

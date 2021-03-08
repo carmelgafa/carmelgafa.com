@@ -1,9 +1,7 @@
 ---
 title: CNC draft sketch
-description: CNC basic movement design
 tags: ["cnc"]
 date: "2020-02-09T11:17:45+01:00"
-publishDate: "2020-02-09T11:17:45+01:00"
 ---
 
 The CNC machine under consideration is a light-duty one, that should cut wood or perspex with widths less than 6mm. For this reason the design is simplified as much as possible as the main objective of this exercise is to probe the concept before considering a more robust one.

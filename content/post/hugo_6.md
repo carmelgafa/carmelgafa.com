@@ -1,7 +1,6 @@
 ---
 title: "Creating and Organizing Content in Hugo"
 date: 2019-12-30T12:01:09+01:00
-summary: "Single and list pages. "
 tags: [hugo]
 ---
 

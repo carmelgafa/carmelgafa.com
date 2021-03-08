@@ -1,9 +1,7 @@
 ---
 title: CNC Machine Introduction
-description: Ideas for building a CNC machine
 tags: ["cnc"]
 date: "2020-02-08T16:33:30+01:00"
-publishDate: "2020-02-08T16:33:30+01:00"
 ---
 
 So this is my journey in building my CNC machine. It is something that I always wanted to do actually, I think that every robotics enthusiast is fascinated by this tool. Obviously I was inspired by a number of CNC projects over the web:

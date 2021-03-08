@@ -1,8 +1,6 @@
 ---
 title: The R Notes - Part 1
-description: Part 1 of notes about the R language
 date: "2020-02-08T16:00:59+01:00"
-publishDate: "2020-02-08T16:00:59+01:00"
 tags: [r]
 ---
 
