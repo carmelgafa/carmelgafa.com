@@ -10,6 +10,8 @@ thumbnail: robotics_toolkit/robotics_toolkit.png
 projectUrl: 
 ---
 
+![Robotics Toolkit](/project/robotics_toolkit.png)
+
 The high level design goal of this work is the creation of an autonomous robot navigation toolkit which is flexible, robust, easy to use and to configure and preferably independent of the sensors and actuators utilized. More information about the system can be found in this presentation.
 
 The first component that is required is a physical robot. Although considerable testing and verification of the navigation algorithms used can be achieved through the use of a simulation tool, the only valid validation mechanism is an actual robot with real sensors and actuators.

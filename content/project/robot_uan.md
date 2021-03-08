@@ -11,7 +11,8 @@ projectUrl:
 tags: ["robot"]
 ---
 
-{{< figure src="/portfolio/uan/uan_desc.jpg" caption="Robot Uan" >}}
+
+![Robot Uan](/project/uan_desc.jpg)
 
 ### Design Considerations
 
