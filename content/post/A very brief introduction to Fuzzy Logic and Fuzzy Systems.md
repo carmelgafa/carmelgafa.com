@@ -1,10 +1,7 @@
 ---
 title: A very brief introduction to Fuzzy Logic and Fuzzy Systems
 description: Fuzzy Logic and Fuzzy Systems Basics
-thumbnail: 
 tags: [fuzzy]
-draft: False
-summary: A very brief introduction to Fuzzy Logic and Fuzzy Systems
 date: "2020-06-24T13:48:54+02:00"
 publishDate: "2020-06-24T13:48:54+02:00"
 ---

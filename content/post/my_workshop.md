@@ -1,9 +1,9 @@
 ---
 title: So finally I organized my electronics workbench
 description: "My new workbench layout"
-summary: Electronics Workshop Upgrade"
 date: "2020-01-24T11:53:38+01:00"
 publishDate: "2020-01-24T11:53:38+01:00"
+tags: [tools]
 ---
 
 I finally found the time and will to put some order where I work with electronics. This is how it is looking:

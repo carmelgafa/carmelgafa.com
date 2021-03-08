@@ -3,10 +3,7 @@ title: MathJax in Hugo (personal-web theme)
 description: How to make MathJax work in Hugo
 date: "2020-01-08T15:33:41+01:00"
 publishDate: "2020-01-09T15:33:41+01:00"
-thumbnail: /post/images/portfolio-example.png
 tags: ["example"]
-draft: false
-summary: "use of mathjax"
 ---
 
 1. Created a file mathjax_support in **/partials/head/**

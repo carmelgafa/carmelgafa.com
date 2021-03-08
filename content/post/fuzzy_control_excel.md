@@ -1,10 +1,7 @@
 ---
 title: Fuzzy Control System In Excel
 description: An implementation of a fuzzy control system in Excel
-thumbnail: 
 tags: [fuzzy]
-draft:
-summary: An implementation of a fuzzy control system in Excel
 date: "2020-03-11T18:30:40+01:00"
 publishDate: "2020-03-11T18:30:40+01:00"
 ---

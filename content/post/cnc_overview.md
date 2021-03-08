@@ -1,10 +1,7 @@
 ---
 title: CNC draft sketch
 description: CNC basic movement design
-thumbnail: 
 tags: ["cnc"]
-draft: false
-summary: "Ideas for making a CNC machine"
 date: "2020-02-09T11:17:45+01:00"
 publishDate: "2020-02-09T11:17:45+01:00"
 ---

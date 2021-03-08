@@ -1,10 +1,7 @@
 ---
 title: Short notes about Pandas
 description:
-thumbnail: 
 tags: [python, pandas]
-draft: Summary of Pandas basics
-summary: Summary of Pandas basics
 date: "2020-03-30T13:21:20+02:00"
 publishDate: "2020-03-30T13:21:20+02:00"
 ---

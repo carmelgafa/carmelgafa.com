@@ -1,10 +1,7 @@
 ---
 title: Tinkering with a Microsoft MXChip IoT DevKit
 description: Switching on an MXChip IoT DevKit
-thumbnail: 
 tags: ["IOT"]
-draft: false
-summary: Switching on an MXChip IoT DevKit
 date: "2020-02-10T16:12:58+01:00"
 publishDate: "2020-02-10T16:12:58+01:00"
 ---

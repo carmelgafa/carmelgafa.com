@@ -1,10 +1,7 @@
 ---
 title: CNC Machine Introduction
 description: Ideas for building a CNC machine
-thumbnail: 
 tags: ["cnc"]
-draft: false
-summary: "Ideas for making a CNC machine"
 date: "2020-02-08T16:33:30+01:00"
 publishDate: "2020-02-08T16:33:30+01:00"
 ---

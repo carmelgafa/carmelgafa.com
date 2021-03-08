@@ -1,10 +1,7 @@
 ---
 title: Fuzzy Inference System implementation in Python
 description: Building a Fuzzy System from scratch
-thumbnail: 
 tags: [fuzzy]
-draft: False
-summary: Building a Fuzzy System from scratch
 date: "2020-06-24T14:43:21+02:00"
 publishDate: "2020-06-24T14:43:21+02:00"
 ---
