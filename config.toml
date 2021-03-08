@@ -2,7 +2,6 @@ baseURL = ""
 languageCode = "en-us"
 title = "Minimal"
 theme = "minimal"
-googleAnalytics = ""
 
 [params]
     author = "Calin Tataru"
