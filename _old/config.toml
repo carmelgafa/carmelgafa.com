@@ -1,21 +1,21 @@
-baseURL = "http://example.com/"
+baseURL = ""
 languageCode = "en-us"
-title = "Minimal"
+title = "Work in Progress"
 theme = "minimal"
-disqusShortname = "username" # delete this to disable disqus comments
-googleAnalytics = ""
+# disqusShortname = "username" # delete this to disable disqus comments
+# googleAnalytics = "UA-101213116-1"
 
 [params]
-    author = "Calin Tataru"
-    description = "Personal blog theme powered by Hugo"
+    author = "Carmel Gafa"
+    description = "Carmel Gafa"
     githubUsername = "#"
     accent = "red"
     showBorder = true
     backgroundColor = "white"
-    font = "Raleway" # should match the name on Google Fonts!
+    font = "Raleway"
     highlight = true
     highlightStyle = "default"
-    highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+    highlightLanguages = ["python"]
 
 [[menu.main]]
     url = "/"
@@ -47,21 +47,12 @@ googleAnalytics = ""
     weight = 1
 
 [[menu.icon]]
-    url = "https://github.com/username/"
+    url = "https://github.com/carmelgafa/"
     name = "fab fa-github"
     weight = 2
-
-[[menu.icon]]
-    url = "https://twitter.com/username/"
-    name = "fab fa-twitter"
-    weight = 3
 
 [[menu.icon]]
     url = "https://www.linkedin.com/in/username/"
     name = "fab fa-linkedin"
     weight = 4
 
-[[menu.icon]]
-    url = "https://www.stackoverflow.com/username/"
-    name = "fab fa-stack-overflow"
-    weight = 5
