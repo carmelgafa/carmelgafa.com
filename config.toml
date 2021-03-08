@@ -1,4 +1,4 @@
-baseURL = "http://example.com/"
+baseURL = "http://carmelgafa.com/"
 languageCode = "en-us"
 title = "Work in Progress"
 theme = "minimal"
@@ -6,7 +6,7 @@ disqusShortname = "username" # delete this to disable disqus comments
 googleAnalytics = ""
 
 [params]
-    author = "Calin Tataru"
+    author = "Carmel Gafa"
     description = "Carmel Gafa"
     githubUsername = "#"
     accent = "red"
