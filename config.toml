@@ -12,10 +12,10 @@ googleAnalytics = ""
     accent = "red"
     showBorder = true
     backgroundColor = "white"
-    font = "Raleway" # should match the name on Google Fonts!
+    font = "Raleway"
     highlight = true
     highlightStyle = "default"
-    highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+    highlightLanguages = ["python"]
 
 [[menu.main]]
     url = "/"
