@@ -8,7 +8,7 @@ The DS18B20 is a three pin digital thermometer that provides digital temperature
 
 It can convert a temperature to a 12 bit reading in 750ms.
 
-![ds18b20 pinouts](/note/arduino/ds18b20_pinouts.jpeg)
+![ds18b20 pinouts](/post/img/ds18b20_pinouts.jpeg)
 
 
 The device datasheet can be downloaded from [here](https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf).
