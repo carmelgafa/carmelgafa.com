@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Work in Progress"
 theme = "minimal"
 # disqusShortname = "username" # delete this to disable disqus comments
-# googleAnalytics = "UA-101213116-1"
+googleAnalytics = "UA-101213116-1"
 
 [params]
     author = "Carmel Gafa"
