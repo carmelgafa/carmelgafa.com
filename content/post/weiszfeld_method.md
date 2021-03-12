@@ -14,13 +14,13 @@ $$Z = \sum_{i=1}^{m} \sqrt{(x_i -c_x)^2+(y_i -c_y)^2}$$
 
 Differentiating with respect to c_x
 
-$$\frac{\partial Z}{\partial c_x} = \left(-\frac{1}{2}  \frac{1}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2}} \right)  2(x_i - c_x)   (-1)$$
+$$\frac{\partial Z}{\partial c_x} = \sum_{i=1}^{m} \left(-\frac{1}{2}  \frac{1}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2}} \right)  2(x_i - c_x)   (-1)$$
 
-$$ =   \frac{(x_i - c_x)}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2} }$$
+$$ = \sum_{i=1}^{m} \frac{(x_i - c_x)}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2} }$$
 
 at the minimum value this value will be equal to zero.
 
-$$ \frac{(x_i - c_x)}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2} } = 0$$
+$$ \sum_{i=1}^{m} \frac{(x_i - c_x)}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2} } = 0$$
 
 $$c_x = \frac{\sum_{i=1}^{m} \frac{x_i}{\sqrt{(x_i -c_x)^2+(y_i -c_y)^2}}}{\sum_{i=1}^{m} \frac{1}{\sqrt{(x_i -c_x)^2+(y_i -c_y)^2}}}$$
 
