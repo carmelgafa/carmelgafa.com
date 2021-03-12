@@ -2,7 +2,7 @@ baseURL = "/"
 languageCode = "en-us"
 title = "Work in Progress"
 theme = "minimal"
-# disqusShortname = "username" # delete this to disable disqus comments
+disqusShortname = "username" # delete this to disable disqus comments
 googleAnalytics = "UA-101213116-1"
 
 [params]
