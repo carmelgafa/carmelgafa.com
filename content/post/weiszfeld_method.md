@@ -1,8 +1,8 @@
 ---
 title: "Weiszfeld Algorithm"
-date: 2021-03-12
+date: "2021-03-12"
 tags: [machine_learning]
-draft: true
+draft: false
 ---
 
 Pierre de Fermat 1607-1665 was a French lawyer and mathematician.  In 1640, he proposed a problem to Evangelista Torricelli, a student of the famous Galileo Galilei. Fermat challenged Torricelli to find the point in a triangle whose sum of  distances from the vertices is a minimum. Torricelli did solve the problem, in more than a single way, but over the years other solutions where found. In 1937, Endre Weitzfeld came up with an algorithmic solution of this problem, that we shall look into in this post.
