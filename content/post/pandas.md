@@ -2,6 +2,7 @@
 title: Short notes about Pandas
 tags: [python, pandas]
 date: "2020-03-30T13:21:20+02:00"
+draft: False
 ---
 
 I am currently using a lot more the Pandas library to load data into a fuzzy learning framework. This note summarizes my learning points on the library. For the process of this exercise the [Wine Quality data set](http://www3.dsi.uminho.pt/pcortez/wine/) used by Cortes et all  will be used

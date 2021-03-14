@@ -1,7 +1,7 @@
 ---
 title: Dallas 18B20 temperature sensor
 date: "2020-06-27T16:25:12+02:00"
-tags: [arduino]
+tags: [arduino, iot]
 ---
 
 The DS18B20 is a three pin digital thermometer that provides digital temperature measurements as 9 to 12-bit packets over a single wire serial connection. Its temperature range is between -55 and 125 degrees celcius, with very good accuracy of 0.5 degrees between -10 and 85 degrees Celcius.
