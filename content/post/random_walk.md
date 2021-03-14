@@ -5,6 +5,8 @@ tags: [machine_learning, python]
 draft: false
 ---
 
+Some notes taken from Prof. Guttag excellent discussion on the topic.
+
 The technique was first developed by Stanislaw Ulam, a mathematician who worked on the Manhattan Project.
 
 A method of estimating the value of an unknown quantity using the principles of inferential statistics.
