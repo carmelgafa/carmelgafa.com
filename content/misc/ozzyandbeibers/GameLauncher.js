@@ -36,7 +36,11 @@ class GameLauncher {
 	}
 
 	processLoss() {
-		console.log('you lost... sucker');
+		this.game.lives--;
+		this.gameStats.updateOzzies(this.game.lives);
+		if(this.game.lives === 0){
+			window.location = 'lost.html'
+		}
 		this.game.clearGame();
 		this.executeLevel()
 	}
@@ -62,6 +66,7 @@ class GameLauncher {
 				break;
 
 			case gameStates.PLAYING:
+			case gameStates.OZZYHIT:
 				this.gameStats.updateScore(this.game.score);
 				this.game.update();
 				break;

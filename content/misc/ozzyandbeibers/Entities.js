@@ -175,6 +175,38 @@ class Ozzy extends AnimatedEntity{
 	}
 }
 
+class DeadOzzy extends AnimatedEntity{
+	constructor(x, y){
+		super(x,y);
+		this.setImage("assets/bat.gif");
+		this.finishedAnimation = false;
+		this.countDown = 100;
+	}
+
+	update(){
+		var iDirection = Math.floor(Math.random() * 5);
+
+		if (iDirection === 1) {
+			this.newXPos = this.xPos + 1;
+		}
+		else if (iDirection === 2) {
+			this.newXPos = this.xPos - 1;
+		}
+		else if (iDirection === 3) {
+			this.newYPos = this.yPos - 1;
+		}
+		else if (iDirection === 4) {
+			this.newYPos = this.yPos + 1;
+		}
+
+		this.countDown--;
+
+		if(this.countDown === 0){
+			this.finishedAnimation = true;
+		}
+	}
+}
+
 class Beiber extends AnimatedEntity{
 	constructor(x, y){
 		super(x,y);

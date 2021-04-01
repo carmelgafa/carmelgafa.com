@@ -1,5 +1,6 @@
 const gameStates = {
 	LOST: "lost",
+	OZZYHIT: "ozzyhit",
 	WON: "won",
 	PLAYING: "playing",
 }
@@ -209,7 +210,10 @@ class Game{
 			
 
 			if(this.blastParticles[i].hasCollided(this.ozzy)){
-				this.gameState = gameStates.LOST;
+				this.gameState = gameStates.OZZYHIT;
+				var x = this.ozzy.xPos;
+				var y = this.ozzy.yPos;
+				this.ozzy = new DeadOzzy(x,y)
 			}
 
 			if(!this.blastParticles[i].finished){
@@ -237,33 +241,44 @@ class Game{
 
 		this.updateBlasts();
 
-		if(this.gameState === gameStates.PLAYING){
-
-			if (this.ozzy.dropBomb === true) {
-				var newBomb= new Bomb(this.ozzy.xPos, this.ozzy.yPos);
-				this.bombs.push(newBomb);
-				this.ozzy.dropBomb = false;
+		if(this.gameState == gameStates.OZZYHIT){
+			this.ozzy.update();
+			this.moveEntity(this.ozzy);
+			if(this.ozzy.finishedAnimation){
+				this.gameState = gameStates.LOST;
 			}
-			else{
-				this.moveEntity(this.ozzy);
-			}
-
-			for (var j = 0; j < this.beibers.length; j++) {
-				//check beibers with bombs
-				this.beibers[j].updateOzzyPos(this.ozzy.xPos, this.ozzy.yPos)
-				this.moveEntity(this.beibers[j]);
-
-				// and with ozz
-				if(this.beibers[j].hasCollided(this.ozzy)){
-					this.gameState = gameStates.LOST;
+		}
+		else{
+			if(this.gameState === gameStates.PLAYING){
+				if (this.ozzy.dropBomb === true) {
+					var newBomb= new Bomb(this.ozzy.xPos, this.ozzy.yPos);
+					this.bombs.push(newBomb);
+					this.ozzy.dropBomb = false;
 				}
-			}
+				else{
+					this.moveEntity(this.ozzy);
+				}
 
-			if(this.ozzy.hasCollided(this.gate)){
-				this.score += 150;
-				this.gameState = gameStates.WON;
+				for (var j = 0; j < this.beibers.length; j++) {
+					//check beibers with bombs
+					this.beibers[j].updateOzzyPos(this.ozzy.xPos, this.ozzy.yPos)
+					this.moveEntity(this.beibers[j]);
+
+					// and with ozz
+					if(this.beibers[j].hasCollided(this.ozzy)){
+						this.gameState = gameStates.OZZYHIT;
+						var x = this.ozzy.xPos;
+						var y = this.ozzy.yPos;
+						this.ozzy = new DeadOzzy(x,y)
+					}
+				}
+
+				if(this.ozzy.hasCollided(this.gate)){
+					this.score += 150;
+					this.gameState = gameStates.WON;
+				}
+				this.updateBombs();
 			}
-			this.updateBombs();
 		}
 	}
 
