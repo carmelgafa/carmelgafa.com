@@ -1,7 +1,7 @@
 ---
 title: "Create new Hugo website"
 date: 2019-12-30T12:01:07+01:00
-tags: [hugo]
+tags: ["hugo"]
 ---
 
 1. open cmd in folder where new site will be located

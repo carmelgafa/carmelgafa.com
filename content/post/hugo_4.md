@@ -1,7 +1,7 @@
 ---
 title: "Hugo themes"
 date: 2019-12-30T12:01:08+01:00
-tags: [hugo]
+tags: ["hugo"]
 ---
 
 You can download a prebuit theme, add content and that's it

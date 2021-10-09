@@ -1,7 +1,7 @@
 ---
 title: "Hugo Frontmatter"
 date: 2019-12-30T12:01:10+01:00
-tags: [hugo]
+tags: ["hugo"]
 ---
 
 Frontmatter is added as a header when creating a new Hugo file via **hugo new file_name** it has the following format:

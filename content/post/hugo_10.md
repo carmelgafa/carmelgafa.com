@@ -1,7 +1,7 @@
 ---
 title: "Hugo Taxonomies"
 date: 2019-12-30T13:31:51+01:00
-tags: [hugo]
+tags: ["hugo"]
 ---
 
 1. Taxonomies - how content is grouped together. Two default

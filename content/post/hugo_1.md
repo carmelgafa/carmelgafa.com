@@ -1,7 +1,7 @@
 ---
 title: Introduction to Hugo
 date: "2019-12-30T12:01:05+01:00"
-tags: [hugo]
+tags: ["hugo"]
 ---
 
 hugo is a static web site generator
