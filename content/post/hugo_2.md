@@ -1,6 +1,6 @@
 ---
 title: Installing Hugo on Win10
-date: "2019-12-12T15:16:38+01:00"
+date: 2019-12-12
 tags: ["hugo"]
 ---
 

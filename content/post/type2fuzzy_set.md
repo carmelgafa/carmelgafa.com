@@ -14,13 +14,6 @@ Type-2 fuzzy logic is motivated by the premise that concepts have different mean
 
 ![Difference in type_1](/post/img/type_2_example_1.png)
 
-
-
-
-
 A type-2 fuzzy set A, ( $ \tilde{A} $ ) can be 
-
-
-
 
 ![Difference in type_2](/post/img/type_2_set.jpg)
