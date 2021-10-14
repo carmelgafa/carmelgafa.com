@@ -1,7 +1,7 @@
 ---
 title: "Shortcodes in Hugo"
 date: 2019-12-30T13:11:58+01:00
-tags: ["hugo"]
+tags: [hugo_cms]
 ---
 
 1. Shortcodes are predefined chunks of HTML that you can put inside your content.

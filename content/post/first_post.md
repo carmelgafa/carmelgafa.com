@@ -1,7 +1,7 @@
 ---
 title: MathJax in Hugo (personal-web theme)
 date: "2020-01-08T15:33:41+01:00"
-tags: ["hugo"]
+tags: [hugo_cms, mathjax]
 ---
 
 1. Created a file mathjax_support in **/partials/head/**

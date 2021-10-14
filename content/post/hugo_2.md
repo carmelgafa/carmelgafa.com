@@ -1,7 +1,7 @@
 ---
 title: Installing Hugo on Win10
 date: 2019-12-12
-tags: ["hugo"]
+tags: [hugo_cms]
 ---
 
 1. Create Folder **Hugo**

@@ -1,7 +1,7 @@
 ---
 title: Introduction to Hugo
 date: 2019-12-30
-tags: ["hugo"]
+tags: [hugo_cms]
 draft: false
 ---
 
