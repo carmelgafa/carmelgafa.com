@@ -1,7 +1,7 @@
 ---
 title: "Roc Display in Excel"
 date: "2020-10-03T14:41:37+02:00"
-tags: [machine_learning]
+tags: [machine_learning, classifier, roc, excel]
 draft: false
 ---
 
@@ -13,10 +13,10 @@ The function will return a value between 0 and 1, and a threshold value is there
 
 Given the above, we can obtain four kinds of results:
 
-A prediction of  1 for an observation that has a label value of 1, This is known as True Positive (TP)
-A prediction of  1 for an observation that has a label value of 0, This is known as False Positive (FP)
-A prediction of  0 for an observation that has a label value of 0, This is known as True Negative(TN)
-A prediction of  0 for an observation that has a label value of 1, This is known as False Negative(FN)
+- A prediction of  1 for an observation that has a label value of 1, This is known as True Positive (TP)
+- A prediction of  1 for an observation that has a label value of 0, This is known as False Positive (FP)
+- A prediction of  0 for an observation that has a label value of 0, This is known as True Negative(TN)
+- A prediction of  0 for an observation that has a label value of 1, This is known as False Negative(FN)
 
 An [excel sheet](/post/files/classification_examples.xlsx) has been created to demonstrate these basic concepts. The example in the sheet defines five true and five false samples that are displayed in a graph. A threshold value can be set to determine the TP, TN, FP and FN samples.
 
@@ -52,7 +52,7 @@ Conversely, the false positive rate (FPR) is the ratio of the samples incorrectl
 
 $$FPR = \frac{FP}{FP+TN}$$
 
-Intuitively we can determine that different values of TPR and FPR are obtained as the threshold value is varied. The (FPR, TPR) pairs obtained for each threshold value can be plotted on what is known as the Receiver Operator Characteristic (ROC) chart. 
+Intuitively we can determine that different values of TPR and FPR are obtained as the threshold value is varied. The (FPR, TPR) pairs obtained for each threshold value can be plotted on what is known as the Receiver Operator Characteristic (ROC) chart.
 
 ![ROC](/post/img/roc.jpg)
 

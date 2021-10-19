@@ -46,7 +46,7 @@ TeX: { equationNumbers: { autoNumber: "AMS" } }
 
 3. Example of a post using MathJax
 
-The follwoing code
+The following code
 
 ```latex
 
@@ -62,6 +62,7 @@ x=x^2
 
 $x_2$
 ```
+
 Generates the following:
 
 \begin{align}

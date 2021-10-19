@@ -1,6 +1,6 @@
 ---
 title: Tinkering with a Microsoft MXChip IoT DevKit
-tags: [iot]
+tags: [iot, mxchip]
 date: "2020-02-10T16:12:58+01:00"
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Weiszfeld Algorithm"
 date: "2021-03-12"
-tags: [machine_learning]
+tags: [machine_learning, weiszfeld_algorithm]
 draft: false
 ---
 
@@ -25,7 +25,6 @@ $$ \sum_{i=1}^{m} \frac{(x_i - c_x)}{ \sqrt{(x_i -c_x)^2+(y_i -c_y)^2} } = 0$$
 $$c_x = \frac{\sum_{i=1}^{m} \frac{x_i}{\sqrt{(x_i -c_x)^2+(y_i -c_y)^2}}}{\sum_{i=1}^{m} \frac{1}{\sqrt{(x_i -c_x)^2+(y_i -c_y)^2}}}$$
 
 An therefore we can deduce;
-
 
 $$c_{x}^{k+1} = \frac{\sum_{i=1}^{m} \frac{x_i}{\sqrt{(x_i -c_{x}^{k})^2+(y_i -c_y)^2}}}{\sum_{i=1}^{m} \frac{1}{\sqrt{(x_i -c_{x}^{k})^2+(y_i -c_y)^2}}}$$
 

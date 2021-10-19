@@ -2,7 +2,7 @@
 title: Loading Interval Type-2 Sets
 description: How to load an IT2FS using the Type2 Fuzzy Library
 date: "2020-01-12T15:09:43+01:00"
-tags: [type2_fuzzy_library, fuzzy, python]
+tags: [type2_fuzzy, type2_fuzzy_library, fuzzy, python, IT2FS]
 ---
 
 Interval Type-2 Fuzzy Sets can be loaded by using one of the following methods:

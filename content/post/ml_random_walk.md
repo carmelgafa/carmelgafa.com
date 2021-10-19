@@ -1,7 +1,7 @@
 ---
 title: "Notes on Monte Carlo Simulation"
 date: "2021-03-14"
-tags: [machine_learning, python]
+tags: [machine_learning, python, random_walk]
 draft: false
 ---
 
@@ -61,7 +61,6 @@ $$\sigma(x) = \sqrt{variance(X)}$$
 - Probability of a random value lying between two values
 - Defines a curve where the range in the X-axis is between the maximum and minimum values of the variable.
 - Area under curve between two points defined the probability of an example falling in that range
-
 
 ```python
 import random

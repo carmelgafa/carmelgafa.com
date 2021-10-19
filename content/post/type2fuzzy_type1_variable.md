@@ -2,7 +2,7 @@
 title: Type-1 Fuzzy Variable
 description: How to work with Type-1 fuzzy variables in Type2Fuzzy Library
 date: "2020-03-08T14:21:53+01:00"
-tags: [type2_fuzzy_library, fuzzy, python]
+tags: [type2_fuzzy, type2_fuzzy_library, fuzzy, python]
 ---
 
 The **Type1FuzzyVariable** class in the library is a way to define and use linguistic variables.
@@ -37,6 +37,7 @@ It is also very useful to have the ability to generate a number of fuzzy sets au
 ```latex
 $number_of_sets = (2\times n) + 1$
 ```
+
 The following code shows how the generation function can be used to generate 7 sets:
 
 ```python
@@ -54,4 +55,3 @@ var.plot_variable()
 The following is obtained:
 
 ![Linguistic Variable 'age'](/note/fuzzy/img/fuzzy_variable_gen.jpeg)
-

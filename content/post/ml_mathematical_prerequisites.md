@@ -1,7 +1,7 @@
 ---
 title: "Mathematical prerequisites for some Clustering techniques"
 date: 2021-10-14
-tags: [maths]
+tags: [maths, machine_learning]
 draft: false
 ---
 
