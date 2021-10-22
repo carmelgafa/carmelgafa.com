@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Work in Progress"
+title = ""
 theme = "minimal"
 disqusShortname = "carmelgafa-com-1"
 googleAnalytics = "UA-101213116-1"
