@@ -1,7 +1,7 @@
 ---
 title: "Notes on Monte Carlo Simulation"
 date: "2021-03-14"
-tags: [machine_learning, python, random_walk]
+tags: [machine-learning, python, random_walk]
 draft: false
 ---
 

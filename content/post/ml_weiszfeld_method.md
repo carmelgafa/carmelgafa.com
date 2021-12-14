@@ -1,7 +1,7 @@
 ---
 title: "Weiszfeld Algorithm"
 date: "2021-03-12"
-tags: [machine_learning, weiszfeld_algorithm]
+tags: [machine-learning, weiszfeld_algorithm]
 draft: false
 ---
 

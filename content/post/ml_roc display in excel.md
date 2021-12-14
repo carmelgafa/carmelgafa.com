@@ -1,7 +1,7 @@
 ---
 title: "Roc Display in Excel"
 date: "2020-10-03T14:41:37+02:00"
-tags: [machine_learning, classifier, roc, excel]
+tags: [machine-learning, classifier, roc, excel]
 draft: false
 ---
 

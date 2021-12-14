@@ -2,7 +2,7 @@
 title: "Simple Python implementation of the Weiszfeld algorithm"
 date: "2021-03-14T15:32:17+01:00"
 draft: false
-tags: [machine_learning, python, weiszfeld_algorithm]
+tags: [machine-learning, python, weiszfeld_algorithm]
 ---
 
 
