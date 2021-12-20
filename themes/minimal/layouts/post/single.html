@@ -10,6 +10,10 @@
 
     <div align="start" class="content">{{ .Content }}</div>
 
+
+    <br/>
+    <br/>
+    <br/>
     <!-- Related posts -->
     {{ $related := first 3 (where (where (where .Site.Pages.ByDate.Reverse ".Type" "==" "post") ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
     {{ if $related }}
