@@ -93,3 +93,8 @@ which will plot the following:
 ![type-2 fuzzy set](/post/img/type2fuzzy_it2fs_typereduction_type2_it2fs.png)
 
 ### Centroid of an Interval Type-2 fuzzy set
+
+An iterative procedure to find the centroid of an Interval Type-2 fuzzy is discussed in 
+
+_"Karnik, N. N., & Mendel, J. M. (1998, May). Introduction to type-2 fuzzy logic systems. In 1998 IEEE international conference on fuzzy systems proceedings. IEEE world congress on computational intelligence (Cat. No. 98CH36228) (Vol. 2, pp. 915-920). IEEE."_
+

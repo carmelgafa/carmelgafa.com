@@ -13,14 +13,14 @@ we want to fit the line $ \hat{y} = a_0 + a_1 x$ through the given set of data.
 
 ![linear regression](/post/img/ml_linear_regression.jpg)
 
-It would be  trivial if a line could exactly represent the data provided. Usually, the points will be scattered. Some distance will be present between the line that fits best and the actual data. This distance is the error, also called the **residual**. It represents the difference between the observed values and the predicted values, that is for any point $i$,
+It would be trivial if a line could exactly represent the data provided. Usually, the points will be scattered. Some distance will be present between the line that fits best and the actual data. This distance is the error, also called the **residual**. It represents the difference between the observed values and the predicted values, that is, for any point $i$,
 
 | $$(Residual)_i$$  |$$ = \hat{y}_i-y_i$$   |
 |---|---|
 |   | $$= y_i -(a_0 + a_1 x_i)$$  |
 |   | $$= y_i - a_0 - a_1 x_i$$  |
 
-The objective is to make the aggregation of residuals as small as possible. This is where the concept of the cost function comes in. The cost function collects all the residuals as a single number and is, therefore, a measure of how well the model is performing. In practice, several cost functions are used; we will examine the three most popular in this post.
+The objective is to make the aggregation of residuals as small as possible. This is where the concept of the cost function comes in. The cost function collects all the residuals as a single number and, therefore, measures how well the model is performing. Several cost functions are used; we will examine the three most popular in this post.
 
 #### Mean Error
 
