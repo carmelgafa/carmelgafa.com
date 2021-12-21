@@ -8,7 +8,7 @@ draft: false
 ### Introduction
 
 "Type-2 Fuzzy Sets made simple" is possibly the best paper to learn about Type-2 fuzzy sets and logic. It outlines all the definitions and concepts that are necessary to work with type-2 fuzzy sets in a clear and concise manner. This paper illustrates the implementation of all the examples prepared by Mendel and John using the type2fuzzy library.
-\end{abstract}
+
 
 This post is the first in a series aimed to illustrate the capabilities of the Type2FuzzyLibrary (<https://pypi.org/project/type2fuzzy/>) This is achieved by working up the numerical examples in selected papers using the library and comparing the results with those obtained by the original authors. The papers will list the code used to carry out the examples, and the results obtained. All code is written using the Python language.
 
