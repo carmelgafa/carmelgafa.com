@@ -1,6 +1,6 @@
 ---
 title: Fuzzy Inference System implementation in Python
-tags: [fuzzy, type1_fuzzy, python]
+tags: [fuzzy, type1-fuzzy, python]
 date: "2020-06-24T14:43:21+02:00"
 draft: false
 ---

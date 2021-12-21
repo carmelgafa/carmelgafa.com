@@ -3,7 +3,7 @@ title: Type-2 Fuzzy Logic Library
 description: A Type-2 fuzzy logic implementation
 date: "2020-01-14T09:34:11+01:00"
 jobDate: 2019
-tags: [type2_fuzzy_library, fuzzy, python]
+tags: [type2-fuzzy-library, fuzzy, python]
 designs: []
 thumbnail: type2fuzzylibrary/type2fuzzy.jpg
 projectUrl: http://t2fuzz.com

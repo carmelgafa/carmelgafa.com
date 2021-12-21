@@ -2,7 +2,7 @@
 title: Type-1 Fuzzy Variable
 description: How to work with Type-1 fuzzy variables in Type2Fuzzy Library
 date: "2020-03-08T14:21:53+01:00"
-tags: [type2_fuzzy, type2_fuzzy_library, fuzzy, python]
+tags: [type2-fuzzy, type2-fuzzy-library, fuzzy, python]
 ---
 
 The **Type1FuzzyVariable** class in the library is a way to define and use linguistic variables.

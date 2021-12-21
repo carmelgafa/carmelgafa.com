@@ -1,6 +1,6 @@
 ---
 title: Fuzzy Systems from Data
-tags: [fuzzy, type1_fuzzy, learning]
+tags: [fuzzy, type1-fuzzy, learning]
 date: "2020-06-25T08:59:58+02:00"
 ---
 

@@ -2,7 +2,7 @@
 title: Interval Type-2 Fuzzy Sets Type Reduction
 description: Jerry Mendel's IT2FS type reduction examples
 date: "2020-02-03T16:17:59+01:00"
-tags: [type2_fuzzy_library, type2_fuzzy, fuzzy, python, IT2FS]
+tags: [type2-fuzzy-library, type2-fuzzy, fuzzy, python, IT2FS]
 ---
 Jerry Mendel's [book](https://www.amazon.co.uk/Uncertain-Rule-Based-Fuzzy-Systems-Introduction/dp/3319513699/ref=sr_1_3?keywords=jerry+mendel&qid=1580743185&sr=8-3) can be safely considered as the Type-2 Fuzzy Logic bible. It is not an easy or inexpensive read, but definitely the best way to get to know the world of Type-2 Sets.
 

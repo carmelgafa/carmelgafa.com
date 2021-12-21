@@ -1,6 +1,6 @@
 ---
 title: Fuzzy Control System In Excel
-tags: [fuzzy, type1_fuzzy, excel]
+tags: [fuzzy, type1-fuzzy, excel]
 date: "2020-03-11T18:30:40+01:00"
 ---
 

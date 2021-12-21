@@ -2,7 +2,7 @@
 title: "Fuzzy Control System In Excel version 1.2"
 date: 2021-12-13T08:11:47+01:00
 draft: false
-tags: [type1fuzzy, excel]
+tags: [type1-fuzzy, excel, fuzzy]
 ---
 
 I have received some questions regarding the [Fuzzy System in Excel](https://carmelgafa.com/post/type1fuzzy_excel/) that I posted some time ago, so here I am going through a slightly improvedc version that you can download from [Github](https://github.com/carmelgafa/type1fuzzy_excel.git).

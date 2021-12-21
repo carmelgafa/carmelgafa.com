@@ -1,7 +1,7 @@
 ---
 title: "Introduction to type-2 fuzzy sets"
 date: 2021-10-15
-tags: [type_2_fuzzy, fuzzy, set]
+tags: [type2-fuzzy, fuzzy]
 draft: false
 ---
 This article was first published in [Towards Data Science](https://towardsdatascience.com/type-2-fuzzy-sets-812c5b4d602d#d16c-9d2b4dddac26).

@@ -1,6 +1,6 @@
 ---
 title: A very brief introduction to Fuzzy Logic and Fuzzy Systems
-tags: [fuzzy, type1_fuzzy]
+tags: [fuzzy, type1-fuzzy]
 date: "2020-06-24T13:48:54+02:00"
 draft: false
 ---
