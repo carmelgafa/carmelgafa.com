@@ -1,5 +1,5 @@
 ---
-title: Liner Regression - Deriving the 2D case
+title: Liner Regression - Deriving the Univariate case
 date: 2021-12-20
 tags: [machine-learning, linear-regression, cost-functions]
 draft: false
