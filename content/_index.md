@@ -1,8 +1,8 @@
-# Carmel Gafa - My work in progress
+# **Carmel Gafa - My work in progress**
 
 [About me](/about/)
 
-## Current Interests (December 2021):
+## **Current Interests (December 2021)**
 
 I am currently working on:
 
@@ -10,7 +10,7 @@ I am currently working on:
 - Machine Learning from basics to code. I started with some posts on linear regression [here](/tags/linear-regression/)
 - Fuzzy Control Systems. I am posting notes [here](/tags/fuzzy/)
 
-## Reading
+## **Reading**
 
 I am / will be reading these books this month:
 
@@ -18,7 +18,7 @@ I am / will be reading these books this month:
 - [Beyond Order by Jordan Peterson](https://www.bookdepository.com/Beyond-Order-Jordan-B-Peterson/9780241407622?ref=grid-view&qid=1640152264842&sr=1-1)
 - [Hunting Season by Andrea Camilleri](https://www.bookdepository.com/Hunting-Season-Andrea-Camilleri/9780143126539?ref=grid-view&qid=1640152284884&sr=1-1)
 
-## Technical Reading
+## **Technical Reading**
 
 I am going through this book at the moment:
 
