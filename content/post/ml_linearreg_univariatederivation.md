@@ -15,7 +15,7 @@ $$MSE = \frac{\sum_{i=1}^{n} (y_i-a_0-a_1 x_i)^{2} }{n}$$
 
 The objective is to adjust $a_0$ and $a_1$ such that the MSE is minimized. This is achieved by deriving the MSE with respect to $a_0$ and $a_1$, and finding the minimum case by equating to zero.
 
-$$\frac{\partial MSE}{\partial a_0} = 0$$ 
+$$\frac{\partial MSE}{\partial a_0} = 0$$
 
 and
 
@@ -107,7 +107,9 @@ n & \sum_{i=1}^{n} y_i\\\\
 }{\sum_{i=1}^{n} n x_i^2 - (\sum_{i=1}^{n} x_i)^2}
 $$
 
-$$=\frac{n \sum_{i=1}^{n} x_i - \sum_{i=1}^{n} x_i \sum_{i=1}^{n} y_i}{\sum_{i=1}^{n} n x_i^2 - (\sum_{i=1}^{n} x_i)^2} $$
+$$=\frac{n \sum_{i=1}^{n} x_i y_i - \sum_{i=1}^{n} x_i \sum_{i=1}^{n} y_i}{\sum_{i=1}^{n} n x_i^2 - (\sum_{i=1}^{n} x_i)^2} $$
+
+$$ =\frac{ \sum_{i=1}^{n} x_i y_i - n\bar{x}\bar{y}}{\sum_{i=1}^{n} x_i^2 - n\bar{x}^2}$$
 
 We also note that as,
 
@@ -118,4 +120,3 @@ $$ n a_0 = \sum_{i=1}^{n} y_i - a_1 \sum_{i=1}^{n} x_i$$
 $$  a_0 = \frac{\sum_{i=1}^{n} y_i}{n} - a_1 \frac{\sum_{i=1}^{n} x_i}{n}$$
 
 $$ = \bar{y} - a_1 \bar{x}$$
-
