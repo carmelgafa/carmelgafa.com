@@ -36,6 +36,11 @@ img {
     font-size: 3vmin;
 }
 
+.github-calendar {
+    transform: translateY(22vh);
+    width: 100%;
+}
+
 /* Page content */
 
 .content {

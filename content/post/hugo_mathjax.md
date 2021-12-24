@@ -6,9 +6,11 @@ tags: [hugo_cms, mathjax]
 
 1. Created a file mathjax_support in **/partials/head/**
 
+<!-- src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" -->
+
 ```javascript
 <script type="text/javascript" async
-src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 MathJax.Hub.Config({
 tex2jax: {
   inlineMath: [['$','$'], ['\\(','\\)']],
