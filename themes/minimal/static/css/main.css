@@ -36,9 +36,25 @@ img {
     font-size: 3vmin;
 }
 
-.github-calendar {
-    transform: translateY(22vh);
-    width: 100%;
+@media screen and (max-width: 600px) {
+    #title_message {
+      visibility: hidden;
+      clear: both;
+      float: left;
+      margin: 10px auto 5px 20px;
+      width: 28%;
+      display: none;
+    }
+  }
+
+@media all and (min-width: 480px) {
+    .deskContent {display:block;}
+    .phoneContent {display:none;}
+}
+
+@media all and (max-width: 479px) {
+    .deskContent {display:none;}
+    .phoneContent {display:block;}
 }
 
 /* Page content */
