@@ -18,3 +18,12 @@ Azure has various locations for storing data. such as;
 - Azure Databricks
 
 These are the places where the data can exist.
+
+An Azure storage account is a container for all the Azure Storage data objects blobs, file shares, queues, tables, and disks, making them accessible from anywhere in the world over HTTP or HTTPS.
+
+When we create a an AzureML resource, an associated storage account is created as well. This account will contain two built-in datastores;
+
+- an Azure Storage Blob Container and
+- an Azure Storage File Container
+
+which will contain the relevant data and code for the AzureML resource.
