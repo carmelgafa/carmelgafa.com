@@ -1,7 +1,7 @@
 ---
 title: "Liner Regression - The Multi-variable scenario"
 date: 2021-12-22
-tags: [machine-learning, linear-regression, cost-functions]
+tags: [machine-learning, linear-regression, multi-variable]
 draft: false
 ---
 
