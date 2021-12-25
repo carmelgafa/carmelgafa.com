@@ -27,3 +27,26 @@ When we create a an AzureML resource, an associated storage account is created a
 - an Azure Storage File Container
 
 which will contain the relevant data and code for the AzureML resource.
+
+#### Datasets
+
+Datasets are those assets in the Machine learning Workspace where we connect to the data in storage services so that the data is made available for ML Experiments. Hence when creating a dataset, we are creating a reference to the data in storage services. Data is not copied from the storage service to the workspace. This is done for a number of reasons.
+
+- It is easier to access the data in the workspace
+- Data can be registered once and used for many experiments
+- Data is traceable, we know where it is being used
+- Data objects are versioned
+
+Datasets can be created in a number of ways.
+
+- Upload from a local file. This method will also create a datastore for the file.
+- From a Datastore
+- From web file, i.e. a file hosted on the web via a URL
+
+Datasets can be
+ 
+- Tabular, structures data that is easily used in libraries such as Pandas
+- File, Unstructured data that is a collection of file paths
+
+
+
