@@ -1,5 +1,5 @@
 ---
-title: "Liner Regression - The Multi-variable scenario"
+title: "Liner Regression, Part 4 - The Multi-variable scenario"
 date: 2021-12-22
 tags: [machine-learning, linear-regression, multi-variable]
 draft: false

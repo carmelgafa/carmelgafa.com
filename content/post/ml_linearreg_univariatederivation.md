@@ -1,5 +1,5 @@
 ---
-title: Liner Regression - Deriving the Univariate case
+title: Liner Regression, Part 2 - Deriving the Univariate case
 date: 2021-12-20
 tags: [machine-learning, linear-regression, univariate]
 draft: false

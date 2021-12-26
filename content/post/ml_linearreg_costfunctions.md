@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression - Cost Functions"
+title: "Linear Regression, Part 1 - Cost Functions"
 date: 2021-12-14T14:33:57+01:00
 tags: [machine-learning, linear-regression, cost-functions]
 draft: false

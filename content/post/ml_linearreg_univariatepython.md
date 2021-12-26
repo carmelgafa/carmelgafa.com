@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression - Univariate Solution Implementation in Python"
+title: "Linear Regression, Part 3 - Univariate Solution Implementation in Python"
 date: 2021-12-21
 tags: [machine-learning, linear-regression, python]
 draft: false
