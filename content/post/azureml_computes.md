@@ -1,6 +1,6 @@
 ---
 title: "Notes about Azure ML, Part 2 - Computation Options"
-date: 2021-12-27
+date: "2021-12-28T12:50:00+01:00"
 tags: [machine-learning, azure ml, Computation]
 draft: false
 ---
