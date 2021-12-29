@@ -90,3 +90,11 @@ except ComputeTargetException:
     
     compute_target.wait_for_completion(show_output=True)
 ```
+
+#### A note about vaults
+
+#### Create a Datastore
+
+#### Create a Dataset
+
+#### Destroy a Workspace
