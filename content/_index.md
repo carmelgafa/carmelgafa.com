@@ -6,7 +6,7 @@
 
 I am currently working on:
 
-- Azure Machine Learning; I hope to put some notes that I am working on here.
+- Azure Machine Learning; some notes that I am working on are [here](/tags/azure-ml).
 - Machine Learning from basics to code. I started with some posts on linear regression [here](/tags/linear-regression/)
 - Fuzzy Control Systems. I am posting notes [here](/tags/fuzzy/)
 
