@@ -1,6 +1,6 @@
 ---
 title: "Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores"
-date: "2021-12-31T16:50:00+01:00"
+date: 2021-12-31T12:50:00+01:00
 tags: [machine-learning, azure ml, dataset, datastore]
 draft: false
 ---
