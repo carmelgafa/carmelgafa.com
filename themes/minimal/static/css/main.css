@@ -75,14 +75,17 @@ img {
 
 a:link, a:visited {
     color: var(--accent);
+    font-weight: bold;
 }
 
 a.icon:hover {
     text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
     color: var(--accent) !important;
+    font-weight: bold;
 }
 
 /* Copyright message */
