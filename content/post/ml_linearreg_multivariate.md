@@ -139,14 +139,26 @@ $$
 
 For the scenario where we have only 2 features, so that $\hat{y} = a_0 + a_1 x_1 + a_2 x_2$, we can obtain the following equations for the parameters $a_0$, $a_1$ and $a_2$:
 
-$$a_1 = \frac{ \sum_{i=1}^{n} x_{2i}^2  \sum_{i=1}^{n} x_{1i}y_i - \sum_{i=1}^{n} x_{1i}x_{2i} \sum_{i=1}^{n} x_{2i}y_i }
-{\sum_{i=1}^{n}x_{1i}^2 \sum_{i=1}^{n}x_{2i}^2 - \sum_{i=1}^{n} (x_{1i}x_{2i})^2}$$
+$$a_1 = \frac{ \sum_{i=1}^{n} X_{2i}^2  \sum_{i=1}^{n} X_{1i}y_i - \sum_{i=1}^{n} X_{1i}X_{2i} \sum_{i=1}^{n} X_{2i}y_i }
+{\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$
 
-$$a_2 = \frac{ \sum_{i=1}^{n} x_{1i}^2  \sum_{i=1}^{n} x_{2i}y_i - \sum_{i=1}^{n} x_{1i}x_{2i} \sum_{i=1}^{n} x_{1i}y_i }
-{\sum_{i=1}^{n}x_{1i}^2 \sum_{i=1}^{n}x_{2i}^2 - \sum_{i=1}^{n} (x_{1i}x_{2i})^2}$$
+$$a_2 = \frac{ \sum_{i=1}^{n} X_{1i}^2  \sum_{i=1}^{n} X_{2i}y_i - \sum_{i=1}^{n} X_{1i}x_{2i} \sum_{i=1}^{n} X_{1i}y_i }
+{\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$
 
 and
 
 $$ a_0 = \bar{\textbf{Y}} - a_1 \bar{\textbf{X}}_1 - a_2 \bar{\textbf{X}}_2$$
+
+where
+$$ \sum_{i=1}^{n} X_{1i}^2 = \sum_{i=1}^{n} x_{1i}^2 - \frac{\sum_{i=1}^{n} x_{1i}^2}{n}$$
+
+$$ \sum_{i=1}^{n} X_{1i}^2 = \sum_{i=1}^{n} x_{1i}^2 - \frac{\sum_{i=1}^{n} x_{1i}^2}{n}$$
+
+$$ \sum_{i=1}^{n} X_{1i}y_{i} = \sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} y_{i} - \frac{\sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} y_{i}}{n}$$
+
+$$ \sum_{i=1}^{n} X_{2i}y_{i} = \sum_{i=1}^{n} x_{2i} \sum_{i=1}^{n} y_{i} - \frac{\sum_{i=1}^{n} x_{2i} \sum_{i=1}^{n} y_{i}}{n}$$
+
+$$ \sum_{i=1}^{n} X_{1i}X_{2i} = \sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} x_{2i} - \frac{\sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} x_{2i}}{n}$$
+
 
 It is evident that finding the parameters becomes more difficult as we add more features.
