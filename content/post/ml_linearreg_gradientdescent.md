@@ -67,11 +67,11 @@ $$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_0} \f
 
 $$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$
 
-$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(1)}{2n}$$
+$$ = \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(1)}{2n}$$
 
-$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)}{n}$$
+$$ = \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)}{n}$$
 
-$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i)}{n}$$
+$$ = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i)}{n}$$
 
 and similarly for $a_1$.
 
@@ -79,11 +79,18 @@ $$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_1} \f
 
 $$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$
 
-$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(x_i)}{2n}$$
+$$ = \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(x_i)}{2n}$$
 
-$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (x_i)(a_0 + a_1 x_i - y_i)}{n}$$
+$$ = \frac{\sum_{i=1}^{n} (x_i)(a_0 + a_1 x_i - y_i)}{n}$$
 
-$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (x_i)(\hat{y}_i-y_i)}{n}$$
+$$ = \frac{\sum_{i=1}^{n} (x_i)(\hat{y}_i-y_i)}{n}$$
+
+Therefore, our algorithm becomes the following:
+
+repeat until convergence
+  - $$ a_0 := a_0 - \frac{\alpha}{n} \sum_{i=1}^{n} ( \hat{y}_i-y_i)$$
+  - $$ a_1 := a_1 - \frac{\alpha}{n} \sum_{i=1}^{n} ( \hat{y}_i-y_i)(x_i)$$
+
 
 ### Gradient Descent for Univariate Linear Regression - Python Implementation
 
