@@ -1,6 +1,6 @@
 ---
 title: "Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations"
-date: 2022-01-06T11:08:45+01:00
+date: 2022-01-07T11:08:45+01:00
 tags: [machine-learning, linear-regression, python]
 draft: false
 ---
