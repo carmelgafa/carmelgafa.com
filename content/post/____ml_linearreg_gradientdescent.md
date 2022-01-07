@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression, Part 6 - Ml_linearreg_gradientdescent"
+title: "Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations"
 date: 2022-01-06T11:08:45+01:00
 tags: [machine-learning, linear-regression, python]
 draft: true
@@ -38,6 +38,7 @@ repeat until convergence
   - $$ a_0 := a_0 - \alpha \frac{\partial}{\partial a_0} MSE(a_0, a_1)$$
   - $$ a_1 := a_1 - \alpha \frac{\partial}{\partial a_1} MSE(a_0, a_1)$$
 
+The two parameters will be updated simultaneously, and the cost function will be evaluated at each iteration. A visual representation of the algorithm for one parameter, in this case $a_1$ is shown below.
 #### A note about the value of $\alpha$
 
 The value of $\alpha$ is the step size. It affects the precision and the speed of convergence, and should be tuned to the problem at hand.
@@ -50,3 +51,40 @@ One important thing to note that the term
   $$  \alpha \frac{\partial}{\partial a} MSE(a_0, a_1)$$
 
 will become smaller in magnitude as the result moves closer to a minimum. Hence, gradient descent will take smaller stems as a local minimum is approached, and therefore there is no need to adjust the step size by adjusting $\alpha$.
+
+![Gradient Descent](/post/img/ml_linearreg_gradientdescent_fig1.jpg)
+
+
+### Gradient Descent for Linear Regression
+
+We have seen that the function that we want to minimize is
+
+$$MSE(a_0, a_1) = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{2n}$$
+
+Differentiating this function with respect to $a_0$ gives us
+
+$$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^2}{2n}$$
+
+$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$
+
+$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(1)}{2n}$$
+
+$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)}{n}$$
+
+$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i)}{n}$$
+
+and similarly for $a_1$.
+
+$$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^2}{2n}$$
+
+$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$
+
+$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(x_i)}{2n}$$
+
+$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (x_i)(a_0 + a_1 x_i - y_i)}{n}$$
+
+$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (x_i)(\hat{y}_i-y_i)}{n}$$
+
+### Gradient Descent for Univariate Linear Regression - Python Implementation
+
+In a [previous post](/post/ml_linearreg_univariatepython), we implemented the gradient descent algorithm for a single variable linear regression problem.
