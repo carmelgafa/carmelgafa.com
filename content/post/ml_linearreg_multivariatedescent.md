@@ -9,7 +9,28 @@ We have discussed the multivariate linear regression problem in the [previous po
 
 $$\hat{y} = a_0 + a_1 x_1 +  a_2 x_2 + \dots +  a_n x_n$$
 
-we have seen that if, for convenience, we define $x_0 = 1, \forall i$, if we consider a training example,
+If we define $x_0$, such that $x_0 = 1$, then the hypothesis function becomes:
+
+$$\hat{y} = a_0 x_0 + a_1 x_1 +  a_2 x_2 + \dots +  a_n x_n$$
+
+
+Let us now consider a dataset of $m$ points. we can therefore calculate the hypothesis function for each point,
+
+$$\hat{y^1} = a_0 x_0^1 + a_1 x_1^1 +  a_2 x_2^1 + \dots +  a_n x_n^1$$
+
+$$\hat{y^2} = a_0 x_0^2 + a_1 x_1^2 +  a_2 x_2^2 + \dots +  a_n x_n^2$$
+
+$$\dots$$
+
+$$\hat{y^m} = a_0 x_0^m + a_1 x_1^m +  a_2 x_2^m + \dots +  a_n x_n^m$$
+
+where 
+$x_1^i$ is the first feature of the $i$th point and,
+
+$x_0^i = 1 \forall i$.
+
+we can express the equation of the hypothesis function shown above as a matrix multiplication:
+
 
 $$x \in \textbf{R}^{n+1}=
 \begin{pmatrix}
