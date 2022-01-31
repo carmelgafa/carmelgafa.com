@@ -10,7 +10,6 @@ In this post a book example, where the centroid of a number of Interval Type-2 s
 
 Type reduction in these cases is carried out by using the function ```it2_kernikmendel_reduce(interval_set)```, and a crisp set, the centroid, is returned back.
 
-
 ```python
 
 '''
