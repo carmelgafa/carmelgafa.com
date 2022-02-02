@@ -2,7 +2,7 @@
 
 [About me](/about/)
 
-## **Current Interests (January 2022)**
+## **Current Interests (February 2022)**
 
 I am currently working on:
 
@@ -14,10 +14,9 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-- [Gomorrah by Roberto Saviano](https://www.bookdepository.com/Gomorrah-Roberto-Saviano/9781509843886?ref=grid-view&qid=1640152202523&sr=1-1) - Still reading from last month
-- [Creativity in Science by Antonino Zichichi](https://www.amazon.co.uk/Creativity-Science-International-Zermatt-Symposium/dp/9810240457)
-- [The dance of the Seagull by Andrea Camilleri](https://www.bookdepository.com/Dance-Seagull-Andrea-Camilleri/9781529043907)
+-[Un calcio in bocca fa miracoli by Marco Presta](https://www.amazon.com/calcio-bocca-miracoli-Italian/dp/8806222074)
 
+I am keeping a list of books I have read this year in [this](/books/) page.
 
 ## **Technical Reading**
 
