@@ -14,7 +14,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
--[Un calcio in bocca fa miracoli by Marco Presta](https://www.amazon.com/calcio-bocca-miracoli-Italian/dp/8806222074)
+- [Un calcio in bocca fa miracoli by Marco Presta](https://www.amazon.com/calcio-bocca-miracoli-Italian/dp/8806222074)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
