@@ -6,7 +6,7 @@ tags: [r]
 
 ## Factors
 
-Factors are used to store categorical data, ordered or unordered. 
+Factors are used to store categorical data, ordered or unordered.
 Can be viewed as an integer vector where each entry has a label, better that categorizing with integers.
 
 ```R
@@ -16,7 +16,7 @@ print(x)
 
 will store the values in x. It will also tell you the labels in the list:
 
-```
+``` text
 [1] low  high high high low  low  high high
 Levels: high low
 ```
@@ -27,7 +27,7 @@ Calling the table function will tell you the frequency of the tables
 print(table(x))
 ```
 
-```
+``` text
 high  low 
    5    3 
 ```
@@ -38,7 +38,7 @@ high  low
 print(unclass(x))
 ```
 
-```
+``` text
 [1] 2 1 1 1 2 2 1 1
 attr(,"levels")
 [1] "high" "low"
@@ -55,7 +55,7 @@ y<- factor(c("low", "high", "high", "high", "low", "low", "high", "high"),levels
 print(y)
 ```
 
-```
+```text
 [1] low  high high high low  low  high high
 Levels: high low
 [1] low  high high high low  low  high high
@@ -69,8 +69,8 @@ NA: The rest
 
 to detect use .isnan() or .isna()
 
-
 ## Names
+
 Objects can have names to describe them. Consider
 
 ```R
@@ -80,24 +80,24 @@ print(x)
 print(names(x))
 ```
 
-```
+```text
 [1] 1 2 3
 NULL
 ```
 
-### Assigning names:
+### Assigning names
 
 ```R
 names(x)<- c("stephen", "colin", "mark")
 print(x)
 ```
 
-```
+```text
 stephen   colin    mark 
       1       2       3 
 ```
 
-### Manipulating elements:
+### Manipulating elements
 
 ```R
 print(x["stephen"]+7)
@@ -105,7 +105,7 @@ print(x["stephen"]+7)
 print(x[1]+7)
 ```
 
-```
+```text
 stephen 
       8 
 
@@ -113,7 +113,7 @@ stephen
       8 
 ```
 
-### Naming elements in Lists:
+### Naming elements in Lists
 
 ```R
 y<-list("stephen" = 12, "colin" = TRUE, "mark" = "hello")
@@ -121,8 +121,7 @@ y<-list("stephen" = 12, "colin" = TRUE, "mark" = "hello")
 print(y)
 ```
 
-
-```
+```text
 $stephen
 [1] 12
 
@@ -133,7 +132,6 @@ $mark
 [1] "hello"
 ```
 
-
 Elements in Matrices can be named using the dimnames() function
 
 ```R
@@ -143,8 +141,7 @@ print(m)
 print(m["Peter", "English"])
 ```
 
-
-```
+```text
       Maths English Physics
 Joe       1       3       5
 Peter     2       4       6
