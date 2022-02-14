@@ -9,7 +9,7 @@ In the [last post](/post/ml_linearreg_stochasticgd.md) we compared the stochasti
 
 In this post we will discuss mini-batch gradient descent, where we use a number $k$ of the training set examples in each iteration, which is a variation of the thoughts of stochastic gradient descent. We will discuss the general idea of mini-batch gradient descent and how to implement it in Python.
 
-Therefore we can consider our training dataset as a collection of $b/m$ batches;
+Therefore we can consider our training dataset as a collection of $m/k$ mini batches;
 
 $$\textbf{X} = \begin{pmatrix}
 x_0^{(1)} &\dots & x_0^{(k)} & x_0^{(k+1)} & \dots & x_0^{(2k)} & \dots \dots & x_0^{(m)}\\\\
@@ -19,9 +19,22 @@ x_n^{(1)} &\dots & x_n^{(k)} & x_n^{(k+1)} & \dots & x_n^{(2k)} & \dots \dots & 
 \end{pmatrix}$$
 $$Dim:[n \times m]$$
 
+Therefore the matrix $X$ can be represented by a matrix of mini batches,
+
+$$\textbf{X} = \begin{pmatrix}
+X^{ \\{  1 \\} } & X^{ \\{  2 \\} } & \dots & X^{ \\{  m/k \\} }\\\\
+\end{pmatrix}$$
+
+Similarly for the $Y$ vector,
+
+$$\textbf{Y} = \begin{pmatrix}
+Y^{ \\{  1 \\} } & Y^{ \\{  2 \\} } & \dots & Y^{ \\{  m/k \\} }\\\\
+\end{pmatrix}$$
+
+
 Calculating the hypothesis function for a mini-batch of training data, we can write the following equation:
 
-We can now calculate the hypothesis function as a matrix multiplication:
+We can now calculate the hypothesis function for the first mini batch as a matrix multiplication:
 
 $$\begin{pmatrix}
 \hat{y}^{(1)} \\\\
@@ -44,3 +57,31 @@ a_n
 $$
 $$Dim:[k \times n] \cdot [n \times 1]$$
 
+$$ \hat{Y}^{ \\{ 1 \\}}  = \left( {X}^{ \\{ 1 \\}} \right)^T \beta$$
+
+We can therefore update the coefficients of our hypothesis function from this mini-batch as follows:
+
+$$\begin{pmatrix}
+a_0 \\\\
+a_1 \\\\
+\vdots \\\\
+a_n
+\end{pmatrix} :=
+\begin{pmatrix}
+a_0 \\\\
+a_1 \\\\
+\vdots \\\\
+a_n
+\end{pmatrix} -
+\alpha
+\begin{pmatrix}
+\hat{y}^{(i)} - {y}^{(i)}
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+x_0^{(1)} & \dots & x_0^{(k)}\\\\
+x_1^{(1)} & \dots & x_1^{(k)}\\\\
+\vdots&&\vdots\\\\
+x_n^{(1)} & \dots & x_n^{(k)}\\\\
+\end{pmatrix}
+$$

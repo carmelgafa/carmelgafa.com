@@ -24,6 +24,7 @@ Random Gradient Descent can be implemented as follows:
 - Shuffle the training dataset, thus making sure that the order of the observations is random.
 
 - For each observation:
+
   - $$\begin{pmatrix}
 a_0 \\\\
 a_1 \\\\
@@ -38,14 +39,14 @@ a_n
 \end{pmatrix} -
 \alpha
 \begin{pmatrix}
-\hat{y}^{(i)} - {y}^{(i)}
-\end{pmatrix}
-\cdot
-\begin{pmatrix}
 x_0^{(i)}\\\\
 x_1^{(i)}\\\\
 \vdots\\\\
 x_n^{(i)}
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+\hat{y}^{(i)} - {y}^{(i)}
 \end{pmatrix}
 $$
 
