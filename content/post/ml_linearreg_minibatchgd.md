@@ -14,7 +14,7 @@ Therefore we can consider our training dataset as a collection of $m/k$ mini bat
 $$\textbf{X} = \begin{pmatrix}
 x_0^{(1)} &\dots & x_0^{(k)} & x_0^{(k+1)} & \dots & x_0^{(2k)} & \dots \dots & x_0^{(m)}\\\\
 x_1^{(1)} &\dots & x_1^{(k)} & x_1^{(k+1)} & \dots & x_1^{(2k)} & \dots \dots & x_1^{(m)}\\\\
-\dots     &\dots & \dots     & \dots       & \dots & \dots      & \dots \dots & \dots    \\\\
+\vdots     & & \vdots     & \vdots       &  & \vdots      &  & \vdots    \\\\
 x_n^{(1)} &\dots & x_n^{(k)} & x_n^{(k+1)} & \dots & x_n^{(2k)} & \dots \dots & x_n^{(m)}\\\\
 \end{pmatrix}$$
 $$Dim:[n \times m]$$
