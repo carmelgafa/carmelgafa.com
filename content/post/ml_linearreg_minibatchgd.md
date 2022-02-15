@@ -25,6 +25,17 @@ $$\textbf{X} = \begin{pmatrix}
 X^{ \\{  1 \\} } & X^{ \\{  2 \\} } & \dots & X^{ \\{  m/k \\} }\\\\
 \end{pmatrix}$$
 
+where $X^{ \\{  1 \\} }$ represents the first mini batch, $X^{ \\{  2 \\} }$ represents the second mini batch, and so on, such that;
+
+$$X^{ \\{  1 \\} } = \begin{pmatrix}
+x_0^{(1)} &\dots & x_0^{(k)} \\\\
+x_1^{(1)} &\dots & x_1^{(k)} \\\\
+\vdots     & & \vdots        \\\\
+x_n^{(1)} &\dots & x_n^{(k)} \\\\
+\end{pmatrix}$$
+$$Dim:[n \times k]$$
+
+
 Similarly for the $Y$ vector,
 
 $$\textbf{Y} = \begin{pmatrix}
