@@ -35,7 +35,6 @@ x_n^{(1)} &\dots & x_n^{(k)} \\\\
 \end{pmatrix}$$
 $$Dim:[n \times k]$$
 
-
 Similarly for the $Y$ vector,
 
 $$\textbf{Y} = \begin{pmatrix}
