@@ -15,7 +15,7 @@ I am currently working on:
 I am / will be reading these books this month:
 
 - [Un calcio in bocca fa miracoli by Marco Presta](https://www.amazon.com/calcio-bocca-miracoli-Italian/dp/8806222074)
-- [Four Thousand Weeks: Time Management for Mortals bu Oliver Burkeman](https://www.amazon.com/Four-Thousand-Weeks-Management-Mortals/dp/0374159122)
+- [Four Thousand Weeks: Time Management for Mortals by Oliver Burkeman](https://www.amazon.com/Four-Thousand-Weeks-Management-Mortals/dp/0374159122)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
