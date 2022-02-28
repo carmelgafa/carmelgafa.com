@@ -1,6 +1,6 @@
 ---
 title: "Analyzing the various Gradient Descent Algorithms"
-date: 2022-02-25
+date: 
 tags: []
 draft: true
 ---
@@ -18,9 +18,22 @@ We have created two algorithms to generate the data for the linear regression pr
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_gen1.jpeg) |
 |:--:|
 | Generation of univariate training set from $y = 150 + 20x + \xi $|
+|-|
 
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_gen2.jpeg) |
 |:--:|
 | Generation of two-feature training set from $y = 12 + 5x_1 -3x_2 + \xi $|
 |-|
 The univariate case was generated because of its simplicity and also because it is possible to draw the cost function as a function of the coefficients $a_0$ and $a_1$.
+
+## Plotting Gradient Descent Data
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost1.jpeg) |
+|:--:|
+| Generation of univariate training set from $y = 150 + 20x + \xi $|
+|-|
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg) |
+|:--:|
+| Generation of univariate training set from $y = 150 + 20x + \xi $|
+|-|
