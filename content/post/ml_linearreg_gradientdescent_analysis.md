@@ -50,8 +50,19 @@ The univariate case was generated because of its simplicity and also because it 
 | Batch Gradient descent with $\alpha=0.00056$ |
 |-|
 
-
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_batch2.jpeg) |
+|:--:|
+| Batch Gradient descent with $\alpha=0.0004$ |
+|-|
+
+## Stochastic Gradient Descent
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_stoc1.jpeg) |
+|:--:|
+| Batch Gradient descent with $\alpha=0.00056$ |
+|-|
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_stoc2.jpeg) |
 |:--:|
 | Batch Gradient descent with $\alpha=0.0004$ |
 |-|
