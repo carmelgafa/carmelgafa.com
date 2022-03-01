@@ -1,7 +1,7 @@
 ---
-title: "Analyzing the various Gradient Descent Algorithms"
+title: "Linear Regression, Part 10 - Analysis of Descent Algorithms - Results obtained"
 date: 
-tags: []
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: true
 ---
 
@@ -35,5 +35,10 @@ The univariate case was generated because of its simplicity and also because it 
 
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg) |
 |:--:|
-| Generation of univariate training set from $y = 150 + 20x + \xi $|
+| Cost function slice at $a_0=150$ |
+|-|
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg) |
+|:--:|
+| Cost function slice at $a_1=20$ |
 |-|
