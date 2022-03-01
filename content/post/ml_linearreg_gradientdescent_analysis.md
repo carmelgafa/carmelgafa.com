@@ -38,7 +38,20 @@ The univariate case was generated because of its simplicity and also because it 
 | Cost function slice at $a_0=150$ |
 |-|
 
-| ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg) |
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost3.jpeg) |
 |:--:|
 | Cost function slice at $a_1=20$ |
+|-|
+
+## Batch Gradient Descent
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_batch1.jpeg) |
+|:--:|
+| Batch Gradient descent with $\alpha=0.00056$ |
+|-|
+
+
+| ![image](/post/img/ml_linearreg_gradientdescent_analysis_batch2.jpeg) |
+|:--:|
+| Batch Gradient descent with $\alpha=0.0004$ |
 |-|
