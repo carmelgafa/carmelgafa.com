@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression, Part 3 - Univariate Solution Implementation in Python"
 date: 2021-12-21
-tags: [machine-learning, linear-regression, python]
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression, Part 7 - Multivariate Gradient Descent"
 date: 2022-01-12
-tags: [machine-learning, linear-regression, python]
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 

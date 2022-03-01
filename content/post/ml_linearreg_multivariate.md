@@ -1,7 +1,7 @@
 ---
 title: "Liner Regression, Part 4 - The Multi-variable scenario"
 date: 2021-12-22
-tags: [machine-learning, linear-regression, multi-variable]
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 

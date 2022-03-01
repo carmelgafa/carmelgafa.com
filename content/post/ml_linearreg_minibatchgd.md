@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression Part 9 - Mini Batch Gradient Descent"
 date: 2022-02-14
-tags: [machine-learning, linear-regression, python]
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression, Part 5 - Multivariate Solution Implementation in Python"
 date: 2022-01-03
-tags: [machine-learning, linear-regression, python]
+tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 
