@@ -11,6 +11,7 @@ In AzureML, the two essential concepts that help us work with data are Datastore
 - Datasets are references to the location of the data source.
 
 ![Datastores and Datasets](/post/img/azureml_datasetsstores_fig1.jpg)
+
 #### Datastores
 
 Azure has various locations for storing data, such as;
@@ -31,7 +32,8 @@ When we create an AzureML resource, an associated storage account is also create
 
 These will contain the relevant data and code for the AzureML resource.
 
-![Creating a Datastore](/post/img/azureml_datasetsstores_datastore_create.jpg) 
+![Creating a Datastore](/post/img/azureml_datasetsstores_datastore_create.jpg)
+
 #### Datasets
 
 Datasets are those assets in the Machine learning Workspace where we connect to the data in storage services so that the data is made available for ML Experiments. Hence when creating a dataset, we create a reference to the data in storage services. Information is not copied from the storage service to the workspace for several reasons.
@@ -47,14 +49,11 @@ Datasets are created in a number of ways.
 - From a Datastore
 - From a web file, i.e. a file hosted on the web via a URL
 
-
-![Creating a Dataset](/post/img/azureml_datasetsstores_dataset_create.jpg) 
-
+![Creating a Dataset](/post/img/azureml_datasetsstores_dataset_create.jpg)
 
 Datasets can be
 
 - Tabular, structures data that is easily used in libraries such as Pandas
 - File, Unstructured data that is a collection of file paths
 
-
-![Viewing a Dataset](/post/img/azureml_datasetsstores_dataset_view.jpg) 
+![Viewing a Dataset](/post/img/azureml_datasetsstores_dataset_view.jpg)

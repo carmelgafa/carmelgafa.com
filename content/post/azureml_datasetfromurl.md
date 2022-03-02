@@ -8,6 +8,7 @@ tags: [machine-learning, azure ml, dataset, datastore]
 In a previous post, we discussed how to create a dataset from a datastore, but this is not the only way to create a dataset. This post will examine how to import a dataset from data available on the web.
 
 The process is quite simple, consisting of only three steps:
+
 - Pasting the URL from the provider of the data.
 - The data is retrieved and displayed. Changing some of the settings, like the delimiter or if the data contains a header, is possible.
 - We can also confirm the type of the fields, and it is possible to remove selected fields from the Azure Ml dataset

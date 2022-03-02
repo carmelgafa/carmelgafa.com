@@ -23,7 +23,7 @@ It is possible to access an Azure ML Compute Instance using several methods, nam
 
 For production-grade model training, Azure Machine Learning **Compute Target** is used. Compute targets are multi-node scaling compute resources where we can execute our training script or host our service deployment, thus making it possible to use parallel processing for such computations. We can create each node with a user-specified hardware configuration.
 
-A critical parameter of a compute target creation is the possibility to define a cluster as __dedicated__ or __low priority__. Low priority clusters are created when the resources are available, so experiments deployed on low priority clusters can take some time to commence. They are generally used for development and testing. They are, however substantially cheaper than dedicated clusters.
+A critical parameter of a compute target creation is the possibility to define a cluster as **dedicated** or **low priority**. Low priority clusters are created when the resources are available, so experiments deployed on low priority clusters can take some time to commence. They are generally used for development and testing. They are, however substantially cheaper than dedicated clusters.
 
 ![Azure Machine Learning Compute Target](/post/img/azureml_computes_cluster_create.jpg)
 
@@ -31,6 +31,6 @@ Compute Clusters are required when implementing Automated Machine Learning Exper
 
 There are two additional computation options available in Azure Machine Learning;
 
-**Inference Clusters** create a Docker container that hosts the model and associated resources needed to use it. This container is then used in a compute target to host the ML model. 
+**Inference Clusters** create a Docker container that hosts the model and associated resources needed to use it. This container is then used in a compute target to host the ML model.
 
 **Attach Computes**  make it possible to attach Databricks, Data lake Analytics, HDInsight or a prevailing VM as a compute for your workspace, and thus will not be managed by Azure Machine Learning.

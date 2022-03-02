@@ -8,6 +8,7 @@ draft: false
 Automated machine learning (AutoML) automates the creation of machine learning models. Typically, the process of creating a model can be long and tedious. AutoML makes it possible for people who do not have coding experience to develop and use ML models.
 
 In a typical machine learning application, we start with raw data for Training. The data might have missing fields, contain outliers, and require cleaning work. The following steps might be required:
+
 - Data pre-processing and feature engineering are often required to clean the data.
 - Feature engineering, extraction, and transformation are often required to prepare the data for modelling.
 - Algorithm selection
@@ -15,7 +16,7 @@ In a typical machine learning application, we start with raw data for Training. 
 
 Each of these steps may be challenging, and tedious resulting in significant hurdles to using machine learning.
 
-AutoML makes Training, running and deployment a no-code experience. It will go through a combination of algorithms and hyperparameters and searches until it finds the best model for the data, according to metrics defined by the user. 
+AutoML makes Training, running and deployment a no-code experience. It will go through a combination of algorithms and hyperparameters and searches until it finds the best model for the data, according to metrics defined by the user.
 
 In this post, we will go through creating a model using AutoML.
 
@@ -27,6 +28,7 @@ For this example, we will use the UCI Concrete dataset. This dataset contains da
 A dataset pointing to this data has been created in a [previous post](/post/azureml_datasetfromurl), used in this example.
 
 ### Starting AutoML
+
 AutoMl is started by selecting the AutoMl tab in the AzureML workspace and then beginning an AutoML job. We notice that the job consists of three steps:
 
 ![AutoML Job Start](/post/img/azureml_automl_config_start.jpg)
@@ -53,6 +55,7 @@ The next step is to select the ML task for this experiment. We notice that AutoM
 ### Additional Run Configuration
 
 It is possible to further configure the run by
+
 - **Specifying additional settings**
 - **Confirm featurization settings**
 
@@ -81,18 +84,17 @@ Upon completion of the run, we can see the results. We notice the following:
 The run duration was about 40 minutes, which is in line with the preset time of 30 minutes per algorithm. We also noticed that one of the algorithms was stopped early as it converged.
 
 The best model section gives us the following information about the selected model:
+
 - The best algorithm was **StackEnsembleRegressor**
 - the NRMSE of the best algorithm was 0.07, which is greater than the 5% that we specified. It looks like we were too ambitious.
 
 ![results](/post/img/azureml_automl_results.jpg)
-
 
 Other sections give us information about the run.
 
 **Data Guardrails** tells us the featurization steps performed during the run. No actions were performed on our dataset.
 
 **Models** shows us the models created during the run and their scores, ascending on the primary metric as it was NRMSE.
-
 
 ![Results Models](/post/img/azureml_automl_results_models.jpg)
 
