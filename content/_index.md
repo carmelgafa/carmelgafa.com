@@ -14,7 +14,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-[Jien Noti Jien by Immanuel Mifsud and  Toni Sant](https://agendabookshop.com/collections/fiction-local-publications/products/jien-noti-jien)
+- [Jien Noti Jien by Immanuel Mifsud and  Toni Sant](https://agendabookshop.com/collections/fiction-local-publications/products/jien-noti-jien)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
