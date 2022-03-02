@@ -24,14 +24,64 @@ We have created two algorithms to generate the data for the linear regression pr
 |:--:|
 | Generation of two-feature training set from $y = 12 + 5x_1 -3x_2 + \xi $|
 |-|
-The univariate case was generated because of its simplicity and also because it is possible to draw the cost function as a function of the coefficients $a_0$ and $a_1$.
+The univariate case was generated because of its simplicity and also because it is possible to draw the cost function as a function of the coefficients $a_0$ and $a_1$. Both functions store the dataset in a csv file.
 
 ## Plotting Gradient Descent Data
+
+In order to visualize gradient descent for the univariate case, it is useful to visualize the value of the cost function as a function the coefficients $a_0$ and $a_1$. This is done through the following code, where a plot of the cost function is shown as a surface and also as a contour plot so that additional information can be obtained.
+
+```Python
+    # read the data set
+    data_set = pd.read_csv(file, delimiter=',', index_col=False)
+    m = len(data_set)
+
+    # plot the costs surface
+    a0, a1  = np.meshgrid(
+        np.arange(a0_range[0], a0_range[1], a0_range[2]),
+        np.arange(a1_range[0], a1_range[1], a1_range[2]))
+    ii, jj = np.shape(a0)
+
+    costs = []
+    for i in range(ii):
+        cost_row = []
+        for j in range(jj):
+            y_hat = a0[i,j] + (a1[i,j] * data_set['x'])
+            y_diff = y_hat - data_set['y']
+            y_diff_sq = y_diff ** 2
+            cost = sum(y_diff_sq) / (2 * m)
+            cost_row.append(cost)
+        costs.append(cost_row)
+
+    # plot the gradient descent points
+    xx = []
+    yy = []
+    zz = []
+    for item in gd_points:
+        xx.append(item[0])
+        yy.append(item[1])
+        zz.append(item[2])
+
+    plt.rcParams['text.usetex'] = True
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    ax.plot_surface(a0, a1, np.array(costs), rstride=1, cstride=1, cmap='cividis', edgecolor='none', alpha=0.5)
+    ax.contour(a0, a1, np.array(costs), zdir='z', offset=-0.5, cmap=cm.coolwarm)
+    ax.plot(xx, yy, zz, 'r.--', alpha=1)
+    ax.set_xlabel(r'$a_0$')
+    ax.set_ylabel(r'$a_1$')
+    ax.set_zlabel(r'$J(a_0, a_1)$')
+    plt.show()
+
+```
+
+For the function $y = 150 + 20x + \xi $ the following plot was obtained.
 
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost1.jpeg) |
 |:--:|
 | Generation of univariate training set from $y = 150 + 20x + \xi $|
 |-|
+
+From this plot it is not clear that the cost function has a single minimum. It is evident that the cost function has a minimum in the y ($a_1$) axis, but it is not visually obvious that the same is true for the x ($a_0$) axis. For this reason, we also plotted a slice of the cost function in the $a_0$ axis at $a_0 = 150$ and another slice at the $a_1$ axis at $a_1 = 20$. The plots are shown below.
 
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg) |
 |:--:|
@@ -42,6 +92,18 @@ The univariate case was generated because of its simplicity and also because it 
 |:--:|
 | Cost function slice at $a_1=20$ |
 |-|
+
+We can conclude that the cost function does have a global minimum but the rate of change in the $a_0$ axis is much smaller than the rate of change in the $a_1$ axis. We can therefore intuitively expect gradient descent to converge to the $a_1$ axis faster than the $a_0$ axis as the gradients in that axis are considerably larger.
+
+## Linear regression analysis
+
+What is the best function that describes the data? In the linear regression post [for the univariate case](/post/ml_linearreg_univariatederivation) and [multivariate case](/post/ml_linearreg_multivariate) we have derived the function that can be used to fit the data. Using these functions on the data obtained from the generators can help us appreciate the effect of the random component of the data. It can also serve to measure the accuracy of the techniques that we will use later on.
+
+For the univariate case, $y = 150 + 20x + \xi $, the function obtained is the following:
+$$y = 147.075 + 20.012 x$$
+
+For the multivariate case, $y = 12 + 5x_1 -3x_2 + \xi $, the function obtained is the following:
+$$y = 11.992 + 4.984 x_1 -2.998 x_2$$
 
 ## Batch Gradient Descent
 
