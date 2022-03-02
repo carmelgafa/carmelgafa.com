@@ -14,9 +14,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-- [Un calcio in bocca fa miracoli by Marco Presta](https://www.amazon.com/calcio-bocca-miracoli-Italian/dp/8806222074)
-- [Four Thousand Weeks: Time Management for Mortals by Oliver Burkeman](https://www.amazon.com/Four-Thousand-Weeks-Management-Mortals/dp/0374159122)
-- [Il-Manifest tal-Killer by Karl Schembri](https://merlinpublishers.com/product/il-manifest-tal-killer/)
+[Jien Noti Jien by Immanuel Mifsud and  Toni Sant](https://agendabookshop.com/collections/fiction-local-publications/products/jien-noti-jien)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
