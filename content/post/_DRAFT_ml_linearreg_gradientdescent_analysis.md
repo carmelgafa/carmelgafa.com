@@ -107,7 +107,7 @@ $$y = 11.992 + 4.984 x_1 -2.998 x_2$$
 
 ## Batch Gradient Descent
 
-The effect of gradient descent as an algorithm to minimize the cost function was then investigated. In this phase, we had an opportunity to compare the performance difference between using vectorization and not. We have therefore implemented a two versions of the gradient descent algorithm.As expected, using vectorization is much faster, in our case around 22 times faster.
+The effect of gradient descent as an algorithm to minimize the cost function was then investigated. In this phase, we had an opportunity to compare the performance difference between using vectorization and not. We have therefore implemented a two versions of the gradient descent algorithm.As expected, using vectorization is much faster, in our case around 50 times faster.
 
 We also had an opportunity, thanks to the visualization developed previously to see the effect of $\alpha$ on the algorithm. As expected, large $\alpha$ values lead to oscillations in the execution, especially when moving down the $a_1$ axis, where the gradient is steeper. The following graphs show the effect of two values of $\alpha$ on the algorithm.
 
