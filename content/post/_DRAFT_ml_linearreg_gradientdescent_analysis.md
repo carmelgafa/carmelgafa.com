@@ -155,12 +155,53 @@ The benefits of using vectorization are obvious
 
 ## Stochastic Gradient Descent
 
+As we have seen in the[ Stochastic Gradient Descent post](/post/ml_linearreg_stochasticgd/), the coefficients are updated after each training example is evaluated. The result id therefore a convergence  to the minimum that does not necessarily improve the cost after each training example. The  following graphs show the descent obtained with the stochastic gradient descent algorithm.
+
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_stoc1.jpeg) |
 |:--:|
-| Batch Gradient descent with $\alpha=0.00056$ |
+| Stochastic Gradient Descent |
 |-|
 
 | ![image](/post/img/ml_linearreg_gradientdescent_analysis_stoc2.jpeg) |
 |:--:|
-| Batch Gradient descent with $\alpha=0.0004$ |
+| Stochastic Gradient Descent |
 |-|
+
+Two stochastic gradient descent functions were implemented. The first one exists after a number of iterations is reached.
+
+The second utilizes a validation set to determine if the algorithm has converged. The cost function is evaluated on the validation set and the algorithm is stopped if the cost function converges.
+
+One important consideration is that the benefits of vectorization are completely lost in the stochastic gradient descent algorithm as we are evaluation one training example at a time.
+
+The results of the stochastic gradient descent are shown below.
+
+### Fixed-iterations Exit (10 epochs)
+
+$a_0$ : 11.4043
+
+$a_1$ : 4.9771
+
+$a_2$ : -2.9735
+
+$J(a_0, a_1, a_2)$ : 12.90175
+
+Epochs to converge : 10
+
+Execution time : 1.6228
+
+### Use of Validation Set
+
+$a_0$ : 11.9018
+
+$a_1$ : 4.9691
+
+$a_2$ : -2.9735
+
+$J(a_0, a_1, a_2)$ : 12.8617
+
+Epochs to converge : 100
+
+Execution time : 12.0777
+
+## Mini-Batch Gradient Descent
+
