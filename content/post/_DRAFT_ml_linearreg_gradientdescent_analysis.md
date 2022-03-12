@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression, Part 10 - Analysis of Descent Algorithms - Results obtained"
 date: 
-tags: [machine-learning, linear-regression, gradient-descent, python]
+tags: [DRAFT, machine-learning, linear-regression, gradient-descent, python]
 draft: true
 ---
 
@@ -120,6 +120,38 @@ We also had an opportunity, thanks to the visualization developed previously to 
 |:--:|
 | Batch Gradient descent with $\alpha=0.0004$ |
 |-|
+
+The results of the two functions batch gradient descent are shown below.
+
+### no-vectorization
+
+$a_0$ : 11.7278
+
+$a_1$ : 4.9834
+
+$a_2$ : -2.9898
+
+$J(a_0, a_1, a_2)$ : 12.8490
+
+Epochs to converge : 5739
+
+Execution time : 23.662
+
+### vectorization
+
+$a_0$ : 11.7278
+
+$a_1$ : 4.9834
+
+$a_2$ : -2.9898
+
+$J(a_0, a_1, a_2)$ : 12.8490
+
+Epochs to converge : 5739
+
+Execution time : **0.6546**
+
+The benefits of using vectorization are obvious
 
 ## Stochastic Gradient Descent
 

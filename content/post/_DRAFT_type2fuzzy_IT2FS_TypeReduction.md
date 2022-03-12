@@ -1,7 +1,7 @@
 ---
 title: "Type Reduction of Interval Type-2 Fuzzy Sets"
-date: 2025-12-21
-tags: []
+date: 2022-03-01
+tags: [DRAFT]
 draft: true
 ---
 
