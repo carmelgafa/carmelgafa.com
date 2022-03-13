@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression, Part 10 - Analysis of Descent Algorithms; Results obtained"
+title: "Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained"
 date: 2022-03-12
 tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
