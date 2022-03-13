@@ -1,7 +1,7 @@
 ---
 title: "Training Models in Azure ML Part 6 - Experiment Creation"
 date: 2022-03-13
-tags: [machine-learning, azure ml, dataset, datastore]
+tags: [machine-learning, azure ml, experiment]
 draft: false
 ---
 
