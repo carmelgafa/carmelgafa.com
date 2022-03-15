@@ -39,3 +39,33 @@ There are many versions of this dataset and in order to load it directv we have 
 
 ## Loading the data into an AzureML dataset
 
+```python
+from azureml.core import Workspace, Dataset
+import os
+import azuremlproject.constants as constants
+
+def setup_experiment():
+
+    config_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '.azureml')
+    ws = Workspace.from_config(path=config_path)
+
+    concrete_data_path = 
+    'https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv'
+
+    data_set = Dataset.Tabular.from_delimited_files(concrete_data_path)
+    data_set.register(
+        workspace=ws,
+        name=constants.DATASET_NAME,
+        description='concrete dataset',
+        create_new_version=True)
+
+
+if __name__ == '__main__':
+    setup_experiment()
+```
+
+We will create a dataset directly from a web file. This is a very simple way to create a dataset, we just need to provide the data URL and call **Dataset.Tabular.from_delimited_files**. We then register the dataset in the workspace and we can use it in our experiment.
+
+## The experiment
+
+
