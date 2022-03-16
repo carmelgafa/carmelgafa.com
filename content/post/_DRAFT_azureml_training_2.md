@@ -174,3 +174,68 @@ for ind, val in enumerate(pipelines):
 
 print(result_train)
 ```
+
+## Experiment Execution
+
+In order to execute this experiment we need to create an environment in AzureML that contains scikit learn and pandas.. We will be using the **Environment.from_pip_requirements** function to create the environment that was discussed in the previous post. The requirements file is as follows:
+
+```text
+scikit-learn
+pandas
+azureml-core
+azureml-dataset-runtime
+```
+
+Finally, we create a script to execute the experiment. The structure of the script was discussed previously.
+
+```python
+from importlib.resources import path
+from azureml.core import Workspace, Experiment, ScriptRunConfig, Environment, Dataset
+import os
+from azuremlproject import constants
+
+def run_experiment():
+
+    config_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '.azureml')
+    ws = Workspace.from_config(path=config_path)
+
+    # This is the configuration for the experiment. It tells the experiment what code to run, where to run
+    # it, and what compute target to use.
+    config = ScriptRunConfig(
+        source_directory=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'experiment_4'),
+        script='experiment_4.py',
+        compute_target=constants.INSTANCE_NAME,
+        arguments=[
+            '--dataset_name', constants.DATASET_NAME
+        ])
+
+    env = Environment.from_pip_requirements(
+        name='env-4',
+        file_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'experiment_4_req.txt')
+    )
+    config.run_config.environment = env
+
+
+    experiment = Experiment(ws, constants.EXPERIMENT_NAME)
+    run = experiment.submit(config)
+    aml_run = run.get_portal_url()
+    print(aml_run)
+
+if __name__ == '__main__':
+    run_experiment()
+```
+
+Execution starts with creating the dataset as explained above. We can verify that the dataset was created by navigating into the datasets folder in the workspace where we should see the dataset. When clicking on the dataset name, we should see the following:
+
+- **Type**; this is a tabular set
+- **Version**; this is the version of the dataset, which is 1 in this case
+- **Description**; this is the description of the dataset that we provided in the dataset creation
+- **URL**; this is the URL of the dataset
+
+Of interest is the **Explore** page, which is where we can see the data in the dataset.
+
+![concrete strength dataset](/post/img/azureml_training_2_dataset.jpg)
+
+lorem ipsum
+
+![concrete strength dataset](/post/img/azureml_training_2_execute.jpg)
