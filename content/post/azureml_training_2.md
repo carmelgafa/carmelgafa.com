@@ -1,6 +1,6 @@
 ---
 title: "Training Models in Azure ML Part 7 - The Concrete Strength Example"
-date: 2022-03-15
+date: 2022-03-16
 tags: [machine-learning, azure ml, experiment]
 draft: false
 ---
