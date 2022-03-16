@@ -68,6 +68,20 @@ We will create a dataset directly from a web file. This is a very simple way to 
 
 ## The experiment
 
+We wil be using scikit learn for this experiment. We will compare two regression algorithms to and compare the them to determine the best one for the for the concrete strength dataset. The process employed is quire straightforward:
+
+- We use the **train_test_split** function from scikit learn to split the data into training and test sets.
+- We create a scikit learn pipeline that contains the following steps:
+  - **RobustScaler**: This is a robust scaler that scales the data to have a mean of 0 and a standard deviation of 1.
+  - **LinearRegression**: This step fits a linear regression model to the training data.
+We create another pipeline that contains the following steps:
+  - **RobustScaler**: This is a robust scaler that scales the data to have a mean of 0 and a standard deviation of 1.
+  - **SVR**: This step fits a support vector regression model to the training data.
+- we use **KFold** to split the test data into 10 folds.
+- We use the **cross_val_score** function from scikit learn to evaluate the performance of the two models.
+- We print the results of the cross validation.
+
+The code for this experiment is below. We should remember that the code is not the best way to create a ML pipeline in AzureML. In future posts, we will continue improving this process and create a better ML pipeline in AzureML.
 
 ```python
 '''
@@ -75,13 +89,7 @@ test and compare predictive performance of various ML Models using the amount of
 (in percentage) as an evaluation metric. ML Models used for comparison are:
 
 - Linear Regression
-- K-NN Regressor
 - SVR
-- Decision Tree Regressor
-- Adaboost Regressor
-- Random Forest Regressor
-- Bagging Regressor
-- Gradient Boost Regressor
 '''
 
 import argparse
@@ -134,9 +142,6 @@ print('y.shape:', y.shape)
 # split into test and train sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Create empty dataframe to store the results
-result_train = pd.DataFrame({'Regressor':[],'VarianceScore':[],'StdDev':[]})
-
 # create a pipeline for each regressor
 # pipline will contain the regressor preceeded by a scaler
 # all pipelines are stored in a list
@@ -147,6 +152,10 @@ pipelines.append((
 pipelines.append((
     'SupportVectorRegressor',
     Pipeline([('scaler',RobustScaler()),('SVR',SVR())])))
+
+
+# Create empty dataframe to store the results
+result_train = pd.DataFrame({'Regressor':[],'VarianceScore':[],'StdDev':[]})
 
 # Let's find and store the cross-validation score for each
 # pipeline for training data with raw features.
