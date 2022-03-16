@@ -9,6 +9,8 @@ In the [previous post](/post/azureml_training/) of this series, we have seen how
 
 In this post, we will see how to create and execute a ML experiment that actually involves training a model. It is important to note that this post is just the first step in the process of creating a proper ML pipeline in AzureML and is therefore not the best of solutions. In future posts, we will continue improving this process and create a better ML pipeline in AzureML.
 
+In this post we will also see how we can pass parameters to the experiment. This is useful when we want to train a model with different hyperparameters. In this case, we pass the data set to the experiment as a parameter.
+
 ## Situation
 
 We will consider the [Concrete Compressive Strength Data Set](https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength) from UCI Machine Learning Repository. The data set contains the following features:
@@ -70,6 +72,7 @@ We will create a dataset directly from a web file. This is a very simple way to 
 
 We wil be using scikit learn for this experiment. We will compare two regression algorithms to and compare the them to determine the best one for the for the concrete strength dataset. The process employed is quire straightforward:
 
+- We use **argparse** to parse the command line arguments and retrieve the dataset.
 - We use the **train_test_split** function from scikit learn to split the data into training and test sets.
 - We create a scikit learn pipeline that contains the following steps:
   - **RobustScaler**: This is a robust scaler that scales the data to have a mean of 0 and a standard deviation of 1.
@@ -186,7 +189,7 @@ azureml-core
 azureml-dataset-runtime
 ```
 
-Finally, we create a script to execute the experiment. The structure of the script was discussed previously.
+Finally, we create a script to execute the experiment. The structure of the script was discussed previously. What is different is that we are passing the dataset name as an argument to the script through the **ScriptRunConfig** instance. The **arguments** parameter of the **ScriptRunConfig** instance is a list containing the parameter name followed by the value.
 
 ```python
 from importlib.resources import path
@@ -236,6 +239,16 @@ Of interest is the **Explore** page, which is where we can see the data in the d
 
 ![concrete strength dataset](/post/img/azureml_training_2_dataset.jpg)
 
-lorem ipsum
+The experiment execution gives us a lot of information, including:
+
+- The target compute target used for the experiment
+- The arguments passed to the experiment
+- The environment used for the experiment, this will link to more information about the docker image used for the experiment and the packages used in the environment
 
 ![concrete strength dataset](/post/img/azureml_training_2_execute.jpg)
+
+Once the experiment is executed, we can see the results in the logs. In this example we can see the variance score and standard deviation of the two algorithms that we used.
+
+## Conclusion
+
+Although this is a simple example, it is a good example of how Azure ML can be used to train machine learning models. In the next post we will look at how to use Azure ML to create piplines to train machine learning models.
