@@ -2,7 +2,7 @@
 title: "Training Models in Azure ML Part 7 - The Concrete Strength Example"
 date: 2022-03-15
 tags: [machine-learning, azure ml, experiment]
-draft: true
+draft: false
 ---
 
 In this series's [previous post](/post/azureml_training/), we have seen how to create and execute a machine learning experiment in AzureML. Our experiment was not an actual ML experiment but a simple script that printed a message.
