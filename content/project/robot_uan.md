@@ -8,7 +8,7 @@ techs: [C, CSharp]
 designs: []
 thumbnail: uan/robot_uan.jpg
 projectUrl: 
-tags: ["robot"]
+tags: [robotics, embedded, programming, c-sharp, c]
 ---
 
 

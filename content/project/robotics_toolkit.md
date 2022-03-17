@@ -7,7 +7,8 @@ work: [robotics, programming, fuzzy-logic]
 techs: [C, C-Sharp]
 designs: []
 thumbnail: robotics_toolkit/robotics_toolkit.png
-projectUrl: 
+projectUrl:
+tags: [robotics, programming, fuzzy-logic, c-sharp, c]
 ---
 
 ![Robotics Toolkit](/project/robotics_toolkit.png)
