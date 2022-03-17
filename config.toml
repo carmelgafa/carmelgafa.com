@@ -9,7 +9,7 @@ googleAnalytics = "UA-101213116-1"
     author = "Carmel Gafa"
     description = "Carmel Gafa Homepage"
     githubUsername = "#"
-    accent = "#0339fc"
+    accent = "#062166"
     #"#660608"
     showBorder = true
     backgroundColor = "#f7f8fa"
