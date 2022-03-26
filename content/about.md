@@ -9,4 +9,13 @@ I'm a technology manager at KPMG MBS, who is perpetually curious about anything 
 
 This is  a place where I keep notes and references on the projects that I work on, in an attempt to learn properly, organize, motivate myself and hopefully help people working on similar topics.
 
-![](/about.jpg)
+![Me](/about.jpg)
+
+
+This site utilizes the following technologies:
+
+- [Hugo](https://gohugo.io/) and the [Minimalist theme]()
+- [Netlify](https://www.netlify.com/)
+- [Aakash web Social Buttons Generator](https://aakashweb.com/social-buttons-generator/)
+- [MathJax](https://www.mathjax.org/)
+- [Disqus](https://disqus.com/)
