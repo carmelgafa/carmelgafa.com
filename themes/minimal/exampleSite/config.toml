@@ -29,7 +29,7 @@ googleAnalytics = ""
 
 [[menu.main]]
     url = "/post/"
-    name = "Posts"
+    name = "My Interests"
     weight = 3
 
 [[menu.main]]
