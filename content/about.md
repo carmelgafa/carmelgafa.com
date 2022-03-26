@@ -11,10 +11,9 @@ This is  a place where I keep notes and references on the projects that I work o
 
 ![Me](/about.jpg)
 
+This site uses the following technologies:
 
-This site utilizes the following technologies:
-
-- [Hugo](https://gohugo.io/) and the [Minimalist theme]()
+- [Hugo](https://gohugo.io/) and the [Minimal Theme](https://themes.gohugo.io/themes/minimal/)
 - [Netlify](https://www.netlify.com/)
 - [Aakash web Social Buttons Generator](https://aakashweb.com/social-buttons-generator/)
 - [MathJax](https://www.mathjax.org/)
