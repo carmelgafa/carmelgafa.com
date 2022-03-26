@@ -15,7 +15,7 @@ This site uses the following technologies:
 
 - [Hugo](https://gohugo.io/) and the [Minimal Theme](https://themes.gohugo.io/themes/minimal/)
 - [Netlify](https://www.netlify.com/)
-- [Aakash web Social Buttons Generator](https://aakashweb.com/social-buttons-generator/)
+- [Aakash web Social Buttons Generator](https://www.aakashweb.com/apps/social-buttons-generator/)
 - [MathJax](https://www.mathjax.org/)
 - [Disqus](https://disqus.com/)
 - [GitHub](http://GitHub.com)
