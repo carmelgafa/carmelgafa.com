@@ -18,3 +18,11 @@ This site uses the following technologies:
 - [Aakash web Social Buttons Generator](https://aakashweb.com/social-buttons-generator/)
 - [MathJax](https://www.mathjax.org/)
 - [Disqus](https://disqus.com/)
+- [GitHub](http://GitHub.com)
+
+- Other technologies and tools that I use:
+
+- [Latex Studio](https://www.latex-studio.com/)
+- [Draw.io](https://www.draw.io/)
+
+
