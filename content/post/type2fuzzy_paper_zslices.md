@@ -1,6 +1,7 @@
 ---
 title: "Paper Implementation - C. Wagner and H. Hagras. 'Toward general type-2 fuzzy logic systems based on zSlices.'"
 date: 2022-03-27
+description: "A look at C. Wagner and H. Hagras. 'Toward general type-2 fuzzy logic systems based on zSlices.', working of paper examples using T2Fuzz Library"
 tags: [type2-fuzzy, paper-workout, type2-fuzzy-library, fuzzy, python]
 draft: false
 ---
