@@ -1,7 +1,7 @@
 ---
-title: "Type2Fuzzy Library Implementation: Mendel, Jerry M., and RI Bob John. 'Type-2 fuzzy sets made simple.'"
+title: "Paper Implementation - Mendel, Jerry M., and RI Bob John. 'Type-2 fuzzy sets made simple.'"
 date: 2021-10-27
-tags: [type2-fuzzy, type2-fuzzy-library, fuzzy, python]
+tags: [type2-fuzzy, paper-workout, type2-fuzzy-library, fuzzy, python]
 draft: false
 ---
 

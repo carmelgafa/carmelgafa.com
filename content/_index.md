@@ -25,5 +25,3 @@ I am keeping a list of books I have read this year in [this](/books/) page.
 I am going through this book at the moment:
 
 - [Supercharged Python: Take Your Code to the Next Level by Brian R. Overland and John Bennett](https://www.bookdepository.com/Supercharged-Python-Brian-Overland-John-Bennett/9780135159941)
-
-
