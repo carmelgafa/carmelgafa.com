@@ -11,6 +11,8 @@ This is  a place where I keep notes and references on the projects that I work o
 
 ![Me](/about.jpg)
 
+---
+
 This site uses the following technologies:
 
 - [Hugo](https://gohugo.io/) and the [Minimal Theme](https://themes.gohugo.io/themes/minimal/)
@@ -24,5 +26,3 @@ This site uses the following technologies:
 
 - [Latex Studio](https://www.latex-studio.com/)
 - [Draw.io](https://www.draw.io/)
-
-
