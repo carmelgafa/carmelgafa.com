@@ -1,6 +1,6 @@
 ---
 title: "Type Reduction of Interval Type-2 Fuzzy Sets"
-date: 2022-03-01
+date: 2022-04-04
 tags: [DRAFT]
 draft: true
 ---
@@ -97,3 +97,12 @@ which will plot the following:
 An iterative procedure to find the centroid of an Interval Type-2 fuzzy is discussed in
 
 _"Karnik, N. N., & Mendel, J. M. (1998, May). Introduction to type-2 fuzzy logic systems. In 1998 IEEE international conference on fuzzy systems proceedings. IEEE world congress on computational intelligence (Cat. No. 98CH36228) (Vol. 2, pp. 915-920). IEEE."_
+
+| Computing $y_l$ |  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| Computing $y_r$ |
+|:---:|:---:|:---:|
+|---|---|---|
+| Sort $x_i$, $(i=1, \dots, N)$ such that | | Sort $x_i$, $(i=1, \dots, N)$ such that |
+| $\bar{x_1} \leq \bar{x_2}$ | | $\bar{x_1} \leq \bar{x_2}$ |
+
+
+
