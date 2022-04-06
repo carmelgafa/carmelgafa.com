@@ -3,7 +3,7 @@ title: "About Carmel Gafa'"
 description: About Page
 ---
 
-I'm a technology manager at KPMG MBS, who is perpetually curious about anything that is engineering, programming and ai. I'm particularly interested in soft computing and its applications in machine learning and robotics.
+I'm a practice lead at [KPMG Microsoft Business solutions](https://home.kpmg/mt/en/home/services/microsoft-business-solutions.html), who is perpetually curious about anything that is engineering, programming and ai. I'm particularly interested in soft computing and its applications in machine learning and robotics.
 
 ### "If you want to learn something well, explain it" - Richard Feynman
 
