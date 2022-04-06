@@ -27,4 +27,4 @@ I am keeping a list of books I have read this year in [this](/books/) page.
 
 I am going through this book at the moment:
 
-- [Neural Networks From Scratch by Harrison Kinsley](https://nnfs.io/)
+- [Neural Networks From Scratch, by Harrison Kinsley](https://nnfs.io/)
