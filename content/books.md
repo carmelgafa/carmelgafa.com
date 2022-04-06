@@ -17,3 +17,9 @@ So far, as of January 2022, I have read the following books:
 #### [Four Thousand Weeks: Time Management for Mortals by Oliver Burkeman](https://www.amazon.com/Four-Thousand-Weeks-Management-Mortals/dp/0374159122)
 
 #### [Il-Manifest tal-Killer by Karl Schembri](https://merlinpublishers.com/product/il-manifest-tal-killer/)
+
+#### [Jien Noti Jien by Immanuel Mifsud and  Toni Sant](https://agendabookshop.com/collections/fiction-local-publications/products/jien-noti-jien)
+
+#### [Il Paradosso Terrestre by Marco Presta](https://www.einaudi.it/catalogo-libri/narrativa-italiana/narrativa-italiana-contemporanea/il-paradosso-terrestre-marco-presta-9788806211226/)
+
+#### [Lead Yourself First: Inspiring Leadership Through Solitude by  Raymond M. Kethledge and Michael S. Erwin ](https://www.amazon.com/Lead-Yourself-First-Inspiring-Leadership/dp/1632866315)
