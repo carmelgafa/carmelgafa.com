@@ -5,7 +5,7 @@ tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 
-In the [last post](/post/ml_linearreg_stochasticgd.md) we compared the stochastic gradient descent algorithm to the batch gradient descent algorithm that we has discussed in [a previous post](/post/ml_linearreg_gradientdescent.md). We discussed that as the size of the training dataset increases, batch gradient descent, where we use all the examples of the training set in each iteration, becomes very computationally expensive and that we can therefore use stochastic gradient descent, where we use one example of the training set in each iteration, to have a more efficient way to approach the coefficients of our hypothesis function.
+In the [last post](/post/ml_linearreg_stochasticgd) we compared the stochastic gradient descent algorithm to the batch gradient descent algorithm that we has discussed in [a previous post](/post/ml_linearreg_gradientdescent). We discussed that as the size of the training dataset increases, batch gradient descent, where we use all the examples of the training set in each iteration, becomes very computationally expensive and that we can therefore use stochastic gradient descent, where we use one example of the training set in each iteration, to have a more efficient way to approach the coefficients of our hypothesis function.
 
 In this post we will discuss mini-batch gradient descent, where we use a number $k$ of the training set examples in each iteration, which is a variation of the thoughts of stochastic gradient descent. We will discuss the general idea of mini-batch gradient descent and how to implement it in Python.
 

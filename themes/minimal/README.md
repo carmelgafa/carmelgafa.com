@@ -27,7 +27,7 @@ After installation, take a look at the `exampleSite` folder inside `themes/minim
 
 To get started, copy the `config.toml` file inside `exampleSite` to the root of your Hugo site:
 
-```
+```text
 $ cp themes/minimal/exampleSite/config.toml .
 ```
 

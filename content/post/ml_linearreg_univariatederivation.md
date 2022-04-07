@@ -5,7 +5,7 @@ tags: [machine-learning, linear-regression, gradient-descent, python]
 draft: false
 ---
 
-This post is a continuation of [a previous post](/post/ml_linearreg_costfunctions.md) where the cost functions used in linear regression scenarios are used. We will start by revisiting the mean square error (MSE) cost function;
+This post is a continuation of [a previous post](/post/ml_linearreg_costfunctions) where the cost functions used in linear regression scenarios are used. We will start by revisiting the mean square error (MSE) cost function;
 
 $$MSE = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{n}$$
 
