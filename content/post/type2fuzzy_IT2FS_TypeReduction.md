@@ -5,7 +5,7 @@ tags: [type2-fuzzy, type2-fuzzy-library, fuzzy, python, IT2FS]
 draft: false
 ---
 
-This post will look at Interval Type-2 fuzzy set (IT2FS) and its reduction. We have already discussed the basics of Type-2 fuzzy sets in a [previous post](/post/type2fuzzy_set.md), and we have seen that a general type-2 fuzzy set can be defined as follows:
+This post will look at Interval Type-2 fuzzy set (IT2FS) and its reduction. We have already discussed the basics of Type-2 fuzzy sets in a [previous post](/post/type2fuzzy_set), and we have seen that a general type-2 fuzzy set can be defined as follows:
 
 $$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$
 
