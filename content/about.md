@@ -13,7 +13,7 @@ This is  a place where I keep notes and references on the projects that I work o
 
 ---
 
-This site is based on the following technologies:
+This site is based the following technologies:
 
 - [Hugo](https://gohugo.io/) and the [Minimal Theme](https://themes.gohugo.io/themes/minimal/)
 - [Netlify](https://www.netlify.com/)
