@@ -1,5 +1,5 @@
 ---
-title: "Training Models in Azure ML Part 7 - The Concrete Strength Example"
+title: "Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model"
 date: 2022-03-16
 tags: [machine-learning, azure ml, experiment]
 description: "Training of the concrete strength model example in Azure ML"
