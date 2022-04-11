@@ -20,6 +20,7 @@ I am currently working on:
 I am / will be reading these books this month:
 
 - [Ramon u ż-Żerbinotti, by Ġużè Stagno](https://merlinpublishers.com/product/ramon-u-z-zerbinotti/). Possibly the 5th time I am reading this book.
+- [Camerata!, by Aleks Farrugia](https://agendabookshop.com/products/camerata)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
