@@ -25,3 +25,12 @@ Reusability	Create pipeline templates for specific scenarios, such as retraining
 Tracking and versioning	Instead of manually tracking data and result paths as you iterate, use the pipelines SDK to explicitly name and version your data sources, inputs, and outputs. You can also manage scripts and data separately for increased productivity.
 Modularity	Separating areas of concerns and isolating changes allows software to evolve at a faster rate with higher quality.
 Collaboration	Pipelines allow data scientists to collaborate across all areas of the machine learning design process, while being able to concurrently work on pipeline steps.
+
+
+In this post, we will go through a machine learning exercise through the use of Azure ML pipelines. It is important to immediately claim that the objective of this post is not to create the best ML pipeline or the best model for this example, but rather to attempt to go through the features of Azure ML pipelines and how they can be used is such context.
+
+We will use the [Concrete Strength Prediction](https://www.kaggle.com/c/concrete-compressive-strength) dataset from Kaggle. The dataset contains concrete compressive strength measurements from a variety of concrete samples. The goal is to predict the compressive strength of concrete samples. Again, there is no particular reason why this particular dataset was used, except from the fact that it is small and simple enough to be easily worked with.
+
+### Plan of Action
+
+We will start this discussion by implementing a simple training pipeline that will train a number of models and selects the best one. The selected model is then picked up by a second pipeline that fine-tunes the model and then registers it so that it can be used in production. The model is then deployed as an Azure ML endpoint and consumed.
