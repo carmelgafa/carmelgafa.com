@@ -34,3 +34,35 @@ We will use the [Concrete Strength Prediction](https://www.kaggle.com/c/concrete
 ### Plan of Action
 
 We will start this discussion by implementing a simple training pipeline that will train a number of models and selects the best one. The selected model is then picked up by a second pipeline that fine-tunes the model and then registers it so that it can be used in production. The model is then deployed as an Azure ML endpoint and consumed.
+
+### Passing Data through Pipeline Steps
+
+The process of chaining steps togetehr to form a pipeline obviously also entails data that is manipulated in each step as passed on to the subsequent step. **OutputFileDatasetConfig** can be used for this purpose but also as a mechanism to persist data for later use. It is capable of writing data into fileshare, blob storage and also data-lake. It supports two modes of operation:
+
+- **mount**, where files are written and permanently stored in the target directory.
+- **upload**, where files are written and permanently stored in the target directory at the end of the job; which may mean that the files are not available if the job fails.
+
+We define **OutputFileDatasetConfig** objects, as part of the pipeline definition. If, as an example we need a place to store train and test data that is used by the various steps;
+
+```python
+from azureml.data.output_dataset_config import OutputFileDatasetConfig
+
+train_folder = OutputFileDatasetConfig('train_folder')
+test_folder = OutputFileDatasetConfig('test_folder')
+```
+
+The **OutputFileDatasetConfig** objects are the passed as arguments to the **PythonScriptStep** that require them
+
+```python
+step_train_test_split = PythonScriptStep(
+    script_name = 'train_test_split.py',                            # name of the script to run
+    arguments=[                                                     # arguments to the script
+        '--train_folder', train_folder,
+        '--test_folder', test_folder],
+    inputs = [<<Dataset containing baseline data>>],
+    compute_target = <<compute target name>>,
+    source_directory=<<directory where the script is located>>, 
+    allow_reuse = True,                                            # reuse the step if possible
+    runconfig = run_config                                         # run configuration
+)
+```
