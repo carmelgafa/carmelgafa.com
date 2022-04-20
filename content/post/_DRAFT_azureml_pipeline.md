@@ -37,7 +37,8 @@ We will start this discussion by implementing a simple training pipeline that wi
 
 ### Passing Data through Pipeline Steps
 
-The process of chaining steps togetehr to form a pipeline obviously also entails data that is manipulated in each step as passed on to the subsequent step. **OutputFileDatasetConfig** can be used for this purpose but also as a mechanism to persist data for later use. It is capable of writing data into fileshare, blob storage and also data-lake. It supports two modes of operation:
+The process of chaining steps to
+gether to form a pipeline obviously also entails data that is manipulated in each step as passed on to the subsequent step. **OutputFileDatasetConfig** can be used for this purpose but also as a mechanism to persist data for later use. It is capable of writing data into fileshare, blob storage and also data-lake. It supports two modes of operation:
 
 - **mount**, where files are written and permanently stored in the target directory.
 - **upload**, where files are written and permanently stored in the target directory at the end of the job; which may mean that the files are not available if the job fails.
