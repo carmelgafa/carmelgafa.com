@@ -7,7 +7,7 @@ description: Home Page
 
 [About page](/about/)
 
-## **Current Interests (April 2022)**
+## **Current Interests (May 2022)**
 
 I am currently working on:
 
@@ -19,8 +19,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-- [Ramon u ż-Żerbinotti, by Ġużè Stagno](https://merlinpublishers.com/product/ramon-u-z-zerbinotti/). Possibly the 5th time I am reading this book.
-- [Camerata!, by Aleks Farrugia](https://agendabookshop.com/products/camerata)
+- [Free to Focus by Doing Less](https://www.amazon.com/Free-Focus-Productivity-System-Achieve-ebook/dp/B07F3DM7C1)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 

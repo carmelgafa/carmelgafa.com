@@ -23,3 +23,7 @@ So far, as of January 2022, I have read the following books:
 #### [Il Paradosso Terrestre by Marco Presta](https://www.einaudi.it/catalogo-libri/narrativa-italiana/narrativa-italiana-contemporanea/il-paradosso-terrestre-marco-presta-9788806211226/)
 
 #### [Lead Yourself First: Inspiring Leadership Through Solitude by  Raymond M. Kethledge and Michael S. Erwin ](https://www.amazon.com/Lead-Yourself-First-Inspiring-Leadership/dp/1632866315)
+
+#### [Ramon u ż-Żerbinotti, by Ġużè Stagno](https://merlinpublishers.com/product/ramon-u-z-zerbinotti/).
+
+#### [Camerata!, by Aleks Farrugia](https://agendabookshop.com/products/camerata)
