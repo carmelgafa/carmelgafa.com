@@ -34,6 +34,13 @@ This project has been divided into a number of smaller posts so to limit the len
 
 ## Folder Structure
 
+- **data**
+- **experiment**
+  - **pipeline_steps**
+  - **optimize_model**
+  - optimize_model.csv
+  - train_pipeline.py
+  - upload_data.py
 
 ## Data Uploading
 
@@ -64,3 +71,46 @@ The Dataset has, therefore:
 - no missing values in the Dataset
 
 There are many versions of this Dataset, and to load it directly, we have selected a [csv version](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv)
+
+```python
+'''
+Creates concrete dataset to be used as input for the experiment.
+'''
+import os
+from azureml.core import Workspace, Dataset
+from azureml.data.datapath import DataPath
+
+config_path = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    '.azureml')
+w_space = Workspace.from_config(path=config_path)
+
+data_store = w_space.get_default_datastore()
+DATASET_NAME = 'concrete_baseline'
+
+print('Uploading concrete dataset to datastore ...')
+if DATASET_NAME not in Dataset.get_all(w_space).keys():
+    # upload all the files in the concrete data folder to the
+    # default datastore in the workspace concrete_data_baseline folder
+    data_store.upload(
+        src_dir=os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            '..',
+            '..',
+            'data',
+            'concrete'),
+        target_path='concrete_data_baseline')
+
+    # create a new dataset from the uploaded concrete file
+    concrete_dataset = Dataset.Tabular.from_delimited_files(
+        DataPath(data_store, 'concrete_data_baseline/concrete.csv'))
+
+    # and register it in the workspace
+    concrete_dataset.register(
+        w_space,
+        'concrete_baseline',
+        description='Concrete Strength baseline data (w. header)')
+
+print('Dataset uploaded')
+
+```
