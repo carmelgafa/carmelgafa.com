@@ -80,16 +80,22 @@ import os
 from azureml.core import Workspace, Dataset
 from azureml.data.datapath import DataPath
 
+# Name of the dataset.
+DATASET_NAME = 'concrete_baseline'
+
+# Load the workspace configuration from the .azureml folder.
 config_path = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
     '.azureml')
 w_space = Workspace.from_config(path=config_path)
 
-data_store = w_space.get_default_datastore()
-DATASET_NAME = 'concrete_baseline'
-
-print('Uploading concrete dataset to datastore ...')
 if DATASET_NAME not in Dataset.get_all(w_space).keys():
+
+    print('Uploading dataset to datastore ...')
+
+    # Getting the default datastore for the workspace.
+    data_store = w_space.get_default_datastore()
+
     # upload all the files in the concrete data folder to the
     # default datastore in the workspace concrete_data_baseline folder
     data_store.upload(
@@ -111,6 +117,7 @@ if DATASET_NAME not in Dataset.get_all(w_space).keys():
         'concrete_baseline',
         description='Concrete Strength baseline data (w. header)')
 
-print('Dataset uploaded')
-
+    print('Dataset uploaded')
+else:
+    print('Dataset already exists')
 ```
