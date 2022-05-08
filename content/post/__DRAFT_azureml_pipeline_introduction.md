@@ -34,13 +34,15 @@ This project has been divided into a number of smaller posts so to limit the len
 
 ## Folder Structure
 
-- **data**
-- **experiment**
-  - **pipeline_steps**
-  - **optimize_model**
-  - optimize_model.csv
-  - train_pipeline.py
-  - upload_data.py
+- **.azureml**  -  This folder contains the Azure Machine Learning files.
+- **data**  -  This folder contains the data that will be used in the experiments.
+- **experiments**  -  This folder contains the experiments.
+  - **experiment_14**  -  This folder contains the experiment_14.
+    - **pipeline_steps**  -  This folder contains the pipeline_steps.
+    - **optimize_model**  -  This folder contains the optimize_model.
+    - optimize_model.py  -  This file contains the data that will be used in the experiment.
+    - train_pipeline.py  -  This file contains the pipeline that will be used in the experiment.
+    - upload_data.py  -  This file contains the code that will upload the data to Azure.
 
 ## Data Uploading
 
@@ -72,7 +74,7 @@ The Dataset has, therefore:
 
 There are many versions of this Dataset, and to load it directly, we have selected a [csv version](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv)
 
-```python
+```python{upload_data.py}
 '''
 Creates concrete dataset to be used as input for the experiment.
 '''
@@ -121,3 +123,5 @@ if DATASET_NAME not in Dataset.get_all(w_space).keys():
 else:
     print('Dataset already exists')
 ```
+
+![Dataset Upload](/post/img/azureml_pipeline_introduction_dataset_upload.jpg)
