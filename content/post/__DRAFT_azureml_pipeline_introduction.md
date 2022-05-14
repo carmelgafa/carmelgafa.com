@@ -32,7 +32,12 @@ This project has been divided into a number of smaller posts so to limit the len
 3. [Hyperparameter Tuning](/post/azureml_pipeline_hyperparameter_tuning)
 4. [Model Deployment](/post/azureml_pipeline_model_deployment)
 
-## Folder Structure
+## AzureML development considerations and structure
+
+As discussed in the previous posts, I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datasource. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving money.
+
+
+
 
 - **.azureml**  -  This folder contains the Azure Machine Learning files.
 - **data**  -  This folder contains the data that will be used in the experiments.
