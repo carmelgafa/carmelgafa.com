@@ -1,6 +1,6 @@
 ---
 title: "Azureml_pipeline_introduction"
-date: 2022-05-05
+date: 2022-05-15
 tags: []
 draft: true
 description: ""
@@ -77,6 +77,16 @@ The Dataset has, therefore:
 - no missing values in the Dataset
 
 There are many versions of this Dataset, and to load it directly, we have selected a [csv version](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv)
+
+Steps for uploading the data to AzureML datastore and registering it as an AzureML Dataframe:
+
+- **Get the workspace**. If a config file was saved, if geting a reference to the workspace can be achieved by callting the **Workspace.from_config()** function.
+- **Get a reference to the datastore**. The default datastore can be easily retreived by calling the **workspace.get_default_datastore()** function. I this case, we are using a datastore bearing the name of the experiment, and therefore we will use **Datastore.get(workspace, DATASTORE_NAME)**.
+- **Upload the data to the datastore**. The concrete strength data is uploaded to our datastore by calling the **datastore.upload()** function.
+- **Register the data as an AzureML Dataframe** is carried out in two steps by 
+  - Create the new dataset by calling the **Dataset.Tabular.from_delimited_files()** as the data that we have is tabular. We notice that this function requires a DataPath argument that points to the file that we have just ploaded into the datastore.
+  - Finally, **register the dataset** by calling the **Dataset.register()** function.
+
 
 ```python{upload_data.py}
 '''
