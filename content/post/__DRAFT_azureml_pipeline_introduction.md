@@ -38,7 +38,6 @@ As discussed in the previous posts, I have created a set scripts that create the
 
 
 
-
 - **.azureml**  -  This folder contains the Azure Machine Learning files.
 - **data**  -  This folder contains the data that will be used in the experiments.
 - **experiments**  -  This folder contains the experiments.
