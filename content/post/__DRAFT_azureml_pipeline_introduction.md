@@ -43,14 +43,15 @@ At a high level, the project structure is as follows:
   - **data**  -  This folder contains the data that will be used in the experiments.
   - **docs**  -  This folder contains the documentation for the project.
   - **experiments**  -  This folder contains the experiments.
-    - **experiment_1**  -  This folder contains the models.
+    - **experiment_1**  -  This folder contains the experiment 1.
     - **$\dots$**
-    - **experiment_14**  -  This folder contains the experiment_14.
+    - **experiment_14**  -  This folder contains the experiment 14.
       - **deply**  -  This folder contains the deployment of the model.
       - **optimize**  -  This folder contains the hyperparameter optimization.
       - **train**  -  This folder contains the training of the model.
       - **upload**  -  This folder contains the upload of the data.
       - **validate**  -  This folder contains the validation of the model.
+    - **$\dots$**
   - **workspace_creation**
 
 As discussed in the [previous posts in this site](https://carmelgafa.com/tags/azure-ml/), I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datastore. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving money.
