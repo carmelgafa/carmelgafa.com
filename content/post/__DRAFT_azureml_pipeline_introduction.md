@@ -19,7 +19,7 @@ In the previous posts in this series we have examined some of the various featur
 
 - **Model Deployment into Azure**. We will deploy our model into Azure as a web service.
 
-## A disclaimer
+### A disclaimer
 
 This set of posts in not intended to be a complete guide to Azure Machine Learning model building and deployment or an guide towards building machine learning pipelines. It is intended to be a starting point for those who are interested in using Azure Machine Learning, and to introduce some of the interesting features available in the platform.
 
@@ -32,21 +32,28 @@ This project has been divided into a number of smaller posts so to limit the len
 3. [Hyperparameter Tuning](/post/azureml_pipeline_hyperparameter_tuning)
 4. [Model Deployment](/post/azureml_pipeline_model_deployment)
 
-## AzureML development considerations and structure
+## AzureML development considerations and project structure
 
-As discussed in the previous posts, I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datasource. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving money.
+Following a [post in stackoverflow,](https://stackoverflow.com/questions/6323860/sibling-package-imports) that discussed methods to eliminate sibling import problems, I have decided to create a consistent project structure for my python projects, thus making all my development easier and consistent. I havel also created a template for the project structure, which can be found in the [this repository](https://github.com/carmelgafa/python_environment_creator). In this particular exercise, I have names the project as **azuremlproject**.
 
+At a high level, the project structure is as follows:
 
+- **.azuremlproject**  -  This folder contains the Azure Machine Learning files.
+  - **.azureml**  -  This folder contains the Azure Machine Learning files.
+  - **data**  -  This folder contains the data that will be used in the experiments.
+  - **docs**  -  This folder contains the documentation for the project.
+  - **experiments**  -  This folder contains the experiments.
+    - **experiment_1**  -  This folder contains the models.
+    - **$\dots$**
+    - **experiment_14**  -  This folder contains the experiment_14.
+      - **deply**  -  This folder contains the deployment of the model.
+      - **optimize**  -  This folder contains the hyperparameter optimization.
+      - **train**  -  This folder contains the training of the model.
+      - **upload**  -  This folder contains the upload of the data.
+      - **validate**  -  This folder contains the validation of the model.
+  - **workspace_creation**
 
-- **.azureml**  -  This folder contains the Azure Machine Learning files.
-- **data**  -  This folder contains the data that will be used in the experiments.
-- **experiments**  -  This folder contains the experiments.
-  - **experiment_14**  -  This folder contains the experiment_14.
-    - **pipeline_steps**  -  This folder contains the pipeline_steps.
-    - **optimize_model**  -  This folder contains the optimize_model.
-    - optimize_model.py  -  This file contains the data that will be used in the experiment.
-    - train_pipeline.py  -  This file contains the pipeline that will be used in the experiment.
-    - upload_data.py  -  This file contains the code that will upload the data to Azure.
+As discussed in the [previous posts in this site](https://carmelgafa.com/tags/azure-ml/), I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datastore. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving money.
 
 ## Data Uploading
 
