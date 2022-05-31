@@ -8,7 +8,7 @@ description: ""
 
 ## Introduction
 
-In the previous posts in this series we have examined some of the various features of [Azure Machine Learning](/tags/azure-ml). We have executed some experiments and have seen the results. We will now try to look into a more complete Machine Learning project in Azure, that will utilize the power of other Azure ML features such as:
+In the previous posts in this series we have examined some of the various features of [Azure Machine Learning](/tags/azure-ml). We have executed some experiments and have seen the results. We will now try to look into a more complete, end to end, Machine Learning project in Azure, that will utilize leverage the power of other Azure ML features such as:
 
 - **Azure Machine Learning Pipelines**. Azure ML pipelines a way whereby discrete steps (or subtasks) are executed as a workflow. It is important to notice that the concept of pipeline is recurrent in many Azure services. In particular, Microsoft suggest that Azure ML pipelines should be used for Model Orchestration, that a process that produces a model from data. Another different pipeline type in Azure is that used for data processing; where data produces a new data set. In this case, Microsoft suggest products Azure Data Factory or Azure Data Bricks. Nevertheless, it is possible to use Azure ML pipelines to prepare data, if the data transformation is not too complex. Other tasks that can be performed with Azure ML pipelines include:
   - Training configuration
@@ -21,7 +21,7 @@ In the previous posts in this series we have examined some of the various featur
 
 ### A disclaimer
 
-This set of posts in not intended to be a complete guide to Azure Machine Learning model building and deployment or an guide towards building machine learning pipelines. It is intended to be a starting point for those who are interested in using Azure Machine Learning, and to introduce some of the interesting features available in the platform.
+This collection of posts is not intended to be a complete guide to Azure Machine Learning model building and deployment or an guide towards building machine learning pipelines. It is intended to be a starting point for those who are interested in using Azure Machine Learning, and to introduce some of the interesting features available in the platform.
 
 ## Structure of these posts
 
@@ -34,7 +34,7 @@ This project has been divided into a number of smaller posts so to limit the len
 
 ## AzureML development considerations and project structure
 
-Following a [post in stackoverflow,](https://stackoverflow.com/questions/6323860/sibling-package-imports) that discussed methods to eliminate sibling import problems, I have decided to create a consistent project structure for my python projects, thus making all my development easier and consistent. I havel also created a template for the project structure, which can be found in the [this repository](https://github.com/carmelgafa/python_environment_creator). In this particular exercise, I have names the project as **azuremlproject**.
+Following a [post in stackoverflow,](https://stackoverflow.com/questions/6323860/sibling-package-imports) that discussed methods to eliminate sibling import problems, I have decided to create a consistent project structure for my python projects, thus making all my development easier and consistent. I have also created a template for the project structure, which can be found in the [this repository](https://github.com/carmelgafa/python_environment_creator). In this particular exercise, I have names the project as **azuremlproject**.
 
 At a high level, the project structure is as follows:
 
@@ -54,11 +54,11 @@ At a high level, the project structure is as follows:
     - **$\dots$**
   - **workspace_creation**
 
-As discussed in the [previous posts in this site](https://carmelgafa.com/tags/azure-ml/), I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datastore. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving money.
+As discussed in the [previous posts in this site](https://carmelgafa.com/tags/azure-ml/), I have created a set scripts that create the Azure resource group and AzureML Workspace, with its Compute resources and Azure ML Datastore. This makes it easier to just delete the resource group and recreate it whenever necessary, thus saving some money.
 
-## Data Uploading
+## Our Project
 
-we will use the UCI Concrete dataset. This dataset contains data on the compressive strength of concrete given the mixture and curing time as features. The dataset is available from [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength).
+In this exercise, we will use the [UCI Concrete Compressive Strength Dataset](https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength), that is both straightforward and easy to use. It is also a small dataset, and therefore manipulation and exploration of the data is normally carried out quickly.
 
 The data set contains the following features:
 
@@ -75,7 +75,7 @@ The data set contains the following features:
 |Concrete compressive strength | quantitative | MPa | Output Variable|
 |&nbsp; &nbsp;|  |  |  |
 
-The Dataset has, therefore:
+To summarize, the data set contains;
 
 - 8 input variables (features)
 - 1 output variable (labels)
@@ -85,6 +85,8 @@ The Dataset has, therefore:
 - no missing values in the Dataset
 
 There are many versions of this Dataset, and to load it directly, we have selected a [csv version](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv)
+
+## Data Uploading
 
 Steps for uploading the data to AzureML datastore and registering it as an AzureML Dataframe:
 
