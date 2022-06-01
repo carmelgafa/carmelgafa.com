@@ -22,6 +22,7 @@ In the previous posts in this series, we have examined some of the various featu
 ### A disclaimer
 
 This collection of posts is not intended to be a complete guide to Azure Machine Learning model building and deployment or a guide towards building machine learning pipelines. It is designed to be a starting point for those interested in using Azure Machine Learning and introduce some of the exciting features available on the platform.
+
 ## Structure of these posts
 
 This project has been divided into a number of smaller posts so to limit the length and content of each post. It consists of the following entries:
