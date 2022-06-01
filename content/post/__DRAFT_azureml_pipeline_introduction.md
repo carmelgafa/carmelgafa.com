@@ -101,7 +101,6 @@ Steps for uploading the data to AzureML datastore and registering it as an Azure
 
 An implementation of the above steps can be found in the following code:
 
-
 ```python{upload_data.py}
 '''
 Creates concrete dataset to be used as input for the experiment.
@@ -152,4 +151,18 @@ else:
     print('Dataset already exists')
 ```
 
+We can verify that the new dataset was correctly created by checking the **Datasets** tab in AzureML Workspace, where we should find the dataset **concrete_baseline**. From this page, we can also see the Datastore where the data was uploaded, which is the default datastore for the workspace. We can also confirm that the data file, **concrete.csv**, was uploaded in the **concrete_data_baseline** folder.
+
+We can also have a look at the dataset by  selecting the **Explore** tab in this page, which directs us to the data dump of the dataset. We can also see that features and label are all numerical, as they all have a **00** near their name. We can also see that the dataset has 1030 instances.
+
+This screen can also give us a quick overview of the data, through the **Preview** tab. Here we can see the distribution, and information like type, minimum and maximum values and the mean and standard deviation for each feature.
+
+If we click on the **datasource** link in the **Details** tab, we are directed to the blob storage where the data is stored. here we can see the **concrete.csv** file.
+
+The figures below show the screens and the links that were used to navigate through the dataset.
+
 ![Dataset Upload](/post/img/azureml_pipeline_introduction_dataset_upload.jpg)
+
+## Next Post
+
+In the next post we will 
