@@ -196,3 +196,119 @@ with open(pipeline_path, 'wb') as handle:
 run.upload_file(pipeline_path,pipeline_path)
 run.register_model(model_path=pipeline_path, model_name='data_pipeline')
 ```
+## Model training and selection
+
+```python evaluation
+'''
+Evaluation functions for the model
+'''
+import numpy as np
+from sklearn.metrics import mean_squared_error
+
+def evaluate(model, X_val, y_val):
+    '''
+    Calculates the root of mean squared error of the model
+    '''
+    # Calculating the root of mean squared error of the model.
+    prediction = model.predict(X_val)
+    test_mse = mean_squared_error(y_val, prediction)
+    sqrt_mse = np.sqrt(test_mse)
+    return sqrt_mse
+
+```
+
+```python model training
+'''
+Train step. Trains various models and selects the best one.
+'''
+import os
+import argparse
+import pickle
+import pandas as pd
+from azureml.core import Run
+from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from model_evaluation import evaluate
+
+# Getting the run context.
+run = Run.get_context()
+
+# Parsing the arguments passed to the script.
+parser = argparse.ArgumentParser()
+parser.add_argument('--train_y_folder', dest='train_y_folder', required=True)
+parser.add_argument('--train_Xt_folder', dest='train_Xt_folder', required=True)
+parser.add_argument('--model_folder', dest='model_folder', required=True)
+
+parser.add_argument(
+    '--bag_regressor_n_estimators',
+    dest='bag_regressor_n_estimators',
+    required=True)
+parser.add_argument(
+    '--decision_tree_max_depth',
+    dest='decision_tree_max_depth',
+    required=True)
+parser.add_argument(
+    '--random_forest_n_estimators',
+    dest='random_forest_n_estimators',
+    required=True)
+args = parser.parse_args()
+
+# Reading the data from the `X_train_trans.txt` file and converting it to a numpy array.
+X_t_path = os.path.join(args.train_Xt_folder, "data.txt")
+X_train_trans = pd.read_csv(X_t_path, header=None).to_numpy()#.squeeze()
+
+# Reading the data from the `y_train.txt` file and converting it to a numpy array.
+y_path = os.path.join(args.train_y_folder, "data.txt")
+y_train = pd.read_csv(y_path, header=None).to_numpy()#.squeeze()
+
+# Creating an empty dictionary.
+results = {}
+
+# Training a linear regression model and evaluating it.
+lin_regression = LinearRegression()
+lin_regression.fit(X_train_trans, y_train)
+sqrt_mse= evaluate(lin_regression, X_train_trans, y_train)
+results[lin_regression] = sqrt_mse
+run.log('LinearRegression', sqrt_mse)
+
+# Training a bagging regressor model and evaluating it.
+bag_regressor = BaggingRegressor(
+    n_estimators=int(args.bag_regressor_n_estimators),
+    random_state=42)
+bag_regressor.fit(X_train_trans, y_train)
+sqrt_mse= evaluate(bag_regressor, X_train_trans, y_train)
+results[bag_regressor] = sqrt_mse
+run.log('BaggingRegressor', sqrt_mse)
+
+# Training a decision tree regressor model and evaluating it.
+dec_tree_regressor = DecisionTreeRegressor(
+    max_depth=int(args.decision_tree_max_depth))
+dec_tree_regressor.fit(X_train_trans, y_train)
+sqrt_mse= evaluate(dec_tree_regressor, X_train_trans, y_train)
+results[dec_tree_regressor] = sqrt_mse
+run.log('DecisionTreeRegressor',sqrt_mse)
+
+# Training a random forest regressor model and evaluating it.
+random_forest_regressor = RandomForestRegressor(
+    n_estimators=int(args.random_forest_n_estimators),
+    random_state=42)
+random_forest_regressor.fit(X_train_trans, y_train)
+sqrt_mse= evaluate(random_forest_regressor, X_train_trans, y_train)
+results[random_forest_regressor] = sqrt_mse
+run.log('RandomForestRegressor', sqrt_mse)
+
+# Selecting the model with the lowest RMSE.
+selected_model =  min(results, key=results.get)
+run.log('selected_model', selected_model)
+
+# Saving the model to a file.
+model_path = os.path.join(args.model_folder, 'model.pkl')
+with open(model_path, 'wb') as handle:
+    pickle.dump(selected_model, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+# Uploading the model to the Azure ML workspace and registering it.
+run.upload_file(model_path,model_path)
+run.register_model(model_path=model_path, model_name='concrete_model')
+
+```
