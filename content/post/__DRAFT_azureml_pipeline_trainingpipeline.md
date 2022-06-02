@@ -73,7 +73,6 @@ run.log('y_test', y_test.shape)
 
 ```
 
-
 ## Preparing data for training
 
 ```python data_processor
@@ -196,6 +195,7 @@ with open(pipeline_path, 'wb') as handle:
 run.upload_file(pipeline_path,pipeline_path)
 run.register_model(model_path=pipeline_path, model_name='data_pipeline')
 ```
+
 ## Model training and selection
 
 ```python evaluation
@@ -310,5 +310,4 @@ with open(model_path, 'wb') as handle:
 # Uploading the model to the Azure ML workspace and registering it.
 run.upload_file(model_path,model_path)
 run.register_model(model_path=model_path, model_name='concrete_model')
-
 ```
