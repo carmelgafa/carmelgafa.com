@@ -54,7 +54,9 @@ At a high level, the project structure is as follows:
     - **$\dots$**
   - **workspace_creation**
 
-As discussed in the [previous posts on this site](https://carmelgafa.com/tags/azure-ml/), I have created several scripts that instantiate the Azure resource group and AzureML Workspace with its Compute resources and Azure ML Datastore. One advantage of this approach is that it is easier to delete the resource group and recreate it whenever necessary, thus saving some money. The workspace creation scripts are driven from a parameters file that contains the names of the various entities that the user will create. The AzureML workspace configuration is then stored in the file **.azureml/config.json**.
+As discussed in the [previous posts on this site](https://carmelgafa.com/tags/azure-ml/), I have created several scripts that instantiate the Azure resource group, AzureML Workspace with its Compute resources, and an Azure ML Datastore with the name of the project. One advantage of this approach is that it is easier to delete the resource group and recreate it whenever necessary, thus saving some money. The workspace creation scripts are driven from a parameters file containing the names of the various entities that the user will create, derived from the name of the project. For example, in this project, the project name is set to **azmlprj14** and therefore the resource group name is **rgazmlprj14**, the workspace name is **wsazmlprj14** and so on.
+
+The AzureML workspace configuration is then stored in the file **.azureml/config.json**.
 
 ## The Project
 
@@ -115,6 +117,8 @@ DATASET_NAME = 'concrete_baseline'
 # Load the workspace configuration from the .azureml folder.
 config_path = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
+    '..',
+    '..',
     '.azureml')
 w_space = Workspace.from_config(path=config_path)
 
@@ -151,7 +155,7 @@ else:
     print('Dataset already exists')
 ```
 
-We can verify that the new dataset was correctly created by checking the **Datasets** tab in AzureML Workspace, where we should find the dataset **concrete_baseline**. We can also see the Datastore where we uploaded the data, the default data store for the workspace. We confirm that the data file, **concrete.csv**, was uploaded to the **concrete_data_baseline** folder.
+We can verify that the new dataset was correctly created by checking the **Datasets** tab in AzureML Workspace, where we should find the dataset **concrete_baseline**. We can also see the Datastore where we uploaded the data, **dsazmlprj14**, or the associated datastore created with the workspace. We confirm that the data file, **concrete.csv**, was uploaded to the **concrete_data_baseline** folder.
 
 We can also look at the dataset by selecting the **Explore** tab on this page, which directs us to the data dump of the dataset. We can also see that features and labels are all numerical, as they all have a **00** near their name. We can also see that the dataset has 1030 instances.
 
