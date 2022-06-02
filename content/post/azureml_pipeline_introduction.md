@@ -1,9 +1,9 @@
 ---
-title: "Azureml_pipeline_introduction"
-date: 2022-05-15
-tags: []
-draft: true
-description: ""
+title: "Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload"
+date: 2022-06-02
+tags: [machine-learning, azure ml, dataset, datastore]
+draft: false
+description: "In this first post of a series that will cover an end-to-end machine learning project in Azure Ml we will look at how to create a workspace and upload data to it."
 ---
 
 ## Introduction
@@ -28,9 +28,10 @@ This collection of posts is not intended to be a complete guide to Azure Machine
 This project has been divided into a number of smaller posts so to limit the length and content of each post. It consists of the following entries:
 
 1. [An introduction to the project, considerations and data uploading to Azure](/post/azureml_pipeline_introduction)
-2. [Pipeline Creation](/post/azureml_pipeline_creation)
-3. [Hyperparameter Tuning](/post/azureml_pipeline_hyperparameter_tuning)
-4. [Model Deployment](/post/azureml_pipeline_model_deployment)
+2. Pipeline Creation
+3. Hyperparameter Tuning
+4. Model Testing
+5. Model Deployment
 
 ## AzureML development considerations and project structure
 
