@@ -20,7 +20,6 @@ It is possible to access an Azure ML Compute Instance using several methods, nam
 
 ![Azure Machine Learning Compute Instance Access](/post/img/azureml_computes_instance_access.jpg)
 
-
 For production-grade model training, Azure Machine Learning **Compute Target** is used. Compute targets are multi-node scaling compute resources where we can execute our training script or host our service deployment, thus making it possible to use parallel processing for such computations. We can create each node with a user-specified hardware configuration.
 
 A critical parameter of a compute target creation is the possibility to define a cluster as **dedicated** or **low priority**. Low priority clusters are created when the resources are available, so experiments deployed on low priority clusters can take some time to commence. They are generally used for development and testing. They are, however substantially cheaper than dedicated clusters.

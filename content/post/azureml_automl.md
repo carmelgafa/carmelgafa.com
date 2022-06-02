@@ -20,14 +20,13 @@ AutoML makes Training, running and deployment a no-code experience. It will go t
 
 In this post, we will go through creating a model using AutoML.
 
-
-### The data
+## The data
 
 For this example, we will use the UCI Concrete dataset. This dataset contains data on the compressive strength of concrete given the mixture and curing time as features. The dataset is available from [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength).
 
 A dataset pointing to this data has been created in a [previous post](/post/azureml_datasetfromurl), used in this example.
 
-### Starting AutoML
+## Starting AutoML
 
 AutoMl is started by selecting the AutoMl tab in the AzureML workspace and then beginning an AutoML job. We notice that the job consists of three steps:
 
@@ -38,7 +37,7 @@ AutoMl is started by selecting the AutoMl tab in the AzureML workspace and then 
 - Task and settings selection
 - Validation and testing
 
-### Configuring the run
+## Configuring the run
 
 The first step is to select the dataset. This is very easy, as we have already created the dataset, so choosing it will suffice. It is also possible to create a new dataset at this stage.
 
@@ -52,7 +51,7 @@ The next step is to select the ML task for this experiment. We notice that AutoM
 
 ![AutoML Job Config](/post/img/azureml_azureml_automl_config_1.jpg)
 
-### Additional Run Configuration
+## Additional Run Configuration
 
 It is possible to further configure the run by
 
@@ -71,13 +70,13 @@ In the Additional Settings section, we can specify
 
 Featurization settings allow us to confirm the data types of the features. We can also select an inpute method for the missing data in each feature. In this case, the data does not have any missing values.
 
-### Validation Type and Starting the Run
+## Validation Type and Starting the Run
 
 Finally, the last step is to select the validation type. We select the validation type as train validation, which will split the data into a training and testing set. We chose a 20% testing set. We also noticed that it is possible to provide an external test set.
 
 The AutoMl run is initialized and started. We noticed settings that we had specified, like the dataset and the compute, together with the status of the run.
 
-### Results
+## Results
 
 Upon completion of the run, we can see the results. We notice the following:
 
@@ -100,10 +99,10 @@ Other sections give us information about the run.
 
 It is also possible to get more details on the selected model by selecting to **view the explanation**.
 
-### Model Explanation
+## Model Explanation
 
 Model explanation displays the top n features that affect the model. In our case, we notice that the curing time and cement are the top two features that affect the strength of concrete.
 
-### Deployment
+## Deployment
 
 We also notice that it is possible to deploy the model as an API that we can call. Azure allows us to deploy the model as an ACI or a Kubernetes service. A RESTful URL is given to consume the model.

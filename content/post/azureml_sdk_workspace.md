@@ -5,9 +5,11 @@ tags: [machine-learning, azure ml, dataset, datastore]
 draft: false
 ---
 
+## Introduction
+
 The Azure Machine Learning SDK for Python lets us interact with the Azure Machine Learning service using a  Python environment. This post will discuss how to create, manage, and use Azure Machine Learning Workspaces, Computes, Datasets and Datastores using the Azure Machine Learning SDK for Python.
 
-### Create a Workspace
+## Create a Workspace
 
 Creating a workspace is shown below. The **create** method required a name for the workspace, a subscription ID, a resource group (that is created for the workspace by setting the **create_resource_group** flag to true), and a location.
 
@@ -169,7 +171,7 @@ ws.write_config(path=config_path, file_name="config.json")
 
 ```
 
-### Creating a Datastore and DataSet
+## Creating a Datastore and DataSet
 
 We can now create a dataset with an associated datastore that holds the data used in our ML experiments. We have on our local machine a folder called **data** that contains a CSV file with some data. The ultimate objective of this section is to create a dataset that points to this data.
 
@@ -273,9 +275,9 @@ We can verify the created dataset by going to the Azure portal. Upon examining t
 
 ![datastore data](/post/img/azureml_sdk_workspace_dataset.jpg)
 
-### Computes
+## Computes
 
-#### Create Compute Instance
+### Create Compute Instance
 
 Creating a compute instance is shown below. It starts with an attempt to use the instance through the **ComputeInstance** constructor, which requires a workspace object and a name for the instance. The constructor throws an exception if the instance does not exist, and in this case, the instance is created. This is achieved by first creating a provisioning configuration object, which is then used to create the instance by using **ComputeInstance.provisioning_configuration**. The provisioning configuration object is then used to create the instance by using **ComputeInstance.create**. We wait for the instance to be created by using **ComputeInstance.wait_for_completion**.
 
@@ -311,7 +313,7 @@ except ComputeTargetException:
 
 ```
 
-#### Create Compute Target
+### Create Compute Target
 
 Compute targets are created similarly to compute instances, but in this case, an Azure ML compute manager, **AmlCompute** is used to create the compute target. Notice that the target was created in the low priority tier and that our quota allows us to have a maximum of 2 nodes of the selected VM size.
 
@@ -347,6 +349,6 @@ except ComputeTargetException:
     compute_target.wait_for_completion(show_output=True)
 ```
 
-### Conclusion
+## Conclusion
 
 In the next post, we will see how to use what we have created to execute a Machine Learning experiment.

@@ -5,6 +5,8 @@ tags: [machine-learning, azure ml, dataset, datastore]
 draft: false
 ---
 
+## Introduction
+
 In AzureML, the two essential concepts that help us work with data are Datastores and Datasets.
 
 - Datastores are used for storing connection information to Azure storage services
@@ -12,7 +14,7 @@ In AzureML, the two essential concepts that help us work with data are Datastore
 
 ![Datastores and Datasets](/post/img/azureml_datasetsstores_fig1.jpg)
 
-#### Datastores
+## Datastores
 
 Azure has various locations for storing data, such as;
 
@@ -34,7 +36,7 @@ These will contain the relevant data and code for the AzureML resource.
 
 ![Creating a Datastore](/post/img/azureml_datasetsstores_datastore_create.jpg)
 
-#### Datasets
+## Datasets
 
 Datasets are those assets in the Machine learning Workspace where we connect to the data in storage services so that the data is made available for ML Experiments. Hence when creating a dataset, we create a reference to the data in storage services. Information is not copied from the storage service to the workspace for several reasons.
 
