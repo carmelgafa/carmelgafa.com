@@ -5,8 +5,9 @@ tags: []
 draft: true
 description: ""
 ---
+## Introduction
 
-
+![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
 ## Create Train and Test sets
 
 ```python train_test_split
@@ -310,4 +311,157 @@ with open(model_path, 'wb') as handle:
 # Uploading the model to the Azure ML workspace and registering it.
 run.upload_file(model_path,model_path)
 run.register_model(model_path=model_path, model_name='concrete_model')
+```
+
+## Deploying the Pipeline
+
+```python pipeline deployment
+'''
+Execute the training pipeline with the following steps:
+
+- Step 1: Split the data into train and test sets
+- Step 2: Prepare the train data for training and generate a prepare data pipeline
+- Step 3: Train the model using various algorithms and select the best one
+'''
+import os
+from azureml.pipeline.steps.python_script_step import PythonScriptStep
+from azureml.pipeline.core import Pipeline, PipelineParameter
+from azureml.core import Workspace, Experiment, Dataset, Datastore
+from azureml.core.runconfig import RunConfiguration
+from azureml.core.environment import Environment
+from azureml.data.output_dataset_config import OutputFileDatasetConfig
+from pytest import param
+from azuremlproject import constants
+
+# Loading the workspace from the config file.
+config_path = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    '..',
+    '..',
+    '.azureml')
+ws = Workspace.from_config(path=config_path)
+
+# create a new runconfig object
+run_config = RunConfiguration()
+
+# Creating a new environment with the name env-7 and 
+# installing the packages in the requirements.txt file.
+environment = Environment.from_pip_requirements(
+    name='env-7',
+    file_path=os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'requirements.txt')
+    )
+run_config.environment = environment
+
+# Path to the folder containing the scripts that
+# will be executed by the pipeline.
+source_directory = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    'pipeline_steps')
+
+data_store = Datastore(ws, constants.DATASTORE_NAME)
+
+print('Creating train test folders....')
+
+# Creating the output folders for the pipeline.
+train_X_folder = OutputFileDatasetConfig(
+    destination=(data_store, 'train_X_folder')).register_on_complete('train_X')
+train_y_folder = OutputFileDatasetConfig(
+    destination=(data_store, 'train_y_folder')).register_on_complete('train_y')
+
+test_X_folder = OutputFileDatasetConfig(
+    destination=(data_store, 'test_X_folder')).register_on_complete('test_X')
+
+test_y_folder = OutputFileDatasetConfig(
+    destination=(data_store, 'test_y_folder')).register_on_complete('test_y')
+
+train_Xt_folder = OutputFileDatasetConfig(
+    destination=(data_store, 'train_Xt_folder')).register_on_complete('train_Xt')
+
+pipeline_folder = OutputFileDatasetConfig(destination=(data_store, 'pipeline_folder'))
+model_folder = OutputFileDatasetConfig(destination=(data_store, 'model_folder'))
+print('train test folders created')
+
+concrete_dataset = Dataset.get_by_name(ws, 'concrete_baseline')
+ds_input = concrete_dataset.as_named_input('concrete_baseline')
+
+print('step_train_test_split ....')
+# Splitting the data into train and test sets.
+step_train_test_split = PythonScriptStep(
+    script_name = 'step_train_test_split.py',
+    arguments=[
+        '--train_X_folder', train_X_folder,
+        '--train_y_folder', train_y_folder,
+        '--test_X_folder', test_X_folder,
+        '--test_y_folder', test_y_folder],
+    inputs = [ds_input],
+    compute_target = constants.INSTANCE_NAME,
+    source_directory=source_directory,
+    allow_reuse = True,
+    runconfig = run_config
+)
+print('step_train_test_split done')
+
+print('step_prepare_data ....')
+# step that will execute the script step_prepare_data.py.
+step_prepare_data = PythonScriptStep(
+    script_name = 'step_prepare_data.py',
+    arguments=[
+        '--train_X_folder', train_X_folder.as_input('train_X_folder'),
+        '--train_Xt_folder', train_Xt_folder,
+        '--pipeline_folder', pipeline_folder],
+    compute_target = constants.INSTANCE_NAME,
+    source_directory=source_directory,
+    allow_reuse = True,
+    runconfig = run_config
+)
+print('step_prepare_data done')
+
+print('training_step ....')
+# step that will execute the script step_train.py.
+
+param_bag_regressor_n_estimators = PipelineParameter(
+    name='The number of estimators of the bagging regressor',
+    default_value=20)
+
+param_decision_tree_max_depth = PipelineParameter(
+    name='The maximum depth of the decision tree',
+    default_value=5)
+
+param_random_forest_n_estimators = PipelineParameter(
+    name='The number of estimators of the random forest',
+    default_value=5)
+
+training_step = PythonScriptStep(
+    script_name = 'step_train.py',
+    arguments=[
+        '--train_Xt_folder', train_Xt_folder.as_input('train_Xt_folder'),
+        '--train_y_folder', train_y_folder.as_input('train_y_folder'),
+        '--model_folder', model_folder,
+        '--bag_regressor_n_estimators', param_bag_regressor_n_estimators,
+        '--decision_tree_max_depth', param_decision_tree_max_depth,
+        '--random_forest_n_estimators', param_random_forest_n_estimators],
+    compute_target = constants.INSTANCE_NAME,
+    source_directory=source_directory,
+    allow_reuse = True,
+    runconfig=run_config
+)
+print('training_step done')
+
+# Build the pipeline
+print('Building pipeline...')
+pipeline = Pipeline(
+    workspace=ws,
+    steps=[
+        step_train_test_split,
+        step_prepare_data,
+        training_step
+    ])
+print('Pipeline built')
+
+# Submit the pipeline to be run
+experiment = Experiment(ws, 'Concrete_Strength__Pipeline_2')
+run = experiment.submit(pipeline)
+run.wait_for_completion()
 ```
