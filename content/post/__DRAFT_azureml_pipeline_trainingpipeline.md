@@ -7,6 +7,13 @@ description: ""
 ---
 ## Introduction
 
+In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset. In this section, we will use that dataset to train a number of models and evaluate their performance.
+
+The pipeline investigated in here is made of the following steps:
+
+1. **Create Test and Train Datasets**. Here will will base our work on the premise that the amount of cement in our mixture is an important attribute to predict the strength of concrete. We will use this information to create the test and train datasets, by using stratified sampling based on the cement content. In this case, will place all records in one of five buckets based on their cement content.In practice, this assignment is carried out by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets, based on **cement_cat**. The process will yield a test set with a size of 20% and a train set with a size of 80% of the original data. The train and test sets are further split into the features and the labels datasets, and the four sets are saved and published as AzureML datasets to be used later on. Naturally, **cement_cat** is deleted from the data at this stage.
+
+
 ![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
 ## Create Train and Test sets
 
