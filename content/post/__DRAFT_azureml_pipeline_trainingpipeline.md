@@ -12,15 +12,21 @@ In the second section of this tutorial, we will show how to use the Azure Machin
 The pipeline investigated in here is made of the following steps:
 
 1. **Create Test and Train Datasets**. Here will will base our work on the premise that the amount of cement in our mixture is an important attribute to predict the strength of concrete. We will use this information to create the test and train datasets, by using stratified sampling based on the cement content. In this case, will place all records in one of five buckets based on their cement content.In practice, this assignment is carried out by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets, based on **cement_cat**. The process will yield a test set with a size of 20% and a train set with a size of 80% of the original data. The train and test sets are further split into the features and the labels datasets, the four sets are saved and published as AzureML datasets to be used later on. Naturally, **cement_cat** is deleted from the data at this stage.
+
 2. **Prepare the Data**. In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The end result of this step is a Scikit Learn transformation pipeline that will consist of two steps:
 
     - A **Custom Transformer**, called **CombinedAggregateAdder** that will  add the coarse and fine aggregate features.
+
     - A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
 
 The two transformers are chained together using Scikit Learn's **Pipeline** class. This step will also transform the train features dataset, that is also stored in AzureML datastore, and published as a dataset. It is important to mentiopn that this is not the normal approach to prepare the data, as Microsoft Azure provides a number of tools, such as **Azure Databricks**, that are better suited for this task. But in out own small project, we will use the coding approach.
-3. **Train the Models**. 
+
+3. **Train the Models**. The last step of the pipeline is to train several models, evaluate their performance and select the best one. 
+
+The figure below shows the training process of the models.
 
 ![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
+
 ## Create Train and Test sets
 
 ```python train_test_split
