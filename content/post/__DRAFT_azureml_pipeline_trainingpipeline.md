@@ -7,9 +7,15 @@ description: ""
 ---
 ## Introduction
 
-In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset. In this section, we will use that dataset to train a number of models and evaluate their performance.
+In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset. In this section, we will create an AzureML pipeline that will use that dataset to train a number of models, evaluate their performance and select the best one.
 
-The pipeline investigated in here is made of the following steps:
+AzureMl pipelines are used to connect together a number of steps that can be executed in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various steps can be connected together using a well defined interface.Pipelines can be parametrized, thus allowing us to investigate various scenarios and variations of the same pipeline.
+
+Au outline of the pipeline implemented in this example is shown in the diagram below. The diagram shows the steps that are part of the pipeline and the outputs of each step.
+
+![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
+
+In the following sections we will discuss each step of the pipeline in detail.
 
 ### Create Test and Train Datasets
 
@@ -29,20 +35,39 @@ The two transformers are chained together using Scikit Learn's **Pipeline** clas
 
 The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are evaluated are the following:
 
-    - **Linear Regression**, using Scikit Learn's **LinearRegression** class.
+- **Linear Regression**, using Scikit Learn's **LinearRegression** class.
+- **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
+- **Gradient Boosting**, using Scikit Learn's **GradientBoostingRegressor** class.
+- **Bagging Regressor**, using Scikit Learn's **BaggingRegressor** class.
 
-    - **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
+The models are evaluated using the  root mean squared error (RMSE) metric, where
 
-    - **Gradient Boosting**, using Scikit Learn's **GradientBoostingRegressor** class.
+$$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
 
-    - **Bagging**, using Scikit Learn's **BaggingRegressor** class.
+where $y_i$ is the true value and $\hat{y_i}$ is the predicted value for the ith test record.
 
-The models are evaluated using the  root mean squared error (RMSE) metric, 
-The figure below shows the training process of the models.
-
-![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
+In the following sections, we will look at the implementation of each pipeline step in more detail and also discuss the creation of the pipeline. We will only discuss the AzureML peculiarities in this post.
 
 ## Create Train and Test sets
+
+The first pipeline step will use the created **concrete_base** dataset to create the train and test sets. This step will output four attributes:
+
+- **train_features**: the features dataset for the train set.
+- **train_labels**: the labels dataset for the train set.
+- **test_features**: the features dataset for the test set.
+- **test_labels**: the labels dataset for the test set.
+
+The location of these attributes are specified as arguments to this pipeline step.
+
+Execution of this pipeline step starts with retreiving the concrete_base dataset from AzureML datastore. In ore=der to do this, we need to get an instance of the run execution of the trial bbeing executed. This is done by calling the **get_context()** method of the **Run** class. The concrete_base dataset can then be obtained through the **input_datasets** property of the **RunContext** class, refencing the dataset name. The dataset can be converted to a pandas dataframe using the **to_pandas_dataframe()** method so that it can be used.
+
+The concrete_base dataset is then split into train and test sets using the **StratifiedShuffleSplit** class. The **StratifiedShuffleSplit** class is a cross-validation iterator that provides train/test indices to split data in train/test sets. The **StratifiedShuffleSplit** class is used to split the concrete_base dataset into train and test sets. The concrete_base dataset is split into 80% train and 20% test sets. The train and test sets are then split into features and labels datasets. The features and labels datasets are then saved and published as AzureML datasets.
+
+The four dataframes are saved to csv files in the locations specified as arguments to this pipeline step by using the numpy **to_csv** method.
+
+Finall, this step outputs some metrics that can be used by the user to validate the correct execution. Logging is done using the **log()** method of the **Run** class.
+
+The following code shows the implemenation of the first pipeline step.
 
 ```python train_test_split
 
@@ -57,6 +82,8 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 RANDOM_STATE = 42
 
+run = Run.get_context()
+
 # Parsing the arguments passed to the script.
 parser = argparse.ArgumentParser()
 parser.add_argument('--train_X_folder', dest='train_X_folder', required=True)
@@ -67,7 +94,7 @@ args = parser.parse_args()
 
 # This is the code that is used to read the data from the dataset 
 # that was created in the previous step.
-concrete_dataset = Run.get_context().input_datasets['concrete_baseline']
+concrete_dataset = run.input_datasets['concrete_baseline']
 df_concrete = concrete_dataset.to_pandas_dataframe()
 
 # prepare the data, we will use a stratified split to create a train and test set
@@ -100,7 +127,7 @@ np.savetxt(os.path.join(args.test_X_folder, "data.txt"), X_test, delimiter=",")
 np.savetxt(os.path.join(args.test_y_folder, "data.txt"), y_test, delimiter=",")
 
 # This is logging the shape of the data.
-run = Run.get_context()
+
 run.log('X_train', X_train.shape)
 run.log('y_train', y_train.shape)
 run.log('X_test', X_test.shape)
