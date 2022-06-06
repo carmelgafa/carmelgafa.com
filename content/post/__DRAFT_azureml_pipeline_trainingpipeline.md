@@ -137,6 +137,10 @@ run.log('y_test', y_test.shape)
 
 ## Preparing data for training
 
+The second step of the pipeline is to prepare the data for training. As mentioned previously, this setp will create a  Scikit learn pipeline that will be use to transform our data. This pipeline will be registeed as a model that will be used in conjustiion to the ML model.
+
+The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used create the pipeline and save the output.
+
 ```python data_processor
 '''
 Data Preprocessor
@@ -526,3 +530,7 @@ experiment = Experiment(ws, 'Concrete_Strength__Pipeline_2')
 run = experiment.submit(pipeline)
 run.wait_for_completion()
 ```
+
+## Pipeline execution
+
+todo
