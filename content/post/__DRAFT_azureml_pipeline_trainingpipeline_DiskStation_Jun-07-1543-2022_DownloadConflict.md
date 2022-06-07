@@ -16,7 +16,8 @@ It is useful to spend a moment at this stage to discuss the final goal of this p
 - a data transformation model that will be used to transform the data into a format that can be used by the machine learning model.
 - a machine learning model that will be used to predict the concrete strength of the concrete.
 
-The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but the two models approach was selected primarily to show how use different models together.
+The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but the 
+
 
 An outline of the pipeline implemented in this example is shown in the diagram below. The diagram shows the steps that are part of the pipeline and the outputs of each step.
 
@@ -55,10 +56,6 @@ where $y_i$ is the true value and $\hat{y_i}$ is the predicted value for the ith
 
 In the following sections, we will look at the implementation of each pipeline step in more detail and also discuss the creation of the pipeline. We will only discuss the AzureML peculiarities in this post.
 
-
-
-
-
 ## Create Train and Test sets
 
 The first pipeline step will use the created **concrete_base** dataset to create the train and test sets. This step will output four attributes:
@@ -70,15 +67,15 @@ The first pipeline step will use the created **concrete_base** dataset to create
 
 The location of these attributes are specified as arguments to this pipeline step.
 
-Execution of this pipeline step starts with retrieving the concrete_base dataset from AzureML datastore. In ore=der to do this, we need to get an instance of the run execution of the trial bbeing executed. This is done by calling the **get_context()** method of the **Run** class. The concrete_base dataset can then be obtained through the **input_datasets** property of the **RunContext** class, refencing the dataset name. The dataset can be converted to a pandas dataframe using the **to_pandas_dataframe()** method so that it can be used.
+Execution of this pipeline step starts with retreiving the concrete_base dataset from AzureML datastore. In ore=der to do this, we need to get an instance of the run execution of the trial bbeing executed. This is done by calling the **get_context()** method of the **Run** class. The concrete_base dataset can then be obtained through the **input_datasets** property of the **RunContext** class, refencing the dataset name. The dataset can be converted to a pandas dataframe using the **to_pandas_dataframe()** method so that it can be used.
 
 The concrete_base dataset is then split into train and test sets using the **StratifiedShuffleSplit** class. The **StratifiedShuffleSplit** class is a cross-validation iterator that provides train/test indices to split data in train/test sets. The **StratifiedShuffleSplit** class is used to split the concrete_base dataset into train and test sets. The concrete_base dataset is split into 80% train and 20% test sets. The train and test sets are then split into features and labels datasets. The features and labels datasets are then saved and published as AzureML datasets.
 
 The four dataframes are saved to csv files in the locations specified as arguments to this pipeline step by using the numpy **to_csv** method.
 
-Finally, this step outputs some metrics that can be used by the user to validate the correct execution. Logging is done using the **log()** method of the **Run** class.
+Finall, this step outputs some metrics that can be used by the user to validate the correct execution. Logging is done using the **log()** method of the **Run** class.
 
-The following code shows the implementation of the first pipeline step.
+The following code shows the implemenation of the first pipeline step.
 
 ```python train_test_split
 
