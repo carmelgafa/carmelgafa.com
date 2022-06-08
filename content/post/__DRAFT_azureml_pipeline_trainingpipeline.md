@@ -7,40 +7,40 @@ description: ""
 ---
 ## Introduction
 
-In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called **concrete_baseline**. In this section, we will create an AzureML pipeline that will use that dataset to train a number of models, evaluate their performance and select the best one.
+In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called **concrete_baseline**. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.
 
-AzureMl pipelines are used to connect together a number of steps that can be executed in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various steps can be connected together using a well defined interface.Pipelines can be parametrized, thus allowing us to investigate various scenarios and variations of the same pipeline.
+AzureMl pipelines connect several functional steps that we can execute in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various pipeline steps can be connected using a well-defined interface. Pipelines can be parametrized, thus allowing us to investigate different scenarios and variations of the same AzureML-pipeline.
 
-It is useful to spend a moment at this stage to discuss the final goal of this pipeline. We will use this pipeline to create two models:
+It is helpful to spend a moment at this stage to discuss the final goal of this pipeline. We will use this pipeline to create two models:
 
-- a data transformation model that will be used to transform the data into a format that can be used by the machine learning model.
+- a data transformation model that will be used to transform the data into a format that the machine learning model can use.
 - a machine learning model that will be used to predict the concrete strength of the concrete.
 
-The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but the two models approach was selected primarily to show how use different models together.
+The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but we opted for the two models approach to show how to use different models together.
 
-An outline of the pipeline implemented in this example is shown in the diagram below. The diagram shows the steps that are part of the pipeline and the outputs of each step.
+An outline of the pipeline implemented in this example is shown in the diagram below. The illustration below shows the steps that are part of the pipeline and the outputs of each step.
 
 ![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
 
-In the following sections we will discuss each step of the pipeline in detail.
+In the following sections, we will discuss each pipeline step in detail.
 
 ### Create Test and Train Datasets
 
-Here will will base our work on the premise that the amount of cement in our mixture is an important attribute to predict the strength of concrete. We will use this information to create the test and train datasets, by using stratified sampling based on the cement content. In this case, will place all records in one of five buckets based on their cement content.In practice, this assignment is carried out by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets, based on **cement_cat**. The process will yield a test set with a size of 20% and a train set with a size of 80% of the original data. The train and test sets are further split into the features and the labels datasets, the four sets are saved and published as AzureML datasets to be used later on. Naturally, **cement_cat** is deleted from the data at this stage.
+Here we will base our work on the premise that the amount of cement in our mixture is a vital attribute in predicting the strength of concrete. We will use this information to create the test and train datasets using stratified sampling based on the cement content. This technique will place all records in one of five buckets based on their cement content. This assignment is carried out in practice by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets based on **cement_cat**. The process will yield a test set with a size of 20% and a train set containing 80% of the original data. The train and test sets are further split into the features and the labels datasets; the four sets are saved and published as AzureML datasets to be used later on. Naturally, **cement_cat** is deleted from the data at this stage.
 
 ### Prepare the Data
 
-In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The end result of this step is a Scikit Learn transformation pipeline that will consist of two steps:
+In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The result of this step is a Scikit Learn transformation pipeline that will consist of two stages:
 
-- A **Custom Transformer**, called **CombinedAggregateAdder** that will  add the coarse and fine aggregate features.
+A **Custom Transformer**, called **CombinedAggregateAdder**, will add coarse and fine aggregate features into a new feature called **Aggregate**.
 
-- A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
+A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
 
-The two transformers are chained together using Scikit Learn's **Pipeline** class. This step will also transform the train features dataset, that is also stored in AzureML datastore, and published as a dataset. It is important to mentiopn that this is not the normal approach to prepare the data, as Microsoft Azure provides a number of tools, such as **Azure Databricks**, that are better suited for this task. But in out own small project, we will use the coding approach.
+The two transformers are chained together using Scikit Learn's **Pipeline** class. This step will also transform the train features dataset, stored in AzureML datastore, and published as a dataset. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
 
 ### Train the Models
 
-The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are evaluated are the following:
+The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
 
 - **Linear Regression**, using Scikit Learn's **LinearRegression** class.
 - **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
@@ -51,13 +51,9 @@ The models are evaluated using the  root mean squared error (RMSE) metric, where
 
 $$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
 
-where $y_i$ is the true value and $\hat{y_i}$ is the predicted value for the ith test record.
+, where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value for the ith test record.
 
-In the following sections, we will look at the implementation of each pipeline step in more detail and also discuss the creation of the pipeline. We will only discuss the AzureML peculiarities in this post.
-
-
-
-
+In the following sections, we will look at the implementation of each pipeline step in more detail, together with the pipeline's creation process, focussing on the AzureML peculiarities as much as possible.
 
 ## Create Train and Test sets
 
