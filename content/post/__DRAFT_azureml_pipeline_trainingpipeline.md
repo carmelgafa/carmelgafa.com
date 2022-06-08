@@ -541,3 +541,8 @@ run.wait_for_completion()
 ## Pipeline execution
 
 todo
+
+
+## References
+
+[1] V. Iliescu, “Vlad Iliescu,” Avatar. [Online]. Available: https://vladiliescu.net/. [Accessed: 08-Jun-2022].
