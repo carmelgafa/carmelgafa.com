@@ -24,6 +24,25 @@ An outline of the pipeline implemented in this example is shown in the diagram b
 
 In the following sections, we will discuss each pipeline step in detail.
 
+## Data passing mechanisms
+
+There are various options whereby data can be passed from one step to another within an AzureML pipeline, a excellent article on this topic can be found in Vlad Ilescu's blog [1]. Three options that are available are:
+
+- Using AzureMl datasets as pipeline inputs. We have already created a dataset called **concrete_baseline**, that contains the concrete strength data. We will use this dataset as the input to the first step of the pipeline.
+
+- Using PipelineData. PipelineData is a very versatile object that can be used to pass data of any type between steps in the pipeline, this is a great choice for passing data that is necessary in the context of the pipeline. In our example, we will create a dataset with the transformed train features dataset, that will be also used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step, and will be used as the input to the training step, albeit it will be also registered as an AzureML model. The natural choice for these entities is the PipelineData object.
+
+- Using OutputFileDatasetConfig has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the pipeline, namely;
+  
+  - In the model hyperparameter tuning phase, we will use the train datasets as the input to the model hyperparameter tuning step.
+  
+  - In the validation phase, we will use the test datasets as our input.
+
+Therefore OutputFileDatasetConfig was considered as an excellent choice for these cases.
+
+
+
+
 ### Create Test and Train Datasets
 
 Here we will base our work on the premise that the amount of cement in our mixture is a vital attribute in predicting the strength of concrete. We will use this information to create the test and train datasets using stratified sampling based on the cement content. This technique will place all records in one of five buckets based on their cement content. This assignment is carried out in practice by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets based on **cement_cat**. The process will yield a test set with a size of 20% and a train set containing 80% of the original data. The train and test sets are further split into the features and the labels datasets; the four sets are saved and published as AzureML datasets to be used later on. Naturally, **cement_cat** is deleted from the data at this stage.
