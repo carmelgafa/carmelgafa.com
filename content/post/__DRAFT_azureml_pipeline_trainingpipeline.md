@@ -30,9 +30,9 @@ There are various options whereby data can be passed from one step to another wi
 
 - Using AzureMl datasets as pipeline inputs. We have already created a dataset called **concrete_baseline**, that contains the concrete strength data. We will use this dataset as the input to the first step of the pipeline.
 
-- Using PipelineData. PipelineData is a very versatile object that can be used to pass data of any type between steps in the pipeline, this is a great choice for passing data that is necessary in the context of the pipeline. In our example, we will create a dataset with the transformed train features dataset, that will be also used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step, and will be used as the input to the training step, albeit it will be also registered as an AzureML model. The natural choice for these entities is the PipelineData object.
+- Using **PipelineData**. **PipelineData** is a very versatile object that can be used to pass data of any type between steps in the pipeline, this is a great choice for passing data that is necessary in the context of the pipeline. In our example, we will create a dataset with the transformed train features dataset, that will be also used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step, and will be used as the input to the training step, albeit it will be also registered as an AzureML model. The natural choice for these entities is the PipelineData object.
 
-- Using OutputFileDatasetConfig has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the pipeline, namely;
+- Using **OutputFileDatasetConfig** has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the pipeline, namely;
   
   - In the model hyperparameter tuning phase, we will use the train datasets as the input to the model hyperparameter tuning step.
   
@@ -565,3 +565,5 @@ todo
 ## References
 
 [1] V. Iliescu, “Vlad Iliescu,” Avatar. [Online]. Available: https://vladiliescu.net/. [Accessed: 08-Jun-2022].
+
+[2] Li et al, “Use pipeline parameters to build versatile pipelines - azure machine learning,” | Microsoft Docs. [Online]. Available: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter. [Accessed: 09-Jun-2022].
