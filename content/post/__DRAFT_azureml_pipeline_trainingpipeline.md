@@ -139,11 +139,9 @@ In this step, we will use the AzureML SDK and Scikit Learn to prepare the data f
 
 - A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
 
-The two transformers are chained together using Scikit Learn's **Pipeline** class. This step will also transform the train features dataset, stored in AzureML datastore, and published as a dataset. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
+The two transformers are chained together using Scikit Learn's **Pipeline** class. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
 
-The second step of the pipeline is to prepare the data for training. As mentioned previously, this setp will create a  Scikit learn pipeline that will be use to transform our data. This pipeline will be registeed as a model that will be used in conjustiion to the ML model.
-
-The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used create the pipeline and save the output.
+The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used return the  the pipeline and transformed data.
 
 ```python data_processor
 '''
@@ -207,6 +205,20 @@ def pipeline_fit_transform_save(data):
     return pipeline, data_transformed
 ```
 
+
+The second step of the pipeline will use the transformation specified above to prepare the data for training. As mentioned previously, this step will create a  Scikit learn data preparation pipeline that we will use to transform our data so that our machine learning model can use it. This data preparation pipeline will be registered as an AzureML model that can be easily loaded and used in other phases of this project in conjunction with the Machine Learning Model.
+
+This pipeline step has three arguments
+an input argument, the training features dataset location.
+Two output arguments; the transformed training features dataset location and the data preparation pipeline location.
+In this approach, we will be passing the location of the data preparation pipeline and the transformed features data as pipeline parameters. Nonetheless, as we have seen previously, other methods are possible.
+
+The pipeline step will hence call the **pipeline_fit_transform_save()**, passing the train features data to obtain the data-transformer based on the input data and the transformed data.
+
+The transformed data is converted into a **Pandas ** object with the appropriate column headings, whilst
+TODO check here
+
+
 ```python data_processor
 '''
 Data Preprocessor step of the pipeline.
@@ -234,11 +246,7 @@ args = parser.parse_args()
 # Loading the data from the data store.
 X_train_path = os.path.join(args.train_X_folder, "data.txt")
 
-X_train = pd.read_csv(X_train_path, header=None).to_numpy()#.squeeze()
-
-
-# X_train = np.loadtxt(X_train_path, delimiter=",")
-run.log('X_train', X_train.shape)
+X_train = pd.read_csv(X_train_path, header=None).to_numpy()
 
 # Fitting the pipeline to the training data and transforming the training data.
 pipeline, X_train_transformed = pipeline_fit_transform_save(X_train)
