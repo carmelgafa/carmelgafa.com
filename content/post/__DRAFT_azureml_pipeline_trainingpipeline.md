@@ -131,37 +131,15 @@ run.log('y_test', y_test.shape)
 
 ```
 
-### Prepare the Data
+### Step 2: Preparing the Data
 
 In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The result of this step is a Scikit Learn transformation pipeline that will consist of two stages:
 
-A **Custom Transformer**, called **CombinedAggregateAdder**, will add coarse and fine aggregate features into a new feature called **Aggregate**.
+- A **Custom Transformer**, called **CombinedAggregateAdder**, will add coarse and fine aggregate features into a new feature called **Aggregate**.
 
-A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
+- A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
 
 The two transformers are chained together using Scikit Learn's **Pipeline** class. This step will also transform the train features dataset, stored in AzureML datastore, and published as a dataset. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
-
-### Train the Models
-
-The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
-
-- **Linear Regression**, using Scikit Learn's **LinearRegression** class.
-- **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
-- **Gradient Boosting**, using Scikit Learn's **GradientBoostingRegressor** class.
-- **Bagging Regressor**, using Scikit Learn's **BaggingRegressor** class.
-
-The models are evaluated using the  root mean squared error (RMSE) metric, where
-
-$$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
-
-, where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value for the ith test record.
-
-In the following sections, we will look at the implementation of each pipeline step in more detail, together with the pipeline's creation process, focussing on the AzureML peculiarities as much as possible.
-
-## Create Train and Test sets
-
-
-## Preparing data for training
 
 The second step of the pipeline is to prepare the data for training. As mentioned previously, this setp will create a  Scikit learn pipeline that will be use to transform our data. This pipeline will be registeed as a model that will be used in conjustiion to the ML model.
 
@@ -287,6 +265,31 @@ with open(pipeline_path, 'wb') as handle:
 run.upload_file(pipeline_path,pipeline_path)
 run.register_model(model_path=pipeline_path, model_name='data_pipeline')
 ```
+
+
+
+### Train the Models
+
+The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
+
+- **Linear Regression**, using Scikit Learn's **LinearRegression** class.
+- **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
+- **Gradient Boosting**, using Scikit Learn's **GradientBoostingRegressor** class.
+- **Bagging Regressor**, using Scikit Learn's **BaggingRegressor** class.
+
+The models are evaluated using the  root mean squared error (RMSE) metric, where
+
+$$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
+
+, where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value for the ith test record.
+
+In the following sections, we will look at the implementation of each pipeline step in more detail, together with the pipeline's creation process, focussing on the AzureML peculiarities as much as possible.
+
+## Create Train and Test sets
+
+
+## Preparing data for training
+
 
 ## Model training and selection
 
