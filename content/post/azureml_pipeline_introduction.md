@@ -47,7 +47,7 @@ At a high level, the project structure is as follows:
     - **experiment_1**  -  This folder contains the experiment 1.
     - **$\dots$**
     - **experiment_14**  -  This folder contains the experiment 14.
-      - **deply**  -  This folder contains the deployment of the model.
+      - **deploy**  -  This folder contains the deployment of the model.
       - **optimize**  -  This folder contains the hyperparameter optimization.
       - **train**  -  This folder contains the training of the model.
       - **upload**  -  This folder contains the upload of the data.
