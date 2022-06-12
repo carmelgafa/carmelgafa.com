@@ -143,12 +143,16 @@ The two transformers are chained together using Scikit Learn's **Pipeline** clas
 
 The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used return the  the pipeline and transformed data.
 
-```python data_processor
+```python
 '''
-Data Preprocessor
+Data Transformer Builder
+
+Creates a data transformer comprising of the following steps:
 
 - combines the fine aggregate and coarse aggregate into a single feature
 - scales the data using StandardScaler
+
+Transforms the data and returns the transformed data and the transformer
 '''
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -183,7 +187,7 @@ class CombinedAggregateAdder(BaseEstimator, TransformerMixin):
 
 def transformation_pipeline():
     '''
-    Pipeline Creator
+    Scikit learn Pipeline Creator : the transformer
     '''
     # Creating a pipeline that will first add the
     # two aggregate features and then scale the data.
@@ -194,17 +198,16 @@ def transformation_pipeline():
 
     return pipeline
 
-def pipeline_fit_transform_save(data):
+def data_transform(data):
     '''
     Creates a transformation pipeline using data.
     Returns the transformed data and the pipeline.
     '''
-    pipeline = transformation_pipeline()
-    data_transformed = pipeline.fit_transform(data)
+    data_transformer = transformation_pipeline()
+    transformed_data = data_transformer.fit_transform(data)
 
-    return pipeline, data_transformed
+    return data_transformer, transformed_data
 ```
-
 
 The second step of the pipeline will use the transformation specified above to prepare the data for training. As mentioned previously, this step will create a  Scikit learn data preparation pipeline that we will use to transform our data so that our machine learning model can use it. This data preparation pipeline will be registered as an AzureML model that can be easily loaded and used in other phases of this project in conjunction with the Machine Learning Model.
 
@@ -213,13 +216,9 @@ an input argument, the training features dataset location.
 Two output arguments; the transformed training features dataset location and the data preparation pipeline location.
 In this approach, we will be passing the location of the data preparation pipeline and the transformed features data as pipeline parameters. Nonetheless, as we have seen previously, other methods are possible.
 
-The pipeline step will hence call the **pipeline_fit_transform_save()**, passing the train features data to obtain the data-transformer based on the input data and the transformed data.
+The pipeline step will hence call the **pipeline_fit_transform_save()**, passing the train features data to obtain the data-transformer and the transformed data features. The transformed data is then saved to the specified location and registered as an AzureML model.
 
-The transformed data is converted into a **Pandas ** object with the appropriate column headings, whilst
-TODO check here
-
-
-```python data_processor
+```python
 '''
 Data Preprocessor step of the pipeline.
 '''
@@ -229,29 +228,30 @@ import pickle
 import numpy as np
 import pandas as pd
 from azureml.core import Run
-from data_preprocessor import pipeline_fit_transform_save
+from data_transformer_builder import data_transform
 
 # The dataset is specified at the pipeline definition level.
-RANDOM_STATE = 42
-
 run = Run.get_context()
 
 # Parsing the arguments passed to the script.
 parser = argparse.ArgumentParser()
 parser.add_argument('--train_X_folder', dest='train_X_folder', required=True)
 parser.add_argument('--train_Xt_folder', dest='train_Xt_folder', required=True)
-parser.add_argument('--pipeline_folder', dest='pipeline_folder', required=True)
+parser.add_argument('--data_transformer_folder', dest='data_transformer_folder', required=True)
 args = parser.parse_args()
 
 # Loading the data from the data store.
 X_train_path = os.path.join(args.train_X_folder, "data.txt")
-
 X_train = pd.read_csv(X_train_path, header=None).to_numpy()
+run.log('X_train', X_train.shape)
 
-# Fitting the pipeline to the training data and transforming the training data.
-pipeline, X_train_transformed = pipeline_fit_transform_save(X_train)
+# Fitting the data transformer to the training data.
+data_transformer, X_train_transformed = data_transform(X_train)
 run.log('X_train_transf', X_train_transformed.shape)
-run.log('pipeline', pipeline)
+run.log('data_transformer', data_transformer)
+
+if not os.path.exists(args.train_Xt_folder):
+    os.mkdir(args.train_Xt_folder)
 
 # Saving the transformed data to the data store.
 np.savetxt(
@@ -260,21 +260,18 @@ np.savetxt(
     delimiter=",",
     fmt='%s')
 
-# Creating a dataframe with the column names and the transformed data.
-column_names = ['cement', 'slag', 'ash', 'water', 'superplastic', 'totalagg', 'age']
-Xt_train = pd.DataFrame(X_train_transformed, columns=column_names)
+if not os.path.exists(args.data_transformer_folder):
+    os.mkdir(args.data_transformer_folder)
 
-# Saving the pipeline to a file.
-pipeline_path = os.path.join(args.pipeline_folder, 'data_pipeline.pkl')
-with open(pipeline_path, 'wb') as handle:
-    pickle.dump(pipeline, handle, protocol=pickle.HIGHEST_PROTOCOL)
+# Saving the transformer to a file.
+data_transformer_path = os.path.join(args.data_transformer_folder, 'data_transformer.pkl')
+with open(data_transformer_path, 'wb') as handle:
+    pickle.dump(data_transformer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # Registering the model in the Azure ML workspace.
-run.upload_file(pipeline_path,pipeline_path)
-run.register_model(model_path=pipeline_path, model_name='data_pipeline')
+run.upload_file(data_transformer_path,data_transformer_path)
+run.register_model(model_path=data_transformer_path, model_name='data_transformer')
 ```
-
-
 
 ### Train the Models
 
