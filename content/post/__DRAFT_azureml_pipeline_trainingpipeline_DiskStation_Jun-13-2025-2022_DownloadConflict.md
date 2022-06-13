@@ -275,7 +275,7 @@ run.upload_file(data_transformer_path,data_transformer_path)
 run.register_model(model_path=data_transformer_path, model_name='data_transformer')
 ```
 
-### Train and select the Model
+### Train the Models
 
 The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
 
@@ -312,124 +312,11 @@ def rmse_evaluate(model, X_val, y_val):
 
 Next we present the training step code. The code is very similar in nature to what we presented in the previous steps, Howvere there are some differences:
 
-- This pipeline steps will use some pipeline arguments that will allow us to modify some of the models' hyperparameters at this stage; thus helping us in selecting the best model. This step has the following arguments:
-
-  - train_y_folder, the location of the training labels that we have previously stored in a data store.
-  - train_Xt_folder, the location of the transformed training features that we have previously stored in a data store.
-  - model_folder, the location where the model that we will select in this step will be saved.
-  - bag_regressor_n_estimators, the number of trees in the bagging regressor. This is a pipeline argument that will have an initial value that we will define during pipeline creation. This argument, as we shall see later on can be modified and so that a new selection trial is carried out without resubmitting the entire pipeline code.
-  - decision_tree_max_depth , the maximum depth of the decision tree. Similar to the argument above, this  is a pipeline argument.
-  - random_forest_n_estimators, the number of trees in the random forest. Similar to the argument above, this  is a pipeline argument.
-
-- This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria to select our model, but we have chosen to keep the number of parameters as low as possible.
-
-- The cost function is evaluated for each model and logged to the pipeline step metrics by using the **run.log()** function. We also store the model and the resulting RMSE in a dictionary.
-
-- The selected model is  obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.
-
-- Finally, the selected model is saved to the data store in the location specified by the model_folder argument. The model is also registered in the AzureML workspace with the name of **concrete_model**.
-
-The code for this step is as follows:
+- This pipeline steps will use some pipeline arguments that will allow us to modify some of the models' hyperparameters at this stage; thus helping us in our model selection.
 
 
-```python
-'''
-Train step. Trains various models and selects the best one.
-'''
-import os
-import argparse
-import pickle
-import pandas as pd
-from azureml.core import Run
-from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from model_evaluation import evaluate
 
-# Getting the run context.
-run = Run.get_context()
 
-# Parsing the arguments passed to the script.
-parser = argparse.ArgumentParser()
-parser.add_argument('--train_y_folder', dest='train_y_folder', required=True)
-parser.add_argument('--train_Xt_folder', dest='train_Xt_folder', required=True)
-parser.add_argument('--model_folder', dest='model_folder', required=True)
-
-parser.add_argument(
-    '--bag_regressor_n_estimators',
-    dest='bag_regressor_n_estimators',
-    required=True)
-parser.add_argument(
-    '--decision_tree_max_depth',
-    dest='decision_tree_max_depth',
-    required=True)
-parser.add_argument(
-    '--random_forest_n_estimators',
-    dest='random_forest_n_estimators',
-    required=True)
-args = parser.parse_args()
-
-# Reading the data from the `X_train_trans.txt` file and converting it to a numpy array.
-X_t_path = os.path.join(args.train_Xt_folder, "data.txt")
-X_train_trans = pd.read_csv(X_t_path, header=None).to_numpy()#.squeeze()
-
-# Reading the data from the `y_train.txt` file and converting it to a numpy array.
-y_path = os.path.join(args.train_y_folder, "data.txt")
-y_train = pd.read_csv(y_path, header=None).to_numpy()#.squeeze()
-
-# Creating an empty dictionary.
-results = {}
-
-# Training a linear regression model and evaluating it.
-lin_regression = LinearRegression()
-lin_regression.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(lin_regression, X_train_trans, y_train)
-results[lin_regression] = sqrt_mse
-run.log('LinearRegression', sqrt_mse)
-
-# Training a bagging regressor model and evaluating it.
-bag_regressor = BaggingRegressor(
-    n_estimators=int(args.bag_regressor_n_estimators),
-    random_state=42)
-bag_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(bag_regressor, X_train_trans, y_train)
-results[bag_regressor] = sqrt_mse
-run.log('BaggingRegressor', sqrt_mse)
-
-# Training a decision tree regressor model and evaluating it.
-dec_tree_regressor = DecisionTreeRegressor(
-    max_depth=int(args.decision_tree_max_depth))
-dec_tree_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(dec_tree_regressor, X_train_trans, y_train)
-results[dec_tree_regressor] = sqrt_mse
-run.log('DecisionTreeRegressor',sqrt_mse)
-
-# Training a random forest regressor model and evaluating it.
-random_forest_regressor = RandomForestRegressor(
-    n_estimators=int(args.random_forest_n_estimators),
-    random_state=42)
-random_forest_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(random_forest_regressor, X_train_trans, y_train)
-results[random_forest_regressor] = sqrt_mse
-run.log('RandomForestRegressor', sqrt_mse)
-
-# Selecting the model with the lowest RMSE.
-selected_model =  min(results, key=results.get)
-run.log('selected_model', selected_model)
-
-if not os.path.exists(args.model_folder):
-    os.mkdir(args.model_folder)
-
-# Saving the model to a file.
-model_path = os.path.join(args.model_folder, 'model.pkl')
-with open(model_path, 'wb') as handle:
-    pickle.dump(selected_model, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-# Uploading the model to the Azure ML workspace and registering it.
-run.upload_file(model_path,model_path)
-run.register_model(model_path=model_path, model_name='concrete_model')
-
-```
 
 ## Create Train and Test sets
 
