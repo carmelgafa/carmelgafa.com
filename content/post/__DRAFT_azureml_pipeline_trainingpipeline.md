@@ -431,6 +431,11 @@ run.register_model(model_path=model_path, model_name='concrete_model')
 
 ```
 
+### Putting it all together - Pipeline creation
+
+
+
+
 ## Create Train and Test sets
 
 
