@@ -22,6 +22,22 @@ An outline of the pipeline implemented in this example is shown in the diagram b
 
 ![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
 
+The work described in this section is contained in the following folder structure. In the sections below, we will do through all these files one by one.
+
+```text
+train
+│   train_model.py
+|   requirements.txt
+│
+└───src
+│   │   data_transformer_builder.py
+│   │   model_evaluation.py
+|   │   step_prepare_data.py
+│   │   step_train_test_split.py
+│   │   step_train.py
+
+```
+
 ## Data passing mechanisms
 
 There are various options whereby data can be passed from one step to another within an AzureML pipeline, a excellent article on this topic can be found in Vlad Ilescu's blog [1]. Three options that are available are:
@@ -41,7 +57,6 @@ Therefore OutputFileDatasetConfig was considered as an excellent choice for thes
 ## Pipeline steps
 
 In this section, we will look at the steps in more detail. We will also present the code for each step.
-
 ### Step 1: Creation of Test and Train Datasets
 
 In our experiment, we will base our work on the premise that the amount of cement in our mixture is a vital attribute in predicting the strength of concrete. We will use this information and the stratified sampling technique to create the test and train datasets based on the cement content. This technique will place all records in one of five buckets based on cement content. In practice, we carry out this assignment by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets based on **cement_cat**. The process will yield a test set with a size of 20% and a train set containing 80% of the original data. We will further split the train and test sets into the features and the labels datasets, and the four sets are saved and published as AzureML datasets to be used later on. Naturally, we delete **cement_cat** at the end of this process.
@@ -330,7 +345,6 @@ Next we present the training step code. The code is very similar in nature to wh
 - Finally, the selected model is saved to the data store in the location specified by the model_folder argument. The model is also registered in the AzureML workspace with the name of **concrete_model**.
 
 The code for this step is as follows:
-
 
 ```python
 '''
