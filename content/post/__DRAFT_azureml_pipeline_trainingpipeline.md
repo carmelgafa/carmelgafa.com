@@ -57,6 +57,7 @@ Therefore OutputFileDatasetConfig was considered as an excellent choice for thes
 ## Pipeline steps
 
 In this section, we will look at the steps in more detail. We will also present the code for each step.
+
 ### Step 1: Creation of Test and Train Datasets
 
 In our experiment, we will base our work on the premise that the amount of cement in our mixture is a vital attribute in predicting the strength of concrete. We will use this information and the stratified sampling technique to create the test and train datasets based on the cement content. This technique will place all records in one of five buckets based on cement content. In practice, we carry out this assignment by creating a temporary field called **cement_cat** that will hold the cement content bucket. We will then use Scikit Learn's **StratifiedShuffleSplit** class to split the data into train and test sets based on **cement_cat**. The process will yield a test set with a size of 20% and a train set containing 80% of the original data. We will further split the train and test sets into the features and the labels datasets, and the four sets are saved and published as AzureML datasets to be used later on. Naturally, we delete **cement_cat** at the end of this process.
@@ -70,18 +71,7 @@ So, the first pipeline step will use the created **concrete_baseline** dataset t
 
 We specify the location of these entities as arguments for this pipeline step, as we shall see later on.
 
-Execution of this pipeline step starts with retrieving the **concrete_baseline** dataset from the AzureML datasets. To do this, we need to get an instance of the current trial's **run** context. This is done by calling the **get_context()** method of the **Run** class. We can then get the **concrete_base** dataset through the **input_datasets** property of the **RunContext** class, referencing the dataset name. We can convert the dataset to a pandas **Dataframe** using the **to_pandas_dataframe()** method so we can use it later on.
-
-As explained above, the **concrete_baseline** dataset is then split into train and test sets using the **StratifiedShuffleSplit** class. The **StratifiedShuffleSplit** class is a cross-validation iterator that provides train/test indices to split data into train/test sets.
-
-The four pandas Dataframes are saved to CSV files in the locations specified as arguments to this pipeline step using the numpy **to_csv** method. As they were created using the **OutputFileDatasetConfig** process, they will be automatically registered as AzureML datasets as we will see later on.
-
-This step also outputs some metrics that the user can use to validate the correct execution using the logging capabilities of the trial's run. Logging is done through the **log()** method of the **Run** class.
-
-The following code shows the implementation of the first pipeline step.
-
-```python train_test_split
-
+```python
 '''
 Split Train / Test Pipeline Step
 '''
@@ -102,12 +92,20 @@ parser.add_argument('--train_y_folder', dest='train_y_folder', required=True)
 parser.add_argument('--test_X_folder', dest='test_X_folder', required=True)
 parser.add_argument('--test_y_folder', dest='test_y_folder', required=True)
 args = parser.parse_args()
+```
 
+Execution of this pipeline step starts with retrieving the **concrete_baseline** dataset from the AzureML datasets. To do this, we need to get an instance of the current trial's **run** context. This is done by calling the **get_context()** method of the **Run** class. We can then get the **concrete_base** dataset through the **input_datasets** property of the **RunContext** class, referencing the dataset name. We can convert the dataset to a pandas **Dataframe** using the **to_pandas_dataframe()** method so we can use it later on.
+
+```python
 # This is the code that is used to read the data from the dataset 
 # that was created in the previous step.
 concrete_dataset = run.input_datasets['concrete_baseline']
 df_concrete = concrete_dataset.to_pandas_dataframe()
+```
 
+As explained above, the **concrete_baseline** dataset is then split into train and test sets using the **StratifiedShuffleSplit** class. The **StratifiedShuffleSplit** class is a cross-validation iterator that provides train/test indices to split data into train/test sets.
+
+```python
 # prepare the data, we will use a stratified split to create a train and test set
 # first we split the data into 5 buckets according to the cement content
 df_concrete['cement_cat'] = np.ceil((df_concrete['cement'] / 540) * 5)
@@ -129,14 +127,22 @@ X_train = train_set.drop('strength', axis=1)
 y_train = train_set['strength'].copy()
 X_test = test_set.drop('strength', axis=1)
 y_test = test_set['strength'].copy()
+```
 
+The four pandas Dataframes are saved to CSV files in the locations specified as arguments to this pipeline step using the numpy **to_csv** method. As they were created using the **OutputFileDatasetConfig** process, they will be automatically registered as AzureML datasets as we will see later on.
+
+```python
 # Write outputs
 np.savetxt(os.path.join(args.train_X_folder, "data.txt"), X_test, delimiter=",")
 np.savetxt(os.path.join(args.train_y_folder, "data.txt"), y_test, delimiter=",")
 
 np.savetxt(os.path.join(args.test_X_folder, "data.txt"), X_test, delimiter=",")
 np.savetxt(os.path.join(args.test_y_folder, "data.txt"), y_test, delimiter=",")
+```
 
+This step also outputs some metrics that the user can use to validate the correct execution using the logging capabilities of the trial's run. Logging is done through the **log()** method of the **Run** class.
+
+```python
 # This is logging the shape of the data.
 
 run.log('X_train', X_train.shape)
@@ -151,12 +157,6 @@ run.log('y_test', y_test.shape)
 In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The result of this step is a Scikit Learn transformation pipeline that will consist of two stages:
 
 - A **Custom Transformer**, called **CombinedAggregateAdder**, will add coarse and fine aggregate features into a new feature called **Aggregate**.
-
-- A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
-
-The two transformers are chained together using Scikit Learn's **Pipeline** class. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
-
-The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used return the  the pipeline and transformed data.
 
 ```python
 '''
@@ -199,7 +199,13 @@ class CombinedAggregateAdder(BaseEstimator, TransformerMixin):
         aggregate_total = x_val[:, coarse_agg_ix] + x_val[:, fine_agg_ix]
         x_val = np.delete(x_val, [coarse_agg_ix, fine_agg_ix], axis=1)
         return np.c_[x_val, aggregate_total]
+```
 
+- A **Standardization Transformer** that will standardize the features using Scikit Learn's **StandardScaler**.
+
+The two transformers are chained together using Scikit Learn's **Pipeline** class. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as **Azure Databricks**, that are better suited for this task. But in our small project, we will use the coding approach.
+
+```python
 def transformation_pipeline():
     '''
     Scikit learn Pipeline Creator : the transformer
@@ -212,6 +218,11 @@ def transformation_pipeline():
     ])
 
     return pipeline
+```
+
+The code to generate the data transformation pipeline is shown below. The method **pipeline_fit_transform_save()** is used return the  the pipeline and transformed data.
+
+```python
 
 def data_transform(data):
     '''
@@ -232,8 +243,6 @@ This pipeline step has three arguments
 - Two output arguments; the transformed training features dataset location and the data preparation pipeline location.
 
 In this approach, we will be passing the location of the data preparation pipeline and the transformed features data as pipeline parameters. Nonetheless, as we have seen previously, other methods are possible.
-
-The pipeline step will hence call the **pipeline_fit_transform_save()**, passing the train features data to obtain the data-transformer and the transformed data features. The transformed data is then saved to the specified location and registered as an AzureML model.
 
 ```python
 '''
@@ -261,12 +270,20 @@ args = parser.parse_args()
 X_train_path = os.path.join(args.train_X_folder, "data.txt")
 X_train = pd.read_csv(X_train_path, header=None).to_numpy()
 run.log('X_train', X_train.shape)
+```
 
+The pipeline step will call the **pipeline_fit_transform_save()**, passing the train features data to obtain the data-transformer and the transformed data features. The transformed data is then saved to the specified location and registered as an AzureML model.
+
+```python
 # Fitting the data transformer to the training data.
 data_transformer, X_train_transformed = data_transform(X_train)
 run.log('X_train_transf', X_train_transformed.shape)
 run.log('data_transformer', data_transformer)
+```
 
+Finally we save the data-transformer to the specified location and register it as an AzureML model with the name **data_transformer**. We also save the transformed data to its specified location so that it can be used in the next step of the pipeline.
+
+```python
 if not os.path.exists(args.train_Xt_folder):
     os.mkdir(args.train_Xt_folder)
 
@@ -290,7 +307,7 @@ run.upload_file(data_transformer_path,data_transformer_path)
 run.register_model(model_path=data_transformer_path, model_name='data_transformer')
 ```
 
-### Train and select the Model
+### Step 3: Train and select the Model
 
 The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
 
@@ -304,6 +321,8 @@ The models are evaluated using the  root mean squared error (RMSE) metric, where
 $$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
 
 , where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value for the ith test record.
+
+Let us break down the code of this step.
 
 We start the development of this step by creating the cost function to be used for the model evaluation. The code presented is very straightforward; the predicted values are calculated from the model and compared to the test lables. Obviously, this is not the only or best way to evaluate our models.
 
@@ -335,16 +354,6 @@ Next we present the training step code. The code is very similar in nature to wh
   - bag_regressor_n_estimators, the number of trees in the bagging regressor. This is a pipeline argument that will have an initial value that we will define during pipeline creation. This argument, as we shall see later on can be modified and so that a new selection trial is carried out without resubmitting the entire pipeline code.
   - decision_tree_max_depth , the maximum depth of the decision tree. Similar to the argument above, this  is a pipeline argument.
   - random_forest_n_estimators, the number of trees in the random forest. Similar to the argument above, this  is a pipeline argument.
-
-- This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria to select our model, but we have chosen to keep the number of parameters as low as possible.
-
-- The cost function is evaluated for each model and logged to the pipeline step metrics by using the **run.log()** function. We also store the model and the resulting RMSE in a dictionary.
-
-- The selected model is  obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.
-
-- Finally, the selected model is saved to the data store in the location specified by the model_folder argument. The model is also registered in the AzureML workspace with the name of **concrete_model**.
-
-The code for this step is as follows:
 
 ```python
 '''
@@ -385,12 +394,18 @@ args = parser.parse_args()
 
 # Reading the data from the `X_train_trans.txt` file and converting it to a numpy array.
 X_t_path = os.path.join(args.train_Xt_folder, "data.txt")
-X_train_trans = pd.read_csv(X_t_path, header=None).to_numpy()#.squeeze()
+X_train_trans = pd.read_csv(X_t_path, header=None).to_numpy()
 
 # Reading the data from the `y_train.txt` file and converting it to a numpy array.
 y_path = os.path.join(args.train_y_folder, "data.txt")
-y_train = pd.read_csv(y_path, header=None).to_numpy()#.squeeze()
+y_train = pd.read_csv(y_path, header=None).to_numpy()
+```
 
+- This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria to select our model, but we have chosen to keep the number of parameters as low as possible.
+
+- The cost function is evaluated for each model and logged to the pipeline step metrics by using the **run.log()** function. We also store the model and the resulting RMSE in a dictionary.
+
+```python
 # Creating an empty dictionary.
 results = {}
 
@@ -426,10 +441,19 @@ random_forest_regressor.fit(X_train_trans, y_train)
 sqrt_mse= evaluate(random_forest_regressor, X_train_trans, y_train)
 results[random_forest_regressor] = sqrt_mse
 run.log('RandomForestRegressor', sqrt_mse)
+```
 
+- The selected model is  obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.
+
+```python
 # Selecting the model with the lowest RMSE.
 selected_model =  min(results, key=results.get)
 run.log('selected_model', selected_model)
+```
+
+- Finally, the selected model is saved to the data store in the location specified by the model_folder argument. The model is also registered in the AzureML workspace with the name of **concrete_model**.
+
+```python
 
 if not os.path.exists(args.model_folder):
     os.mkdir(args.model_folder)
