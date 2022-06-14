@@ -471,134 +471,23 @@ run.register_model(model_path=model_path, model_name='concrete_model')
 
 ### Putting it all together - Pipeline creation
 
+Finally, all this worked comes together when we create the pipeline that will be used to train the model. We start this process by
 
+- getting an instance of our AzureML workspace. In order to do this, we will use the configuration file that we created when we created the workspace.
+- creating a **RunConfiguration** object. This object will be used to specify the configuration of the pipeline.
+- defining an **Environment** object. This object will be used to specify the environment in which the pipeline will be executed. In our case we will create the environemnt from a pip specification file. This specification file contains the list of packages that will be used in the pipeline and is as follows:
 
-
-## Create Train and Test sets
-
-
-## Preparing data for training
-
-
-## Model training and selection
-
-```python evaluation
-'''
-Evaluation functions for the model
-'''
-import numpy as np
-from sklearn.metrics import mean_squared_error
-
-def evaluate(model, X_val, y_val):
-    '''
-    Calculates the root of mean squared error of the model
-    '''
-    # Calculating the root of mean squared error of the model.
-    prediction = model.predict(X_val)
-    test_mse = mean_squared_error(y_val, prediction)
-    sqrt_mse = np.sqrt(test_mse)
-    return sqrt_mse
-
+```config
+scikit-learn
+pandas
+azureml-core
+azureml-dataset-runtime
+azureml-defaults
 ```
 
-```python model training
-'''
-Train step. Trains various models and selects the best one.
-'''
-import os
-import argparse
-import pickle
-import pandas as pd
-from azureml.core import Run
-from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from model_evaluation import evaluate
+- we then assign the **environment** attribute of our **RunConfiguration** object to the created **Environment** object.
 
-# Getting the run context.
-run = Run.get_context()
-
-# Parsing the arguments passed to the script.
-parser = argparse.ArgumentParser()
-parser.add_argument('--train_y_folder', dest='train_y_folder', required=True)
-parser.add_argument('--train_Xt_folder', dest='train_Xt_folder', required=True)
-parser.add_argument('--model_folder', dest='model_folder', required=True)
-
-parser.add_argument(
-    '--bag_regressor_n_estimators',
-    dest='bag_regressor_n_estimators',
-    required=True)
-parser.add_argument(
-    '--decision_tree_max_depth',
-    dest='decision_tree_max_depth',
-    required=True)
-parser.add_argument(
-    '--random_forest_n_estimators',
-    dest='random_forest_n_estimators',
-    required=True)
-args = parser.parse_args()
-
-# Reading the data from the `X_train_trans.txt` file and converting it to a numpy array.
-X_t_path = os.path.join(args.train_Xt_folder, "data.txt")
-X_train_trans = pd.read_csv(X_t_path, header=None).to_numpy()#.squeeze()
-
-# Reading the data from the `y_train.txt` file and converting it to a numpy array.
-y_path = os.path.join(args.train_y_folder, "data.txt")
-y_train = pd.read_csv(y_path, header=None).to_numpy()#.squeeze()
-
-# Creating an empty dictionary.
-results = {}
-
-# Training a linear regression model and evaluating it.
-lin_regression = LinearRegression()
-lin_regression.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(lin_regression, X_train_trans, y_train)
-results[lin_regression] = sqrt_mse
-run.log('LinearRegression', sqrt_mse)
-
-# Training a bagging regressor model and evaluating it.
-bag_regressor = BaggingRegressor(
-    n_estimators=int(args.bag_regressor_n_estimators),
-    random_state=42)
-bag_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(bag_regressor, X_train_trans, y_train)
-results[bag_regressor] = sqrt_mse
-run.log('BaggingRegressor', sqrt_mse)
-
-# Training a decision tree regressor model and evaluating it.
-dec_tree_regressor = DecisionTreeRegressor(
-    max_depth=int(args.decision_tree_max_depth))
-dec_tree_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(dec_tree_regressor, X_train_trans, y_train)
-results[dec_tree_regressor] = sqrt_mse
-run.log('DecisionTreeRegressor',sqrt_mse)
-
-# Training a random forest regressor model and evaluating it.
-random_forest_regressor = RandomForestRegressor(
-    n_estimators=int(args.random_forest_n_estimators),
-    random_state=42)
-random_forest_regressor.fit(X_train_trans, y_train)
-sqrt_mse= evaluate(random_forest_regressor, X_train_trans, y_train)
-results[random_forest_regressor] = sqrt_mse
-run.log('RandomForestRegressor', sqrt_mse)
-
-# Selecting the model with the lowest RMSE.
-selected_model =  min(results, key=results.get)
-run.log('selected_model', selected_model)
-
-# Saving the model to a file.
-model_path = os.path.join(args.model_folder, 'model.pkl')
-with open(model_path, 'wb') as handle:
-    pickle.dump(selected_model, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-# Uploading the model to the Azure ML workspace and registering it.
-run.upload_file(model_path,model_path)
-run.register_model(model_path=model_path, model_name='concrete_model')
-```
-
-## Deploying the Pipeline
-
-```python pipeline deployment
+```python
 '''
 Execute the training pipeline with the following steps:
 
@@ -612,8 +501,8 @@ from azureml.pipeline.core import Pipeline, PipelineParameter
 from azureml.core import Workspace, Experiment, Dataset, Datastore
 from azureml.core.runconfig import RunConfiguration
 from azureml.core.environment import Environment
+from azureml.pipeline.core import PipelineData
 from azureml.data.output_dataset_config import OutputFileDatasetConfig
-from pytest import param
 from azuremlproject import constants
 
 # Loading the workspace from the config file.
@@ -624,30 +513,46 @@ config_path = os.path.join(
     '.azureml')
 ws = Workspace.from_config(path=config_path)
 
-# create a new runconfig object
+# create a new run_config object
 run_config = RunConfiguration()
 
-# Creating a new environment with the name env-7 and 
+# Creating a new environment with the name concrete_env and 
 # installing the packages in the requirements.txt file.
 environment = Environment.from_pip_requirements(
-    name='env-7',
+    name='concrete_env',
     file_path=os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         'requirements.txt')
     )
 run_config.environment = environment
 
+```
+
+We the specify the location of source files containing the pipeline steps. This folder us uploaded to the so that the pipeline is created an executed. This location is during the creation of each pipeline step.
+
+```python
 # Path to the folder containing the scripts that
 # will be executed by the pipeline.
 source_directory = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
-    'pipeline_steps')
+    'src')
+```
 
+We also get a reference to the AzureML data store that will be used to store the various assets that wil be created by this pipeline. As discussed earlier, we will use the data store that we created during the creation of the workspace, whose name is specified in a constants file.
+
+```python
 data_store = Datastore(ws, constants.DATASTORE_NAME)
+```
 
-print('Creating train test folders....')
+We then define the entities that will hold our assets as described previously.
 
-# Creating the output folders for the pipeline.
+- We will use the **OutputFileDatasetConfig** class store the train and test features and labels. We also use the **register_on_complete** method to register the train and test features and labels as AzureML datasets.
+
+- We use the **PipelineData** class to store the transformed train features as this data is not required outside the pipeline.
+
+- We use the **PipelineData** class to store the **data_transformer** and the selected **model**. These items will be registered as AzureML models when they are created.
+
+``` python
 train_X_folder = OutputFileDatasetConfig(
     destination=(data_store, 'train_X_folder')).register_on_complete('train_X')
 train_y_folder = OutputFileDatasetConfig(
@@ -659,50 +564,68 @@ test_X_folder = OutputFileDatasetConfig(
 test_y_folder = OutputFileDatasetConfig(
     destination=(data_store, 'test_y_folder')).register_on_complete('test_y')
 
-train_Xt_folder = OutputFileDatasetConfig(
-    destination=(data_store, 'train_Xt_folder')).register_on_complete('train_Xt')
+train_Xt_folder = PipelineData('train_Xt_folder', datastore=data_store, is_directory=True)
 
-pipeline_folder = OutputFileDatasetConfig(destination=(data_store, 'pipeline_folder'))
-model_folder = OutputFileDatasetConfig(destination=(data_store, 'model_folder'))
-print('train test folders created')
+data_transformer_folder = PipelineData('data_transformer_folder', datastore=data_store)
+model_folder = PipelineData('model_folder', datastore=data_store)
+```
 
+Next we get an instance of the **concrete_baseline** dataset that we created earlier. This data is the starting point of our pipeline and will be used to drive the entire process.
+
+```python
 concrete_dataset = Dataset.get_by_name(ws, 'concrete_baseline')
 ds_input = concrete_dataset.as_named_input('concrete_baseline')
+```
 
-print('step_train_test_split ....')
-# Splitting the data into train and test sets.
+Next we create the pipeline steps using the **PythonScriptStep** class. The constructor of this class takes the following arguments:
+
+- Name of the script file that contains the code for this step.
+- A list of arguments that will be passed to the script.
+- A list of input arguments that will be used by the script.
+- A list of output arguments that will be generated by the script.
+- The instance where the script will be executed. Like other workspace items, instance and target computes are created during the creation of the workspace and have their names specified in a constants file.
+- The instance of the run configuration that will be used to configure the execution of the pipeline.
+
+```python
+
 step_train_test_split = PythonScriptStep(
-    script_name = 'step_train_test_split.py',
+    script_name='step_train_test_split.py',
     arguments=[
         '--train_X_folder', train_X_folder,
         '--train_y_folder', train_y_folder,
         '--test_X_folder', test_X_folder,
         '--test_y_folder', test_y_folder],
-    inputs = [ds_input],
-    compute_target = constants.INSTANCE_NAME,
+    inputs=[
+        ds_input],
+    outputs=[
+        train_X_folder,
+        train_y_folder,
+        test_X_folder,
+        test_y_folder],
+    compute_target=constants.INSTANCE_NAME,
     source_directory=source_directory,
-    allow_reuse = True,
-    runconfig = run_config
+    runconfig=run_config
 )
-print('step_train_test_split done')
 
-print('step_prepare_data ....')
-# step that will execute the script step_prepare_data.py.
 step_prepare_data = PythonScriptStep(
-    script_name = 'step_prepare_data.py',
+    script_name='step_prepare_data.py',
     arguments=[
-        '--train_X_folder', train_X_folder.as_input('train_X_folder'),
+        '--train_X_folder', train_X_folder,
         '--train_Xt_folder', train_Xt_folder,
-        '--pipeline_folder', pipeline_folder],
-    compute_target = constants.INSTANCE_NAME,
+        '--data_transformer_folder', data_transformer_folder],
+    outputs=[
+        train_Xt_folder,
+        data_transformer_folder],
+    inputs=[train_X_folder],
+    compute_target=constants.INSTANCE_NAME,
     source_directory=source_directory,
-    allow_reuse = True,
-    runconfig = run_config
+    runconfig=run_config
 )
-print('step_prepare_data done')
+```
 
-print('training_step ....')
-# step that will execute the script step_train.py.
+The final step of out pipeline uses several pipeline parameters that give us the flexibility to fin tune the various models so that we can select the best one. We use the **PipelineParameter** class to create these parameters, giving them names and default values.
+
+```python
 
 param_bag_regressor_n_estimators = PipelineParameter(
     name='The number of estimators of the bagging regressor',
@@ -717,23 +640,33 @@ param_random_forest_n_estimators = PipelineParameter(
     default_value=5)
 
 training_step = PythonScriptStep(
-    script_name = 'step_train.py',
+    script_name='step_train.py',
     arguments=[
-        '--train_Xt_folder', train_Xt_folder.as_input('train_Xt_folder'),
-        '--train_y_folder', train_y_folder.as_input('train_y_folder'),
+        '--train_Xt_folder', train_Xt_folder,
+        '--train_y_folder', train_y_folder,
         '--model_folder', model_folder,
         '--bag_regressor_n_estimators', param_bag_regressor_n_estimators,
         '--decision_tree_max_depth', param_decision_tree_max_depth,
         '--random_forest_n_estimators', param_random_forest_n_estimators],
-    compute_target = constants.INSTANCE_NAME,
+    inputs=[
+        train_Xt_folder,
+        train_y_folder],
+    outputs=[
+        model_folder],
+    compute_target=constants.INSTANCE_NAME,
     source_directory=source_directory,
-    allow_reuse = True,
     runconfig=run_config
 )
-print('training_step done')
+```
 
-# Build the pipeline
-print('Building pipeline...')
+We can now create a pipeline that will execute the steps in the order that we defined them by using the  **Pipeline** class. The constructor of this class takes the following arguments:
+
+- the workspace where the pipeline will be created.
+- a list of steps that will be executed in the order that they are defined.
+
+We can then execute the pipeline by creating an **Experiment** object and calling the **submit()** method.
+
+```python
 pipeline = Pipeline(
     workspace=ws,
     steps=[
@@ -741,21 +674,14 @@ pipeline = Pipeline(
         step_prepare_data,
         training_step
     ])
-print('Pipeline built')
 
-# Submit the pipeline to be run
-experiment = Experiment(ws, 'Concrete_Strength__Pipeline_2')
+experiment = Experiment(ws, 'concrete_train')
 run = experiment.submit(pipeline)
 run.wait_for_completion()
 ```
 
-## Pipeline execution
-
-todo
-
-
 ## References
 
-[1] V. Iliescu, “Vlad Iliescu,” Avatar. [Online]. Available: https://vladiliescu.net/. [Accessed: 08-Jun-2022].
+[1] V. Iliescu, [Vlad Iliescu]( https://vladiliescu.net/) [Online]. [Accessed: 08-Jun-2022].
 
-[2] Li et al, “Use pipeline parameters to build versatile pipelines - azure machine learning,” | Microsoft Docs. [Online]. Available: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter. [Accessed: 09-Jun-2022].
+[2] Li et al, [Use pipeline parameters to build versatile pipelines - azure machine learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter) | Microsoft Docs. [Online]. [Accessed: 09-Jun-2022].
