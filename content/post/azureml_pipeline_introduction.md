@@ -96,21 +96,16 @@ The first task of this exercise is to upload the data to Azure ML Datastore and 
 Steps for uploading the data to the AzureML datastore and registering it as an AzureML Dataframe:
 
 - **Get the workspace**. If we saved a config file when we created the workspace, we could obtain a reference to the workspace by calling the **Workspace.from_config** function.
-- **Get a reference to the datastore**. We can easily retrieve a reference to the default datastore by calling the **workspace.get_default_datastore** function. In this case, we are using a datastore bearing the experiment's name, and therefore we will use **Datastore.get(workspace, DATASTORE_NAME)**.
-- **Upload the data to the datastore**. We upload the concrete strength dataset to our datastore by calling the **datastore.upload** function.
-- **Register the data as an AzureML Dataframe** is carried out in two steps;
-  - Create the new dataset by calling the **Dataset.Tabular.from_delimited_files** as the data that we have is tabular. This function requires a DataPath argument that points to the file that we have just uploaded into the datastore.
-  - Finally, **register the dataset** by calling the **Dataset.register** function.
 
-we can find an implementation of the above steps in the following code:
-
-```python{upload_data.py}
+```python
 '''
 Creates concrete dataset to be used as input for the experiment.
 '''
 import os
-from azureml.core import Workspace, Dataset
+from azureml.core import Workspace, Dataset, Datastore
 from azureml.data.datapath import DataPath
+
+from azuremlproject.constants import DATASTORE_NAME
 
 # Name of the dataset.
 DATASET_NAME = 'concrete_baseline'
@@ -122,14 +117,24 @@ config_path = os.path.join(
     '..',
     '.azureml')
 w_space = Workspace.from_config(path=config_path)
+```
+
+- **Check if the dataset exists**. If the dataset does not exists, we can load it, otherwise we can stop
+
+```python
 
 if DATASET_NAME not in Dataset.get_all(w_space).keys():
+```
 
-    print('Uploading dataset to datastore ...')
+- **Get a reference to the datastore**. During the creation of the workspace, we created a datastore with the name bound to the current project. The name of this datastore is contained in a constants file. We use the name to get a reference to the datastore.
 
-    # Getting the default datastore for the workspace.
-    data_store = w_space.get_default_datastore()
+```python
+    data_store = Datastore.get(w_space, DATASTORE_NAME)
+```
 
+- **Upload the data to the datastore**. We upload the concrete strength dataset to our datastore by calling the **datastore.upload** function.
+
+```python
     # upload all the files in the concrete data folder to the
     # default datastore in the workspace concrete_data_baseline folder
     data_store.upload(
@@ -141,6 +146,13 @@ if DATASET_NAME not in Dataset.get_all(w_space).keys():
             'concrete'),
         target_path='concrete_data_baseline')
 
+```
+
+- **Register the data as an AzureML Dataframe** is carried out in two steps;
+  - Create the new dataset by calling the **Dataset.Tabular.from_delimited_files** as the data that we have is tabular. This function requires a DataPath argument that points to the file that we have just uploaded into the datastore.
+  - Finally, **register the dataset** by calling the **Dataset.register** function.
+
+```python
     # create a new dataset from the uploaded concrete file
     concrete_dataset = Dataset.Tabular.from_delimited_files(
         DataPath(data_store, 'concrete_data_baseline/concrete.csv'))
