@@ -684,7 +684,6 @@ run.wait_for_completion()
 
 ![Execution](/post/img/azureml_pipeline_pipeline_run.jpg)
 
-
 ## References
 
 [1] V. Iliescu, [Vlad Iliescu]( https://vladiliescu.net/) [Online]. [Accessed: 08-Jun-2022].
