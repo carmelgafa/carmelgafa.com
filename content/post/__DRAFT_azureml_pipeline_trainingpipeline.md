@@ -663,7 +663,7 @@ We can now create a pipeline that will execute the steps in the order that we de
 
 - the workspace where the pipeline will be created.
 - a list of steps that will be executed in the order that they are defined.
-
+, 
 We can then execute the pipeline by creating an **Experiment** object and calling the **submit()** method.
 
 ```python
@@ -686,6 +686,8 @@ run.wait_for_completion()
 
 ## References
 
-[1] V. Iliescu, [Vlad Iliescu]( https://vladiliescu.net/) [Online]. [Accessed: 08-Jun-2022].
+[1] V. Iliescu, [Vlad Iliescu]( https://vladiliescu.net/) [Online]. [Accessed: June 08, 2022].
 
-[2] Li et al, [Use pipeline parameters to build versatile pipelines - azure machine learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter) | Microsoft Docs. [Online]. [Accessed: 09-Jun-2022].
+[2] Li et al, [Use pipeline parameters to build versatile pipelines - azure machine learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter) | Microsoft Docs. [Online]. [Accessed: June 09, 2022].
+
+[3] Nils Pohlmann. (n.d.).[Create and run ML pipelines - azure machine learning. Create and run ML pipelines - Azure Machine Learning | Microsoft Docs.](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-machine-learning-pipelines) [Online]. [Accessed June 17, 2022]
