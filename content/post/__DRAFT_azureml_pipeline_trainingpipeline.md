@@ -663,7 +663,7 @@ We can now create a pipeline that will execute the steps in the order that we de
 
 - the workspace where the pipeline will be created.
 - a list of steps that will be executed in the order that they are defined.
-, 
+
 We can then execute the pipeline by creating an **Experiment** object and calling the **submit()** method.
 
 ```python

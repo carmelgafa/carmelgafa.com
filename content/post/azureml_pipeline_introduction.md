@@ -39,7 +39,7 @@ I was inspired by a [post in stackoverflow](https://stackoverflow.com/questions/
 
 At a high level, the project structure is as follows:
 
-- **.azuremlproject**  -  This folder contains the Azure Machine Learning files.
+- **.azuremlproject**  -  This folder contains all the Azure Machine Learning files.
   - **.azureml**  -  This folder contains the Azure Machine Learning files.
   - **data**  -  This folder contains the data that will be used in the experiments.
   - **docs**  -  This folder contains the documentation for the project.
