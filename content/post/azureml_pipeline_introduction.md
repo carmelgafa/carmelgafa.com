@@ -98,7 +98,15 @@ There are many versions of this Dataset, and to load it directly, we have select
 
 The first task of this exercise is to upload the data to Azure ML Datastore and make it available for the experiments through an Azure Machine Learning Dataset. There are many ways to create AzureML Datasets; we will upload a CSV file in this example.
 
-Steps for uploading the data to the AzureML datastore and registering it as an AzureML Dataframe:
+The script required for this task is located under the **upload** folder.
+
+```text
+upload
+└───upload_data.py
+
+```
+
+The steps for uploading the data to the AzureML datastore and registering it as an AzureML Dataframe are the following:
 
 - **Get the workspace**. If we saved a config file when we created the workspace, we could obtain a reference to the workspace by calling the **Workspace.from_config** function.
 
