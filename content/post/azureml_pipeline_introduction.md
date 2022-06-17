@@ -39,21 +39,26 @@ I was inspired by a [post in stackoverflow](https://stackoverflow.com/questions/
 
 At a high level, the project structure is as follows:
 
-- **.azuremlproject**  -  This folder contains all the Azure Machine Learning files.
-  - **.azureml**  -  This folder contains the Azure Machine Learning files.
-  - **data**  -  This folder contains the data that will be used in the experiments.
-  - **docs**  -  This folder contains the documentation for the project.
-  - **experiments**  -  This folder contains the experiments.
-    - **experiment_1**  -  This folder contains the experiment 1.
-    - **$\dots$**
-    - **experiment_14**  -  This folder contains the experiment 14.
-      - **deploy**  -  This folder contains the deployment of the model.
-      - **optimize**  -  This folder contains the hyperparameter optimization.
-      - **train**  -  This folder contains the training of the model.
-      - **upload**  -  This folder contains the upload of the data.
-      - **validate**  -  This folder contains the validation of the model.
-    - **$\dots$**
-  - **workspace_creation**
+
+```text
+azuremlproject            This folder contains all the project files.
+│   .azureml              This folder contains the Azure Machine Learning config files
+|   data                  This folder contains the data that will be used in the experiments
+|   docs                  This folder contains the documentation for the project
+│
+└───experiments           This folder contains the ML experiments code
+│   │   experiment_1      This folder contains the experiment 1
+│   │   ...
+|   |
+│   └───experiment_14     This folder contains experiment 14
+|   |   |   deploy        This folder contains the deployment of the model
+|   |   |   optimize      This folder contains the hyperparameter optimization
+|   |   |   train         This folder contains the training of the model
+|   |   |   upload        This folder uploads of the data required for this experiment
+|   |   |   validate      This folder contains the validation of the model
+|   |
+|   workspace_creation    This folder contains the scripts to create workspace
+```
 
 As discussed in the [previous posts on this site](https://carmelgafa.com/tags/azure-ml/), I have created several scripts that instantiate the Azure resource group, AzureML Workspace with its Compute resources, and an Azure ML Datastore with the name of the project. One advantage of this approach is that it is easier to delete the resource group and recreate it whenever necessary, thus saving some money. The workspace creation scripts are driven from a parameters file containing the names of the various entities that the user will create, derived from the name of the project. For example, in this project, the project name is set to **azmlprj14** and therefore the resource group name is **rgazmlprj14**, the workspace name is **wsazmlprj14** and so on.
 
