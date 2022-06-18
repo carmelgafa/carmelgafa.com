@@ -1,6 +1,6 @@
 ---
 title: "Notes about Azure ML, Part 9 - An end-to-end AzureML example; Pipeline creation and execution"
-date: 2022-06-18
+date: 2022-06-18T11:08:45+01:00
 tags: [machine-learning, azure ml, pipeline]
 draft: false
 description: "Creation and execution of a multi-step AzureML pipeline the selects the best model for a given dataset."
