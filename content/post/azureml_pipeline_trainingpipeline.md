@@ -1,28 +1,31 @@
 ---
-title: "__DRAFT_azureml_pipeline_trainingpipeline"
-date: 2022-05-05
-tags: []
-draft: true
-description: ""
+title: "Notes about Azure ML, Part 9 - An end-to-end AzureML example; Pipeline creation and execution"
+date: 2022-06-18
+tags: [machine-learning, azure ml, pipeline]
+draft: false
+description: "Creation and execution of a multi-step AzureML pipeline the selects the best model for a given dataset."
 ---
 ## Introduction
 
-In the second section of this tutorial, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called **concrete_baseline**. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.
+In the second section of this series, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called **concrete_baseline**. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.
 
-AzureMl pipelines connect several functional steps that we can execute in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various pipeline steps can be connected using a well-defined interface. Pipelines can be parametrized, thus allowing us to investigate different scenarios and variations of the same AzureML-pipeline.
+AzureMl pipelines connect several functional steps we can execute in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various pipeline steps can be connected using a well-defined interface. Pipelines can be parametrized, thus allowing us to investigate different scenarios and variations of the same AzureML-pipeline.
 
-It is helpful to spend a moment at this stage to discuss the final goal of this pipeline. We will use this pipeline to create two models:
+It is helpful to spend a moment at this stage to discuss the final goal of this Pipeline. We will use this Pipeline to create two models:
 
 - a data transformation model that will be used to transform the data into a format that the machine learning model can use.
 - a machine learning model that will be used to predict the concrete strength of the concrete.
 
 The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but we opted for the two models approach to show how to use different models together.
 
-An outline of the pipeline implemented in this example is shown in the diagram below. The illustration below shows the steps that are part of the pipeline and the outputs of each step.
+An outline of the Pipeline implemented in this example is shown in the diagram below. The illustration below shows the steps that are part of the Pipeline and the outputs of each step.
 
-![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)
+|![ML Pipeline](/post/img/azureml_pipeline_introduction_pipeline.jpg)|
+|:---:|
+|**Pipeline in this example**|
+|&nbsp;|
 
-The work described in this section is contained in the following folder structure. In the sections below, we will do through all these files one by one.
+The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.
 
 ```text
 train
@@ -40,19 +43,19 @@ train
 
 ## Data passing mechanisms
 
-There are various options whereby data can be passed from one step to another within an AzureML pipeline, a excellent article on this topic can be found in Vlad Ilescu's blog [1]. Three options that are available are:
+There are various options whereby data can be passed from one step to another within an AzureML pipeline; an excellent article on this topic can be found in Vlad Ilescu's blog [1]. Three options that are available are:
 
-- Using AzureMl datasets as pipeline inputs. We have already created a dataset called **concrete_baseline**, that contains the concrete strength data. We will use this dataset as the input to the first step of the pipeline.
+- Using AzureMl datasets as pipeline inputs. We have already created a dataset called **concrete_baseline**that contains the concrete strength data. We will use this dataset as the input for the first step of the Pipeline.
 
-- Using **PipelineData**. **PipelineData** is a very versatile object that can be used to pass data of any type between steps in the pipeline, this is a great choice for passing data that is necessary in the context of the pipeline. In our example, we will create a dataset with the transformed train features dataset, that will be also used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step, and will be used as the input to the training step, albeit it will be also registered as an AzureML model. The natural choice for these entities is the PipelineData object.
+- Using **PipelineData**. **PipelineData** is a very versatile object that can be used to pass data of any type between steps in the Pipeline; this is a great choice for passing data that is necessary for the context of the Pipeline. In our example, we will create a dataset with the transformed train features dataset that will also be used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step and will be used as the input to the training step, albeit it will also be registered as an AzureML model. The natural choice for these entities is the PipelineData object.
 
-- Using **OutputFileDatasetConfig** has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the pipeline, namely;
+- Using **OutputFileDatasetConfig** has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the Pipeline, namely;
   
   - In the model hyperparameter tuning phase, we will use the train datasets as the input to the model hyperparameter tuning step.
   
   - In the validation phase, we will use the test datasets as our input.
 
-Therefore OutputFileDatasetConfig was considered as an excellent choice for these cases.
+Therefore OutputFileDatasetConfig was considered an excellent choice for these cases.
 
 ## Pipeline steps
 
@@ -129,7 +132,7 @@ X_test = test_set.drop('strength', axis=1)
 y_test = test_set['strength'].copy()
 ```
 
-The four pandas Dataframes are saved to CSV files in the locations specified as arguments to this pipeline step using the numpy **to_csv** method. As they were created using the **OutputFileDatasetConfig** process, they will be automatically registered as AzureML datasets as we will see later on.
+The four pandas Dataframes are saved to CSV files in the locations specified as arguments to this pipeline step using the numpy **to_csv** method. As they were created using the **OutputFileDatasetConfig** process, they will be automatically registered as AzureML datasets, as we will see later on.
 
 ```python
 # Write outputs
@@ -167,7 +170,7 @@ Creates a data transformer comprising of the following steps:
 - combines the fine aggregate and coarse aggregate into a single feature
 - scales the data using StandardScaler
 
-Transforms the data and returns the transformed data and the transformer
+Transforms the data and returns the transformed data, and the transformer
 '''
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -227,7 +230,7 @@ The code to generate the data transformation pipeline is shown below. The method
 def data_transform(data):
     '''
     Creates a transformation pipeline using data.
-    Returns the transformed data and the pipeline.
+    Returns the transformed data and the Pipeline.
     '''
     data_transformer = transformation_pipeline()
     transformed_data = data_transformer.fit_transform(data)
@@ -235,9 +238,9 @@ def data_transform(data):
     return data_transformer, transformed_data
 ```
 
-The second step of the pipeline will use the transformation specified above to prepare the data for training. As mentioned previously, this step will create a  Scikit learn data preparation pipeline that we will use to transform our data so that our machine learning model can use it. This data preparation pipeline will be registered as an AzureML model that can be easily loaded and used in other phases of this project in conjunction with the Machine Learning Model.
+The second step of the Pipeline will use the transformation specified above to prepare the data for training. As mentioned previously, this step will create a  Scikit learn data preparation pipeline that we will use to transform our data so that our machine learning model can use it. This data preparation pipeline will be registered as an AzureML model that can be easily loaded and used in other phases of this project in conjunction with the Machine Learning Model.
 
-This pipeline step has three arguments
+This pipeline step has three arguments.
 
 - An input argument, the training features dataset location.
 - Two output arguments; the transformed training features dataset location and the data preparation pipeline location.
@@ -246,7 +249,7 @@ In this approach, we will be passing the location of the data preparation pipeli
 
 ```python
 '''
-Data Preprocessor step of the pipeline.
+Data Preprocessor step of the Pipeline.
 '''
 import os
 import argparse
@@ -281,7 +284,7 @@ run.log('X_train_transf', X_train_transformed.shape)
 run.log('data_transformer', data_transformer)
 ```
 
-Finally we save the data-transformer to the specified location and register it as an AzureML model with the name **data_transformer**. We also save the transformed data to its specified location so that it can be used in the next step of the pipeline.
+Finally, we save the data-transformer to the specified location and register it as an AzureML model with the name **data_transformer**. We also save the transformed data to its specified location so that it can be used in the next step of the Pipeline.
 
 ```python
 if not os.path.exists(args.train_Xt_folder):
@@ -309,7 +312,7 @@ run.register_model(model_path=data_transformer_path, model_name='data_transforme
 
 ### Step 3: Train and select the Model
 
-The last step of the pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
+The last step of the Pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:
 
 - **Linear Regression**, using Scikit Learn's **LinearRegression** class.
 - **Random Forest**, using Scikit Learn's **RandomForestRegressor** class.
@@ -324,7 +327,7 @@ $$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$
 
 Let us break down the code of this step.
 
-We start the development of this step by creating the cost function to be used for the model evaluation. The code presented is very straightforward; the predicted values are calculated from the model and compared to the test lables. Obviously, this is not the only or best way to evaluate our models.
+We start the development of this step by creating the cost function to be used for the model evaluation. The code presented is very straightforward; the predicted values are calculated from the model and compared to the test-lables. Obviously, this is not the only or best way to evaluate our models.
 
 ```python
 '''
@@ -335,7 +338,7 @@ from sklearn.metrics import mean_squared_error
 
 def rmse_evaluate(model, X_val, y_val):
     '''
-    Calculates the root of mean squared error of the model
+    Calculates the root of the mean squared error of the model
     '''
     # Calculating the root of mean squared error of the model.
     prediction = model.predict(X_val)
@@ -344,16 +347,16 @@ def rmse_evaluate(model, X_val, y_val):
     return sqrt_mse
 ```
 
-Next we present the training step code. The code is very similar in nature to what we presented in the previous steps, Howvere there are some differences:
+Next, we present the training step code. The code is very similar in nature to what we presented in the previous steps; however there are some differences:
 
-- This pipeline steps will use some pipeline arguments that will allow us to modify some of the models' hyperparameters at this stage; thus helping us in selecting the best model. This step has the following arguments:
+- This Pipeline step will use some pipeline arguments that will allow us to modify some of the models' hyperparameters at this stage, thus helping us in selecting the best model. This step has the following arguments:
 
   - train_y_folder, the location of the training labels that we have previously stored in a data store.
   - train_Xt_folder, the location of the transformed training features that we have previously stored in a data store.
   - model_folder, the location where the model that we will select in this step will be saved.
-  - bag_regressor_n_estimators, the number of trees in the bagging regressor. This is a pipeline argument that will have an initial value that we will define during pipeline creation. This argument, as we shall see later on can be modified and so that a new selection trial is carried out without resubmitting the entire pipeline code.
-  - decision_tree_max_depth , the maximum depth of the decision tree. Similar to the argument above, this  is a pipeline argument.
-  - random_forest_n_estimators, the number of trees in the random forest. Similar to the argument above, this  is a pipeline argument.
+  - bag_regressor_n_estimators, the number of trees in the bagging regressor. This is a pipeline argument that will have an initial value that we will define during pipeline creation. This argument, as we shall see later on, can be modified so that a new selection trial is carried out without resubmitting the entire pipeline code.
+  - decision_tree_max_depth, the maximum depth of the decision tree. Similar to the argument above, this is a pipeline argument.
+  - random_forest_n_estimators, the number of trees in the random forest. Similar to the argument above, this is a pipeline argument.
 
 ```python
 '''
@@ -401,7 +404,7 @@ y_path = os.path.join(args.train_y_folder, "data.txt")
 y_train = pd.read_csv(y_path, header=None).to_numpy()
 ```
 
-- This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria to select our model, but we have chosen to keep the number of parameters as low as possible.
+- This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria for selecting our model, but we have chosen to keep the number of parameters as low as possible.
 
 - The cost function is evaluated for each model and logged to the pipeline step metrics by using the **run.log()** function. We also store the model and the resulting RMSE in a dictionary.
 
@@ -443,7 +446,7 @@ results[random_forest_regressor] = sqrt_mse
 run.log('RandomForestRegressor', sqrt_mse)
 ```
 
-- The selected model is  obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.
+- The selected model is obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.
 
 ```python
 # Selecting the model with the lowest RMSE.
@@ -471,11 +474,11 @@ run.register_model(model_path=model_path, model_name='concrete_model')
 
 ### Putting it all together - Pipeline creation
 
-Finally, all this worked comes together when we create the pipeline that will be used to train the model. We start this process by
+Finally, all this work comes together when we create the Pipeline that will be used to train the model. We start this process by
 
 - getting an instance of our AzureML workspace. In order to do this, we will use the configuration file that we created when we created the workspace.
-- creating a **RunConfiguration** object. This object will be used to specify the configuration of the pipeline.
-- defining an **Environment** object. This object will be used to specify the environment in which the pipeline will be executed. In our case we will create the environemnt from a pip specification file. This specification file contains the list of packages that will be used in the pipeline and is as follows:
+- creating a **RunConfiguration** object. This object will be used to specify the configuration of the Pipeline.
+- defining an **Environment** object. This object will be used to specify the environment in which the Pipeline will be executed. In our case, we will create the environment from a pip specification file. This specification file contains the list of packages that will be used in the Pipeline and is as follows:
 
 ```config
 scikit-learn
@@ -492,7 +495,7 @@ azureml-defaults
 Execute the training pipeline with the following steps:
 
 - Step 1: Split the data into train and test sets
-- Step 2: Prepare the train data for training and generate a prepare data pipeline
+- Step 2: Prepare the train data for training and generate a prepare-data pipeline
 - Step 3: Train the model using various algorithms and select the best one
 '''
 import os
@@ -528,7 +531,7 @@ run_config.environment = environment
 
 ```
 
-We the specify the location of source files containing the pipeline steps. This folder us uploaded to the so that the pipeline is created an executed. This location is during the creation of each pipeline step.
+We then specify the location of source files containing the pipeline steps. This folder is uploaded to the AzureML workspace so that the Pipeline is created and executed. This location is during the creation of each pipeline step.
 
 ```python
 # Path to the folder containing the scripts that
@@ -538,7 +541,7 @@ source_directory = os.path.join(
     'src')
 ```
 
-We also get a reference to the AzureML data store that will be used to store the various assets that wil be created by this pipeline. As discussed earlier, we will use the data store that we created during the creation of the workspace, whose name is specified in a constants file.
+We also get a reference to the AzureML data store that will be used to store the various assets that will be created by this Pipeline. As discussed earlier, we will use the data store that we created during the creation of the workspace, whose name is specified in a constants file.
 
 ```python
 data_store = Datastore(ws, constants.DATASTORE_NAME)
@@ -546,9 +549,9 @@ data_store = Datastore(ws, constants.DATASTORE_NAME)
 
 We then define the entities that will hold our assets as described previously.
 
-- We will use the **OutputFileDatasetConfig** class store the train and test features and labels. We also use the **register_on_complete** method to register the train and test features and labels as AzureML datasets.
+- We will use the **OutputFileDatasetConfig** class to store the train and test features and labels. We also use the **register_on_complete** method to register the train and test features and labels as AzureML datasets.
 
-- We use the **PipelineData** class to store the transformed train features as this data is not required outside the pipeline.
+- We use the **PipelineData** class to store the transformed train features as this data is not required outside the Pipeline.
 
 - We use the **PipelineData** class to store the **data_transformer** and the selected **model**. These items will be registered as AzureML models when they are created.
 
@@ -570,21 +573,21 @@ data_transformer_folder = PipelineData('data_transformer_folder', datastore=data
 model_folder = PipelineData('model_folder', datastore=data_store)
 ```
 
-Next we get an instance of the **concrete_baseline** dataset that we created earlier. This data is the starting point of our pipeline and will be used to drive the entire process.
+Next, we get an instance of the **concrete_baseline** dataset that we created earlier. This data is the starting point of our Pipeline and will be used to drive the entire process.
 
 ```python
 concrete_dataset = Dataset.get_by_name(ws, 'concrete_baseline')
 ds_input = concrete_dataset.as_named_input('concrete_baseline')
 ```
 
-Next we create the pipeline steps using the **PythonScriptStep** class. The constructor of this class takes the following arguments:
+Next, we create the pipeline steps using the **PythonScriptStep** class. The constructor of this class takes the following arguments:
 
 - Name of the script file that contains the code for this step.
 - A list of arguments that will be passed to the script.
 - A list of input arguments that will be used by the script.
 - A list of output arguments that will be generated by the script.
 - The instance where the script will be executed. Like other workspace items, instance and target computes are created during the creation of the workspace and have their names specified in a constants file.
-- The instance of the run configuration that will be used to configure the execution of the pipeline.
+- The instance of the run configuration that will be used to configure the execution of the Pipeline.
 
 ```python
 
@@ -623,7 +626,7 @@ step_prepare_data = PythonScriptStep(
 )
 ```
 
-The final step of out pipeline uses several pipeline parameters that give us the flexibility to fin tune the various models so that we can select the best one. We use the **PipelineParameter** class to create these parameters, giving them names and default values.
+The final step of our pipeline uses several pipeline parameters that give us the flexibility to fine-tune the various models so that we can select the best one. We use the **PipelineParameter** class to create these parameters, giving them names and default values.
 
 ```python
 
@@ -661,10 +664,10 @@ training_step = PythonScriptStep(
 
 We can now create a pipeline that will execute the steps in the order that we defined them by using the  **Pipeline** class. The constructor of this class takes the following arguments:
 
-- the workspace where the pipeline will be created.
+- the workspace where the Pipeline will be created.
 - a list of steps that will be executed in the order that they are defined.
 
-We can then execute the pipeline by creating an **Experiment** object and calling the **submit()** method.
+We can then execute the Pipeline by creating an **Experiment** object and calling the **submit()** method.
 
 ```python
 pipeline = Pipeline(
@@ -682,7 +685,85 @@ run.wait_for_completion()
 
 ## Execution
 
-![Execution](/post/img/azureml_pipeline_pipeline_run.jpg)
+When a pipeline is first executed, AzureML does a couple of things [3]:
+
+- Downloads the project to the compute from the Blob storage associated with the workspace.
+- Builds a Docker image corresponding to each step in the Pipeline.
+- Downloads the Docker image for each step to the compute from the container registry.
+- Configures access to Dataset and OutputFileDatasetConfig objects.
+- Runs the step in the compute target specified in the step definition.
+- Creates artefacts, such as logs, stdout and stderr, metrics, and output specified by the step. These artefacts are then uploaded and kept in the user's default datastore.
+
+|![Running experiment as a pipeline process - Image from Microsoft](/post/img/azureml_pipeline_run_an_experiment_as_a_pipeline.png)|
+|:----:|
+|**Running experiment as a pipeline process - Image from Microsoft**|
+|&nbsp;|
+
+Navigating into the AzureML portal, we will be able to see the experiment name (**concrete_train**) in the experiments tab, and upon clicking on it, we will see the various trials that were executed.
+
+|![Execution](/post/img/azureml_pipeline_pipeline_run.jpg)|
+|:----:|
+|**Experiment in AzureML**|
+|&nbsp;|
+
+Each trial will show a pictorial representation of the execution steps of the Pipeline, with an indication of whether the step was executed correctly (green marker) or if an error was encountered(red marker). We can also view some general information about the Pipeline, the pipeline parameters that were used for the trial, log files for the execution, the pipeline metrics and information about any jobs that were triggered by the Pipeline.
+
+|![AzureML pipeline visualization](/post/img/azureml_pipeline_introduction_pipeline_execution.jpg)|
+|:----:|
+|**AzureML pipeline visualization**|
+|&nbsp;|
+
+Navigation to each pipeline step, we can obtain more information about the execution of the step. Each step has a number of tabs, including:
+
+- **An overview** will give us generic information such as the execution time for the step, the name of the script for the step, and the arguments used.
+- **Parameters** information, including the location of each argument.
+- Complete **Logging** for the execution of the step.
+- **Metrics**, or the information that we had logged using the **run.log()** method in the pipeline
+
+|![AzureML Pipeline Step Overview](/post/img/azureml_pipeline_introduction_step_parameters_overview.jpg)|
+|:----:|
+|**AzureML Pipeline Step Overview**|
+|&nbsp;|
+
+|![AzureML Pipeline Step Parameters](/post/img/azureml_pipeline_introduction_step_parameters_parameters.jpg)|
+|:----:|
+|**AzureML Pipeline Step Overview**|
+|&nbsp;|
+
+|![AzureML Pipeline Step Logs](/post/img/azureml_pipeline_introduction_step_parameters_logs.jpg)|
+|:----:|
+|**AzureML Pipeline Step Logs**|
+|&nbsp;|
+
+|![AzureML Pipeline Step Metrics](/post/img/azureml_pipeline_introduction_step_parameters_metrics.jpg)|
+|:----:|
+|**AzureML Pipeline Step Metrics**|
+|&nbsp;|
+
+The metrics of the final step will show us the result of this Pipeline. We can see that the Bagging Regressor obtained the lowest Root Mean Square Error and therefore was saved as our selected model.
+
+|![Results for this Pipeline](/post/img/azureml_pipeline_introduction_pipleine_results.jpg)|
+|:----:|
+|**Results for this Pipeline**|
+|&nbsp;|
+
+We can have a look at the models that were registered in the workspace during the execution of the Pipeline by navigating to the **Models** tab. We can verify that two models were registered, one for the data transformer and one for the Bagging regressor model.
+
+|![Models registered by pipeline](/post/img/azureml_pipeline_introduction_pipeline_models.jpg)|
+|:----:|
+|**Models registered by Pipeline**|
+|&nbsp;|
+
+Finally, it is possible to re-run the Pipeline with different parameters without resubmitting the code by selecting the **Resubmit** option for the Pipeline. This will give us the option to input new values for the parameters and re-run the Pipeline in a new trial.
+
+|![Pipeline Resubmit](/post/img/azureml_pipeline_introduction_resubmit.jpg)|
+|:----:|
+|**Pipeline Resubmit**|
+|&nbsp;|
+
+## Conclusion
+
+In this post, we have seen how we can create and execute a pipeline in AzureML that tests various ML models and selects the best one. In the next post, we will see how AzureMl can optime the model so that we can deploy the best possible model to our production environment.
 
 ## References
 
