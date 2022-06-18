@@ -27,3 +27,9 @@ So far, as of January 2022, I have read the following books:
 #### [Ramon u ż-Żerbinotti, by Ġużè Stagno](https://merlinpublishers.com/product/ramon-u-z-zerbinotti/).
 
 #### [Camerata!, by Aleks Farrugia](https://agendabookshop.com/products/camerata)
+
+#### [Free to Focus by Michael Hyatt](https://www.amazon.com/Free-Focus-Productivity-System-Achieve-ebook/dp/B07F3DM7C1)
+
+#### [The Age of Doubt by Andrea Camilleri](https://www.amazon.com/Doubt-Inspector-Montalbano-Mysteries-Book-ebook/dp/B009WSCV1W/ref=sr_1_1?crid=1K2IW1XKNLVI0&keywords=the+age+of+doubt&qid=1653673597&s=digital-text&sprefix=the+age+of+doubt%2Cdigital-text%2C195&sr=1-1)
+
+#### [Xemx, Wisq Sabiħa by Ġużè Stagno](https://www.goodreads.com/en/book/show/6599880-xemx-wisq-sabi-a)
