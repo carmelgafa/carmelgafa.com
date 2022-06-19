@@ -99,7 +99,9 @@ model.set_params(bootstrap=args.bootstrap)
 # then predicting the values using the model.
 processed_data = data_transformer.transform(train_X)
 predictions = model.predict(processed_data)
+```
 
+``` python
 # Calculating square root of the mean squared error.
 test_mse = mean_squared_error(train_y, predictions)
 sqrt_mse = np.sqrt(test_mse)
