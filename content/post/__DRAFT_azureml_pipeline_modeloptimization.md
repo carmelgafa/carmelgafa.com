@@ -195,7 +195,9 @@ run.wait_for_completion(show_output=True)
 assert run.get_status() == "Completed"
 # Printing the status of the run.
 print('status', run.get_status())
+```
 
+``` python
 best_run = run.get_best_run_by_primary_metric()
 print('best_run', best_run)
 best_run_metrics = best_run.get_metrics()
