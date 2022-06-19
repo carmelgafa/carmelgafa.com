@@ -61,18 +61,14 @@ mount_context_X = Dataset.get_by_name(workspace, name='train_X').mount()
 mount_context_X.start()
 path = mount_context_X.mount_point + '/data.txt'
 train_X = pd.read_csv(path, header=None).to_numpy()
-```
-
-
-``` python
 # Get the dataset fot y from the workspace and then mount it.
 mount_context_y = Dataset.get_by_name(workspace, name='train_y').mount()
 mount_context_y.start()
 path = mount_context_y.mount_point + '/data.txt'
 train_y = pd.read_csv(path, header=None).to_numpy()
+```
 
-run.log('test_X', train_X.shape)
-
+``` python
 # Load the data_transformer from the model store.
 data_transformer_path = Model(workspace, 'data_transformer').download(exist_ok = True)
 data_transformer = joblib.load(data_transformer_path)
