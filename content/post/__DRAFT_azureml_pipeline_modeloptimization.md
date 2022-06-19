@@ -9,7 +9,6 @@ description: ""
 
 In this second part of this series, we will optimize the model that we created in the [previously](/post/azureml_pipeline_trainingpipeline).
 
-
 The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.
 
 ```text
@@ -21,6 +20,7 @@ optimize
 │   │   data_transformer_builder.py
 │   │   optimize.py
 ```
+
 ## Model Optimization
 
 ```python
