@@ -117,8 +117,6 @@ mount_context_y.stop()
 
 ```
 
-
-
 ### Execution of Optimization Process
 
 ```python
