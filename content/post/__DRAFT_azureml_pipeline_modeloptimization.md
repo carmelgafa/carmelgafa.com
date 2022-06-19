@@ -5,16 +5,6 @@ tags: []
 draft: true
 description: ""
 ---
-
----
-title: "__DRAFT_azureml_pipeline_modeloptimization"
-date: 2022-05-05
-tags: []
-draft: true
-description: ""
----
-
-
 ## Introduction
 
 In this second part of this series, we will optimize the model that we created in the [previously](/post/azureml_pipeline_trainingpipeline).
