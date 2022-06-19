@@ -170,7 +170,9 @@ param_sampling = RandomParameterSampling( {
     '--bootstrap': choice(1, 0),
     }
 )
+```
 
+``` python
 # Creating a hyperdrive configuration object.
 hyperdrive_config = HyperDriveConfig(run_config=config,
                                     hyperparameter_sampling=param_sampling,
