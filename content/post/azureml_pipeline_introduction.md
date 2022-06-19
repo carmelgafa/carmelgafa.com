@@ -39,7 +39,6 @@ I was inspired by a [post in stackoverflow](https://stackoverflow.com/questions/
 
 At a high level, the project structure is as follows:
 
-
 ```text
 azuremlproject            This folder contains all the project files.
 │   .azureml              This folder contains the Azure Machine Learning config files
