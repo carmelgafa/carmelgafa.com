@@ -49,7 +49,9 @@ parser.add_argument('--max_samples', type=float, help='Max samples')
 parser.add_argument('--max_features', type=float, help='Max features')
 parser.add_argument('--bootstrap', type=bool, help='Bootstrap')
 args = parser.parse_args()
+```
 
+``` python
 # get the run context and the workspace.
 run = Run.get_context()
 workspace = run.experiment.workspace
