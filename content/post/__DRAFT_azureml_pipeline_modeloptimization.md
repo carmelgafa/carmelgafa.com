@@ -188,7 +188,9 @@ hyperdrive_config = HyperDriveConfig(run_config=config,
 experiment = Experiment(w_space, 'concrete_tune')
 run:HyperDriveRun = experiment.submit(hyperdrive_config )
 run.wait_for_completion(show_output=True)
+```
 
+``` python
 # Checking if the run is completed.
 assert run.get_status() == "Completed"
 # Printing the status of the run.
