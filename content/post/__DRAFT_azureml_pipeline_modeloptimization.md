@@ -157,7 +157,9 @@ else:
             'requirements.txt')
         )
     config.run_config.environment = environment
+```
 
+``` python
 # Creating a dictionary of parameters to be used in the hyperparameter tuning.
 param_sampling = RandomParameterSampling( {
     '--base_estimator': choice(
