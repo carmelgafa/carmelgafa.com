@@ -76,7 +76,9 @@ data_transformer = joblib.load(data_transformer_path)
 # Load the model from the model store.
 model_path = Model(workspace, 'concrete_model').download(exist_ok = True)
 model = joblib.load(model_path)
+```
 
+``` python
 # set the base estimator.
 if args.base_estimator == 'LinearRegression':
     model.set_params(base_estimator = LinearRegression())
