@@ -61,7 +61,10 @@ mount_context_X = Dataset.get_by_name(workspace, name='train_X').mount()
 mount_context_X.start()
 path = mount_context_X.mount_point + '/data.txt'
 train_X = pd.read_csv(path, header=None).to_numpy()
+```
 
+
+``` python
 # Get the dataset fot y from the workspace and then mount it.
 mount_context_y = Dataset.get_by_name(workspace, name='train_y').mount()
 mount_context_y.start()
