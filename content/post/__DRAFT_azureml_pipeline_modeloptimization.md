@@ -143,7 +143,9 @@ config = ScriptRunConfig(
     script='optimize.py',
     arguments=['--n_estimators', '5'],
     compute_target=constants.TARGET_NAME)
+```
 
+``` python
 if 'concrete_env' in w_space.environments.keys():
     config.run_config.environment = Environment.get(workspace=w_space, name='concrete_env')
 else:
