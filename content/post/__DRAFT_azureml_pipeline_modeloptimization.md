@@ -209,3 +209,5 @@ best_run.register_model(model_name='final_model', model_path="outputs/model.pkl"
 ```
 
 ## References
+
+[1] Microsoft, [Hyperparameter tuning a model (v2) - Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters) [online] [Accessed 20 June 2022]
