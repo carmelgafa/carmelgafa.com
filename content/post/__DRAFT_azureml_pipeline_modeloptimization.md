@@ -21,6 +21,52 @@ optimize
 │   │   optimize.py
 ```
 
+## Hyperparameter Tuning
+
+
+Discrete hyperparameters
+
+```text
+Choice(values=range(1,5)
+```
+Continuous hyperparameters
+
+Uniform(min_value, max_value) - Returns a value uniformly distributed between min_value and max_value
+LogUniform(min_value, max_value) - Returns a value drawn according to exp(Uniform(min_value, max_value)) so that the logarithm of the return value is uniformly distributed
+Normal(mu, sigma) - Returns a real value that's normally distributed with mean mu and standard deviation sigma
+LogNormal(mu, sigma) - Returns a value drawn according to exp(Normal(mu, sigma)) so that the logarithm of the return value is normally distributed
+
+
+Random sampling
+Random sampling supports discrete and continuous hyperparameters. It supports early termination of low-performance jobs. Some users do an initial search with random sampling and then refine the search space to improve results.
+Sobol
+Sobol is a type of random sampling supported by sweep job types. You can use sobol to reproduce your results using seed and cover the search space distribution more evenly.
+
+
+Grid sampling
+Grid sampling supports discrete hyperparameters. Use grid sampling if you can budget to exhaustively search over the search space. Supports early termination of low-performance jobs.
+
+
+Bayesian sampling
+Bayesian sampling is based on the Bayesian optimization algorithm. It picks samples based on how previous samples did, so that new samples improve the primary metric.
+
+Bayesian sampling is recommended if you have enough budget to explore the hyperparameter space. For best results, we recommend a maximum number of jobs greater than or equal to 20 times the number of hyperparameters being tuned.
+
+
+sweep
+
+termination policy
+
+Bandit policy
+Bandit policy is based on slack factor/slack amount and evaluation interval. Bandit policy ends a job when the primary metric isn't within the specified slack factor/slack amount of the most successful job.
+
+Median stopping policy
+Median stopping is an early termination policy based on running averages of primary metrics reported by the jobs. This policy computes running averages across all training jobs and stops jobs whose primary metric value is worse than the median of the averages.
+
+
+Truncation selection policy
+Truncation selection cancels a percentage of lowest performing jobs at each evaluation interval. jobs are compared using the primary metric.
+
 ## Model Optimization
 
 ```python
