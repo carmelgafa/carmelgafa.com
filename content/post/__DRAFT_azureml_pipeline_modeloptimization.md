@@ -55,7 +55,7 @@ Bayesian sampling is recommended if you have enough budget to explore the hyperp
 
 sweep
 
-termination policy
+termination policy  (https://arxiv.org/pdf/2003.05689.pdf)
 
 Bandit policy
 Bandit policy is based on slack factor/slack amount and evaluation interval. Bandit policy ends a job when the primary metric isn't within the specified slack factor/slack amount of the most successful job.
