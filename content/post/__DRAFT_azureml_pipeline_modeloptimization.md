@@ -21,7 +21,7 @@ optimize
 │   │   optimize.py
 ```
 
-## Hyperparameter Tuning
+## Hyperparameter Tuning (https://machinelearningmastery.com/hyperparameter-optimization-with-random-search-and-grid-search/)
 
 
 Discrete hyperparameters
