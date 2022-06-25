@@ -3,7 +3,7 @@ title: "Carmel Gafa"
 description: Home Page
 ---
 
-# **Carmel Gafa - My work in progress**
+## **Carmel Gafa - My work in progress**
 
 [About page](/about/)
 
