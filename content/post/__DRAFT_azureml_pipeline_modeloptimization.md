@@ -218,6 +218,14 @@ else:
     config.run_config.environment = environment
 ```
 
+We create a **RandomParameterSampling** object to randomly sample over the hyperparameter search space. The search space is defined in the constructor as a dictionary of parameter names and their ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:
+
+- **n_estimators**: Values in the set [5, 10, 15, 20, 25]
+- **base_estimator**: Values in the set ['LinearRegression', 'RandomForestRegressor', 'KNeighborsRegressor']
+- **max_samples**: Values in the set [0.5, 1.0]
+- **max_features**: Values in the set [0.5, 1.0]
+- **bootstrap**: Values in the set [True, False]
+
 ``` python
 # Creating a dictionary of parameters to be used in the hyperparameter tuning.
 param_sampling = RandomParameterSampling( {
