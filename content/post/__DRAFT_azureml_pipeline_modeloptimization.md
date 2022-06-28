@@ -7,11 +7,9 @@ description: ""
 ---
 ## Introduction
 
-In this second part of this series, we will optimize the model that we created in the [previously](/post/azureml_pipeline_trainingpipeline) by attempting to select the best set of hyperparameters, or model configuration parameters specified by the data scientist that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process, but rather are chosen by the scientist.
+In this second part of this series of posts that will go through the steps required to create an end-to-end machine learning project in AzureML, we will optimize the model that we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters, or model configuration parameters that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process, but rather are chosen by the data scientist. In general, we cannot use techniques that we use to learn model parameters, such as gradient descent to learn hyperparameters although they do have an affect the loss function.
 
-In general, hyperparameters, we cannot use techniques that we use to learn model parameters, such as gradient descent to learn hyperparameters although they do have an affect the loss function.
-
-
+[why?]
 
 
 The problem of hyperparameter optimization is therefore finding the optimal model in an $n$ dimensional space, where $n$ is the number of hyperparameters that are being optimized. This $n$ dimensional space is referred to as the **search space**.
@@ -36,37 +34,26 @@ optimize
 
 ## Hyperparameter Tuning (https://machinelearningmastery.com/hyperparameter-optimization-with-random-search-and-grid-search/)
 
+Hyperparameters can be discrete or continuous. Continuous hyperparameters can be specified over a range of values, or over a set of values. Discrete hyperparameters are simply a set of values that we can chose one from.
 
-Discrete hyperparameters
+AzureML contains functions to specify discrete and continuous hyperparameter distributions in the **parameter_expressions** library of the **hyperdive** package, where we find the following functions:
 
-```text
-Choice(values=range(1,5)
-```
-Continuous hyperparameters
+- **choice()** - Specifies a discrete hyperparameter space as a list of possible values.
+- **lognormal()** - Specifies a continuous hyperparameter space as a log-normal distribution with a mean and standard deviation.
+- **loguniform()** - Specifies a continuous hyperparameter space as a log-uniform distribution with a minimum and maximum.
+- **uniform()** - Specifies a continuous hyperparameter space as a uniform distribution with a minimum and maximum.
+- **normal()** - Specifies a continuous hyperparameter space as a normal distribution with a mean and standard deviation.
+- **quniform()** - Specifies a continuous hyperparameter space as a round uniform distribution with a minimum and maximum. **quniform()** is suitable for discrete hyperparameters.
+- **qnormal()** - Specifies a continuous hyperparameter space as a round normal distribution with a mean and standard deviation. **qnormal()** is suitable for discrete hyperparameters.
+- **randint()** - Specifies a discrete hyperparameter space as random integers between zero and a maximum value.
 
-Uniform(min_value, max_value) - Returns a value uniformly distributed between min_value and max_value
-LogUniform(min_value, max_value) - Returns a value drawn according to exp(Uniform(min_value, max_value)) so that the logarithm of the return value is uniformly distributed
-Normal(mu, sigma) - Returns a real value that's normally distributed with mean mu and standard deviation sigma
-LogNormal(mu, sigma) - Returns a value drawn according to exp(Normal(mu, sigma)) so that the logarithm of the return value is normally distributed
+We also require a strategy to navigate the hyperparameter space. The following strategies are commonly used in this context, also part of the **hyperdive** package:
 
-
-Random sampling
-Random sampling supports discrete and continuous hyperparameters. It supports early termination of low-performance jobs. Some users do an initial search with random sampling and then refine the search space to improve results.
-Sobol
-Sobol is a type of random sampling supported by sweep job types. You can use sobol to reproduce your results using seed and cover the search space distribution more evenly.
-
-
-Grid sampling
-Grid sampling supports discrete hyperparameters. Use grid sampling if you can budget to exhaustively search over the search space. Supports early termination of low-performance jobs.
+- **RandomParameterSampling**. Random sampling selects a random hyperparameter values from the search space. It supports discrete and continuous hyperparameters. Related to the **RandomParameterSampling** strategy, we can also use the **Sobol** strategy that covers the search space more evenly.
+- **GridParameterSampling**. Grid sampling supports discrete hyperparameters, however it is possible to create a discrete set from a distribution of hyperparameters. It goes through the search space defined by **choice** distributions in a grid fashion.
+- **BayesianParameterSampling** is a more sophisticated strategy that uses a Bayesian approach to select hyperparameters based on the performance of previous hyperparameter selections.
 
 
-Bayesian sampling
-Bayesian sampling is based on the Bayesian optimization algorithm. It picks samples based on how previous samples did, so that new samples improve the primary metric.
-
-Bayesian sampling is recommended if you have enough budget to explore the hyperparameter space. For best results, we recommend a maximum number of jobs greater than or equal to 20 times the number of hyperparameters being tuned.
-
-
-sweep
 
 termination policy  (https://arxiv.org/pdf/2003.05689.pdf)
 
