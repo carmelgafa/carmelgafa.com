@@ -14,12 +14,6 @@ In this second part of this series of posts that will go through the steps requi
 
 The problem of hyperparameter optimization is therefore finding the optimal model in an $n$ dimensional space, where $n$ is the number of hyperparameters that are being optimized. This $n$ dimensional space is referred to as the **search space**.
 
-Hyperparameters can be either discrete or continuous. Continuous hyperparameters can be specified over a 
-
-
-
-
-
 The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.
 
 ```text
@@ -32,7 +26,9 @@ optimize
 │   │   optimize.py
 ```
 
-## Hyperparameter Tuning (https://machinelearningmastery.com/hyperparameter-optimization-with-random-search-and-grid-search/)
+## Hyperparameter Tuning
+
+In AzureML SDK, all modules related to hyperparameter tuning are located in the **hyperdrive** package. In this section we will look very briefly at some of the features that are available. The final coding objective in AzureMl hyperparameter tuning is to create a **HyperDriveConfig** object that defines an optimization run.
 
 Hyperparameters can be discrete or continuous. Continuous hyperparameters can be specified over a range of values, or over a set of values. Discrete hyperparameters are simply a set of values that we can chose one from.
 
@@ -53,19 +49,9 @@ We also require a strategy to navigate the hyperparameter space. The following s
 - **GridParameterSampling**. Grid sampling supports discrete hyperparameters, however it is possible to create a discrete set from a distribution of hyperparameters. It goes through the search space defined by **choice** distributions in a grid fashion.
 - **BayesianParameterSampling** is a more sophisticated strategy that uses a Bayesian approach to select hyperparameters based on the performance of previous hyperparameter selections.
 
+The hyperparameter optimization strategy also requires a primary metric that is being reported in each tuning run. We also need to define the goal for this metric, that is if our objective to maximize or minimize it.
 
-
-termination policy  (https://arxiv.org/pdf/2003.05689.pdf)
-
-Bandit policy
-Bandit policy is based on slack factor/slack amount and evaluation interval. Bandit policy ends a job when the primary metric isn't within the specified slack factor/slack amount of the most successful job.
-
-Median stopping policy
-Median stopping is an early termination policy based on running averages of primary metrics reported by the jobs. This policy computes running averages across all training jobs and stops jobs whose primary metric value is worse than the median of the averages.
-
-
-Truncation selection policy
-Truncation selection cancels a percentage of lowest performing jobs at each evaluation interval. jobs are compared using the primary metric.
+Finally, it is also desireable to specify a termination policy that will stop the tuning process certain parameters are attained.
 
 ## Model Optimization
 
