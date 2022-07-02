@@ -11,7 +11,6 @@ In this second part of this series of posts, we will optimize the model we creat
 
 [why?]
 
-
 The problem of hyperparameter optimization is therefore in finding the optimal model in an $n$ dimensional space; where $n$ is the number of hyperparameters that are being optimized. We refer to this $n$ dimensional space as the **search space**.
 
 The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.
@@ -253,3 +252,5 @@ best_run.register_model(model_name='final_model', model_path="outputs/model.pkl"
 [1] Microsoft, [Hyperparameter tuning a model (v2) - Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters) [online] [Accessed 20 June 2022]
 
 [2] Microsoft [azureml.train.hyperdrive package](https://docs.microsoft.com/en-us/python/api/azureml-train-core/azureml.train.hyperdrive?view=azure-ml-py) [online] [Accessed 1 July 2022].
+
+[3] Brownlee, J., [Machine Learning Mastery - Hyperparameter Optimization With Random Search and Grid Search](https://machinelearningmastery.com/hyperparameter-optimization-with-random-search-and-grid-search/) [online] [Accessed 2 July 2022]
