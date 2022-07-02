@@ -7,9 +7,7 @@ description: ""
 ---
 ## Introduction
 
-In this second part of this series of posts, we will optimize the model we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters or model configuration parameters that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques that we use to understand model parameters, such as gradient descent, to learn hyperparameters, although they affect the loss function.
-
-[why?]
+In this second part of this series of posts, we will optimize the model we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques that we use to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.
 
 The problem of hyperparameter optimization is therefore in finding the optimal model in an $n$ dimensional space; where $n$ is the number of hyperparameters that are being optimized. We refer to this $n$ dimensional space as the **search space**.
 
@@ -27,11 +25,9 @@ optimize
 
 ## Hyperparameter Tuning
 
-In AzureML SDK, all modules related to hyperparameter tuning are located in the **hyperdrive** package. In this section, we will look very briefly at some of the available features. The final coding objective in AzureMl hyperparameter tuning is to create a **HyperDriveConfig** object that defines an optimization run.
+In AzureML SDK, all modules related to hyperparameter tuning are located in the **hyperdrive** package. In this section, we will look very briefly at some of the available features. The objective in AzureML hyperparameter tuning is to create a **HyperDriveConfig** object that defines an optimization run.
 
-Hyperparameters can be discrete or continuous. We can specify continuous hyperparameters over a range of values or a set of values. Discrete hyperparameters are simply a set of values that we can choose one from.
-
-AzureML contains functions to specify discrete and continuous hyperparameter distributions in the **parameter_expressions** library of the **hyperdive** package, where we find the following functions:
+Hyperparameters can be discrete or continuous. We can specify continuous hyperparameters over a range of values or a set of values. Discrete hyperparameters are simply a set of values that we can choose one from. AzureML contains functions to specify discrete and continuous hyperparameter distributions in the **parameter_expressions** library of the **hyperdrive** package, where we find the following functions:
 
 - **choice()** - Specifies a discrete hyperparameter space as a list of possible values.
 - **lognormal()** - Specifies a continuous hyperparameter space as a log-normal distribution with a mean and standard deviation.
@@ -50,9 +46,13 @@ We also require a strategy to navigate the hyperparameter space. The following m
 
 The hyperparameter optimization strategy also requires a primary metric that is being reported in each tuning run. We also need to define the goal for this metric, that is, if our objective is to maximize or minimize it.
 
-Finally, it is also desirable to specify a termination policy that will stop the tuning process until specific parameters are attained.
+Finally, it is also desirable to specify a termination policy that will stop the tuning process when specific parameters are attained.
 
 ## Model Optimization
+
+This exercise consists of two scripts; the first that defines the model optimization strategy and the second  runs the optimization. We will start by looking at the first script.
+
+The first script starts with a definition of the arguments that we will use in the optimization
 
 ```python
 
@@ -82,6 +82,8 @@ parser.add_argument('--bootstrap', type=bool, help='Bootstrap')
 args = parser.parse_args()
 ```
 
+We then read the tain features and labels from the AzureML datasets as numpy arrays.
+
 ``` python
 # get the run context and the workspace.
 run = Run.get_context()
@@ -99,6 +101,9 @@ path = mount_context_y.mount_point + '/data.txt'
 train_y = pd.read_csv(path, header=None).to_numpy()
 ```
 
+We can then load the data transformer and the machine learning model that were registered as AzureML models.
+
+
 ``` python
 # Load the data_transformer from the model store.
 data_transformer_path = Model(workspace, 'data_transformer').download(exist_ok = True)
@@ -108,6 +113,8 @@ data_transformer = joblib.load(data_transformer_path)
 model_path = Model(workspace, 'concrete_model').download(exist_ok = True)
 model = joblib.load(model_path)
 ```
+
+At this stage we can define the machine learning model's hyperparameters from the arguments passed to the script.
 
 ``` python
 # set the base estimator.
@@ -124,8 +131,11 @@ model.set_params(n_estimators=args.n_estimators)
 model.set_params(max_samples=args.max_samples)
 model.set_params(max_features=args.max_features)
 model.set_params(bootstrap=args.bootstrap)
-# model.set_params(bootstrap_features=args.bootstrap_features)
+```
 
+The next step is to obtain the predictions for the train data.
+
+``` python
 # Transforming the test data using the data transformer and
 # then predicting the values using the model.
 processed_data = data_transformer.transform(train_X)
