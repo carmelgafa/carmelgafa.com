@@ -1,9 +1,9 @@
 ---
-title: "__DRAFT_azureml_pipeline_modeloptimization"
-date: 2022-05-05
-tags: []
-draft: true
-description: ""
+title: "Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization"
+date: "2022-07-03"
+tags: [machine-learning, azure ml, hyperparameter tuning, model optimization]
+draft: false
+description: "Creation and execution of an AzureML Model Optimization Experiment"
 ---
 ## Introduction
 
@@ -101,8 +101,7 @@ path = mount_context_y.mount_point + '/data.txt'
 train_y = pd.read_csv(path, header=None).to_numpy()
 ```
 
-We can then load the data transformer and the machine learning model that were registered as AzureML models.
-
+We can then load the data transformer and the machine learning model that were registered as AzureML models. It is important to note that we need the definition of the custom transformers (the aggregate transformer that was created as part of the train pipeline), and for this reason we have included the **data_transformer_builder.py** file.
 
 ``` python
 # Load the data_transformer from the model store.
@@ -142,6 +141,8 @@ processed_data = data_transformer.transform(train_X)
 predictions = model.predict(processed_data)
 ```
 
+Since we have the predictions, we can calculate the RMSE for this set of hyperparameters. We conclude this script by logging the RMSE and storing the model that we have created, so essentially we will have a model and metric record for each hyperparameter trial run.
+
 ``` python
 # Calculating square root of the mean squared error.
 test_mse = mean_squared_error(train_y, predictions)
@@ -159,6 +160,8 @@ mount_context_y.stop()
 ```
 
 ### Execution of Optimization Process
+
+We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new **ScriptRunConfig** object that contains the name of the script that will be executed for each tuning run.
 
 ```python
 '''
@@ -182,9 +185,10 @@ config = ScriptRunConfig(
         os.path.dirname(os.path.realpath(__file__)),
         'src'),
     script='optimize.py',
-    arguments=['--n_estimators', '5'],
     compute_target=constants.TARGET_NAME)
 ```
+
+We next define the environment that will be used for the experiment. We will attempt to use the same environemt that was used for the train pipeline, and create it if it does not exist.
 
 ``` python
 if 'concrete_env' in w_space.environments.keys():
@@ -200,7 +204,7 @@ else:
     config.run_config.environment = environment
 ```
 
-We create a **RandomParameterSampling** object to sample over the hyperparameter search space randomly. The constructor defines the search space as a dictionary of parameter names and their ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:
+We create the hyperparameter search space by instantiating a **RandomParameterSampling** object that will sample over the hyperparameter search space randomly. The constructor defines the search space as a dictionary of parameter names and their ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:
 
 - **n_estimators**: Values in the set [5, 10, 15, 20, 25]
 - **base_estimator**: Values in the set ['LinearRegression', 'RandomForestRegressor', 'KNeighborsRegressor']
@@ -221,6 +225,15 @@ param_sampling = RandomParameterSampling( {
 )
 ```
 
+We can then create a **HyperDriveConfig** object that will be used to execute the optimization process. The constructor defines a number of parameters, including:
+
+- The instance of the **RunConfig** object that will be used to execute the script.
+- The instance of the **ParameterSampling** object that will be used to sample over the hyperparameter search space.
+- The **Primary Metric Name** or the parameter that wil be used to compare the various hyperparameter trials.
+- The **Primary Metric Goal** which defines our objective with the metric, maximization or minimization.
+- The **Maximum Number of Trials** that will be used to execute the optimization process. The trial will terminate when this number of trials is reached.
+- The **Number of concurrent trials** that will be used to execute the optimization process. This is dependent on the comte that is used to execute the experiment.
+
 ``` python
 # Creating a hyperdrive configuration object.
 hyperdrive_config = HyperDriveConfig(run_config=config,
@@ -232,6 +245,8 @@ hyperdrive_config = HyperDriveConfig(run_config=config,
 
 ```
 
+We can the submit the experiment to the workspace for execution. We have used the name **concrete_tune** as the name of the experiment.
+
 ``` python
 # This is submitting the hyperdrive configuration to the experiment.
 experiment = Experiment(w_space, 'concrete_tune')
@@ -239,12 +254,16 @@ run:HyperDriveRun = experiment.submit(hyperdrive_config )
 run.wait_for_completion(show_output=True)
 ```
 
+After the experiment has completed, we assert that the experiment has completed successfully.
+
 ``` python
 # Checking if the run is completed.
 assert run.get_status() == "Completed"
 # Printing the status of the run.
 print('status', run.get_status())
 ```
+
+We can then get the best model from the experiment. In this case, we are printitng the rmse of the best run and the values of the hyperparameters for that run. We the register the best model to the workspace with the name **final_model**.
 
 ``` python
 best_run = run.get_best_run_by_primary_metric()
@@ -256,6 +275,9 @@ print('parameter_values', parameter_values)
 best_run.register_model(model_name='final_model', model_path="outputs/model.pkl")
 
 ```
+
+## Execution
+
 
 ## References
 
