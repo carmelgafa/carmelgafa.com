@@ -7,7 +7,7 @@ description: "Creation and execution of an AzureML Model Optimization Experiment
 ---
 ## Introduction
 
-In this second part of this series of posts, we will optimize the model we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques that we use to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.
+In this second part of this series of posts, we will optimize the model we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.
 
 The problem of hyperparameter optimization is therefore in finding the optimal model in an $n$ dimensional space; where $n$ is the number of hyperparameters that are being optimized. We refer to this $n$ dimensional space as the **search space**.
 
@@ -27,7 +27,7 @@ optimize
 
 In AzureML SDK, all modules related to hyperparameter tuning are located in the **hyperdrive** package. In this section, we will look very briefly at some of the available features. The objective in AzureML hyperparameter tuning is to create a **HyperDriveConfig** object that defines an optimization run.
 
-Hyperparameters can be discrete or continuous. We can specify continuous hyperparameters over a range of values or a set of values. Discrete hyperparameters are simply a set of values that we can choose one from. AzureML contains functions to specify discrete and continuous hyperparameter distributions in the **parameter_expressions** library of the **hyperdrive** package, where we find the following functions:
+Hyperparameters can be discrete or continuous. We can specify continuous hyperparameters over a range of values or a set of values. Discrete hyperparameters are simply a set of values that we can choose and assign a single one to the model. AzureML contains functions to specify discrete and continuous hyperparameter distributions in the **parameter_expressions** library of the **hyperdrive** package, where we find the following functions:
 
 - **choice()** - Specifies a discrete hyperparameter space as a list of possible values.
 - **lognormal()** - Specifies a continuous hyperparameter space as a log-normal distribution with a mean and standard deviation.
@@ -50,9 +50,9 @@ Finally, it is also desirable to specify a termination policy that will stop the
 
 ## Model Optimization
 
-This exercise consists of two scripts; the first that defines the model optimization strategy and the second  runs the optimization. We will start by looking at the first script.
+This exercise consists of two scripts; the first defines the model optimization strategy, and the second runs the optimization. We will start by looking at the first script.
 
-The first script starts with a definition of the arguments that we will use in the optimization
+The first script starts with a definition of the arguments that we will use in the optimization.
 
 ```python
 
@@ -82,7 +82,7 @@ parser.add_argument('--bootstrap', type=bool, help='Bootstrap')
 args = parser.parse_args()
 ```
 
-We then read the tain features and labels from the AzureML datasets as numpy arrays.
+We then read the train features and labels from the AzureML datasets as numpy arrays.
 
 ``` python
 # get the run context and the workspace.
@@ -101,7 +101,7 @@ path = mount_context_y.mount_point + '/data.txt'
 train_y = pd.read_csv(path, header=None).to_numpy()
 ```
 
-We can then load the data transformer and the machine learning model that were registered as AzureML models. It is important to note that we need the definition of the custom transformers (the aggregate transformer that was created as part of the train pipeline), and for this reason we have included the **data_transformer_builder.py** file.
+We can then load the data transformer and the machine learning model we previously registered as AzureML models. It is important to note that we need the definition of the custom transformers (the aggregate transformer that was created as part of the train pipeline), and for this reason, we have included the **data_transformer_builder.py** file.
 
 ``` python
 # Load the data_transformer from the model store.
@@ -113,7 +113,7 @@ model_path = Model(workspace, 'concrete_model').download(exist_ok = True)
 model = joblib.load(model_path)
 ```
 
-At this stage we can define the machine learning model's hyperparameters from the arguments passed to the script.
+At this stage, we can define the machine learning model's hyperparameters from the arguments passed to the script.
 
 ``` python
 # set the base estimator.
@@ -141,7 +141,7 @@ processed_data = data_transformer.transform(train_X)
 predictions = model.predict(processed_data)
 ```
 
-Since we have the predictions, we can calculate the RMSE for this set of hyperparameters. We conclude this script by logging the RMSE and storing the model that we have created, so essentially we will have a model and metric record for each hyperparameter trial run.
+Since we have the predictions, we can calculate the RMSE for this set of hyperparameters. We conclude this script by logging the RMSE and storing the model we have created to have a model and metric record for each hyperparameter trial run.
 
 ``` python
 # Calculating square root of the mean squared error.
@@ -161,7 +161,7 @@ mount_context_y.stop()
 
 ### Execution of Optimization Process
 
-We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new **ScriptRunConfig** object that contains the name of the script that will be executed for each tuning run.
+We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new **ScriptRunConfig** object that contains the script's name that we will execute for each tuning run.
 
 ```python
 '''
@@ -188,7 +188,7 @@ config = ScriptRunConfig(
     compute_target=constants.TARGET_NAME)
 ```
 
-We next define the environment that will be used for the experiment. We will attempt to use the same environemt that was used for the train pipeline, and create it if it does not exist.
+We next define the environment that we will use for the experiment. We will attempt to use the same environment we used for the train pipeline, and create it if it does not exist.
 
 ``` python
 if 'concrete_env' in w_space.environments.keys():
@@ -204,7 +204,7 @@ else:
     config.run_config.environment = environment
 ```
 
-We create the hyperparameter search space by instantiating a **RandomParameterSampling** object that will sample over the hyperparameter search space randomly. The constructor defines the search space as a dictionary of parameter names and their ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:
+We create the hyperparameter search space by instantiating a **RandomParameterSampling** object that will sample over the hyperparameter search space randomly. The constructor defines the search space as a dictionary of parameter names and ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:
 
 - **n_estimators**: Values in the set [5, 10, 15, 20, 25]
 - **base_estimator**: Values in the set ['LinearRegression', 'RandomForestRegressor', 'KNeighborsRegressor']
@@ -225,14 +225,14 @@ param_sampling = RandomParameterSampling( {
 )
 ```
 
-We can then create a **HyperDriveConfig** object that will be used to execute the optimization process. The constructor defines a number of parameters, including:
+We can then create a **HyperDriveConfig** object that we will use to execute the optimization process. The constructor defines several parameters, including:
 
-- The instance of the **RunConfig** object that will be used to execute the script.
+- The instance of the **RunConfig** object will be used to execute the script.
 - The instance of the **ParameterSampling** object that will be used to sample over the hyperparameter search space.
-- The **Primary Metric Name** or the parameter that wil be used to compare the various hyperparameter trials.
-- The **Primary Metric Goal** which defines our objective with the metric, maximization or minimization.
+- The **Primary Metric Name** or the parameter that will be used to compare the various hyperparameter trials.
+- The **Primary Metric Goal** defines our objective with the metric, maximization or minimization.
 - The **Maximum Number of Trials** that will be used to execute the optimization process. The trial will terminate when this number of trials is reached.
-- The **Number of concurrent trials** that will be used to execute the optimization process. This is dependent on the comte that is used to execute the experiment.
+- The **Number of concurrent trials** will be used to execute the optimization process. This number depends on the AzureML compute we selected to run the experiment.
 
 ``` python
 # Creating a hyperdrive configuration object.
@@ -245,7 +245,7 @@ hyperdrive_config = HyperDriveConfig(run_config=config,
 
 ```
 
-We can the submit the experiment to the workspace for execution. We have used the name **concrete_tune** as the name of the experiment.
+We can then submit the experiment to the workspace for execution. We have used the name **concrete_tune** as the experiment's name.
 
 ``` python
 # This is submitting the hyperdrive configuration to the experiment.
@@ -254,7 +254,7 @@ run:HyperDriveRun = experiment.submit(hyperdrive_config )
 run.wait_for_completion(show_output=True)
 ```
 
-After the experiment has completed, we assert that the experiment has completed successfully.
+We assert that the experiment has been completed successfully.
 
 ``` python
 # Checking if the run is completed.
@@ -263,7 +263,7 @@ assert run.get_status() == "Completed"
 print('status', run.get_status())
 ```
 
-We can then get the best model from the experiment. In this case, we are printitng the rmse of the best run and the values of the hyperparameters for that run. We the register the best model to the workspace with the name **final_model**.
+We can then get the best model from the experiment. In this case, we are printing the RMSE and the values of the hyperparameters of the best run. We then register the best model to the workspace with the name **final_model**.
 
 ``` python
 best_run = run.get_best_run_by_primary_metric()
@@ -273,11 +273,41 @@ print('best_run_metrics', best_run_metrics)
 parameter_values = best_run.get_details()['runDefinition']['arguments']
 print('parameter_values', parameter_values)
 best_run.register_model(model_name='final_model', model_path="outputs/model.pkl")
-
 ```
 
 ## Execution
 
+Navigating the workspace experiments, we notice a new experiment called **concrete_tune**. The experiment will contain all the runs that we executed for this experiment.
+
+![Experiment Details](/post/img/azureml_pipeline_introduction_optimization.jpg)
+
+Each run will contain information about the execution organized in some tabs:
+
+- **Metrics**: This tab contains the metrics calculated during the run.
+- **Overview**: This tab contains a summary of the run.
+- **Trials**: This tab contains the trials (different hyperparameter combinations) we executed during the run.
+- **Output+Logs**: This tab contains the output and logs files of the run.
+
+|![ML Pipeline](/post/img/azureml_pipeline_introduction_optimization_run_overview.jpg)|
+|:---:|
+|**Overview of the run. Observe the search space definition**|
+|&nbsp;|
+
+|![ML Pipeline](/post/img/azureml_pipeline_introduction_optimization_run_trials.jpg)|
+|:---:|
+|**The trials tab provides valuable information about the run. The parallel coordinates chart shows the various hyperparameter combination effect on the cost function**|
+|&nbsp;|
+
+Now, we can see the workspace models; we can see that the best model has been registered to the workspace with the name **final_model**.
+
+|![ML Pipeline](/post/img/azureml_pipeline_introduction_optimization_run_model.jpg)|
+|:---:|
+|**The final model**|
+|&nbsp;|
+
+The run execution also leaves some interesting information in our console, including the hyperparameters that we used to train the best model.
+
+![Terminal](/post/img/azureml_pipeline_introduction_optimization_run_terminal.jpg)
 
 ## References
 
