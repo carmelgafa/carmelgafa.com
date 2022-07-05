@@ -102,7 +102,9 @@ config = ScriptRunConfig(
     script='validate.py',
     arguments=[],
     compute_target=constants.INSTANCE_NAME)
+```
 
+```python
 if 'concrete_env' in w_space.environments.keys():
     config.run_config.environment = Environment.get(workspace=w_space, name='concrete_env')
 else:
@@ -114,7 +116,9 @@ else:
             'requirements.txt')
         )
     config.run_config.environment = environment
+```
 
+```python
 
 experiment = Experiment(w_space, 'concrete_validate')
 run = experiment.submit(config)
