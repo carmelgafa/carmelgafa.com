@@ -210,7 +210,7 @@ We create the hyperparameter search space by instantiating a **RandomParameterSa
 - **base_estimator**: Values in the set {'LinearRegression', 'RandomForestRegressor', 'KNeighborsRegressor'}
 - **max_samples**: Values in the set {0.5, 1.0}
 - **max_features**: Values in the set {0.5, 1.0}
-- **bootstrap**: Values in the set {True, False}
+- **bootstrap**: Values in the set [{True, False}
 
 ``` python
 # Creating a dictionary of parameters to be used in the hyperparameter tuning.
