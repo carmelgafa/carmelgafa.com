@@ -161,7 +161,7 @@ mount_context_y.stop()
 
 ### Execution of Optimization Process
 
-We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new **ScriptRunConfig** object that contains the script's name that we will execute for each tuning run.
+We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new **ScriptRunConfig** object that contains the script's name that we will execute for each tuning run. we notice that this scripts is executed in the compute target so that we can take advantage of the number of cores available.
 
 ```python
 '''
