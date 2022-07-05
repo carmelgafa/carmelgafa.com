@@ -33,3 +33,8 @@ So far, as of January 2022, I have read the following books:
 #### [The Age of Doubt by Andrea Camilleri](https://www.amazon.com/Doubt-Inspector-Montalbano-Mysteries-Book-ebook/dp/B009WSCV1W/ref=sr_1_1?crid=1K2IW1XKNLVI0&keywords=the+age+of+doubt&qid=1653673597&s=digital-text&sprefix=the+age+of+doubt%2Cdigital-text%2C195&sr=1-1)
 
 #### [Xemx, Wisq Sabiħa by Ġużè Stagno](https://www.goodreads.com/en/book/show/6599880-xemx-wisq-sabi-a)
+
+#### [Ikigai: The Japanese Secret to a Long and Happy Life by Héctor García](https://www.amazon.com/Free-Focus-Productivity-System-Achieve-ebook/dp/B07F3DM7C1)
+
+#### [A Study in Scarlet by  Sir Arthur Conan Doyle](https://www.amazon.com/Study-Scarlet-Arthur-Conan-Doyle/dp/1535534664/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1655564406&sr=1-1)
+
