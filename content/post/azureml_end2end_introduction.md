@@ -28,8 +28,8 @@ This collection of posts is not intended to be a complete guide to Azure Machine
 This project has been divided into a number of smaller posts so to limit the length and content of each post. It consists of the following entries:
 
 1. [An introduction to the project, considerations and data uploading to Azure](/post/azureml_end2end_introduction)
-2. [Training pipeline creation and execution](/post/azureml_end2end_introduction)
-3. Hyperparameter Tuning
+2. [Training pipeline creation and execution](/post/azureml_end2end_trainingpipeline)
+3. [Hyperparameter tuning](/post/azureml_end2end_modeloptimization)
 4. Model Testing
 5. Model Deployment
 
