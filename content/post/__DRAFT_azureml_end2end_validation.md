@@ -24,8 +24,6 @@ validate
 │   │   validate.py
 ```
 
-
-
 ```python
 
 '''
@@ -41,7 +39,9 @@ import pandas as pd
 # get the run context and the workspace.
 run = Run.get_context()
 workspace = run.experiment.workspace
+```
 
+```python
 # Get the dataset for X from the workspace and then mount it.
 mount_context_X = Dataset.get_by_name(workspace, name='test_X').mount()
 mount_context_X.start()
@@ -53,9 +53,9 @@ mount_context_y = Dataset.get_by_name(workspace, name='test_y').mount()
 mount_context_y.start()
 path = mount_context_y.mount_point + '/data.txt'
 test_y = pd.read_csv(path, header=None).to_numpy()
+```
 
-run.log('test_X', test_X.shape)
-
+```python
 # Load the data_transformer from the model store.
 data_transformer_path = Model(workspace, 'data_transformer').download(exist_ok = True)
 data_transformer = joblib.load(data_transformer_path)
@@ -63,7 +63,9 @@ data_transformer = joblib.load(data_transformer_path)
 # Load the model from the model store.
 model_path = Model(workspace, 'final_model').download(exist_ok = True)
 model = joblib.load(model_path)
+```
 
+```python
 # Transforming the test data using the data_transformer and
 # then predicting the values using the model.
 processed_data = data_transformer.transform(test_X)
@@ -78,6 +80,7 @@ mount_context_X.stop()
 mount_context_y.stop()
 ```
 
+### execution script
 
 ```python
 '''
