@@ -8,11 +8,6 @@ description: ""
 
 ## Introduction
 
-In this second part of this series of posts, we will optimize the model we created in the [previously](/post/azureml_pipeline_trainingpipeline) by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.
-
-The problem of hyperparameter optimization is therefore in finding the optimal model in an $n$ dimensional space; where $n$ is the number of hyperparameters that are being optimized. We refer to this $n$ dimensional space as the **search space**.
-
-The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.
 
 ```text
 validate
