@@ -61,6 +61,11 @@ azuremlproject            This folder contains all the project files.
 
 As discussed in the [previous posts on this site](https://carmelgafa.com/tags/azure-ml/), I have created several scripts that instantiate the Azure resource group, AzureML Workspace with its Compute resources, and an Azure ML Datastore with the name of the project. One advantage of this approach is that it is easier to delete the resource group and recreate it whenever necessary, thus saving some money. The workspace creation scripts are driven from a parameters file containing the names of the various entities that the user will create, derived from the name of the project. For example, in this project, the project name is set to **azmlprj14** and therefore the resource group name is **rgazmlprj14**, the workspace name is **wsazmlprj14** and so on.
 
+Two compute resources are created in the workspace:
+
+- A compute instance with the name **instazmlprj14** having type **Standard_DS11_v2** (2 cores, 14 GB RAM, 28 GB disk)
+- A compute cluster with the name **trgazmlprj14** having type **Standard_DS3_v2** (4 cores, 14GB RAM, 28GB storage)
+
 The AzureML workspace configuration is then stored in the file **.azureml/config.json**.
 
 ## The Project
