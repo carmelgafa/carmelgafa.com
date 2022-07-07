@@ -763,7 +763,9 @@ Finally, it is possible to re-run the Pipeline with different parameters without
 
 ## Conclusion
 
-In this post, we have seen how we can create and execute a pipeline in AzureML that tests various ML models and selects the best one. In the next post, we will see how AzureMl can optime the model so that we can deploy the best possible model to our production environment.
+In this post, we have seen how we can create and execute a pipeline in AzureML that tests various ML models and selects the best one. We have seen that for our dataset, with the transformations that we applied, the **Bagging Regressor** obtained the lowest Root Mean Square Error of **3.142**.
+
+In the next post, we will see how AzureMl can optime the model so that we can deploy the best possible model to our production environment.
 
 ## References
 
