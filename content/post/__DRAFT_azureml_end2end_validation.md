@@ -8,6 +8,13 @@ description: ""
 
 ## Introduction
 
+After working with models, where we selected the stsem that worked reasonably well and optimized it as mich as possible, It is now time to evaluate our **final_model** using the test data set. This phase is pretty straight forward, we just run the full pipeline so that we transform the test features and then we predict the test labels.
+
+The expected performance should be slightly inferior that that obtained in the previous post.
+
+The validation process i very similar to the other processes that we discussed in this exercise; a validation process will load the models and the test data, execute the pipeline to obtain the test predictors and then use the test labels to evaluate the model. This process is executed in our AzureMl workspace and is uploaded and initiated by loader script.
+
+The structure of the files used in this pase is therefore as follows:
 
 ```text
 validate
@@ -18,6 +25,8 @@ validate
 │   │   data_transformer_builder.py
 │   │   validate.py
 ```
+
+In the next section we will looks at our scripts in some more detail.
 
 ```python
 
