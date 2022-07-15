@@ -21,10 +21,12 @@ I am / will be reading these books this month:
 
 - [Lo sciamano by Salvatore Esposito](https://www.amazon.com/Lo-sciamano-Italian-Salvatore-Esposito-ebook/dp/B0964L5VQP/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=)
 
+- [Ultralearning by Scott Young ](https://www.amazon.co.uk/s?k=ultralearning&crid=2ER8NMT7VVMU1&sprefix=ultralearning%2Caps%2C110&ref=nb_sb_noss_1)
+
 I am keeping a list of books I have read this year in [this](/books/) page.
 
 ## **Technical Reading**
 
 I am going through this book at the moment:
 
-- [Neural Networks From Scratch, by Harrison Kinsley](https://nnfs.io/)
+- [An Introduction to Statistical Learning by Gareth James , Daniela Witten , et al.](https://www.amazon.co.uk/s?k=an+introduction+to+statistical+learning&sprefix=an+introduction+%2Caps%2C113&ref=nb_sb_ss_ts-doa-p_1_16)
