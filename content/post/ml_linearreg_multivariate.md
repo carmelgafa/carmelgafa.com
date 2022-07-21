@@ -9,7 +9,7 @@ draft: false
 
 In previous posts we discussed the [univariate linear regression model](/post/ml_linearreg_univariatederivation) and how we can [implement the model in python](/post/ml_linearreg_univariatepython).
 
-We have seen how we can fit a line, $ \hat{y} = a_0 + a_1 x$, to a dataset of given points, and how linear regression techniques estimate the values of $a_0$ and $a_1$ using the cost functions. We have seen that the residual is the difference between the observed values and the predicted values, that is, for any point $i$,
+We have seen how we can fit a line, $\hat{y} = a_0 + a_1 x$, to a dataset of given points, and how linear regression techniques estimate the values of $a_0$ and $a_1$ using the cost functions. We have seen that the residual is the difference between the observed values and the predicted values, that is, for any point $i$,
 
 $$e_i = y_i - \hat{y_i}$$
 
@@ -159,6 +159,5 @@ $$ \sum_{i=1}^{n} X_{1i}y_{i} = \sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} y_{i} - \fr
 $$ \sum_{i=1}^{n} X_{2i}y_{i} = \sum_{i=1}^{n} x_{2i} \sum_{i=1}^{n} y_{i} - \frac{\sum_{i=1}^{n} x_{2i} \sum_{i=1}^{n} y_{i}}{n}$$
 
 $$ \sum_{i=1}^{n} X_{1i}X_{2i} = \sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} x_{2i} - \frac{\sum_{i=1}^{n} x_{1i} \sum_{i=1}^{n} x_{2i}}{n}$$
-
 
 It is evident that finding the parameters becomes more difficult as we add more features.

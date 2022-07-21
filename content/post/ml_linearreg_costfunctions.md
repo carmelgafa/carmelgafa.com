@@ -9,7 +9,7 @@ The objective of regression is to fit a line through a given data set. Hence, if
 
 $$ (x_1, y_1), (x_2, y_2), \dots, (x_i, y_i), \dots ,(x_n, y_n)$$
 
-we want to fit the line $ \hat{y} = a_0 + a_1 x$ through the given set of data. The equation $ a_0 + a_1 x$ is known as the hypothesis function. 
+we want to fit the line $\hat{y} = a_0 + a_1 x$ through the given set of data. The equation $ a_0 + a_1 x$ is known as the hypothesis function.
 
 ![linear regression](/post/img/ml_linear_regression.jpg)
 
