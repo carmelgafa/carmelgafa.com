@@ -23,6 +23,9 @@ I am / will be reading these books this month:
 
 - [Ultralearning by Scott Young ](https://www.amazon.co.uk/s?k=ultralearning&crid=2ER8NMT7VVMU1&sprefix=ultralearning%2Caps%2C110&ref=nb_sb_noss_1)
 
+- [What Happens in Brussels Stays in Brussels
+by Ġużè Stagno](https://merlinpublishers.com/product/what-happens-in-brussels-stays-in-brussels/?lang=mt)
+
 I am keeping a list of books I have read this year in [this](/books/) page.
 
 ## **Technical Reading**
