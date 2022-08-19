@@ -23,6 +23,9 @@ I am / will be reading these books this month:
 
 - [Il secondo tragico libro di Fantozzi by Paolo Villaggio](https://www.amazon.de/-/en/Paolo-Villaggio/dp/8817097845/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1660898007&sr=8-1)
 
+- [What Happens in Brussels Stays in Brussels
+by Ġużè Stagno](https://merlinpublishers.com/product/what-happens-in-brussels-stays-in-brussels/?lang=mt)
+
 I am keeping a list of books I have read this year in [this](/books/) page.
 
 ## **Technical Reading**
