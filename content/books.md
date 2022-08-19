@@ -38,3 +38,7 @@ So far, as of January 2022, I have read the following books:
 
 #### [A Study in Scarlet by  Sir Arthur Conan Doyle](https://www.amazon.com/Study-Scarlet-Arthur-Conan-Doyle/dp/1535534664/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1655564406&sr=1-1)
 
+
+#### [Lo sciamano by Salvatore Esposito](https://www.amazon.com/Lo-sciamano-Italian-Salvatore-Esposito-ebook/dp/B0964L5VQP/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=)
+
+#### [Ultralearning by Scott Young ](https://www.amazon.co.uk/s?k=ultralearning&crid=2ER8NMT7VVMU1&sprefix=ultralearning%2Caps%2C110&ref=nb_sb_noss_1)
