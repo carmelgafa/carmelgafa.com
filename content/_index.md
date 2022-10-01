@@ -19,7 +19,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking](Sönke Ahrens)
+- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking by Sönke Ahrens](https://www.amazon.com/How-Take-Smart-Notes-Technique/dp/3982438802/)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
