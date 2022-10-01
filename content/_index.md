@@ -7,7 +7,7 @@ description: Home Page
 
 [About page](/about/)
 
-## **Current Interests (August 2022)**
+## **Current Interests (October 2022)**
 
 I am currently working on:
 
@@ -19,12 +19,7 @@ I am currently working on:
 
 I am / will be reading these books this month:
 
-- [Living with a SEAL by Jesse Itzler](https://www.amazon.de/-/en/Jesse-Itzler/dp/1455534684/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1660897887&sr=8-1)
-
-- [Il secondo tragico libro di Fantozzi by Paolo Villaggio](https://www.amazon.de/-/en/Paolo-Villaggio/dp/8817097845/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1660898007&sr=8-1)
-
-- [What Happens in Brussels Stays in Brussels
-by Ġużè Stagno](https://merlinpublishers.com/product/what-happens-in-brussels-stays-in-brussels/?lang=mt)
+- [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking](Sönke Ahrens)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
