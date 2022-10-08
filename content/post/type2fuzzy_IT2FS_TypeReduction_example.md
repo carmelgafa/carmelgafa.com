@@ -10,14 +10,11 @@ In this post, we will validate the implementation of the Karnik-Mendel algorithm
 
 The example calculates the centroid of interval type-2 fuzzy sets with uncertain means $m\in[m_1, m_2]$,  where  the UMF and LMF of the set are calculated as follows:
 
-$$
-UMF(\tilde{A})=
-\begin{cases}
-    exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right] &,  x<m_1\\
-    1 & m_1, \geq x \geq m_2\\
-    exp \left[ -0.5 \times (\frac{x-m_2}{\sigma})^2 \right] &,  x>m_2
-\end{cases}
-$$
+|  |   |   |
+|--|----:|---|
+|  |$exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right]$| ,$x<m_1$ |
+|$UMF(\tilde{A})=$ | $1$ | ,$m_1, \geq x \geq m_2$|
+|  |$exp \left[ -0.5 \times (\frac{x-m_2}{\sigma})^2 \right]$ | ,$x>m_2$|
 
 $$
 LMF(\tilde{A}) = min \left(  exp \left[ -0.5 \times \left (\frac{x-m_1}{\sigma} \right)^2 \right], exp \left[ -0.5 \times \left( \frac{x-m_2}{\sigma} \right)^2 \right] \right)
