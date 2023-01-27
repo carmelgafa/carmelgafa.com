@@ -7,19 +7,21 @@ description: Home Page
 
 [About page](/about/)
 
-## **Current Interests (December 2022)**
+## **Current Interests (February 2022)**
 
-I am currently working on:
+I am currently learning on:
 
-- Azure Machine Learning; some notes that I am working on are [here](/tags/azure-ml).
-- Machine Learning from basics to code. I started with some posts on linear regression [here](/tags/linear-regression/)
-- Fuzzy Control Systems. I am posting notes [here](/tags/fuzzy/)
+- Robot Teleoperation.
+- Fuzzy Set Centroid Algorithms
 
 ## **Reading**
 
 I am / will be reading these books this month:
 
 - [How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking by Sönke Ahrens](https://www.amazon.com/How-Take-Smart-Notes-Technique/dp/3982438802/)
+- [The 4 Disciplines of Execution: Achieving Your Wildly Important Goals by Chris McChesney, Sean Covey, Jim Huling](https://www.amazon.com/Disciplines-Execution-Achieving-Wildly-Important/dp/145162705X) - third read
+- [Isaac Asimov's Robot City 2 by Isaac Asimov](https://www.amazon.com/Isaac-Asimovs-Robot-City-2/dp/0671039059/)
+- [Il prigioniero dell'interno 7 by Marco Presta](https://www.ibs.it/prigioniero-dell-interno-7-libro-marco-presta/e/9788806251901)
 
 I am keeping a list of books I have read this year in [this](/books/) page.
 
