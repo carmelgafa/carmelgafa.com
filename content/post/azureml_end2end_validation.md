@@ -1,6 +1,6 @@
 ---
 title: "Notes about Azure ML, Part 11 - Model Validation in AzureML"
-date: "2023-09-03"
+date: "2022-03-09T13:31:51+01:00"
 tags: [machine-learning, azure ml, hyperparameter tuning, model optimization]
 draft: false
 ---
