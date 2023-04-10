@@ -11,7 +11,7 @@ Logistic regression is a machine learning algorithm that is commonly used for bi
 Given a feature vector $X \in \mathbb{R}^{n_x}$, the goal of logistic regression is to predict the probability $\hat{y}$ that a binary output variable $y$ takes the value 1, given $X$, that is $\hat{y} = P(y=1|X)$, $0\le y\le1$. 
 For example, in the case of image classification, logistic regression can be used to predict the probability that an image contains a cat.
 
-|   |![Logistic regression](/post/img/img-logistic-regression.png) |   |
+|   |![Logistic regression](/post/img/ml_logistic_regression.png) |   |
 |---|:--:|---|
 |   |  |   |
 
@@ -23,7 +23,7 @@ The logistic regression model consists of three main components:
 
 The weight vector $\omega$ and the bias term $b$ are learned from a labelled training set by minimizing a suitable loss function using techniques such as gradient descent or its variants. Once trained, the logistic regression model can be used to predict the probability of the binary output variable for new input examples.
 
-|   |![Sigmoid function](/post/img/img-sigmoid-function.png)  |   |
+|   |![Sigmoid function](/post/img/ml_logistic_regression_sigmoid_function.png)  |   |
 |---|:--:|---|
 |   |  |   |
 
