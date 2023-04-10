@@ -1,5 +1,5 @@
 ---
-title: "Logistic_regression"
+title: "Logistic Regression"
 date: "2023-04-10"
 tags: [machine-learning]
 draft: false
