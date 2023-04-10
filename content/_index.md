@@ -11,7 +11,7 @@ description: Home Page
 
 I am currently learning on:
 
-- Robot Teleoperation.
+- Natural Language Processing
 - Fuzzy Set Centroid Algorithms
 
 ## **Reading**
