@@ -7,7 +7,7 @@ description: Home Page
 
 [About page](/about/)
 
-## **Current Interests (February 2022)**
+## **Current Interests (April 2022)**
 
 I am currently learning on:
 
