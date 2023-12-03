@@ -1,6 +1,6 @@
 # carmelgafa.com
-Hugo based website
 
+Hugo based website
 
 This is the code for carmelgafa.com.
 
