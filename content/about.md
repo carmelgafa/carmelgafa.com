@@ -11,6 +11,8 @@ This is  a place where I keep notes and references on the projects that I work o
 
 ![Me](/about.jpg)
 
+Comment on the pages that you like, your feedback is greatly appreciated.
+
 ---
 
 This site is based the following technologies:
