@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Weiszfeld_algorithm on </title>
+    <link>//localhost:1313/tags/weiszfeld_algorithm/</link>
+    <description>Recent content in Weiszfeld_algorithm on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Mar 2021 15:32:17 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/weiszfeld_algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Simple Python implementation of the Weiszfeld algorithm</title>
+      <link>//localhost:1313/post/ml_weiszfeld_python/</link>
+      <pubDate>Sun, 14 Mar 2021 15:32:17 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_weiszfeld_python/</guid>
+      <description>Following is a simple implementation of the Weiszfeld algortihm that was discussed in a previous post in python.&#xA;import numpy as np import math from numpy import array def weiszfeld(points): max_error = 0.0000000001 x=np.array([point[0] for point in points]) y=np.array([point[1] for point in points]) ext_condition = True start_x = np.average(x) start_y = np.average(y) while ext_condition: sod = (((x - start_x)**2) + ((y - start_y)**2))**0.5 new_x = sum(x/sod) / sum(1/sod) new_y = sum(y/sod) / sum(1/sod) ext_condition = (abs(new_x - start_x) &amp;gt; max_error) or (abs(new_y - start_y) &amp;gt; max_error) start_y = new_y start_x = new_x print(new_x, new_y) if __name__==&amp;#34;__main__&amp;#34;: weiszfeld([(2,1), (12,2), (3,9), (13,11)]) </description>
+    </item>
+    <item>
+      <title>Weiszfeld Algorithm</title>
+      <link>//localhost:1313/post/ml_weiszfeld_method/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_weiszfeld_method/</guid>
+      <description>Pierre de Fermat 1607-1665 was a French lawyer and mathematician. In 1640, he proposed a problem to Evangelista Torricelli, a student of the famous Galileo Galilei. Fermat challenged Torricelli to find the point in a triangle whose sum of distances from the vertices is a minimum. Torricelli did solve the problem, in more than a single way, but over the years other solutions where found. In 1937, Endre Weitzfeld came up with an algorithmic solution of this problem, that we shall look into in this post.</description>
+    </item>
+  </channel>
+</rss>

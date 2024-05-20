@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IT2FS on </title>
+    <link>//localhost:1313/tags/it2fs/</link>
+    <description>Recent content in IT2FS on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/it2fs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</title>
+      <link>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</link>
+      <pubDate>Sat, 08 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</guid>
+      <description>In this post, we will validate the implementation of the Karnik-Mendel algorithm found in the type-2 fuzzy logic library with a worked example available in Mendel&amp;rsquo;s book &amp;ldquo;Uncertain rule-based fuzzy logic systems.&amp;rdquo;&#xA;The example calculates the centroid of interval type-2 fuzzy sets with uncertain means $m\in[m_1, m_2]$, where the UMF and LMF of the set are calculated as follows:&#xA;$exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right]$ ,$x&amp;lt;m_1$ $UMF(\tilde{A})=$ $1$ ,$m_1, \geq x \geq m_2$ $exp \left[ -0.</description>
+    </item>
+    <item>
+      <title>Type Reduction of Interval Type-2 Fuzzy Sets</title>
+      <link>//localhost:1313/post/type2fuzzy_it2fs_typereduction/</link>
+      <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_it2fs_typereduction/</guid>
+      <description>This post will look at Interval Type-2 fuzzy set (IT2FS) and its reduction. We have already discussed the basics of Type-2 fuzzy sets in a previous post, and we have seen that a general type-2 fuzzy set can be defined as follows:&#xA;$$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$&#xA;where $J_{x}\subseteq[0,1]$&#xA;And if, as an example, we consider the following general type-2 fuzzy set:&#xA;(1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6 )/1+ (0.</description>
+    </item>
+    <item>
+      <title>Interval Type-2 Fuzzy Sets Type Reduction</title>
+      <link>//localhost:1313/post/type2fuzzy_libraryit2fs_reduction/</link>
+      <pubDate>Mon, 03 Feb 2020 16:17:59 +0100</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_libraryit2fs_reduction/</guid>
+      <description>Jerry Mendel&amp;rsquo;s book can be safely considered as the Type-2 Fuzzy Logic bible. It is not an easy or inexpensive read, but definitely the best way to get to know the world of Type-2 Sets.&#xA;In this post a book example, where the centroid of a number of Interval Type-2 sets was calculated is replicated using the Type-2 Library.&#xA;Type reduction in these cases is carried out by using the function it2_kernikmendel_reduce(interval_set), and a crisp set, the centroid, is returned back.</description>
+    </item>
+    <item>
+      <title>Loading Interval Type-2 Sets</title>
+      <link>//localhost:1313/post/type2fuzzy_library_it2fs_loading/</link>
+      <pubDate>Sun, 12 Jan 2020 15:09:43 +0100</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_library_it2fs_loading/</guid>
+      <description>Interval Type-2 Fuzzy Sets can be loaded by using one of the following methods:&#xA;From a set definition in a string. From a set definition in a file. The set definitions myst have the following format:&#xA;[0.1,&#x9;0.5]/1 + [0.2,&#x9;0.7]/2 + [0.3,&#x9;1.0]/3 +&#xD;[0.4,&#x9;1]/4 The following example illustrated the creation of IT2FS using these methods&#xA;from type2fuzzy import IntervalType2FuzzySet from type2fuzzy import it2_kernikmendel_reduce import os # load an it2fs from representation set_representation= &amp;#39;&amp;#39;&amp;#39;[0.</description>
+    </item>
+  </channel>
+</rss>

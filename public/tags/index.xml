@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on </title>
+    <link>//localhost:1313/tags/</link>
+    <description>Recent content in Tags on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Machine-Learning</title>
+      <link>//localhost:1313/tags/machine-learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Azure Ml</title>
+      <link>//localhost:1313/tags/azure-ml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/azure-ml/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hyperparameter Tuning</title>
+      <link>//localhost:1313/tags/hyperparameter-tuning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/hyperparameter-tuning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Model Optimization</title>
+      <link>//localhost:1313/tags/model-optimization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/model-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fuzzy</title>
+      <link>//localhost:1313/tags/fuzzy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/fuzzy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IT2FS</title>
+      <link>//localhost:1313/tags/it2fs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/it2fs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Paper-Workout</title>
+      <link>//localhost:1313/tags/paper-workout/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/paper-workout/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>//localhost:1313/tags/python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Type2-Fuzzy</title>
+      <link>//localhost:1313/tags/type2-fuzzy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/type2-fuzzy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Type2-Fuzzy-Library</title>
+      <link>//localhost:1313/tags/type2-fuzzy-library/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/type2-fuzzy-library/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pipeline</title>
+      <link>//localhost:1313/tags/pipeline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/pipeline/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dataset</title>
+      <link>//localhost:1313/tags/dataset/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/dataset/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Datastore</title>
+      <link>//localhost:1313/tags/datastore/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/datastore/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Experiment</title>
+      <link>//localhost:1313/tags/experiment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/experiment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gradient-Descent</title>
+      <link>//localhost:1313/tags/gradient-descent/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/gradient-descent/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linear-Regression</title>
+      <link>//localhost:1313/tags/linear-regression/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/linear-regression/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Automl</title>
+      <link>//localhost:1313/tags/automl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/automl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Computation</title>
+      <link>//localhost:1313/tags/computation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/computation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cost-Functions</title>
+      <link>//localhost:1313/tags/cost-functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/cost-functions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Excel</title>
+      <link>//localhost:1313/tags/excel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/excel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Type1-Fuzzy</title>
+      <link>//localhost:1313/tags/type1-fuzzy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/type1-fuzzy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Maths</title>
+      <link>//localhost:1313/tags/maths/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/maths/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Development</title>
+      <link>//localhost:1313/tags/development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vscode</title>
+      <link>//localhost:1313/tags/vscode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/vscode/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wsl</title>
+      <link>//localhost:1313/tags/wsl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/wsl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Weiszfeld_algorithm</title>
+      <link>//localhost:1313/tags/weiszfeld_algorithm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/weiszfeld_algorithm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Random_walk</title>
+      <link>//localhost:1313/tags/random_walk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/random_walk/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Classifier</title>
+      <link>//localhost:1313/tags/classifier/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/classifier/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Roc</title>
+      <link>//localhost:1313/tags/roc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/roc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Arduino</title>
+      <link>//localhost:1313/tags/arduino/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/arduino/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Iot</title>
+      <link>//localhost:1313/tags/iot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/iot/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Learning</title>
+      <link>//localhost:1313/tags/learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pandas</title>
+      <link>//localhost:1313/tags/pandas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/pandas/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mxchip</title>
+      <link>//localhost:1313/tags/mxchip/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/mxchip/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cnc</title>
+      <link>//localhost:1313/tags/cnc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/cnc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>R</title>
+      <link>//localhost:1313/tags/r/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/r/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tools</title>
+      <link>//localhost:1313/tags/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C</title>
+      <link>//localhost:1313/tags/c/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/c/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C-Sharp</title>
+      <link>//localhost:1313/tags/c-sharp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/c-sharp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Embedded</title>
+      <link>//localhost:1313/tags/embedded/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/embedded/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>//localhost:1313/tags/programming/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Robotics</title>
+      <link>//localhost:1313/tags/robotics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/robotics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo_cms</title>
+      <link>//localhost:1313/tags/hugo_cms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/hugo_cms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mathjax</title>
+      <link>//localhost:1313/tags/mathjax/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/mathjax/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fuzzy-Logic</title>
+      <link>//localhost:1313/tags/fuzzy-logic/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/fuzzy-logic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Game</title>
+      <link>//localhost:1313/tags/game/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/game/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Javascript</title>
+      <link>//localhost:1313/tags/javascript/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/javascript/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

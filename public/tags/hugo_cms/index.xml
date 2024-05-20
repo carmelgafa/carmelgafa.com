@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo_cms on </title>
+    <link>//localhost:1313/tags/hugo_cms/</link>
+    <description>Recent content in Hugo_cms on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Jan 2020 15:33:41 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/hugo_cms/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MathJax in Hugo (personal-web theme)</title>
+      <link>//localhost:1313/post/hugo_mathjax/</link>
+      <pubDate>Wed, 08 Jan 2020 15:33:41 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_mathjax/</guid>
+      <description>Created a file mathjax_support in /partials/head/ &amp;lt;script type=&amp;#34;text/javascript&amp;#34; async src=&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;#34;&amp;gt; MathJax.Hub.Config({ tex2jax: { inlineMath: [[&amp;#39;$&amp;#39;,&amp;#39;$&amp;#39;], [&amp;#39;\\(&amp;#39;,&amp;#39;\\)&amp;#39;]], displayMath: [[&amp;#39;$$&amp;#39;,&amp;#39;$$&amp;#39;]], processEscapes: true, processEnvironments: true, skipTags: [&amp;#39;script&amp;#39;, &amp;#39;noscript&amp;#39;, &amp;#39;style&amp;#39;, &amp;#39;textarea&amp;#39;, &amp;#39;pre&amp;#39;], TeX: { equationNumbers: { autoNumber: &amp;#34;AMS&amp;#34; }, extensions: [&amp;#34;AMSmath.js&amp;#34;, &amp;#34;AMSsymbols.js&amp;#34;] } } }); MathJax.Hub.Queue(function() { // Fix &amp;lt;code&amp;gt; tags after MathJax finishes running. This is a // hack to overcome a shortcoming of Markdown. Discussion at // https://github.com/mojombo/jekyll/issues/199 var all = MathJax.</description>
+    </item>
+    <item>
+      <title>Hugo Templates</title>
+      <link>//localhost:1313/post/hugo_11/</link>
+      <pubDate>Tue, 31 Dec 2019 15:28:24 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_11/</guid>
+      <description>HTML Templates&#xA;Two types of pages : list and single page&#xA;HTMl is an HTML skeleton for a type of page</description>
+    </item>
+    <item>
+      <title>Hugo Taxonomies</title>
+      <link>//localhost:1313/post/hugo_10/</link>
+      <pubDate>Mon, 30 Dec 2019 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_10/</guid>
+      <description> Taxonomies - how content is grouped together. Two default&#xA;tags - keywords categories - group content to add modify frontmatter to add taxonomies: ---&#xD;title: &amp;#34;Taxonomies&amp;#34;&#xD;date: 2019-12-30T13:31:51+01:00&#xD;author: &amp;#34;Carmel&amp;#34;&#xD;draft: true&#xD;tags: [&amp;#34;Hugo&amp;#34;, &amp;#34;development&amp;#34;]&#xD;categories: [&amp;#34;Hugo&amp;#34;]&#xD;--- Tags and categories show in list pages&#xA;List pages are generated for every tag and category&#xA;Custom Taxonomies&#xA;taxonomy must exist in theme in config.toml add taxonomy array [taxonomies]&#xD;tag = &amp;#34;tags&amp;#34;&#xD;category = &amp;#34;categories&amp;#34;&#xD;mood = &amp;#34;moods&amp;#34; </description>
+    </item>
+    <item>
+      <title>Shortcodes in Hugo</title>
+      <link>//localhost:1313/post/hugo_9/</link>
+      <pubDate>Mon, 30 Dec 2019 13:11:58 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_9/</guid>
+      <description>Shortcodes are predefined chunks of HTML that you can put inside your content.&#xA;e.g, embed a Youtube video Hugo has predefined shortcodes otb&#xA;shortcodes defined as { { &amp;lt; shortcode-name param1 &amp;gt; } }&#xA;for youtube the parameter is the video ID e.g. { { &amp;lt; youtube 2xkNJL4gJ9E &amp;gt; } } https://gohugo.io/content-management/shortcodes/</description>
+    </item>
+    <item>
+      <title>Hugo Archetypes</title>
+      <link>//localhost:1313/post/hugo_8/</link>
+      <pubDate>Mon, 30 Dec 2019 12:01:11 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_8/</guid>
+      <description>When a file is created by default the following frontmatter is created automatically:&#xA;---&#xD;title: &amp;#34;Archetypes&amp;#34;&#xD;date: 2019-12-30T12:01:11+01:00&#xD;draft: true&#xD;--- template for this is in archetypes/default.md&#xA;---&#xD;title: &amp;#34;{{ replace .Name &amp;#34;-&amp;#34; &amp;#34; &amp;#34; | title }}&amp;#34;&#xD;date: {{ .Date }}&#xD;draft: true&#xD;--- This is an archetype. The default page used when new content is created. It can be modified to include additional frontmatter.&#xA;Creating a dir_name.md file in the archetypes folder will create a template for the files created in that folder.</description>
+    </item>
+    <item>
+      <title>Hugo Frontmatter</title>
+      <link>//localhost:1313/post/hugo_7/</link>
+      <pubDate>Mon, 30 Dec 2019 12:01:10 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_7/</guid>
+      <description>Frontmatter is added as a header when creating a new Hugo file via hugo new file_name it has the following format:&#xA;---&#xD;title: &amp;#34;Frontmatter&amp;#34;&#xD;date: 2019-12-30T12:01:10+01:00&#xD;draft: true&#xD;--- It contains information about the file in key/value pairs.&#xA;Can be written in JSON TOML, YAML&#xA;toml is selected. Similar to yaml json can be used but heavy custom variables can be added, eg&#xA;author language </description>
+    </item>
+    <item>
+      <title>Creating and Organizing Content in Hugo</title>
+      <link>//localhost:1313/post/hugo_6/</link>
+      <pubDate>Mon, 30 Dec 2019 12:01:09 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_6/</guid>
+      <description>to create content open cmd in site and type hugo new file_name&#xA;to create content in a directory open cmd in site and type hugo new dir_name/file_name&#xA;to view demo pages as well execute hugo server -D&#xA;Hugo has two types of content&#xA;single pages list pages. e.g. homepage list pages are created automatically for the first layer in content. Below that you must specify a list page yourself</description>
+    </item>
+    <item>
+      <title>Hugo themes</title>
+      <link>//localhost:1313/post/hugo_4/</link>
+      <pubDate>Mon, 30 Dec 2019 12:01:08 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_4/</guid>
+      <description>You can download a prebuit theme, add content and that&amp;rsquo;s it&#xA;go to http://themes.hugoio.com&#xA;select a theme&#xA;you can demo before press download theme&#xA;it will link to a github page copy .git location in github for cloning&#xA;go to the website themes folder&#xA;type github clone theme_location in gitbash&#xA;theme will create folders similar to site folders note theme folder name. It is the theme name go to config.toml</description>
+    </item>
+    <item>
+      <title>Create new Hugo website</title>
+      <link>//localhost:1313/post/hugo_3/</link>
+      <pubDate>Mon, 30 Dec 2019 12:01:07 +0100</pubDate>
+      <guid>//localhost:1313/post/hugo_3/</guid>
+      <description> open cmd in folder where new site will be located&#xA;type hugo new site site_name&#xA;check that you get Congratulations!&amp;hellip;&#xA;Hugo creates a number of folders&#xA;archetypes -common parts content - content of website data - data-files location layouts - layouts definition for website static- store all static elements (images etc.) themes -place prebuit themes here config.toml - main site settings file </description>
+    </item>
+    <item>
+      <title>Introduction to Hugo</title>
+      <link>//localhost:1313/post/hugo_1/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/hugo_1/</guid>
+      <description>hugo is a static web site generator i.e website does not change according to user etc.&#xA;written in go</description>
+    </item>
+    <item>
+      <title>Installing Hugo on Win10</title>
+      <link>//localhost:1313/post/hugo_2/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/hugo_2/</guid>
+      <description>Create Folder Hugo&#xA;In Hugo folder create folder bin&#xA;Download Hugo&#xA;go to http://github.com/hugoio/releases get the latest version go to downloads section get version according to os download zip file extract in bin folder&#xA;make sure that executable is hugo.exe&#xA;add the executable to path&#xA;open command prompt and type hugo version to check</description>
+    </item>
+  </channel>
+</rss>

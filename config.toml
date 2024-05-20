@@ -17,6 +17,9 @@ googleAnalytics = "G-EVC27KVMVZ"
     highlightStyle = "default"
     highlightLanguages = ["python"]
 
+[markup.goldmark.renderer]
+    unsafe = true
+
 [[menu.main]]
     url = "/"
     name = "Home"
@@ -38,8 +41,8 @@ googleAnalytics = "G-EVC27KVMVZ"
     weight = 4
 
 [[menu.main]]
-    url = "/misc/"
-    name = "Non-Tech"
+    url = "/ww2/"
+    name = "World War 2"
     weight = 5
 
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Type1-Fuzzy on </title>
+    <link>//localhost:1313/tags/type1-fuzzy/</link>
+    <description>Recent content in Type1-Fuzzy on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Dec 2021 08:11:47 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/type1-fuzzy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fuzzy Control System In Excel version 1.2</title>
+      <link>//localhost:1313/post/type1fuzzy_excel_2/</link>
+      <pubDate>Mon, 13 Dec 2021 08:11:47 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel_2/</guid>
+      <description>I have received some questions regarding the Fuzzy System in Excel that I posted some time ago, so here I am going through a slightly improvedc version that you can download from Github.&#xA;This system implemented in this workbook illustrates a two-input / single output fuzzy system with two rules in an excel sheet.&#xA;Sheets x1 and x2 define the inputs to the system. Each input variable consists of three triangular S, M, and L sets.</description>
+    </item>
+    <item>
+      <title>Fuzzy Systems from Data</title>
+      <link>//localhost:1313/post/type1fuzzy_system_from_data/</link>
+      <pubDate>Thu, 25 Jun 2020 08:59:58 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_system_from_data/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction Fuzzy-Logic theory has introduced a framework whereby human knowledge can be formalized and used by machines in a wide variety of applications, ranging from cameras to trains. The basic ideas that we discussed in the earlier posts were concerned with only this aspect with regards to the use of Fuzzy Logic-based systems; that is the application of human experience into machine-driven applications.</description>
+    </item>
+    <item>
+      <title>Fuzzy Inference System implementation in Python</title>
+      <link>//localhost:1313/post/type1fuzzy_pyton/</link>
+      <pubDate>Wed, 24 Jun 2020 14:43:21 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_pyton/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction In a previous article, we discussed the basics of fuzzy sets and fuzzy inferencing. The report also illustrated the construction of a possible control application using a fuzzy inferencing method. In this article, we will build a multi-input/multi-output fuzzy inference system using the Python programming language. It is assumed that the reader has a clear understanding of fuzzy inferencing and has read the article mentioned previously.</description>
+    </item>
+    <item>
+      <title>A very brief introduction to Fuzzy Logic and Fuzzy Systems</title>
+      <link>//localhost:1313/post/type1fuzzy_introduction/</link>
+      <pubDate>Wed, 24 Jun 2020 13:48:54 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_introduction/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction Many tasks are simple for humans, but they create a continuous challenge for machines. Examples of such systems include walking through a cluttered environment, lifting fragile objects or parking a car. The ability of humans to deal with vague and imprecise data makes such tasks easy for us. Therefore if we aim to replicate the control actions of a human operator, we must be able to model the activities of the operator and not of the plant itself.</description>
+    </item>
+    <item>
+      <title>Fuzzy Control System In Excel</title>
+      <link>//localhost:1313/post/type1fuzzy_excel/</link>
+      <pubDate>Wed, 11 Mar 2020 18:30:40 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel/</guid>
+      <description>I am currently extending my Type-2 Fuzzy Logic Library so that fuzzy controllers can be implemented through its codebase. The implementation is straightforward if you have the correct structures in place; using an inference system, the most popular of which was discussed by Mamdani (Mamdani, Ebrahim H. &amp;ldquo;Application of fuzzy algorithms for control of simple dynamic plant.&amp;rdquo; Proceedings of the institution of electrical engineers. Vol. 121. No. 12. IET, 1974.). An illustration of the Mamdani inference system operation is below (taken from wikipedia):</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 6 - Experiment Creation</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 6 - Experiment Creation</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%206%20-%20Experiment%20Creation&amp;body=Notes%20about%20Azure%20ML%2c%20Part%206%20-%20Experiment%20Creation%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 6 - Experiment Creation</b></h2>
+        <h5>Sun March 13, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/experiment"><kbd class="item-tag">experiment</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>In a <a href="/post/azureml_sdk_workspace/">previous post</a>, we have seen how to create an ML workspace and provision a compute resource in Azure using AzureML SDK; now we will see how to execute an experiment the ML environment using AzureML SDK.</p>
+<p>We will start by executing a simple experiment that will print a message. The steps required to run this trivial experiment are:</p>
+<ul>
+<li>
+<p>Create an experiment script to be executed.</p>
+</li>
+<li>
+<p>Create and <strong>Experiment</strong> instance. This requires a reference to the workspace and the name of the experiment.</p>
+</li>
+<li>
+<p>Create a configuration information <strong>ScriptRunConfig</strong> instance that packages the configuration information necessary to execute the experiment. Such information  includes:</p>
+<ul>
+<li>the script to execute</li>
+<li>the arguments to the script</li>
+<li>the environment to run the script on</li>
+</ul>
+</li>
+<li>
+<p>submit the experiment, specifying the configuration information.</p>
+</li>
+<li>
+<p>run the experiment</p>
+</li>
+</ul>
+<h3 id="the-experiment">The Experiment</h3>
+<p>An essential task in this process is to create the script to execute the experiment. In our case, the following procedure is observed for all experiments:</p>
+<ul>
+<li>A folder having the name of the experiment is created, for example, <strong>Experiment_1</strong>.</li>
+<li>This folder will contain all the scripts related to the experiment, particularly the script to execute the experiment. The script to execute the experiment is called <strong>experiment_1.py</strong>.</li>
+</ul>
+<p>In our simple example, the script to execute the experiment is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Experiment Executed!&#39;</span>)
+</span></span></code></pre></div><h3 id="script-execution">Script Execution</h3>
+<p>The script to execute our trivial experiment on a compute target is created as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, ScriptRunConfig
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_experiment</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>    ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config <span style="color:#f92672">=</span> ScriptRunConfig(
+</span></span><span style="display:flex;"><span>        source_directory<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;Experiment_1&#39;</span>),
+</span></span><span style="display:flex;"><span>        script<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;experiment_1.py&#39;</span>,
+</span></span><span style="display:flex;"><span>        compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>TARGET_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    experiment <span style="color:#f92672">=</span> Experiment(ws, constants<span style="color:#f92672">.</span>EXPERIMENT_NAME)
+</span></span><span style="display:flex;"><span>    run <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    aml_run <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>get_portal_url()
+</span></span><span style="display:flex;"><span>    print(aml_run)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    run_experiment()
+</span></span></code></pre></div><p>It is important to note that:</p>
+<ul>
+<li>config.json file necessary to get a reference to the workspace is located in the <strong>.azureml</strong> folder.</li>
+<li>the script containing the experiment to execute is located in the <strong>Experiment_1</strong> folder as explained before and the script name is <strong>experiment_1.py</strong>.</li>
+</ul>
+<p>The <strong>submit</strong> method of the <strong>Experiment</strong> class returns a Run instance. This instance contains the information necessary to access the experiment results, including the URL of the portal to access the results.</p>
+<p>Upon execution, the script is put in a docker container and executed on the compute target. We can read the output of the script in the experiment log.</p>
+<h3 id="environment">Environment</h3>
+<p>The example above is elementary and of little use, but it shows the basic steps to execute a script on a compute target. To run more useful experiments, we will need to create a more complex environment that will include the libraries and the code necessary to execute the experiment. Environments are stored and tracked in your AzureML workspace, and upon creation, the workspace will already contain typical environments normally used in ML projects.</p>
+<p>We can also create environments specific to our project through an <strong>Environment</strong> instance. Two interesting methods in the <strong>Environment</strong> class are:</p>
+<ul>
+<li><strong>from_conda_specification</strong>. This method allows creating an environment from a conda specification stored in a YAML file. A typical specification is as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">experiment-env</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">channels</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">defaults</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">pytorch</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">python=3.8.10</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">pytorch=1.10.1</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">torchvision=0.11.2</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">numpy=1.19.4</span>
+</span></span></code></pre></div><ul>
+<li><strong>from_pip_specification</strong>. This method allows creating an environment from a pip specification stored in a text file. A typical specification, in this case, is as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>python==3.8.10
+</span></span><span style="display:flex;"><span>torch==1.10.1
+</span></span><span style="display:flex;"><span>torchvision==0.11.2
+</span></span><span style="display:flex;"><span>numpy==1.19.4
+</span></span></code></pre></div><p>To execute an experiment that requires our environment, we must provide an <strong>Environment</strong> instance to the <strong>ScriptRunConfig</strong> instance. This is done as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> importlib.resources <span style="color:#f92672">import</span> path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, ScriptRunConfig, Environment
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_experiment</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>    ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config <span style="color:#f92672">=</span> ScriptRunConfig(
+</span></span><span style="display:flex;"><span>        source_directory<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;Experiment_1&#39;</span>),
+</span></span><span style="display:flex;"><span>        script<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;experiment_1.py&#39;</span>,
+</span></span><span style="display:flex;"><span>        compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>TARGET_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># env = Environment.from_conda_specification(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#     name = &#39;env-2&#39;,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#     file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), &#39;run_experiment_2.yml&#39;)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># )</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    env <span style="color:#f92672">=</span> Environment<span style="color:#f92672">.</span>from_pip_requirements(
+</span></span><span style="display:flex;"><span>        name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;env-2&#39;</span>,
+</span></span><span style="display:flex;"><span>        file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;requirements.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>run_config<span style="color:#f92672">.</span>environment <span style="color:#f92672">=</span> env
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    experiment <span style="color:#f92672">=</span> Experiment(ws, constants<span style="color:#f92672">.</span>EXPERIMENT_NAME)
+</span></span><span style="display:flex;"><span>    run <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    aml_run <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>get_portal_url()
+</span></span><span style="display:flex;"><span>    print(aml_run)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    run_experiment()
+</span></span></code></pre></div><p>Note that the code above is similar to the previous example, but we have now added the <strong>Environment</strong> instance to the <strong>ScriptRunConfig</strong> instance.</p>
+<h3 id="execution">Execution</h3>
+<p>Once executed, the script will return a Run instance. This instance contains the information necessary to access the experiment results, including the URL of the portal to access the results.</p>
+<p>The URL directs the user to the experiment portal, where we can access the experiment results. This screen links to the environment that we specified, including the status of the experiment run and the name of the script being executed.</p>
+<p><img src="/post/img/azureml_training_execution1.jpg" alt="Experiment Portal"></p>
+<p>Other tabs provide additional information about the experiment run. In the snapshot tab, we can see the script that was executed.</p>
+<p><img src="/post/img/azureml_training_execution2.jpg" alt="Experiment Portal"></p>
+<p>Logs are also available in the portal, in the <strong>Outputs+Logs</strong> tab. These provide helpful information about the execution of the experiment, especially when the experiment fails. We can also see the output of our experiment script.</p>
+<p><img src="/post/img/azureml_training_execution3.jpg" alt="Experiment Portal"></p>
+<p>Going one level up, we can see information about the various execution runs of the experiment, their status, compute target, and the time taken to execute them.</p>
+<p><img src="/post/img/azureml_training_execution4.jpg" alt="Experiment Portal"></p>
+<h3 id="conclusion">Conclusion</h3>
+<p>In this post, we have seen the steps required to execute an ML experiment in AzureML. The steps required are:</p>
+<ul>
+<li>Create a folder to contain the experiment.</li>
+<li>Create a script to execute the experiment.</li>
+<li>Create a script to execute the experiment.
+<ul>
+<li>Create a requirements file containing the libraries and the code necessary to execute the experiment. The file can be either:
+<ul>
+<li>a pip specification (txt file).</li>
+<li>a conda specification (YAML file).</li>
+</ul>
+</li>
+<li>Create a <strong>ScriptRunConfig</strong> instance that packages the configuration information necessary to execute the experiment. The configuration information includes:
+<ul>
+<li>the folder containing the script to execute.</li>
+<li>the script to execute.</li>
+<li>the Azure ML compute to execute the experiment upon.</li>
+</ul>
+</li>
+<li>Create an <strong>Environment</strong> instance that packages the libraries and the code necessary to execute the experiment. The environment will require the file that we created in the previous step.</li>
+<li>Set the <strong>Environment</strong> instance in the <strong>ScriptRunConfig</strong> instance using <strong>run_config.environment</strong>.</li>
+<li>Create an <strong>Experiment</strong> instance, giving it a name and a reference to the workspace.</li>
+<li>Submit the experiment using the <strong>ScriptRunConfig</strong> instance as the parameter. The <strong>submit</strong> method returns a <strong>Run</strong> instance.</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

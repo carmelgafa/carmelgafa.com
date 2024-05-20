@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iot on </title>
+    <link>//localhost:1313/tags/iot/</link>
+    <description>Recent content in Iot on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jun 2020 16:25:12 +0200</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/iot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dallas 18B20 temperature sensor</title>
+      <link>//localhost:1313/post/iot_dallas18b20/</link>
+      <pubDate>Sat, 27 Jun 2020 16:25:12 +0200</pubDate>
+      <guid>//localhost:1313/post/iot_dallas18b20/</guid>
+      <description>The DS18B20 is a three-pin digital thermometer that provides digital temperature measurements as 9 to 12-bit packets over a single wire serial connection. Its temperature range is between -55 and 125 degrees Celcius, with excellent accuracy of 0.5 degrees between -10 and 85 degrees Celcius.&#xA;It can convert a temperature to a 12 bit reading in 750ms.&#xA;You can download the device datasheet from here.&#xA;Required libraries to use the DS18B20 To use the temperature sensor, one must include the Arduino Library for Maxim Temperature Integrated Circuits developed by Miles Burton.</description>
+    </item>
+    <item>
+      <title>Tinkering with a Microsoft MXChip IoT DevKit</title>
+      <link>//localhost:1313/post/iot_mxchip_first_try/</link>
+      <pubDate>Mon, 10 Feb 2020 16:12:58 +0100</pubDate>
+      <guid>//localhost:1313/post/iot_mxchip_first_try/</guid>
+      <description>The MXChip IoT Devkit byt Microsoft is a very interesting device, loaded with sensors and promises easy setup.&#xA;I followed the Microsoft tutorial to have a first look at the device, and indeed it was extremely straightforward process. I am writing this as I am approaching the end of the tutorial so not to forget any points:&#xA;Install Arduino studio 1.8.8. When I tried the 1.8.11 I was getting a Could not initialize class com.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%203%20-%20Azure%20Machine%20Learning%20SDK%2c%20working%20with%20Workspaces%2c%20Computes%2c%20Datasets%20and%20Datastores&amp;body=Notes%20about%20Azure%20ML%2c%20Part%203%20-%20Azure%20Machine%20Learning%20SDK%2c%20working%20with%20Workspaces%2c%20Computes%2c%20Datasets%20and%20Datastores%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_sdk_workspace%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_sdk_workspace%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_sdk_workspace%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</b></h2>
+        <h5>Fri December 31, 2021</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/dataset"><kbd class="item-tag">dataset</kbd></a>
+
+<a href="//localhost:1313/tags/datastore"><kbd class="item-tag">datastore</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="introduction">Introduction</h2>
+<p>The Azure Machine Learning SDK for Python lets us interact with the Azure Machine Learning service using a  Python environment. This post will discuss how to create, manage, and use Azure Machine Learning Workspaces, Computes, Datasets and Datastores using the Azure Machine Learning SDK for Python.</p>
+<h2 id="create-a-workspace">Create a Workspace</h2>
+<p>Creating a workspace is shown below. The <strong>create</strong> method required a name for the workspace, a subscription ID, a resource group (that is created for the workspace by setting the <strong>create_resource_group</strong> flag to true), and a location.</p>
+<p>To reuse the workspace in the future, creating a JSON file with the workspace details is useful. Saving this file is done through the <strong>write_config</strong> method. The workspace details are written to a file called <strong>config.json</strong>, which can be used to get a workspace object by using the <strong>Workspace.from_config</strong> method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SUBSCRIPTION_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;copy and paste subscription id here&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>create(name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;wsdeleteme&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    subscription_id <span style="color:#f92672">=</span> SUBSCRIPTION_ID,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    resource_group <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;rgdeleteme&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    create_resource_group<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    location <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;West Europe&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#f92672">.</span>write_config(path<span style="color:#f92672">=</span>config_path, file_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;config.json&#34;</span>)
+</span></span></code></pre></div><p>During the creation of an Azure ML Workspace, several resources are created, namely an Apps Insights resource, a Key Vault and a storage account. The names of these resources are the workspace&rsquo;s name with some characters appended to it. It is also possible to define pre-created Apps Insights, Key Vault or storage account, and in this post, we will see how to do this for the Storage account. We also notice that creating the workspace can create a resource group. In this example, we will make our own to be used in the rest of the post.</p>
+<p>To keep the code as clean as possible, we created a <strong>constants.py</strong>  to centralize the names of resources and other parameters necessary for creating the workspace. You will note that the parameter-names are mostly derived from parameter <strong>PROJECT_NAME</strong>, the name of this project, adding a prefix to indicate the resource type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SUBSCRIPTION_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;copy and paste subscription id here&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PROJECT_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;azuremlproject05&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RESOURCE_GROUP_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;rg</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LOCATION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;West Europe&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STORAGE_ACCOUNT_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;sa</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CONTAINER_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;bc</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FILESHARE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fs</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>WORKSPACE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;ws</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STORAGE_ACCOUNT_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;&#39;&#39;subscriptions/</span><span style="color:#e6db74">{</span>SUBSCRIPTION_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">/resourcegroups/</span><span style="color:#e6db74">{</span>RESOURCE_GROUP_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">/providers/microsoft.storage/storageaccounts/</span><span style="color:#e6db74">{</span>STORAGE_ACCOUNT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DATASTORE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;ds</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DATASET_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;dset</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INSTANCE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;inst</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TARGET_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;target</span><span style="color:#e6db74">{</span>PROJECT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span></code></pre></div><p>So, the first thing we need to do is create a storage account. The process is shown below, but basically, we have to:</p>
+<ul>
+<li>
+<p>Get the management object <strong>ResourceManagementClient</strong> for resources. We need a credential object and a subscription ID. to do this.</p>
+</li>
+<li>
+<p>Create the resource group by calling the <strong>resource_groups.create_or_update</strong> method.</p>
+</li>
+<li>
+<p>Get a storage management object <strong>StorageManagementClient</strong> that will be used to create the storage account.</p>
+</li>
+<li>
+<p>Check if the storage account already exists by calling the <strong>storage_accounts.check_name_availability</strong> method.</p>
+</li>
+<li>
+<p>Create the storage account by calling the <strong>storage_accounts.begin_create</strong> method.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import the needed management objects from the libraries. The azure.common library</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># is installed automatically with the other libraries.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.identity <span style="color:#f92672">import</span> AzureCliCredential
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.mgmt.resource <span style="color:#f92672">import</span> ResourceManagementClient
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.mgmt.storage <span style="color:#f92672">import</span> StorageManagementClient
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Acquire a credential object using CLI-based authentication.</span>
+</span></span><span style="display:flex;"><span>credential <span style="color:#f92672">=</span> AzureCliCredential()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Obtain the management object for resources.</span>
+</span></span><span style="display:flex;"><span>resource_client <span style="color:#f92672">=</span> ResourceManagementClient(credential, constants<span style="color:#f92672">.</span>SUBSCRIPTION_ID)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 1: Provision the resource group.</span>
+</span></span><span style="display:flex;"><span>rg_result <span style="color:#f92672">=</span> resource_client<span style="color:#f92672">.</span>resource_groups<span style="color:#f92672">.</span>create_or_update(
+</span></span><span style="display:flex;"><span>    constants<span style="color:#f92672">.</span>RESOURCE_GROUP_NAME,
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;location&#34;</span>: constants<span style="color:#f92672">.</span>LOCATION})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Provisioned resource group </span><span style="color:#e6db74">{</span>rg_result<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For details on the previous code, see Example: Provision a resource group</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># at https://docs.microsoft.com/azure/developer/python/azure-sdk-example-resource-group</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Step 2: Provision the storage account, starting with a management object.</span>
+</span></span><span style="display:flex;"><span>storage_client <span style="color:#f92672">=</span> StorageManagementClient(credential, constants<span style="color:#f92672">.</span>SUBSCRIPTION_ID)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check if the account name is available. Storage account names must be unique across</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Azure because they&#39;re used in URLs.</span>
+</span></span><span style="display:flex;"><span>availability_result <span style="color:#f92672">=</span> storage_client<span style="color:#f92672">.</span>storage_accounts<span style="color:#f92672">.</span>check_name_availability(
+</span></span><span style="display:flex;"><span>    {<span style="color:#e6db74">&#34;name&#34;</span>: constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> availability_result<span style="color:#f92672">.</span>name_available:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Storage name </span><span style="color:#e6db74">{</span>constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74"> is already in use. Try another name.&#34;</span>)
+</span></span><span style="display:flex;"><span>    exit()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The name is available, so provision the account</span>
+</span></span><span style="display:flex;"><span>poller <span style="color:#f92672">=</span> storage_client<span style="color:#f92672">.</span>storage_accounts<span style="color:#f92672">.</span>begin_create(
+</span></span><span style="display:flex;"><span>    constants<span style="color:#f92672">.</span>RESOURCE_GROUP_NAME, 
+</span></span><span style="display:flex;"><span>    constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME,
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;location&#34;</span> : constants<span style="color:#f92672">.</span>LOCATION,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;kind&#34;</span>: <span style="color:#e6db74">&#34;StorageV2&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;sku&#34;</span>: {<span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Standard_LRS&#34;</span>}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Long-running operations return a poller object; calling poller.result()</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># waits for completion.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>account_result <span style="color:#f92672">=</span> poller<span style="color:#f92672">.</span>result()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Provisioned storage account </span><span style="color:#e6db74">{</span>account_result<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><p>We can verify that the storage account was created by going to the Azure portal and clicking on the <strong>Storage Accounts</strong> tab.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_sdk_workspace_resourcegroup.jpg" alt="storage account"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Storage Account Creation $</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>We can now create the workspace. We notice that the code is similar to the previous example, but in this case, we are specifying the storage account that we just created.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>create(name <span style="color:#f92672">=</span> constants<span style="color:#f92672">.</span>WORKSPACE_NAME,
+</span></span><span style="display:flex;"><span>                    subscription_id <span style="color:#f92672">=</span> constants<span style="color:#f92672">.</span>SUBSCRIPTION_ID,
+</span></span><span style="display:flex;"><span>                    resource_group <span style="color:#f92672">=</span> constants<span style="color:#f92672">.</span>RESOURCE_GROUP_NAME,
+</span></span><span style="display:flex;"><span>                    create_resource_group<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>                    storage_account<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_ID,
+</span></span><span style="display:flex;"><span>                    location <span style="color:#f92672">=</span> constants<span style="color:#f92672">.</span>LOCATION,
+</span></span><span style="display:flex;"><span>                    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#f92672">.</span>write_config(path<span style="color:#f92672">=</span>config_path, file_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;config.json&#34;</span>)
+</span></span></code></pre></div><h2 id="creating-a-datastore-and-dataset">Creating a Datastore and DataSet</h2>
+<p>We can now create a dataset with an associated datastore that holds the data used in our ML experiments. We have on our local machine a folder called <strong>data</strong> that contains a CSV file with some data. The ultimate objective of this section is to create a dataset that points to this data.</p>
+<p>We start by creating a datastore. The process is shown below, but basically, we have to:</p>
+<ul>
+<li>Get the storage management object <strong>StorageManagementClient</strong> as we did previously to create a blob container.</li>
+<li>Create a blob container in the storage account to hold the data by calling the <strong>blob_containers.create</strong> method.</li>
+<li>The creation of a blob store requires a storage account key. We can get the keys by calling the <strong>storage_accounts.list_keys</strong> method.</li>
+<li>Finally, we can create the datastore by calling the <strong>datastores.create</strong> method, linking the storage account and the blob container.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Datastore
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.identity <span style="color:#f92672">import</span> AzureCliCredential
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.mgmt.storage <span style="color:#f92672">import</span> StorageManagementClient
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>credential <span style="color:#f92672">=</span> AzureCliCredential()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>storage_client <span style="color:#f92672">=</span> StorageManagementClient(credential, constants<span style="color:#f92672">.</span>SUBSCRIPTION_ID)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>blob_container <span style="color:#f92672">=</span> storage_client<span style="color:#f92672">.</span>blob_containers<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>    resource_group_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>RESOURCE_GROUP_NAME,
+</span></span><span style="display:flex;"><span>    account_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME,
+</span></span><span style="display:flex;"><span>    container_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>CONTAINER_NAME,
+</span></span><span style="display:flex;"><span>    blob_container<span style="color:#f92672">=</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>keys <span style="color:#f92672">=</span> storage_client<span style="color:#f92672">.</span>storage_accounts<span style="color:#f92672">.</span>list_keys(
+</span></span><span style="display:flex;"><span>    constants<span style="color:#f92672">.</span>RESOURCE_GROUP_NAME, 
+</span></span><span style="display:flex;"><span>    constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>blob_datastore <span style="color:#f92672">=</span> Datastore<span style="color:#f92672">.</span>register_azure_blob_container(
+</span></span><span style="display:flex;"><span>    workspace<span style="color:#f92672">=</span>ws, 
+</span></span><span style="display:flex;"><span>    datastore_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>DATASTORE_NAME, 
+</span></span><span style="display:flex;"><span>    container_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>CONTAINER_NAME,
+</span></span><span style="display:flex;"><span>    account_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>STORAGE_ACCOUNT_NAME,
+</span></span><span style="display:flex;"><span>    account_key<span style="color:#f92672">=</span>keys<span style="color:#f92672">.</span>keys[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Created Datastore name: </span><span style="color:#e6db74">{</span>blob_datastore<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span></code></pre></div><p>It is now possible to load the data to the datastore. We can call the <strong>upload</strong> method for the datastore. We notice that the store can ve easily be retrieved from the workspace.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> azureml.core
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Datastore
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_store <span style="color:#f92672">=</span> Datastore<span style="color:#f92672">.</span>get(workspace<span style="color:#f92672">=</span>ws, datastore_name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>DATASTORE_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Datastore name: </span><span style="color:#e6db74">{</span>data_store<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_store<span style="color:#f92672">.</span>upload(
+</span></span><span style="display:flex;"><span>    src_dir<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;data&#39;</span>),
+</span></span><span style="display:flex;"><span>    target_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;.&#39;</span>,
+</span></span><span style="display:flex;"><span>    overwrite<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>We can verify the created dataset by going to the Azure portal.</p>
+<p><img src="/post/img/azureml_sdk_workspace_datastore.jpg" alt="datastore creation"></p>
+<p>Navigating through the datastore, we can see that it also contains the CSV file.</p>
+<p><img src="/post/img/azureml_sdk_workspace_datastore2.jpg" alt="datastore data"></p>
+<p>The only remaining step is to create a dataset. We notice that a dataset is created by identifying the data in the datastore as tuples.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azure.storage.blob <span style="color:#f92672">import</span> BlobServiceClient
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_store <span style="color:#f92672">=</span>  ws<span style="color:#f92672">.</span>datastores[constants<span style="color:#f92672">.</span>DATASTORE_NAME]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_path <span style="color:#f92672">=</span> [(data_store, <span style="color:#e6db74">&#39;./titanic.csv&#39;</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_set <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>Tabular<span style="color:#f92672">.</span>from_delimited_files(path<span style="color:#f92672">=</span>data_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_set<span style="color:#f92672">.</span>register(workspace<span style="color:#f92672">=</span>ws, name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>DATASET_NAME, description<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete dataset&#39;</span>)
+</span></span></code></pre></div><p>We can verify the created dataset by going to the Azure portal. Upon examining the dataset, we can see that it is linked to the datastore and the data.</p>
+<p><img src="/post/img/azureml_sdk_workspace_dataset.jpg" alt="datastore data"></p>
+<h2 id="computes">Computes</h2>
+<h3 id="create-compute-instance">Create Compute Instance</h3>
+<p>Creating a compute instance is shown below. It starts with an attempt to use the instance through the <strong>ComputeInstance</strong> constructor, which requires a workspace object and a name for the instance. The constructor throws an exception if the instance does not exist, and in this case, the instance is created. This is achieved by first creating a provisioning configuration object, which is then used to create the instance by using <strong>ComputeInstance.provisioning_configuration</strong>. The provisioning configuration object is then used to create the instance by using <strong>ComputeInstance.create</strong>. We wait for the instance to be created by using <strong>ComputeInstance.wait_for_completion</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.compute <span style="color:#f92672">import</span> ComputeInstance
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.compute_target <span style="color:#f92672">import</span> ComputeTargetException
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>VM_SIZE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Standard_DS11_v2&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    compute_instance <span style="color:#f92672">=</span> ComputeInstance(
+</span></span><span style="display:flex;"><span>        workspace<span style="color:#f92672">=</span>ws, 
+</span></span><span style="display:flex;"><span>        name<span style="color:#f92672">=</span>INSTANCE_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Found existing compute instance. Using it...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> ComputeTargetException:
+</span></span><span style="display:flex;"><span>    compute_config <span style="color:#f92672">=</span> ComputeInstance<span style="color:#f92672">.</span>provisioning_configuration(
+</span></span><span style="display:flex;"><span>        vm_size<span style="color:#f92672">=</span>VM_SIZE,
+</span></span><span style="display:flex;"><span>        ssh_public_access<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    compute_instance <span style="color:#f92672">=</span> ComputeInstance<span style="color:#f92672">.</span>create(ws, constants<span style="color:#f92672">.</span>INSTANCE_NAME, compute_config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    compute_instance<span style="color:#f92672">.</span>wait_for_completion(show_output<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><h3 id="create-compute-target">Create Compute Target</h3>
+<p>Compute targets are created similarly to compute instances, but in this case, an Azure ML compute manager, <strong>AmlCompute</strong> is used to create the compute target. Notice that the target was created in the low priority tier and that our quota allows us to have a maximum of 2 nodes of the selected VM size.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.compute <span style="color:#f92672">import</span> ComputeTarget, AmlCompute
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.compute_target <span style="color:#f92672">import</span> ComputeTargetException
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>VM_SIZE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Standard_DS11_v2&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    compute_target <span style="color:#f92672">=</span> ComputeTarget(
+</span></span><span style="display:flex;"><span>        workspace<span style="color:#f92672">=</span>ws, 
+</span></span><span style="display:flex;"><span>        name<span style="color:#f92672">=</span>TARGET_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Found existing compute target. Using it...&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> ComputeTargetException:
+</span></span><span style="display:flex;"><span>    compute_config <span style="color:#f92672">=</span> AmlCompute<span style="color:#f92672">.</span>provisioning_configuration(vm_size<span style="color:#f92672">=</span>VM_SIZE,
+</span></span><span style="display:flex;"><span>                                            vm_priority<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lowpriority&#39;</span>,
+</span></span><span style="display:flex;"><span>                                            idle_seconds_before_scaledown<span style="color:#f92672">=</span><span style="color:#ae81ff">120</span>,
+</span></span><span style="display:flex;"><span>                                            min_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>                                            max_nodes<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    compute_target <span style="color:#f92672">=</span> ComputeTarget<span style="color:#f92672">.</span>create(ws, constants<span style="color:#f92672">.</span>TARGET_NAME, compute_config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">.</span>wait_for_completion(show_output<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>In the next post, we will see how to use what we have created to execute a Machine Learning experiment.</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

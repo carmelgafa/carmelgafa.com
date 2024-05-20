@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mathematical prerequisites for some Clustering techniques</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Mathematical prerequisites for some Clustering techniques</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Mathematical%20prerequisites%20for%20some%20Clustering%20techniques&amp;body=Mathematical%20prerequisites%20for%20some%20Clustering%20techniques%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fml_mathematical_prerequisites%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_mathematical_prerequisites%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_mathematical_prerequisites%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Mathematical prerequisites for some Clustering techniques</b></h2>
+        <h5>Thu October 14, 2021</h5>
+        
+<a href="//localhost:1313/tags/maths"><kbd class="item-tag">maths</kbd></a>
+
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="prerequisites">Prerequisites</h2>
+<h3 id="scalar-product">Scalar Product</h3>
+<p>Consider $\textbf{u}, \textbf{v} \in {R}^d$.</p>
+<p>The scalar product $&lt;\textbf{u};\textbf{v}&gt;$ (sometimes written also as $\textbf{u} . \textbf{v}$) is</p>
+<p>$$&lt;\textbf{u};\textbf{v}&gt; = \sum_{i=1}^{d} u_i v_i$$</p>
+<p>$&lt;\textbf{u};\textbf{v}&gt;$ is</p>
+<ul>
+<li>Symmetric. $ &lt;\textbf{u};\textbf{v}&gt; =&lt;\textbf{v};\textbf{u}&gt; $</li>
+<li>Bilinear.
+<table>
+<thead>
+<tr>
+<th>$&lt;\lambda\textbf{u} + \mu\textbf{u&rsquo;};\textbf{v}&gt; = \lambda{\textbf{u};\textbf{v}} + \mu&lt;\textbf{u&rsquo;};\textbf{v}&gt;$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\textbf{u}, \textbf{v} , \textbf{u&rsquo;} \in {R}^{d}$</td>
+</tr>
+<tr>
+<td>$\lambda, \mu \in {R}$</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>$&lt;\textbf{z};\textbf{z}&gt; = \parallel \textbf{z} \parallel^{2}$</li>
+</ul>
+<h3 id="cauchy-schwarz-inequality">Cauchy-Schwarz Inequality</h3>
+<p>Consider non-zero $\textbf{x},\textbf{y} \in {R}^n$. The absolute value of the dot product;</p>
+<p>$$|&lt;\textbf{x},\textbf{y}&gt;| \leq \parallel\textbf{x}\parallel  \parallel\textbf{y}\parallel$$</p>
+<p>or</p>
+<p>$$|\textbf{x}.\textbf{y}| \leq \parallel\textbf{x}\parallel  \parallel\textbf{y}\parallel$$</p>
+<p>the value is equal when $\textbf{x}$, $\textbf{y}$ are colinear.</p>
+<p>Let
+$$p(t) = \parallel t\textbf{y} -\textbf{x}\parallel^2 \geq 0$$</p>
+<p>This value is positive as $\parallel z\parallel=\sqrt{z_1^2+\dots+z_m^2} \geq 0$. Also note by definition of scalar product that $\parallel z\parallel = z.z $</p>
+<p>Hence,</p>
+<p>Let
+$$p(t) =  (t\textbf{y} -\textbf{x}).(t\textbf{y} -\textbf{x})\geq 0$$</p>
+<p>using distributive property of dot product</p>
+<p>$$p(t) =  t\textbf{y}.t\textbf{y} -\textbf{x}.t\textbf{y} -t\textbf{y}.\textbf{x} + \textbf{x}.\textbf{x}\geq 0$$</p>
+<p>$$p(t) =  t^2(\textbf{y}.\textbf{y}) -2(\textbf{x}.\textbf{y})t  + \textbf{x}.\textbf{x}\geq 0$$</p>
+<p>if we define;</p>
+<p>$$\textbf{y}.\textbf{y} = a$$</p>
+<p>$$-2(\textbf{x}.\textbf{y}) = b$$</p>
+<p>$$\textbf{x}.\textbf{x}=c$$</p>
+<p>then we obtain</p>
+<p>$$p(t) =  t^2(a) -2(b)t  + c \geq 0$$</p>
+<p>for $t=\frac{b}{2a}$,</p>
+<p>$$p \left(\frac{b}{2a} \right) =  \left(\frac{b^2}{4a^2}\right)(a) -2(b)\left(\frac{b}{2a}\right)  + c \geq 0$$</p>
+<p>$$\frac{b^2}{4a}-\frac{b^2}{2a}+c \geq 0$$</p>
+<p>$$-\frac{b^2}{4a}+c \geq 0$$</p>
+<p>$$c \geq \frac{b^2}{4a}$$</p>
+<p>Hence</p>
+<p>$$4ac \geq b^2$$</p>
+<p>Therefore, substituting</p>
+<p>$$4(\textbf{y}.\textbf{y})(\textbf{x}.\textbf{x}) \geq [-2(\textbf{x}.\textbf{y})]^2$$</p>
+<p>$$4 \parallel\textbf{y}\parallel^2 \parallel\textbf{x}\parallel^2 \geq 4 (\textbf{x}.\textbf{y})^2$$</p>
+<p>$$\parallel\textbf{y}\parallel^2 \parallel\textbf{x}\parallel^2 \geq  (\textbf{x}.\textbf{y})^2$$</p>
+<p>$$\parallel\textbf{y}\parallel \parallel\textbf{x}\parallel \geq (\textbf{x}.\textbf{y})$$</p>
+<p><strong>Consider the colinear case</strong>
+if $\textbf{x}=c\textbf{y}$</p>
+<table>
+<thead>
+<tr>
+<th>| $c\textbf{y}.\textbf{y}$ |</th>
+<th>$= c$ | $\textbf{y}.\textbf{y}$ |</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>$ = c\parallel\textbf{y}\parallel^2$</td>
+</tr>
+<tr>
+<td></td>
+<td>$ = c\parallel\textbf{y}\parallel \parallel\textbf{y}\parallel$</td>
+</tr>
+<tr>
+<td></td>
+<td>$ = \parallel c \textbf{y}\parallel \parallel\textbf{y}\parallel$</td>
+</tr>
+<tr>
+<td></td>
+<td>$ = \parallel\textbf{x}\parallel \parallel\textbf{y}\parallel$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="intermediate-value-theorem">Intermediate Value Theorem</h3>
+<p>Suppose $f$ is a function continuous in every point in the interval $[a,b]$;</p>
+<ul>
+<li>$f$ will take on every value between $f(a)$ and $f(b)$ over the interval.</li>
+<li>for any value $L$ between the value of $f(a)$ and $f(b)$, $\exists c$ in $[a,b]$ for which $f(c)=L$</li>
+</ul>
+<p><img src="/post/img/maths_ivt.jpg" alt="ivt"></p>
+<h3 id="mean-value-theorem">Mean Value Theorem</h3>
+<p>For $f$ continuous in $[a,b]$ and differentiable over $(a,b)$, $\exists c$ where the instantaneous change is equal to the average change.</p>
+<p><img src="/post/img/maths_mvt.jpg" alt="mvt"></p>
+<p>hence $\exists x$ such that</p>
+<p>$$f&rsquo;(x) = \frac{f(b)-f(a)}{b-a}$$</p>
+<p>or</p>
+<p>$$f&rsquo;(x)(b-a) = f(b) - f(a)$$</p>
+<h3 id="fixed-point-iteration">Fixed Point Iteration</h3>
+<p>In solving $f(x) =0$, we rewrite as $x=g(x)$.</p>
+<p><strong>Note</strong>
+This is always possible;
+$$f(x)=0$$
+$$f(x)+x=x$$
+$$g(x)=x$$</p>
+<p>The root $r=g(r)$ where r is a fixed point. Hence with initial guess $x_0$ compute root $g(x_0)$. Idea is that $x_1=g(x_0)$ will be closer to $r$.</p>
+<ul>
+<li>choose $x_0$</li>
+<li>$x_{k+1}=g(x_k)$. Iterate until stop criteria are met.</li>
+</ul>
+<p><img src="/post/img/maths_fpalgorithm.jpg" alt="fixed point algorithm"></p>
+<h4 id="convergence-analysis">Convergence Analysis</h4>
+<p>Let $r$ be a root such that $r=g(r)$. The value of $x$ at iteration step $k$, $x_{k+1}=g(x_k)$.</p>
+<ul>
+<li>The error at step $k$ = &amp; $|x_k - r|$</li>
+<li>The error at step $k+1$ = &amp; $|x_{k+1} - r| = |g(x_k) - g(r)|$</li>
+</ul>
+<p>Considering that the error at step $k+1 = |g(x_k) - g(r)|$ Using the mean value theorem, there exists point $\xi$ such that,</p>
+<p>$$|g(x_k) - g(r)| = |g&rsquo;(\xi)(x_k - r)|$$</p>
+<p>where $\xi \in [x_k, r]$</p>
+<p>Note that at each iteration the error $x_k - r$ is multiplied by $|g&rsquo;(\xi)|$. Therefore,</p>
+<ul>
+<li>if $|g&rsquo;(\xi)|&lt;1$ &amp; $e_{k+1} &lt; e_k$ &amp; $\rightarrow$ Convergence</li>
+<li>if $|g&rsquo;(\xi)|&gt;1$ &amp; $e_{k+1} &gt; e_k$ &amp; $\rightarrow$ Divergence</li>
+</ul>
+<p><strong>Convergence Condition</strong>
+$\exists$ $I=[r-c, r+c]$ for some $c&gt;0$ such that $|g&rsquo;(x)|&lt;1$ on $I$ and $x_o  \in I$</p>
+<h4 id="graphical-approach">Graphical Approach</h4>
+<p>Setting $y = x$ and $y = g(x)$, the intersection is the solution as $x=g(x)$</p>
+<p><img src="/post/img/maths_fpconv.jpg" alt="fixed point convergence"></p>
+<p><img src="/post/img/maths_fpdiv.jpg" alt="fixed point Divergence"></p>
+<h4 id="example">Example</h4>
+<p>Solve $f(x)= x-cos(x) = 0$</p>
+<p><strong>Solution</strong>
+$x=g(x)=cos(x)$</p>
+<p>Solving to 4 point accuracy, selecting initial guess of $x_0=1$</p>
+<table>
+<thead>
+<tr>
+<th>$x_1=$</th>
+<th>$cos(x_0)= cos(1)=$</th>
+<th>0.5403</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_2=$</td>
+<td>$cos(0.5403)=$</td>
+<td>0.8576</td>
+</tr>
+<tr>
+<td>$x_3=$</td>
+<td>$cos(0.8576)=$</td>
+<td>0.6543</td>
+</tr>
+<tr>
+<td></td>
+<td>&hellip;</td>
+<td></td>
+</tr>
+<tr>
+<td>$x_23=$</td>
+<td></td>
+<td>0.7390</td>
+</tr>
+<tr>
+<td>$x_24=$</td>
+<td></td>
+<td>0.7391</td>
+</tr>
+</tbody>
+</table>
+<p>Therefore $r \approx 0.7391 \rightarrow$ Convergent</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

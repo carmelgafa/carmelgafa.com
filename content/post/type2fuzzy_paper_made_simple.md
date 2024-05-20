@@ -9,19 +9,18 @@ draft: false
 
 "Type-2 Fuzzy Sets made simple" is possibly the best paper to learn about Type-2 fuzzy sets and logic. It outlines all the definitions and concepts that are necessary to work with type-2 fuzzy sets in a clear and concise manner. This paper illustrates the implementation of all the examples prepared by Mendel and John using the type2fuzzy library.
 
-
 This post is the first in a series aimed to illustrate the capabilities of the Type2FuzzyLibrary (<https://pypi.org/project/type2fuzzy/>) This is achieved by working up the numerical examples in selected papers using the library and comparing the results with those obtained by the original authors. The papers will list the code used to carry out the examples, and the results obtained. All code is written using the Python language.
 
 ### Type-2 fuzzy set definition
 
 The paper illustrates several type-2 fuzzy sets concepts with a simple general type-2 fuzzy set,
 
-```{math}
-(0.9/0 + 0.8/0.2+ 0.7/0.4 + 0.6/0.6 + 0.5/0.8)/1}
-(0.5/0 + 0.35/0.2 + 0.35/0.4 + 0.2/0.6 + 0.5/0.8)/2}
-(0.35/0.6 + 0.35/0.8)/3}
-(0.1/0 + 0.35/0.2 + 0.5/0.4 + 0.1/0.6 + 0.35/0.8)/4}
-(0.35/0 + 0.5/0.2 + 0.1/0.4 + 0.2/0.6 + 0.2/0.8)/5}
+```text
+(0.9/0 + 0.8/0.2+ 0.7/0.4 + 0.6/0.6 + 0.5/0.8)/1
+(0.5/0 + 0.35/0.2 + 0.35/0.4 + 0.2/0.6 + 0.5/0.8)/2
+(0.35/0.6 + 0.35/0.8)/3
+(0.1/0 + 0.35/0.2 + 0.5/0.4 + 0.1/0.6 + 0.35/0.8)/4
+(0.35/0 + 0.5/0.2 + 0.1/0.4 + 0.2/0.6 + 0.2/0.8)/5
 ```
 
 This set will be used in this exercise as in the paper.
@@ -47,17 +46,13 @@ gt2fs = GeneralType2FuzzySet.from_representation(gt2fs_rep)
 print(f'\nSet representation: {gt2fs}')
 ```
 
-```{run}
+```text
 Set representation:
-{\small (0.9000 / 0.0000 + 0.8000 / 0.2000 + 0.7000 / 0.4000 +
-{\small 0.6000 / 0.6000 + 0.5000 / 0.8000) / 1.000
-{\small + (0.5000 / 0.0000 + 0.3500 / 0.2000 + 0.3500 / 0.4000 +
-{\small 0.2000 / 0.6000 + 0.5000 / 0.8000) / 2.0000
-{\small + (0.3500 / 0.6000 + 0.3500 / 0.8000) / 3.0000 + (0.1000 / 0.000
-{\small + 0.3500 / 0.2000 + 0.5000 / 0.4000 
-{\small 0.1000 / 0.6000 + 0.3500 / 0.8000) / 4.0000 +
-{\small (0.3500 / 0.0000 + 0.5000 / 0.2000 + 0.1000 / 0.4000 +
-{\small 0.2000 / 0.6000 + 0.2000 / 0.8000) / 5.000
+(0.9000 / 0.0000 + 0.8000 / 0.2000 + 0.7000 / 0.4000 + 0.6000 / 0.6000 + 0.5000 / 0.8000) / 1.000 +
+(0.5000 / 0.0000 + 0.3500 / 0.2000 + 0.3500 / 0.4000 + 0.2000 / 0.6000 + 0.5000 / 0.8000) / 2.0000 +
+(0.3500 / 0.6000 + 0.3500 / 0.8000) / 3.0000 + 
+(0.1000 / 0.000 + 0.3500 / 0.2000 + 0.5000 / 0.4000 + 0.1000 / 0.6000 + 0.3500 / 0.8000) / 4.0000 +
+(0.3500 / 0.0000 + 0.5000 / 0.2000 + 0.1000 / 0.4000 + 0.2000 / 0.6000 + 0.2000 / 0.8000) / 5.000
 ```
 
 ### Vertical Slice
@@ -78,7 +73,7 @@ print('mu_a_tilde(',3,')= ', gt2fs.vertical_slice(3))
 print('mu_a_tilde(',4,')= ', gt2fs[4])
 ```
 
-```{run}
+```text
 mu( 1 )= 0.900/0.000 + 0.800/0.200 + 0.700/0.400 + 0.600/0.600 + 0.500/0.800}
 mu( 2 )=0.500/0.000 + 0.350/0.200 + 0.350/0.400 + 0.200/0.600 + 0.500/0.800}
 mu( 3 )=0.350/0.600 + 0.350/0.800}
@@ -104,7 +99,7 @@ for x_k in gt2fs.primary_domain():
     print('J_',x_k, ' : ',  gt2fs.primary_membership(x_k)) 
 ```
 
-```{run}
+```text
 Primary Membership:
 J1.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
 J2.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
@@ -133,7 +128,7 @@ print('mu(3,0.8)=',  gt2fs.secondary_grade(3, 0.8), '-- should be 0.35')
 print('mu(4,0.4)=',  gt2fs.secondary_grade(4, 0.4), '-- should be 0.5') 
 ```
 
-```{run}
+```text
 Secondary grade of some points:
 mu(1,0.2)= 0.8 -- should be 0.8
 mu(2,0)= 0.5 -- should be 0.5
@@ -160,7 +155,7 @@ footprint = gt2fs.footprint_of_uncertainty()
 print('\nFootprint of uncertainty: ', footprint)
 ```
 
-```{run}
+```text
 Footprint of uncertainty:
 1.0: CrispSet([0.00000, 0.80000]),
 2.0: CrispSet([0.00000, 0.80000]),
@@ -193,7 +188,7 @@ print('\nNumber of embedded type-2 sets: ',
 gt2fs.embedded_type2_sets_count())
 ```
 
-```{run}
+```text
 \small Number of embedded type-2 sets:  1250
 ```
 
@@ -211,7 +206,7 @@ for embedded_set in gt2fs.embedded_type2_sets():
         break
 ```
 
-```{run}
+```text
 Showing first 10 embedded sets:
 [(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.35, 0.0, 5.0)]
 [(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.5, 0.2, 5.0)]
@@ -228,7 +223,7 @@ Showing first 10 embedded sets:
 
 In the original paper, Example 3 considers the following general type-2 fuzzy set:
 
-```{run}
+```text
 (0.5/0.9)/x_1 + (0.2/0.7)/x_1 + (0.9/0.2)/x_1 + (0.6/0.6)/x_2 + (0.1/0.4)/x_2
 ```
 
@@ -236,7 +231,7 @@ For the sake of this exercise, we assign the values of $x_1 = 1$ and $x_2=2$
 
 thus obtaining the following set;
 
-```{run}
+```text
 (0.5/0.9)/1 + (0.2/0.7)/1 + (0.9/0.2)/1 + (0.6/0.6)/2 + (0.1/0.4)/2
 (0.5/0.9)/1 + (0.2/0.7)/1 + (0.9/0.2)/1 + (0.6/0.6)/2 + (0.1/0.4)/2
 ```
@@ -252,7 +247,7 @@ for embedded_set in gt2fs_2.embedded_type2_sets():
     print(embedded_set)
 ```
 
-```{run}
+```text
 Embedded set listing for general type-2 fuzzy set
 (0.5000 / 0.9000 + 0.2000 / 0.7000 + 0.9000 / 0.2000) / 1.0000 
 + (0.6000 / 0.6000 + 0.1000 / 0.4000) / 2.0000

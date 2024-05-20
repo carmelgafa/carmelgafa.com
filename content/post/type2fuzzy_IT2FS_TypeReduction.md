@@ -13,7 +13,7 @@ where $J_{x}\subseteq[0,1]$
 
 And if, as an example, we consider the following general type-2 fuzzy set:
 
-```{math}
+```text
 (1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6                       )/1+
 (0.5/0 + 1.0/0.2 + 0.5/0.4 + 0.3/0.6 + 0.1/0.8             )/2+
 (0.1/0 + 0.3/0.2 + 0.5/0.4 + 1.0/0.6 + 0.5/0.8 + 0.3/1.0   )/3+

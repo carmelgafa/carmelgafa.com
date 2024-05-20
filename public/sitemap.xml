@@ -357,16 +357,16 @@
   </url><url>
     <loc>//localhost:1313/about/</loc>
   </url><url>
+    <loc>//localhost:1313/ww2/athens_war_museum/</loc>
+  </url><url>
     <loc>//localhost:1313/categories/</loc>
   </url><url>
     <loc>//localhost:1313/tags/game/</loc>
   </url><url>
     <loc>//localhost:1313/tags/javascript/</loc>
   </url><url>
-    <loc>//localhost:1313/misc/</loc>
-  </url><url>
     <loc>//localhost:1313/project/project_ozzy_floaters/</loc>
   </url><url>
-    <loc>//localhost:1313/misc/walk_riviera/</loc>
+    <loc>//localhost:1313/ww2/</loc>
   </url>
 </urlset>

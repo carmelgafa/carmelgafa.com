@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper-Workout on </title>
+    <link>//localhost:1313/tags/paper-workout/</link>
+    <description>Recent content in Paper-Workout on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/paper-workout/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</title>
+      <link>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</link>
+      <pubDate>Sat, 08 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</guid>
+      <description>In this post, we will validate the implementation of the Karnik-Mendel algorithm found in the type-2 fuzzy logic library with a worked example available in Mendel&amp;rsquo;s book &amp;ldquo;Uncertain rule-based fuzzy logic systems.&amp;rdquo;&#xA;The example calculates the centroid of interval type-2 fuzzy sets with uncertain means $m\in[m_1, m_2]$, where the UMF and LMF of the set are calculated as follows:&#xA;$exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right]$ ,$x&amp;lt;m_1$ $UMF(\tilde{A})=$ $1$ ,$m_1, \geq x \geq m_2$ $exp \left[ -0.</description>
+    </item>
+    <item>
+      <title>Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</title>
+      <link>//localhost:1313/post/type2fuzzy_paper_zslices/</link>
+      <pubDate>Sun, 27 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_paper_zslices/</guid>
+      <description>The paper by Wagner and Hagras explains the concept of zSlices as a way to implement type-2 fuzzy logic systems based on general type-2 fuzzy sets. The paper&amp;rsquo;s appendices contain numeric examples of centroid computation based on zSlices. This post describes the steps involved in implementing the paper by Wagner and Hagras. It also lists the results obtained and compares them with those listed in the original document.&#xA;Centroid of a zSliced Based Type-2 Set The general type-2 fuzzy set used in these examples will result in the potential computation of the centroid of $3^{11}$ wavy slices.</description>
+    </item>
+    <item>
+      <title>Paper Implementation - Mendel, Jerry M., and RI Bob John. &#39;Type-2 fuzzy sets made simple.&#39;</title>
+      <link>//localhost:1313/post/type2fuzzy_paper_made_simple/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_paper_made_simple/</guid>
+      <description>Introduction &amp;ldquo;Type-2 Fuzzy Sets made simple&amp;rdquo; is possibly the best paper to learn about Type-2 fuzzy sets and logic. It outlines all the definitions and concepts that are necessary to work with type-2 fuzzy sets in a clear and concise manner. This paper illustrates the implementation of all the examples prepared by Mendel and John using the type2fuzzy library.&#xA;This post is the first in a series aimed to illustrate the capabilities of the Type2FuzzyLibrary (https://pypi.</description>
+    </item>
+  </channel>
+</rss>

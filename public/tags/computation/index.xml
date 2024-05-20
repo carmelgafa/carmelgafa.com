@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computation on </title>
+    <link>//localhost:1313/tags/computation/</link>
+    <description>Recent content in Computation on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Dec 2021 12:50:00 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/computation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 2 - Computation Options</title>
+      <link>//localhost:1313/post/azureml_computes/</link>
+      <pubDate>Tue, 28 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_computes/</guid>
+      <description>This post will very briefly discuss two of the computation options available in Azure Machine Learning; compute instances and compute clusters.&#xA;A Compute Instance in Azure Machine Learning is a cloud-based workstation, where all the necessary frameworks, tools and libraries are installed and configured, thus making it easy to run machine CPU or GPU based learning experiments and manage the Azure ML resources. We can create instances by selecting from one of the VM sizes available in Azure.</description>
+    </item>
+  </channel>
+</rss>

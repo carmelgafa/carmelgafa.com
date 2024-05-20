@@ -1,0 +1,22 @@
+{{ partial "header" . }}
+
+<main>
+
+    <h2>World War 2</h2></b>
+
+    <div align="left">
+    World War II stands as a haunting chapter in human history, marked by its staggering toll of over 70 million lives lost worldwide.
+    This cataclysmic conflict not only reshaped global geopolitics but also plumbed the depths of human cruelty with atrocities like the 
+    Holocaust, where six million Jews perished in concentration camps. 
+    <br/>
+    Through these posts, I will talk about the places that I have visited and the material 
+    that I have encountered which show the bravery, resilience, and harrowing realities that define humanity's darkest hour.
+    </div>
+ 
+
+    {{ range (.Paginator 5).Pages }} {{ partial "list-item" . }} {{ end }}
+
+</main>
+
+{{ partial "paginator" . }}
+{{ partial "footer" . }}

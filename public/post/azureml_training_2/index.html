@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%207%20-%20The%20Concrete%20Strength%20Example%3b%20training%20a%20model&amp;body=Notes%20about%20Azure%20ML%2c%20Part%207%20-%20The%20Concrete%20Strength%20Example%3b%20training%20a%20model%2c%20by%20Carmel%20Gafa%0a%0aTraining%20of%20the%20concrete%20strength%20model%20example%20in%20Azure%20ML%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training_2%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training_2%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_training_2%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model</b></h2>
+        <h5>Wed March 16, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/experiment"><kbd class="item-tag">experiment</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>In this series&rsquo;s <a href="/post/azureml_training/">previous post</a>, we have seen how to create and execute a machine learning experiment in AzureML. Our experiment was not an actual ML experiment but a simple script that printed a message.</p>
+<p>This post will see how to create and execute an ML experiment that involves training a model. It is important to note that this post is just the first step in creating a proper ML pipeline in AzureML and is therefore not the best of solutions. In future posts, we will continue improving this process and build a better ML pipeline in AzureML.</p>
+<p>This post will also show how we can provide parameters to the experiment, which is useful when we want to train a model with different hyperparameters. In this case, we pass the Dataset to the experiment as a parameter.</p>
+<h2 id="situation">Situation</h2>
+<p>We will consider the <a href="https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength">Concrete Compressive Strength Data Set</a> from UCI Machine Learning Repository. The data set contains the following features:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:center">Description</th>
+<th>Units</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cement (component 1)         </td>
+<td style="text-align:center">          quantitative         </td>
+<td>kg in a m3 mixture          </td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Blast Furnace Slag (component 2)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Fly Ash (component 3)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Water (component 4)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Superplasticizer (component 5)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Coarse Aggregate (component 6)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Fine Aggregate (component 7)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Age</td>
+<td style="text-align:center">quantitative</td>
+<td>Day (1~365)</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Concrete compressive strength</td>
+<td style="text-align:center">quantitative</td>
+<td>MPa</td>
+<td>Output Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">   </td>
+<td style="text-align:center"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The Dataset has, therefore:</p>
+<ul>
+<li>8 input variables (features)</li>
+<li>1 output variable (labels)</li>
+<li>all the data is numerical</li>
+<li>feature and label names are pretty long</li>
+<li>1030 instances in the Dataset</li>
+<li>no missing values in the Dataset</li>
+</ul>
+<p>There are many versions of this Dataset, and to load it directly, we have selected a <a href="https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv">csv version</a></p>
+<h2 id="loading-the-data-into-an-azureml-dataset">Loading the data into an AzureML dataset</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> azuremlproject.constants <span style="color:#66d9ef">as</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setup_experiment</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>    ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    concrete_data_path <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    data_set <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>Tabular<span style="color:#f92672">.</span>from_delimited_files(concrete_data_path)
+</span></span><span style="display:flex;"><span>    data_set<span style="color:#f92672">.</span>register(
+</span></span><span style="display:flex;"><span>        workspace<span style="color:#f92672">=</span>ws,
+</span></span><span style="display:flex;"><span>        name<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>DATASET_NAME,
+</span></span><span style="display:flex;"><span>        description<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete dataset&#39;</span>,
+</span></span><span style="display:flex;"><span>        create_new_version<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    setup_experiment()
+</span></span></code></pre></div><p>We will create a dataset directly from a web file by providing the data URL and calling <strong>Dataset.Tabular.from_delimited_files</strong>. We then register the Dataset in the workspace, and we can use it in our experiment.</p>
+<h2 id="the-experiment">The experiment</h2>
+<p>We will be using scikit learn for this experiment. We will compare two regression algorithms to determine the best one for the concrete strength Dataset prediction. The process employed is relatively straightforward:</p>
+<ul>
+<li>We use <strong>argparse</strong> to parse the command line arguments and retrieve the Dataset.</li>
+<li>We use the <strong>train_test_split</strong> function from scikit learn to split the data into training and test sets.</li>
+<li>We create a scikit learn pipeline that contains the following steps:
+<ul>
+<li><strong>RobustScaler</strong>: This is a robust scaler that scales the data to have a mean of 0 and a standard deviation of 1.</li>
+<li><strong>LinearRegression</strong>: This step fits a linear regression model to the training data.
+We create another pipeline that contains the following steps:</li>
+<li><strong>RobustScaler</strong>: This is a robust scaler that scales the data to have a mean of 0 and a standard deviation of 1.</li>
+<li><strong>SVR</strong>: This step fits a support vector regression model to the training data.</li>
+</ul>
+</li>
+<li>we use <strong>KFold</strong> to split the test data into ten folds.</li>
+<li>We use the <strong>cross_val_score</strong> function from scikit learn to evaluate the performance of the two models.</li>
+<li>We print the results of the cross-validation.</li>
+</ul>
+<p>The code for this experiment is below. We should remember that the code is not the best way to create an ML pipeline in AzureML. In future posts, we will continue improving this process and build a better ML pipeline in AzureML.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">test and compare the predictive performance of various ML Models using the amount of explained variance 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(in percentage) as an evaluation metric. ML Models used for comparison are:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Linear Regression
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- SVR
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> asyncio.proactor_events <span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split    <span style="color:#75715e"># pyright: reportMissingImports=false</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.preprocessing <span style="color:#f92672">import</span> RobustScaler          <span style="color:#75715e"># pyright: reportMissingImports=false</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.pipeline <span style="color:#f92672">import</span> Pipeline
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.linear_model <span style="color:#f92672">import</span> LinearRegression
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.svm <span style="color:#f92672">import</span> SVR
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> KFold
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> cross_val_score
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.dataset <span style="color:#f92672">import</span> Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.run <span style="color:#f92672">import</span> Run
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>experiment<span style="color:#f92672">.</span>workspace
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser()
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--dataset_name&#39;</span>,
+</span></span><span style="display:flex;"><span>    type<span style="color:#f92672">=</span>str,
+</span></span><span style="display:flex;"><span>    help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Name of the dataset to use&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dataset <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(ws, args<span style="color:#f92672">.</span>dataset_name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df_orig <span style="color:#f92672">=</span> dataset<span style="color:#f92672">.</span>to_pandas_dataframe()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df_orig<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;cement&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;slag&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;ash&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;water&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;superplastic&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;coarseagg&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;fineagg&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;age&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;strength&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create features and labels datasets</span>
+</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> df_orig<span style="color:#f92672">.</span>drop(<span style="color:#e6db74">&#39;strength&#39;</span>,axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> df_orig[<span style="color:#e6db74">&#39;strength&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;X.shape:&#39;</span>, X<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;y.shape:&#39;</span>, y<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># split into test and train sets</span>
+</span></span><span style="display:flex;"><span>X_train, X_test, y_train, y_test <span style="color:#f92672">=</span> train_test_split(X, y, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create a pipeline for each regressor</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pipline will contain the regressor preceeded by a scaler</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># all pipelines are stored in a list</span>
+</span></span><span style="display:flex;"><span>pipelines <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>pipelines<span style="color:#f92672">.</span>append((
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Linear Regression&#39;</span>,
+</span></span><span style="display:flex;"><span>    Pipeline([(<span style="color:#e6db74">&#39;scaler&#39;</span>,RobustScaler()),(<span style="color:#e6db74">&#39;LR&#39;</span>,LinearRegression())])))
+</span></span><span style="display:flex;"><span>pipelines<span style="color:#f92672">.</span>append((
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;SupportVectorRegressor&#39;</span>,
+</span></span><span style="display:flex;"><span>    Pipeline([(<span style="color:#e6db74">&#39;scaler&#39;</span>,RobustScaler()),(<span style="color:#e6db74">&#39;SVR&#39;</span>,SVR())])))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create empty dataframe to store the results</span>
+</span></span><span style="display:flex;"><span>result_train <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#39;Regressor&#39;</span>:[],<span style="color:#e6db74">&#39;VarianceScore&#39;</span>:[],<span style="color:#e6db74">&#39;StdDev&#39;</span>:[]})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s find and store the cross-validation score for each</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pipeline for training data with raw features.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> ind, val <span style="color:#f92672">in</span> enumerate(pipelines):
+</span></span><span style="display:flex;"><span>    name, pipeline <span style="color:#f92672">=</span> val
+</span></span><span style="display:flex;"><span>    kfold <span style="color:#f92672">=</span> KFold(n_splits<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">2020</span>, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    cv_results <span style="color:#f92672">=</span> cross_val_score(
+</span></span><span style="display:flex;"><span>        pipeline,
+</span></span><span style="display:flex;"><span>        X_train,
+</span></span><span style="display:flex;"><span>        y_train,
+</span></span><span style="display:flex;"><span>        cv<span style="color:#f92672">=</span>kfold,
+</span></span><span style="display:flex;"><span>        scoring<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;explained_variance&#39;</span>)
+</span></span><span style="display:flex;"><span>    result_train<span style="color:#f92672">.</span>loc[ind] <span style="color:#f92672">=</span> [name,cv_results<span style="color:#f92672">.</span>mean()<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span>,cv_results<span style="color:#f92672">.</span>std()<span style="color:#f92672">*</span><span style="color:#ae81ff">100</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(result_train)
+</span></span></code></pre></div><h2 id="experiment-execution">Experiment Execution</h2>
+<p>To execute this experiment, we need to create an environment in AzureML that contains scikit learn and pandas. We will be using the <strong>Environment.from_pip_requirements</strong> function to create the environment discussed in the previous post. The requirements file is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>scikit-learn
+</span></span><span style="display:flex;"><span>pandas
+</span></span><span style="display:flex;"><span>azureml-core
+</span></span><span style="display:flex;"><span>azureml-dataset-runtime
+</span></span></code></pre></div><p>Finally, we create the code to execute the experiment. We discussed the structure of the script previously. What is different is that we are passing the dataset name as an argument through the <strong>ScriptRunConfig</strong> instance. The <strong>arguments</strong> parameter of the <strong>ScriptRunConfig</strong> instance is a list containing the parameter name followed by the value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> importlib.resources <span style="color:#f92672">import</span> path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, ScriptRunConfig, Environment, Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azuremlproject <span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_experiment</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>    ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This is the configuration for the experiment. It tells the experiment what code to run, where to run</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># it, and what compute target to use.</span>
+</span></span><span style="display:flex;"><span>    config <span style="color:#f92672">=</span> ScriptRunConfig(
+</span></span><span style="display:flex;"><span>        source_directory<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;experiment_4&#39;</span>),
+</span></span><span style="display:flex;"><span>        script<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;experiment_4.py&#39;</span>,
+</span></span><span style="display:flex;"><span>        compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>INSTANCE_NAME,
+</span></span><span style="display:flex;"><span>        arguments<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;--dataset_name&#39;</span>, constants<span style="color:#f92672">.</span>DATASET_NAME
+</span></span><span style="display:flex;"><span>        ])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    env <span style="color:#f92672">=</span> Environment<span style="color:#f92672">.</span>from_pip_requirements(
+</span></span><span style="display:flex;"><span>        name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;env-4&#39;</span>,
+</span></span><span style="display:flex;"><span>        file_path<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;experiment_4_req.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>run_config<span style="color:#f92672">.</span>environment <span style="color:#f92672">=</span> env
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    experiment <span style="color:#f92672">=</span> Experiment(ws, constants<span style="color:#f92672">.</span>EXPERIMENT_NAME)
+</span></span><span style="display:flex;"><span>    run <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(config)
+</span></span><span style="display:flex;"><span>    aml_run <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>get_portal_url()
+</span></span><span style="display:flex;"><span>    print(aml_run)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    run_experiment()
+</span></span></code></pre></div><p>Execution starts with creating the Dataset as explained above. We can verify that the Dataset was created by navigating into the datasets folder in the workspace where we should see the Dataset. When clicking on the dataset name, we should see the following:</p>
+<ul>
+<li><strong>Type</strong>; this is a tabular set</li>
+<li><strong>Version</strong>; this is the Version of the Dataset, which is 1 in this case</li>
+<li><strong>Description</strong>; this is the Description of the Dataset that we provided in the dataset creation</li>
+<li><strong>URL</strong>; this is the URL of the Dataset</li>
+</ul>
+<p>Of interest is the <strong>Explore</strong> page, where we can see the data in the Dataset.</p>
+<p><img src="/post/img/azureml_training_2_dataset.jpg" alt="concrete strength dataset"></p>
+<p>The experiment execution gives us a lot of information, including:</p>
+<ul>
+<li>The target compute target used for the experiment</li>
+<li>The arguments passed to the experiment</li>
+<li>The environment used for the experiment will link to more information about the docker image used for the experiment and the packages used in the environment</li>
+</ul>
+<p><img src="/post/img/azureml_training_2_execute.jpg" alt="concrete strength dataset"></p>
+<p>Once the experiment is executed, we can see the results in the logs. In this example, we can see the variance score and standard deviation of the two algorithms we used.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Although this is a simple example, it is an excellent example of how we can use Azure ML to train machine learning models. In the next post, we will look at using Azure ML to create pipelines to train machine learning models.</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

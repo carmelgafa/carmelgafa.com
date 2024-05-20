@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pipeline on </title>
+    <link>//localhost:1313/tags/pipeline/</link>
+    <description>Recent content in Pipeline on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Jun 2022 13:31:51 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/pipeline/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</title>
+      <link>//localhost:1313/post/azureml_end2end_trainingpipeline/</link>
+      <pubDate>Sat, 18 Jun 2022 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_trainingpipeline/</guid>
+      <description>Introduction In the second section of this series, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called concrete_baseline. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.&#xA;AzureMl pipelines connect several functional steps we can execute in sequence in a machine learning workflow.</description>
+    </item>
+  </channel>
+</rss>

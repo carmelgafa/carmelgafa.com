@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fuzzy on </title>
+    <link>//localhost:1313/tags/fuzzy/</link>
+    <description>Recent content in Fuzzy on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/fuzzy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</title>
+      <link>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</link>
+      <pubDate>Sat, 08 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_it2fs_typereduction_example/</guid>
+      <description>In this post, we will validate the implementation of the Karnik-Mendel algorithm found in the type-2 fuzzy logic library with a worked example available in Mendel&amp;rsquo;s book &amp;ldquo;Uncertain rule-based fuzzy logic systems.&amp;rdquo;&#xA;The example calculates the centroid of interval type-2 fuzzy sets with uncertain means $m\in[m_1, m_2]$, where the UMF and LMF of the set are calculated as follows:&#xA;$exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right]$ ,$x&amp;lt;m_1$ $UMF(\tilde{A})=$ $1$ ,$m_1, \geq x \geq m_2$ $exp \left[ -0.</description>
+    </item>
+    <item>
+      <title>Type Reduction of Interval Type-2 Fuzzy Sets</title>
+      <link>//localhost:1313/post/type2fuzzy_it2fs_typereduction/</link>
+      <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_it2fs_typereduction/</guid>
+      <description>This post will look at Interval Type-2 fuzzy set (IT2FS) and its reduction. We have already discussed the basics of Type-2 fuzzy sets in a previous post, and we have seen that a general type-2 fuzzy set can be defined as follows:&#xA;$$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$&#xA;where $J_{x}\subseteq[0,1]$&#xA;And if, as an example, we consider the following general type-2 fuzzy set:&#xA;(1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6 )/1+ (0.</description>
+    </item>
+    <item>
+      <title>Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</title>
+      <link>//localhost:1313/post/type2fuzzy_paper_zslices/</link>
+      <pubDate>Sun, 27 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_paper_zslices/</guid>
+      <description>The paper by Wagner and Hagras explains the concept of zSlices as a way to implement type-2 fuzzy logic systems based on general type-2 fuzzy sets. The paper&amp;rsquo;s appendices contain numeric examples of centroid computation based on zSlices. This post describes the steps involved in implementing the paper by Wagner and Hagras. It also lists the results obtained and compares them with those listed in the original document.&#xA;Centroid of a zSliced Based Type-2 Set The general type-2 fuzzy set used in these examples will result in the potential computation of the centroid of $3^{11}$ wavy slices.</description>
+    </item>
+    <item>
+      <title>Fuzzy Control System In Excel version 1.2</title>
+      <link>//localhost:1313/post/type1fuzzy_excel_2/</link>
+      <pubDate>Mon, 13 Dec 2021 08:11:47 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel_2/</guid>
+      <description>I have received some questions regarding the Fuzzy System in Excel that I posted some time ago, so here I am going through a slightly improvedc version that you can download from Github.&#xA;This system implemented in this workbook illustrates a two-input / single output fuzzy system with two rules in an excel sheet.&#xA;Sheets x1 and x2 define the inputs to the system. Each input variable consists of three triangular S, M, and L sets.</description>
+    </item>
+    <item>
+      <title>Paper Implementation - Mendel, Jerry M., and RI Bob John. &#39;Type-2 fuzzy sets made simple.&#39;</title>
+      <link>//localhost:1313/post/type2fuzzy_paper_made_simple/</link>
+      <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_paper_made_simple/</guid>
+      <description>Introduction &amp;ldquo;Type-2 Fuzzy Sets made simple&amp;rdquo; is possibly the best paper to learn about Type-2 fuzzy sets and logic. It outlines all the definitions and concepts that are necessary to work with type-2 fuzzy sets in a clear and concise manner. This paper illustrates the implementation of all the examples prepared by Mendel and John using the type2fuzzy library.&#xA;This post is the first in a series aimed to illustrate the capabilities of the Type2FuzzyLibrary (https://pypi.</description>
+    </item>
+    <item>
+      <title>Introduction to type-2 fuzzy sets</title>
+      <link>//localhost:1313/post/type2fuzzy_set/</link>
+      <pubDate>Fri, 15 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_set/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction In a previous post, we have seen how we use a fuzzy set of type-1 when we cannot determine the membership of an element as 0 or 1. We can extend this concept when the circumstances are so fuzzy that we have trouble determining the membership grade as a number in [0, 1]. In these cases, type-2 fuzzy sets provide the necessary framework to formalize and work with this information.</description>
+    </item>
+    <item>
+      <title>Fuzzy Systems from Data</title>
+      <link>//localhost:1313/post/type1fuzzy_system_from_data/</link>
+      <pubDate>Thu, 25 Jun 2020 08:59:58 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_system_from_data/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction Fuzzy-Logic theory has introduced a framework whereby human knowledge can be formalized and used by machines in a wide variety of applications, ranging from cameras to trains. The basic ideas that we discussed in the earlier posts were concerned with only this aspect with regards to the use of Fuzzy Logic-based systems; that is the application of human experience into machine-driven applications.</description>
+    </item>
+    <item>
+      <title>Fuzzy Inference System implementation in Python</title>
+      <link>//localhost:1313/post/type1fuzzy_pyton/</link>
+      <pubDate>Wed, 24 Jun 2020 14:43:21 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_pyton/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction In a previous article, we discussed the basics of fuzzy sets and fuzzy inferencing. The report also illustrated the construction of a possible control application using a fuzzy inferencing method. In this article, we will build a multi-input/multi-output fuzzy inference system using the Python programming language. It is assumed that the reader has a clear understanding of fuzzy inferencing and has read the article mentioned previously.</description>
+    </item>
+    <item>
+      <title>A very brief introduction to Fuzzy Logic and Fuzzy Systems</title>
+      <link>//localhost:1313/post/type1fuzzy_introduction/</link>
+      <pubDate>Wed, 24 Jun 2020 13:48:54 +0200</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_introduction/</guid>
+      <description>This article was first published in Towards Data Science.&#xA;Introduction Many tasks are simple for humans, but they create a continuous challenge for machines. Examples of such systems include walking through a cluttered environment, lifting fragile objects or parking a car. The ability of humans to deal with vague and imprecise data makes such tasks easy for us. Therefore if we aim to replicate the control actions of a human operator, we must be able to model the activities of the operator and not of the plant itself.</description>
+    </item>
+    <item>
+      <title>Fuzzy Control System In Excel</title>
+      <link>//localhost:1313/post/type1fuzzy_excel/</link>
+      <pubDate>Wed, 11 Mar 2020 18:30:40 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel/</guid>
+      <description>I am currently extending my Type-2 Fuzzy Logic Library so that fuzzy controllers can be implemented through its codebase. The implementation is straightforward if you have the correct structures in place; using an inference system, the most popular of which was discussed by Mamdani (Mamdani, Ebrahim H. &amp;ldquo;Application of fuzzy algorithms for control of simple dynamic plant.&amp;rdquo; Proceedings of the institution of electrical engineers. Vol. 121. No. 12. IET, 1974.). An illustration of the Mamdani inference system operation is below (taken from wikipedia):</description>
+    </item>
+    <item>
+      <title>Type-1 Fuzzy Variable</title>
+      <link>//localhost:1313/post/type2fuzzy_type1_variable/</link>
+      <pubDate>Sun, 08 Mar 2020 14:21:53 +0100</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_type1_variable/</guid>
+      <description>The Type1FuzzyVariable class in the library is a way to define and use linguistic variables.&#xA;By a linguistic variable we mean a variable whose values are words or sentences in a natural or artificial language. For example, Age is a linguistic variable if its values are linguistic rather than numerical, i.e.,young, not young, very young, quite young, old, not very old and not very young, etc., rather than 20, 21,22, 23 (Zadeh, Lotfi Asker.</description>
+    </item>
+    <item>
+      <title>Interval Type-2 Fuzzy Sets Type Reduction</title>
+      <link>//localhost:1313/post/type2fuzzy_libraryit2fs_reduction/</link>
+      <pubDate>Mon, 03 Feb 2020 16:17:59 +0100</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_libraryit2fs_reduction/</guid>
+      <description>Jerry Mendel&amp;rsquo;s book can be safely considered as the Type-2 Fuzzy Logic bible. It is not an easy or inexpensive read, but definitely the best way to get to know the world of Type-2 Sets.&#xA;In this post a book example, where the centroid of a number of Interval Type-2 sets was calculated is replicated using the Type-2 Library.&#xA;Type reduction in these cases is carried out by using the function it2_kernikmendel_reduce(interval_set), and a crisp set, the centroid, is returned back.</description>
+    </item>
+    <item>
+      <title>Type-2 Fuzzy Logic Library</title>
+      <link>//localhost:1313/project/type2fuzzy_library/</link>
+      <pubDate>Tue, 14 Jan 2020 09:34:11 +0100</pubDate>
+      <guid>//localhost:1313/project/type2fuzzy_library/</guid>
+      <description>A type-2 fuzzy logic library providing:&#xA;Ways to define and work with general type-2 fuzzy sets Ways to define and work with interval type-2 fuzzy sets Ways to generate z-sliced sets from general type-2 fuzzy sets Functions to perform wavy-slice type-reduction (Mendel-John) on general type-2 fuzzy sets Functions to perform interval type-2 reduction (Karnik-Mendel) Functions to perform partial-centroid type-reduction on general type-2 fuzzy sets Functions to perform defuzzification of type-1 fuzzy sets Tools to measure the performance of algorithms Tools to plot general, interval and z-sliced type-2 fuzzy sets and type-1 fuzzy sets and more Ways to define and work with type-1 fuzzy sets Ways to define and work with linguistic variables and more</description>
+    </item>
+    <item>
+      <title>Loading Interval Type-2 Sets</title>
+      <link>//localhost:1313/post/type2fuzzy_library_it2fs_loading/</link>
+      <pubDate>Sun, 12 Jan 2020 15:09:43 +0100</pubDate>
+      <guid>//localhost:1313/post/type2fuzzy_library_it2fs_loading/</guid>
+      <description>Interval Type-2 Fuzzy Sets can be loaded by using one of the following methods:&#xA;From a set definition in a string. From a set definition in a file. The set definitions myst have the following format:&#xA;[0.1,&#x9;0.5]/1 + [0.2,&#x9;0.7]/2 + [0.3,&#x9;1.0]/3 +&#xD;[0.4,&#x9;1]/4 The following example illustrated the creation of IT2FS using these methods&#xA;from type2fuzzy import IntervalType2FuzzySet from type2fuzzy import it2_kernikmendel_reduce import os # load an it2fs from representation set_representation= &amp;#39;&amp;#39;&amp;#39;[0.</description>
+    </item>
+  </channel>
+</rss>

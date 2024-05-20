@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cnc on </title>
+    <link>//localhost:1313/tags/cnc/</link>
+    <description>Recent content in Cnc on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Feb 2020 22:37:56 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/cnc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CNC machine mechanics initial design</title>
+      <link>//localhost:1313/post/cnc_mechanics/</link>
+      <pubDate>Sun, 09 Feb 2020 22:37:56 +0100</pubDate>
+      <guid>//localhost:1313/post/cnc_mechanics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CNC draft sketch</title>
+      <link>//localhost:1313/post/cnc_overview/</link>
+      <pubDate>Sun, 09 Feb 2020 11:17:45 +0100</pubDate>
+      <guid>//localhost:1313/post/cnc_overview/</guid>
+      <description>The CNC machine under consideration is a light-duty one, that should cut wood or perspex with widths less than 6mm. For this reason the design is simplified as much as possible as the main objective of this exercise is to probe the concept before considering a more robust one.&#xA;The machine will be built from the scap wood and the metal parts (bearings etc.) will be bought from ebay. An arduino with a CNC shield will be used to drive the stepper motors.</description>
+    </item>
+    <item>
+      <title>CNC Table Movement</title>
+      <link>//localhost:1313/post/cnc_movement/</link>
+      <pubDate>Sat, 08 Feb 2020 16:38:56 +0100</pubDate>
+      <guid>//localhost:1313/post/cnc_movement/</guid>
+      <description>There are two basic movement mechanisms that are used by CNC machines.&#xA;The first is a moving X-Y table moving under a tool that can move only in the Z direction (up and down). This mechanism was used by Nick Kennard in his machine.&#xA;Alternatively the tool is moved in the X-Y-Z directions. An example of such machine is the one built by Doug Costlow in his instructable .&#xA;Finally hybrids of the two types mentioned above exist, where a table moving only in the X direction whilst the tool moved in the Y and Z axes.</description>
+    </item>
+    <item>
+      <title>CNC Machine Introduction</title>
+      <link>//localhost:1313/post/cnc_basic_idea/</link>
+      <pubDate>Sat, 08 Feb 2020 16:33:30 +0100</pubDate>
+      <guid>//localhost:1313/post/cnc_basic_idea/</guid>
+      <description>So this is my journey in building my CNC machine. It is something that I always wanted to do actually, I think that every robotics enthusiast is fascinated by this tool. Obviously I was inspired by a number of CNC projects over the web:&#xA;Homo Faciens This is the base site for every robotics/electronics enthusiast. Lots of tutorials, projects and ideas. Everything is very clearly explained. My first goto page when I need some idea or inspiration Instructable by koff1979 very good and thorough explanation of his machine.</description>
+    </item>
+  </channel>
+</rss>

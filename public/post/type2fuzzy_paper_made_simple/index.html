@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Paper Implementation - Mendel, Jerry M., and RI Bob John. &#39;Type-2 fuzzy sets made simple.&#39;</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Paper Implementation - Mendel, Jerry M., and RI Bob John. &#39;Type-2 fuzzy sets made simple.&#39;</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Paper%20Implementation%20-%20Mendel%2c%20Jerry%20M.%2c%20and%20RI%20Bob%20John.%20%27Type-2%20fuzzy%20sets%20made%20simple.%27&amp;body=Paper%20Implementation%20-%20Mendel%2c%20Jerry%20M.%2c%20and%20RI%20Bob%20John.%20%27Type-2%20fuzzy%20sets%20made%20simple.%27%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_made_simple%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_made_simple%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_made_simple%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Paper Implementation - Mendel, Jerry M., and RI Bob John. &#39;Type-2 fuzzy sets made simple.&#39;</b></h2>
+        <h5>Wed October 27, 2021</h5>
+        
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h3 id="introduction">Introduction</h3>
+<p>&ldquo;Type-2 Fuzzy Sets made simple&rdquo; is possibly the best paper to learn about Type-2 fuzzy sets and logic. It outlines all the definitions and concepts that are necessary to work with type-2 fuzzy sets in a clear and concise manner. This paper illustrates the implementation of all the examples prepared by Mendel and John using the type2fuzzy library.</p>
+<p>This post is the first in a series aimed to illustrate the capabilities of the Type2FuzzyLibrary (<a href="https://pypi.org/project/type2fuzzy/">https://pypi.org/project/type2fuzzy/</a>) This is achieved by working up the numerical examples in selected papers using the library and comparing the results with those obtained by the original authors. The papers will list the code used to carry out the examples, and the results obtained. All code is written using the Python language.</p>
+<h3 id="type-2-fuzzy-set-definition">Type-2 fuzzy set definition</h3>
+<p>The paper illustrates several type-2 fuzzy sets concepts with a simple general type-2 fuzzy set,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>(0.9/0 + 0.8/0.2+ 0.7/0.4 + 0.6/0.6 + 0.5/0.8)/1
+</span></span><span style="display:flex;"><span>(0.5/0 + 0.35/0.2 + 0.35/0.4 + 0.2/0.6 + 0.5/0.8)/2
+</span></span><span style="display:flex;"><span>(0.35/0.6 + 0.35/0.8)/3
+</span></span><span style="display:flex;"><span>(0.1/0 + 0.35/0.2 + 0.5/0.4 + 0.1/0.6 + 0.35/0.8)/4
+</span></span><span style="display:flex;"><span>(0.35/0 + 0.5/0.2 + 0.1/0.4 + 0.2/0.6 + 0.2/0.8)/5
+</span></span></code></pre></div><p>This set will be used in this exercise as in the paper.</p>
+<p>$$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$</p>
+<p>where $J_{x}\subseteq[0,1]$</p>
+<p>The following code snippet illustrates how a general type-2 fuzzy set is defined and used, as explained in Example 1 of the original paper.</p>
+<h4 id="example-1--definition-of-the-general-type-2-fuzzy-set">Example 1 : definition of the general type-2 fuzzy set</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>gt2fs_rep <span style="color:#f92672">=</span>   <span style="color:#e6db74">&#39;&#39;&#39; (0.9/0 + 0.8/0.2+ 0.7/0.4 + 0.6/0.6 + 0.5/0.8)/1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.5/0 + 0.35/0.2 + 0.35/0.4 + 0.2/0.6 + 0.5/0.8)/2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.35/0.6 + 0.35/0.8)/3
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.1/0 + 0.35/0.2 + 0.5/0.4 + 0.1/0.6 + 0.35/0.8)/4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.35/0 + 0.5/0.2 + 0.1/0.4 + 0.2/0.6 + 0.2/0.8)/5&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create set</span>
+</span></span><span style="display:flex;"><span>gt2fs <span style="color:#f92672">=</span> GeneralType2FuzzySet<span style="color:#f92672">.</span>from_representation(gt2fs_rep)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Set representation: </span><span style="color:#e6db74">{</span>gt2fs<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Set representation:
+</span></span><span style="display:flex;"><span>(0.9000 / 0.0000 + 0.8000 / 0.2000 + 0.7000 / 0.4000 + 0.6000 / 0.6000 + 0.5000 / 0.8000) / 1.000 +
+</span></span><span style="display:flex;"><span>(0.5000 / 0.0000 + 0.3500 / 0.2000 + 0.3500 / 0.4000 + 0.2000 / 0.6000 + 0.5000 / 0.8000) / 2.0000 +
+</span></span><span style="display:flex;"><span>(0.3500 / 0.6000 + 0.3500 / 0.8000) / 3.0000 + 
+</span></span><span style="display:flex;"><span>(0.1000 / 0.000 + 0.3500 / 0.2000 + 0.5000 / 0.4000 + 0.1000 / 0.6000 + 0.3500 / 0.8000) / 4.0000 +
+</span></span><span style="display:flex;"><span>(0.3500 / 0.0000 + 0.5000 / 0.2000 + 0.1000 / 0.4000 + 0.2000 / 0.6000 + 0.2000 / 0.8000) / 5.000
+</span></span></code></pre></div><h3 id="vertical-slice">Vertical Slice</h3>
+<p>A vertical slice is Type-1 fuzzy set $\mu_{\tilde{A}}(x=x&rsquo;,u)$ for $x\in X$ and $\forall u \in J_{x&rsquo;}\subseteq[0,1]$, that is:</p>
+<p>$$\mu_{\tilde{A}}(x=x&rsquo;,u)=\int_{u\in J_{x&rsquo;}}f_{x&rsquo;}(u) / u$$</p>
+<p>where $0\leq f_{x&rsquo;}(u)\leq 1$</p>
+<p>The following code snippet illustrates two methods by which a vertical slice can be obtained to replicate the second part of Example 1.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># different ways to get vertical slice</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu_a_tilde(&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;)= &#39;</span>, gt2fs<span style="color:#f92672">.</span>vertical_slice(<span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu_a_tilde(&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;)= &#39;</span>, gt2fs[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu_a_tilde(&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;)= &#39;</span>, gt2fs<span style="color:#f92672">.</span>vertical_slice(<span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu_a_tilde(&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;)= &#39;</span>, gt2fs[<span style="color:#ae81ff">4</span>])
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>mu( 1 )= 0.900/0.000 + 0.800/0.200 + 0.700/0.400 + 0.600/0.600 + 0.500/0.800}
+</span></span><span style="display:flex;"><span>mu( 2 )=0.500/0.000 + 0.350/0.200 + 0.350/0.400 + 0.200/0.600 + 0.500/0.800}
+</span></span><span style="display:flex;"><span>mu( 3 )=0.350/0.600 + 0.350/0.800}
+</span></span><span style="display:flex;"><span>mu( 4 )=0.100/0.000 + 0.350/0.200 + 0.500/0.400 + 0.100/0.600 + 0.350/0.800}
+</span></span></code></pre></div><h3 id="primary-membership">Primary Membership</h3>
+<p>The <strong>domain</strong> of a secondary membership function is called the <strong>primary membership</strong> of $x$. Hence in</p>
+<p>$$\tilde{A}=\int_{x \in X} \mu_{ \tilde{A} }(x) /x = \int_{x \in X} \left[  \int_{u\in J_{x}} f(u) / u \right]  /x $$</p>
+<p>$J_{x}$ is the primary membership function, where $J_{x} \subseteq [0,1]$ for $\forall x \in X$</p>
+<p>The code below illustrates the final part of Example 1 where the primary memberships of the general type-2 fuzzy set are listed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get the primary memberships of the set</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># example 1 (continued)</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Primary Membership:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x_k <span style="color:#f92672">in</span> gt2fs<span style="color:#f92672">.</span>primary_domain():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;J_&#39;</span>,x_k, <span style="color:#e6db74">&#39; : &#39;</span>,  gt2fs<span style="color:#f92672">.</span>primary_membership(x_k)) 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Primary Membership:
+</span></span><span style="display:flex;"><span>J1.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
+</span></span><span style="display:flex;"><span>J2.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
+</span></span><span style="display:flex;"><span>J3.0  :  [0.6, 0.8]
+</span></span><span style="display:flex;"><span>J4.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
+</span></span><span style="display:flex;"><span>J5.0  :  [0.0, 0.2, 0.4, 0.6, 0.8]
+</span></span></code></pre></div><h3 id="secondary-grade">Secondary Grade</h3>
+<p>The <strong>amplitude</strong> of a secondary membership function is the <strong>secondary grade</strong>. Hence in</p>
+<p>$$\tilde{A}=\int_{x \in X} \mu_{ \tilde{A} }(x) /x = \int_{x \in X} \left[  \int_{u\in J_{x}} f(u) / u \right]  /x ]$$</p>
+<p>where $J_{x} \subseteq [0,1]$, $f(u)$ is the secondary grade.</p>
+<p>The following code illustrates the retrieval of selected secondary grade values from the general type-2 fuzzy set</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># get the secondary grade of some values</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># example 1 (continued)</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Secondary grade of some points:&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu(1,0.2)=&#39;</span>,  gt2fs<span style="color:#f92672">.</span>secondary_grade(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0.2</span>), <span style="color:#e6db74">&#39;-- should be 0.8&#39;</span>) 
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu(2,0)=&#39;</span>,  gt2fs<span style="color:#f92672">.</span>secondary_grade(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>), <span style="color:#e6db74">&#39;-- should be 0.5&#39;</span>) 
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu(3,0.8)=&#39;</span>,  gt2fs<span style="color:#f92672">.</span>secondary_grade(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0.8</span>), <span style="color:#e6db74">&#39;-- should be 0.35&#39;</span>) 
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;mu(4,0.4)=&#39;</span>,  gt2fs<span style="color:#f92672">.</span>secondary_grade(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0.4</span>), <span style="color:#e6db74">&#39;-- should be 0.5&#39;</span>) 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Secondary grade of some points:
+</span></span><span style="display:flex;"><span>mu(1,0.2)= 0.8 -- should be 0.8
+</span></span><span style="display:flex;"><span>mu(2,0)= 0.5 -- should be 0.5
+</span></span><span style="display:flex;"><span>mu(3,0.8)= 0.35 -- should be 0.35
+</span></span><span style="display:flex;"><span>mu(4,0.4)= 0.5 -- should be 0.5
+</span></span></code></pre></div><h3 id="footprint-of-uncertainty">Footprint of Uncertainty</h3>
+<p>The 2D support of $\mu$ is called <strong>the footprint of uncertainty (FOU)</strong>.</p>
+<p>$$ FOU(\tilde{A})= \left\lbrace  (x,u) \in X \times [0,1]  | \mu_{\tilde{A}}(x,u) &gt; 0 \right\rbrace $$</p>
+<p>FOU represents the uncertainty in the primary memberships of $\tilde{A}$. It is the union of all primary memberships</p>
+<p>$$FOU(\tilde{A}) = \bigcup\limits_{x\in X} J_{x}$$</p>
+<p>The FOU can be retrieved using a single line of type2fuzzy library code;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># get the footprint of uncertainty for the set</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>footprint <span style="color:#f92672">=</span> gt2fs<span style="color:#f92672">.</span>footprint_of_uncertainty()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Footprint of uncertainty: &#39;</span>, footprint)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Footprint of uncertainty:
+</span></span><span style="display:flex;"><span>1.0: CrispSet([0.00000, 0.80000]),
+</span></span><span style="display:flex;"><span>2.0: CrispSet([0.00000, 0.80000]),
+</span></span><span style="display:flex;"><span>3.0: CrispSet([0.60000, 0.80000]),
+</span></span><span style="display:flex;"><span>4.0: CrispSet([0.00000, 0.80000]),
+</span></span><span style="display:flex;"><span>5.0: CrispSet([0.00000, 0.80000])
+</span></span></code></pre></div><h3 id="embedded-type-2-fuzzy-sets">Embedded Type-2 Fuzzy Sets</h3>
+<p>For discrete universes of discourse $X$ and $U$, an <strong>embedded type-2 set</strong> $\tilde{A_e}$ has $N$ elements, where $\tilde{A_e}$ has exactly one element from $J_{x_{1}}, J_{x_{2}}, \dots , J_{x_{N}}$; namely $u_{1}, u_{2}, \dots , u_{N}$ each with associated grade namely $f_{x_{1}}(u_1), f_{x_{2}}(u_2), \dots , f_{x_{N}}(u_N)$, such that:</p>
+<p>$$ \tilde{A_e} = \displaystyle \sum_{i=1}^{N} \left[ f_{x_{i}} (u_{i}) \right] / x_{i}$$</p>
+<p>where $u_{i} \in J_{x_{i}} \subseteq [0,1]$</p>
+<p>Set $\tilde{A_e}$ is embedded in $\tilde{A}$ and there are a total of:</p>
+<p>$$Num(\tilde{A_e}) = \displaystyle \prod_{i=1}^{N} M_i$$</p>
+<p>In Example 2, the authors depict one of the possible 1250 embedded type-2 fuzzy sets that are possible from the general type-2 fuzzy set. Two examples are presented here:</p>
+<ul>
+<li>The first illustrates the method to obtain the number of embedded type-2 fuzzy sets.</li>
+<li>The second shows how the embedded type-2 fuzzy sets can be listed.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># number of embedded sets</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Number of embedded type-2 sets: &#39;</span>,
+</span></span><span style="display:flex;"><span>gt2fs<span style="color:#f92672">.</span>embedded_type2_sets_count())
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>\small Number of embedded type-2 sets:  1250
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Example 2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list all embedded sets</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Showing first 10 embedded sets:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> embedded_set <span style="color:#f92672">in</span> gt2fs<span style="color:#f92672">.</span>embedded_type2_sets():
+</span></span><span style="display:flex;"><span>    print(embedded_set)
+</span></span><span style="display:flex;"><span>    count <span style="color:#f92672">=</span> count<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> count <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Showing first 10 embedded sets:
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.35, 0.0, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.5, 0.2, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.1, 0.4, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.2, 0.6, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.1, 0.0, 4.0), (0.2, 0.8, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.35, 0.2, 4.0), (0.35, 0.0, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.35, 0.2, 4.0), (0.5, 0.2, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.35, 0.2, 4.0), (0.1, 0.4, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.35, 0.2, 4.0), (0.2, 0.6, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.35, 0.2, 4.0), (0.2, 0.8, 5.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.0, 1.0), (0.5, 0.0, 2.0), (0.35, 0.6, 3.0), (0.5, 0.4, 4.0), (0.35, 0.0, 5.0)]
+</span></span></code></pre></div><p>In the original paper, Example 3 considers the following general type-2 fuzzy set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>(0.5/0.9)/x_1 + (0.2/0.7)/x_1 + (0.9/0.2)/x_1 + (0.6/0.6)/x_2 + (0.1/0.4)/x_2
+</span></span></code></pre></div><p>For the sake of this exercise, we assign the values of $x_1 = 1$ and $x_2=2$</p>
+<p>thus obtaining the following set;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>(0.5/0.9)/1 + (0.2/0.7)/1 + (0.9/0.2)/1 + (0.6/0.6)/2 + (0.1/0.4)/2
+</span></span><span style="display:flex;"><span>(0.5/0.9)/1 + (0.2/0.7)/1 + (0.9/0.2)/1 + (0.6/0.6)/2 + (0.1/0.4)/2
+</span></span></code></pre></div><p>The embedded type-2 fuzzy sets are listed using the code below;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Example 3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Embedded set listing for general type-2 fuzzy set&#39;</span>)
+</span></span><span style="display:flex;"><span>print(str(gt2fs_2))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> embedded_set <span style="color:#f92672">in</span> gt2fs_2<span style="color:#f92672">.</span>embedded_type2_sets():
+</span></span><span style="display:flex;"><span>    print(embedded_set)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Embedded set listing for general type-2 fuzzy set
+</span></span><span style="display:flex;"><span>(0.5000 / 0.9000 + 0.2000 / 0.7000 + 0.9000 / 0.2000) / 1.0000 
+</span></span><span style="display:flex;"><span>+ (0.6000 / 0.6000 + 0.1000 / 0.4000) / 2.0000
+</span></span><span style="display:flex;"><span>[(0.9, 0.2, 1.0), (0.1, 0.4, 2.0)]
+</span></span><span style="display:flex;"><span>[(0.9, 0.2, 1.0), (0.6, 0.6, 2.0)]
+</span></span><span style="display:flex;"><span>[(0.2, 0.7, 1.0), (0.1, 0.4, 2.0)]
+</span></span><span style="display:flex;"><span>[(0.2, 0.7, 1.0), (0.6, 0.6, 2.0)]
+</span></span><span style="display:flex;"><span>[(0.5, 0.9, 1.0), (0.1, 0.4, 2.0)]
+</span></span><span style="display:flex;"><span>[(0.5, 0.9, 1.0), (0.6, 0.6, 2.0)]
+</span></span></code></pre></div></div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction/">Type Reduction of Interval Type-2 Fuzzy Sets</a></h4>
+    <h5>April 6, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/type2fuzzy_paper_zslices/">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a></h4>
+    <h5>A look at C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;, working of paper examples using T2Fuzz Library</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

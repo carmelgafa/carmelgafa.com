@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Automl on </title>
+    <link>//localhost:1313/tags/automl/</link>
+    <description>Recent content in Automl on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 06 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/automl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 5 - Azureml AutoML</title>
+      <link>//localhost:1313/post/azureml_automl/</link>
+      <pubDate>Thu, 06 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_automl/</guid>
+      <description>Automated machine learning (AutoML) automates the creation of machine learning models. Typically, the process of creating a model can be long and tedious. AutoML makes it possible for people who do not have coding experience to develop and use ML models.&#xA;In a typical machine learning application, we start with raw data for Training. The data might have missing fields, contain outliers, and require cleaning work. The following steps might be required:</description>
+    </item>
+  </channel>
+</rss>

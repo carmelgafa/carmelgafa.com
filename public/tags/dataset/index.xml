@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dataset on </title>
+    <link>//localhost:1313/tags/dataset/</link>
+    <description>Recent content in Dataset on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/dataset/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</title>
+      <link>//localhost:1313/post/azureml_end2end_introduction/</link>
+      <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_introduction/</guid>
+      <description>Introduction In the previous posts in this series, we have examined some of the various features of Azure Machine Learning. We have executed some experiments and have seen the results. We will now try to look into a more complete, end to end Machine Learning project in Azure that will utilize leverage the power of other Azure ML features such as:&#xA;Azure Machine Learning Pipelines. Azure ML pipelines are where we execute discrete steps (or subtasks) as a workflow.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 4 - Creating Azure ML Datasets from a URL</title>
+      <link>//localhost:1313/post/azureml_datasetfromurl/</link>
+      <pubDate>Wed, 05 Jan 2022 11:08:45 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetfromurl/</guid>
+      <description>In a previous post, we discussed how to create a dataset from a datastore, but this is not the only way to create a dataset. This post will examine how to import a dataset from data available on the web.&#xA;The process is quite simple, consisting of only three steps:&#xA;Pasting the URL from the provider of the data. The data is retrieved and displayed. Changing some of the settings, like the delimiter or if the data contains a header, is possible.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_sdk_workspace/</link>
+      <pubDate>Fri, 31 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_sdk_workspace/</guid>
+      <description>Introduction The Azure Machine Learning SDK for Python lets us interact with the Azure Machine Learning service using a Python environment. This post will discuss how to create, manage, and use Azure Machine Learning Workspaces, Computes, Datasets and Datastores using the Azure Machine Learning SDK for Python.&#xA;Create a Workspace Creating a workspace is shown below. The create method required a name for the workspace, a subscription ID, a resource group (that is created for the workspace by setting the create_resource_group flag to true), and a location.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 1 - Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_datasetsstores/</link>
+      <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetsstores/</guid>
+      <description>Introduction In AzureML, the two essential concepts that help us work with data are Datastores and Datasets.&#xA;Datastores are used for storing connection information to Azure storage services Datasets are references to the location of the data source. Datastores Azure has various locations for storing data, such as;&#xA;Azure Blob Storage Azure SQL Database Azure Datafactory Azure Databricks These are the places where the data can exist.&#xA;An Azure storage account is a container for all the Azure Storage data objects blobs, file shares, queues, tables, and disks, making them accessible from anywhere in the world over HTTP or HTTPS.</description>
+    </item>
+  </channel>
+</rss>

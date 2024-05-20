@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on </title>
+    <link>//localhost:1313/project/</link>
+    <description>Recent content in Projects on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Jan 2020 09:34:11 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Type-2 Fuzzy Logic Library</title>
+      <link>//localhost:1313/project/type2fuzzy_library/</link>
+      <pubDate>Tue, 14 Jan 2020 09:34:11 +0100</pubDate>
+      <guid>//localhost:1313/project/type2fuzzy_library/</guid>
+      <description>A type-2 fuzzy logic library providing:&#xA;Ways to define and work with general type-2 fuzzy sets Ways to define and work with interval type-2 fuzzy sets Ways to generate z-sliced sets from general type-2 fuzzy sets Functions to perform wavy-slice type-reduction (Mendel-John) on general type-2 fuzzy sets Functions to perform interval type-2 reduction (Karnik-Mendel) Functions to perform partial-centroid type-reduction on general type-2 fuzzy sets Functions to perform defuzzification of type-1 fuzzy sets Tools to measure the performance of algorithms Tools to plot general, interval and z-sliced type-2 fuzzy sets and type-1 fuzzy sets and more Ways to define and work with type-1 fuzzy sets Ways to define and work with linguistic variables and more</description>
+    </item>
+    <item>
+      <title>Robot Uan</title>
+      <link>//localhost:1313/project/robot_uan/</link>
+      <pubDate>Thu, 09 Jan 2020 10:58:22 +0100</pubDate>
+      <guid>//localhost:1313/project/robot_uan/</guid>
+      <description>Design Considerations The purpose of designing and constructing this robot was to provide a generic test-bed for robot controller design and testing.Unlike most robot platforms used in education or research, UAN does not come with its proprietary development environment but uses Microsoft .NET Mobile edition, thus programming is done using the wide spread .NET framework from Microsoft.&#xA;The challenge addressed by UAN is that changing to a different robot or to a different platform does not necessarily mean a complete change in paradigm, and a substantial part of the knowledge and code can be transferred to the new platform.</description>
+    </item>
+    <item>
+      <title>Robotics Toolkit</title>
+      <link>//localhost:1313/project/robotics_toolkit/</link>
+      <pubDate>Wed, 08 Jan 2020 10:58:22 +0100</pubDate>
+      <guid>//localhost:1313/project/robotics_toolkit/</guid>
+      <description>The high level design goal of this work is the creation of an autonomous robot navigation toolkit which is flexible, robust, easy to use and to configure and preferably independent of the sensors and actuators utilized. More information about the system can be found in this presentation.&#xA;The first component that is required is a physical robot. Although considerable testing and verification of the navigation algorithms used can be achieved through the use of a simulation tool, the only valid validation mechanism is an actual robot with real sensors and actuators.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>//localhost:1313/project/ozzyandbeibers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/project/ozzyandbeibers/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;Example&#xD;</description>
+    </item>
+    <item>
+      <title>Ozzy and the beibers</title>
+      <link>//localhost:1313/project/project_ozzy_floaters/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/project/project_ozzy_floaters/</guid>
+      <description>Weekend Project This is a weekend project game inspired by the classic zx spectrum game Eric and the floaters.&#xA;Link to Game</description>
+    </item>
+  </channel>
+</rss>

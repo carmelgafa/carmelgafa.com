@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Model Optimization on </title>
+    <link>//localhost:1313/tags/model-optimization/</link>
+    <description>Recent content in Model Optimization on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Mar 2023 13:31:51 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/model-optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 11 - Model Validation in AzureML</title>
+      <link>//localhost:1313/post/azureml_end2end_validation/</link>
+      <pubDate>Thu, 09 Mar 2023 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_validation/</guid>
+      <description>Introduction After completing the model selection and optimization phase, the next step is to evaluate the final_model using the test dataset. The evaluation process involves executing the full pipeline to transform the test features and predict the corresponding labels. It is expected that the model&amp;rsquo;s performance on the test dataset will be slightly lower than that on the training and validation datasets.&#xA;The evaluation process is similar to the previous phases, where the models and test data are loaded, and the pipeline is executed to obtain the test predictors.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</title>
+      <link>//localhost:1313/post/azureml_end2end_modeloptimization/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_modeloptimization/</guid>
+      <description>Introduction In this second part of this series of posts, we will optimize the model we created in the previously by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.</description>
+    </item>
+  </channel>
+</rss>

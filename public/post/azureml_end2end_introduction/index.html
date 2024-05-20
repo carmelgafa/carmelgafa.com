@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%208%20-%20An%20end-to-end%20AzureML%20example%3b%20Workspace%20creation%20and%20data%20upload&amp;body=Notes%20about%20Azure%20ML%2c%20Part%208%20-%20An%20end-to-end%20AzureML%20example%3b%20Workspace%20creation%20and%20data%20upload%2c%20by%20Carmel%20Gafa%0a%0aIn%20this%20first%20post%20of%20a%20series%20that%20will%20cover%20an%20end-to-end%20machine%20learning%20project%20in%20Azure%20Ml%20we%20will%20look%20at%20how%20to%20create%20a%20workspace%20and%20upload%20data%20to%20it.%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_introduction%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_introduction%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_introduction%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</b></h2>
+        <h5>Thu June 2, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/dataset"><kbd class="item-tag">dataset</kbd></a>
+
+<a href="//localhost:1313/tags/datastore"><kbd class="item-tag">datastore</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="introduction">Introduction</h2>
+<p>In the previous posts in this series, we have examined some of the various features of <a href="/tags/azure-ml">Azure Machine Learning</a>. We have executed some experiments and have seen the results. We will now try to look into a more complete, end to end Machine Learning project in Azure that will utilize leverage the power of other Azure ML features such as:</p>
+<ul>
+<li>
+<p><strong>Azure Machine Learning Pipelines</strong>. Azure ML pipelines are where we execute discrete steps (or subtasks) as a workflow. It is essential to notice that the pipeline concept is recurrent in many Azure services. In particular, Microsoft suggests using Azure ML pipelines for Model Orchestration, a process that produces a model from data. Another different pipeline type that we might use in Azure is that for data processing, where data produces a new data set. In this case, Microsoft suggests products Azure Data Factory or Azure Data Bricks. Nevertheless, it is possible to use Azure ML pipelines to prepare data if the data transformation is not too complex. Other tasks that we can perform with Azure ML pipelines include:</p>
+<ul>
+<li>Training configuration</li>
+<li>Training and validation</li>
+<li>Repeatable deployments</li>
+</ul>
+</li>
+<li>
+<p><strong>Azure Machine Learning Hyperparameter Tuning</strong>. We will use the HyperDrive package to tune the hyperparameters of our machine learning model.</p>
+</li>
+<li>
+<p><strong>Model Deployment into Azure</strong>. We will deploy our model into Azure as a web service.</p>
+</li>
+</ul>
+<h3 id="a-disclaimer">A disclaimer</h3>
+<p>This collection of posts is not intended to be a complete guide to Azure Machine Learning model building and deployment or a guide towards building machine learning pipelines. It is designed to be a starting point for those interested in using Azure Machine Learning and introduce some of the exciting features available on the platform.</p>
+<h2 id="structure-of-these-posts">Structure of these posts</h2>
+<p>This project has been divided into a number of smaller posts so to limit the length and content of each post. It consists of the following entries:</p>
+<ol>
+<li><a href="/post/azureml_end2end_introduction">An introduction to the project, considerations and data uploading to Azure</a></li>
+<li><a href="/post/azureml_end2end_trainingpipeline">Training pipeline creation and execution</a></li>
+<li><a href="/post/azureml_end2end_modeloptimization">Hyperparameter tuning</a></li>
+<li>Model Testing</li>
+<li>Model Deployment</li>
+</ol>
+<h2 id="azureml-development-considerations-and-project-structure">AzureML development considerations and project structure</h2>
+<p>I was inspired by a <a href="https://stackoverflow.com/questions/6323860/sibling-package-imports">post in stackoverflow</a> that discussed methods to eliminate sibling import problems to create a consistent project structure for my python projects, thus making all my development projects easier and consistent. I have also completed a template for the project structure creation process, found in  <a href="https://github.com/carmelgafa/python_environment_creator">this repository</a>. I have named the project as <strong>azuremlproject</strong>for this particular exercise.</p>
+<p>At a high level, the project structure is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>azuremlproject            This folder contains all the project files.
+</span></span><span style="display:flex;"><span>│   .azureml              This folder contains the Azure Machine Learning config files
+</span></span><span style="display:flex;"><span>|   data                  This folder contains the data that will be used in the experiments
+</span></span><span style="display:flex;"><span>|   docs                  This folder contains the documentation for the project
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└───experiments           This folder contains the ML experiments code
+</span></span><span style="display:flex;"><span>│   │   experiment_1      This folder contains the experiment 1
+</span></span><span style="display:flex;"><span>│   │   ...
+</span></span><span style="display:flex;"><span>|   |
+</span></span><span style="display:flex;"><span>│   └───experiment_14     This folder contains experiment 14
+</span></span><span style="display:flex;"><span>|   |   |   deploy        This folder contains the deployment of the model
+</span></span><span style="display:flex;"><span>|   |   |   optimize      This folder contains the hyperparameter optimization
+</span></span><span style="display:flex;"><span>|   |   |   train         This folder contains the training of the model
+</span></span><span style="display:flex;"><span>|   |   |   upload        This folder uploads of the data required for this experiment
+</span></span><span style="display:flex;"><span>|   |   |   validate      This folder contains the validation of the model
+</span></span><span style="display:flex;"><span>|   |
+</span></span><span style="display:flex;"><span>|   workspace_creation    This folder contains the scripts to create workspace
+</span></span></code></pre></div><p>As discussed in the <a href="https://carmelgafa.com/tags/azure-ml/">previous posts on this site</a>, I have created several scripts that instantiate the Azure resource group, AzureML Workspace with its Compute resources, and an Azure ML Datastore with the name of the project. One advantage of this approach is that it is easier to delete the resource group and recreate it whenever necessary, thus saving some money. The workspace creation scripts are driven from a parameters file containing the names of the various entities that the user will create, derived from the name of the project. For example, in this project, the project name is set to <strong>azmlprj14</strong> and therefore the resource group name is <strong>rgazmlprj14</strong>, the workspace name is <strong>wsazmlprj14</strong> and so on.</p>
+<p>Two compute resources are created in the workspace:</p>
+<ul>
+<li>A compute instance with the name <strong>instazmlprj14</strong> having type <strong>Standard_DS11_v2</strong> (2 cores, 14 GB RAM, 28 GB disk)</li>
+<li>A compute cluster with the name <strong>trgazmlprj14</strong> having type <strong>Standard_DS3_v2</strong> (4 cores, 14GB RAM, 28GB storage)</li>
+</ul>
+<p>The AzureML workspace configuration is then stored in the file <strong>.azureml/config.json</strong>.</p>
+<h2 id="the-project">The Project</h2>
+<p>In this exercise, we will use the <a href="https://archive.ics.uci.edu/ml/datasets/concrete+compressive+strength">UCI Concrete Compressive Strength Dataset</a>, which is both straightforward and easy to use. It is also a small dataset, and therefore we can manipulate and explore the data quickly.</p>
+<p>The data set contains the following features:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:center">Description</th>
+<th>Units</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cement (component 1)         </td>
+<td style="text-align:center">          quantitative         </td>
+<td>kg in a m3 mixture          </td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Blast Furnace Slag (component 2)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Fly Ash (component 3)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Water (component 4)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Superplasticizer (component 5)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Coarse Aggregate (component 6)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Fine Aggregate (component 7)</td>
+<td style="text-align:center">quantitative</td>
+<td>kg in a m3 mixture</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Age</td>
+<td style="text-align:center">quantitative</td>
+<td>Day (1~365)</td>
+<td>Input Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">Concrete compressive strength</td>
+<td style="text-align:center">quantitative</td>
+<td>MPa</td>
+<td>Output Variable</td>
+</tr>
+<tr>
+<td style="text-align:left">   </td>
+<td style="text-align:center"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>To summarize, the data set contains;</p>
+<ul>
+<li>8 input variables (features)</li>
+<li>1 output variable (labels)</li>
+<li>all the data is numerical</li>
+<li>feature and label names are pretty long</li>
+<li>1030 instances in the Dataset</li>
+<li>no missing values in the Dataset</li>
+</ul>
+<p>There are many versions of this Dataset, and to load it directly, we have selected a <a href="https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/concrete.csv">csv version</a></p>
+<h2 id="data-uploading">Data Uploading</h2>
+<p>The first task of this exercise is to upload the data to Azure ML Datastore and make it available for the experiments through an Azure Machine Learning Dataset. There are many ways to create AzureML Datasets; we will upload a CSV file in this example.</p>
+<p>The script required for this task is located under the <strong>upload</strong> folder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>upload
+</span></span><span style="display:flex;"><span>└───upload_data.py
+</span></span></code></pre></div><p>The steps for uploading the data to the AzureML datastore and registering it as an AzureML Dataframe are the following:</p>
+<ul>
+<li><strong>Get the workspace</strong>. If we saved a config file when we created the workspace, we could obtain a reference to the workspace by calling the <strong>Workspace.from_config</strong> function.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Creates concrete dataset to be used as input for the experiment.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Dataset, Datastore
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.data.datapath <span style="color:#f92672">import</span> DataPath
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azuremlproject.constants <span style="color:#f92672">import</span> DATASTORE_NAME
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Name of the dataset.</span>
+</span></span><span style="display:flex;"><span>DATASET_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;concrete_baseline&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the workspace configuration from the .azureml folder.</span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>w_space <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span></code></pre></div><ul>
+<li><strong>Check if the dataset exists</strong>. If the dataset does not exists, we can load it, otherwise we can stop</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> DATASET_NAME <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> Dataset<span style="color:#f92672">.</span>get_all(w_space)<span style="color:#f92672">.</span>keys():
+</span></span></code></pre></div><ul>
+<li><strong>Get a reference to the datastore</strong>. During the creation of the workspace, we created a datastore with the name bound to the current project. The name of this datastore is contained in a constants file. We use the name to get a reference to the datastore.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    data_store <span style="color:#f92672">=</span> Datastore<span style="color:#f92672">.</span>get(w_space, DATASTORE_NAME)
+</span></span></code></pre></div><ul>
+<li><strong>Upload the data to the datastore</strong>. We upload the concrete strength dataset to our datastore by calling the <strong>datastore.upload</strong> function.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#75715e"># upload all the files in the concrete data folder to the</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># default datastore in the workspace concrete_data_baseline folder</span>
+</span></span><span style="display:flex;"><span>    data_store<span style="color:#f92672">.</span>upload(
+</span></span><span style="display:flex;"><span>        src_dir<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;data&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;concrete&#39;</span>),
+</span></span><span style="display:flex;"><span>        target_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete_data_baseline&#39;</span>)
+</span></span></code></pre></div><ul>
+<li><strong>Register the data as an AzureML Dataframe</strong> is carried out in two steps;
+<ul>
+<li>Create the new dataset by calling the <strong>Dataset.Tabular.from_delimited_files</strong> as the data that we have is tabular. This function requires a DataPath argument that points to the file that we have just uploaded into the datastore.</li>
+<li>Finally, <strong>register the dataset</strong> by calling the <strong>Dataset.register</strong> function.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#75715e"># create a new dataset from the uploaded concrete file</span>
+</span></span><span style="display:flex;"><span>    concrete_dataset <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>Tabular<span style="color:#f92672">.</span>from_delimited_files(
+</span></span><span style="display:flex;"><span>        DataPath(data_store, <span style="color:#e6db74">&#39;concrete_data_baseline/concrete.csv&#39;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># and register it in the workspace</span>
+</span></span><span style="display:flex;"><span>    concrete_dataset<span style="color:#f92672">.</span>register(
+</span></span><span style="display:flex;"><span>        w_space,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;concrete_baseline&#39;</span>,
+</span></span><span style="display:flex;"><span>        description<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Concrete Strength baseline data (w. header)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;Dataset uploaded&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;Dataset already exists&#39;</span>)
+</span></span></code></pre></div><p>We can verify that the new dataset was correctly created by checking the <strong>Datasets</strong> tab in AzureML Workspace, where we should find the dataset <strong>concrete_baseline</strong>. We can also see the Datastore where we uploaded the data, <strong>dsazmlprj14</strong>, or the associated datastore created with the workspace. We confirm that the data file, <strong>concrete.csv</strong>, was uploaded to the <strong>concrete_data_baseline</strong> folder.</p>
+<p>We can also look at the dataset by selecting the <strong>Explore</strong> tab on this page, which directs us to the data dump of the dataset. We can also see that features and labels are all numerical, as they all have a <strong>00</strong> near their name. We can also see that the dataset has 1030 instances.</p>
+<p>This screen can also give us a quick overview of the data through the <strong>Preview</strong> tab. Here we can see the distribution, and information like type, minimum and maximum values and the mean and standard deviation for each feature.</p>
+<p>If we click on the <strong>datasource</strong> link in the <strong>Details</strong> tab, AzureML will direct us to the blob storage where the data is stored. Here we can see the <strong>concrete.csv</strong> file.</p>
+<p>The figures below show the screens and the links used to navigate through the dataset.</p>
+<p><img src="/post/img/azureml_pipeline_introduction_dataset_upload.jpg" alt="Dataset Upload"></p>
+<h2 id="next-post">Next Post</h2>
+<p>In the next post, we will look at creating a pipeline that will enable us to test several different models on the concrete-strength data and select the best performing model.</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

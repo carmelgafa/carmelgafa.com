@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Classifier on </title>
+    <link>//localhost:1313/tags/classifier/</link>
+    <description>Recent content in Classifier on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Oct 2020 14:41:37 +0200</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/classifier/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Roc Display in Excel</title>
+      <link>//localhost:1313/post/ml_roc-display-in-excel/</link>
+      <pubDate>Sat, 03 Oct 2020 14:41:37 +0200</pubDate>
+      <guid>//localhost:1313/post/ml_roc-display-in-excel/</guid>
+      <description>A binary classifier is a function that can be applied to features X to produce a Y value of true (1) or false (0). It is a supervised learning technique; therefore, a test set is extracted from the available data so that the model is validated before deployed in production.&#xA;$$ f(x_1, x_2, x_3, \dots, x_n) = Y \in {0, 1} $$&#xA;The function will return a value between 0 and 1, and a threshold value is therefore operated to classify the result as a true or false.</description>
+    </item>
+  </channel>
+</rss>

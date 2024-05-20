@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Introduction to type-2 fuzzy sets</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Introduction to type-2 fuzzy sets</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Introduction%20to%20type-2%20fuzzy%20sets&amp;body=Introduction%20to%20type-2%20fuzzy%20sets%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_set%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_set%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_set%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Introduction to type-2 fuzzy sets</b></h2>
+        <h5>Fri October 15, 2021</h5>
+        
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>This article was first published in <a href="https://towardsdatascience.com/type-2-fuzzy-sets-812c5b4d602d#d16c-9d2b4dddac26">Towards Data Science</a>.</p>
+<h3 id="introduction">Introduction</h3>
+<p>In a previous post, we have seen how we use a fuzzy set of type-1  when we cannot determine the membership of an element as 0 or 1. We can extend this concept when the circumstances are so fuzzy that we have trouble determining the membership grade as a number in [0, 1]. In these cases, type-2 fuzzy sets provide the necessary framework to formalize and work with this information.</p>
+<p>This post will look at the basic concepts behind type-2 fuzzy sets. We will base this discussion on &ldquo;Type-2 Fuzzy Sets made Simple&rdquo; by Robert John and Jerry Mendel, possibly the best paper to learn about type-2 fuzzy sets and logic.</p>
+<h3 id="what-is-a-type-2-fuzzy-set">What is a type-2 fuzzy set?</h3>
+<p>We start this discussion by restating the motivation behind the fuzzy set theory.  Let us suppose that today&rsquo;s temperature is 25 degrees Celcius, or 77 Ferenheight. Can we consider today a hot day? What does a precise thermometer reading tell us about the day, and how should we regulate our behaviour based on this reading?</p>
+<p>The US National Oceanic and Atmospheric Administration (NOAA) considers the range between 26 and 32 degrees as &lsquo;caution&rsquo; and identifies ranges further up the temperature scale as &lsquo;dangerous&rsquo; and &rsquo;extremely dangerous.&rsquo; If we adhere to this definition, we can imagine the bounds of a hot day drawn by NOAA. Therefore, we can conclude that today will not fall in the category of &lsquo;hot&rsquo; days, maybe in the &lsquo;warm&rsquo; or &lsquo;slightly hot&rsquo; one.</p>
+<p>Categorizing a day using this logic will mean that a temperature of anything less than 26 and more than 32 degrees will not make the day &lsquo;hot&rsquo;.</p>
+<p>If we view the concept of a &lsquo;hot&rsquo; day from a fuzzy lens, our reasoning will change. We can arguably consider 20 degrees a bit &lsquo;hot&rsquo;, while 30 degrees as positively &lsquo;hot&rsquo;. On the other hand, we can classify forty degrees as a temperature beyond &lsquo;hot&rsquo;; maybe it can fall under the &rsquo;torrid&rsquo; category. Viewing &lsquo;hot&rsquo; as a fuzzy concept will transform the rigid boundary into a curve that defines different grades of belonging for every temperature in the various categories. Thus a temperature can be &lsquo;warm&rsquo;. &lsquo;hot&rsquo; and &rsquo;torrid&rsquo; simultaneously, albeit to different degrees in each category.</p>
+<p><img src="/post/img/type2_discrete_to_type1.png" alt="type-1 fuzzy set"></p>
+<p>If we now ask two different persons to plot their perception of the fuzzy set &lsquo;hot&rsquo; and constrain them to use a trapezoidal set for their description, almost certainly, we will get two slightly different definitions. We will see that the degree of belonging that a given temperature has to the set &lsquo;hot&rsquo; will be progressively smudged as we ask more people to submit their definition, and every point describing a degree of belonging will, in turn, transform into a fuzzy set in a three-dimensional function. The result is a fuzzy set of type-2.</p>
+<p>Type-2 fuzzy logic is therefore motivated by the premise that concepts have different meanings to different people.</p>
+<p><img src="/post/img/type_2_example_1.png" alt="type-2 set motivation"></p>
+<p>A type-2 fuzzy set for defining the concept of &lsquo;hot&rsquo; temperature that we will denote by A, ( $ \tilde{A} $ ) can be as depicted below:</p>
+<p><img src="/post/img/type2_set.png" alt="type_2 fuzzy set"></p>
+<h3 id="type-2-fuzzy-sets">Type-2 fuzzy Sets</h3>
+<p>The membership function of a Type-2 Fuzzy Set is three dimensional, with the</p>
+<ul>
+<li>x-axis called the <strong>primary variable</strong></li>
+<li>the y-axis is called the <strong>secondary variable</strong> or secondary domain denoted by $u$. We note that this axis represents the degree of belonging in type-1 sets and therefore ranges in $[0,1]$. However, we have a range of degree of belonging values for every primary variable value in this case.</li>
+<li>the z-axis called the <strong>membership function value</strong> ( or secondary grade) that is denoted  by $ \mu$.</li>
+</ul>
+<p>The most straightforward way to define a type-2 fuzzy set is to consider the collection of all the points in the three-dimensional space that make up a set. Formally, therefore, $\tilde{A}$ can also be expressed as:</p>
+<p>$$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$</p>
+<p>where $\int\int$ is the union over admissible $x$ and $u$ for a continuous universe of discourse (for discrete universes of discourse use $\sum\sum$ instead),</p>
+<p>We can therefore describe the  type-2 set shown above as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>(1 / 0 + 0.3 / 0.2)/15 +
+</span></span><span style="display:flex;"><span>(0.6 / 0.2 + 1 / 0.4 +0.7 / 0.6 )/20 +
+</span></span><span style="display:flex;"><span>(0.4 / 0.6 + 0.7 / 0.8 +1 / 1 )/25 +
+</span></span><span style="display:flex;"><span>(0.4 / 0.6 + 0.7 / 0.8 + 1 / 1 ) /30 +
+</span></span><span style="display:flex;"><span>(0.2 / 0.3 + 0.6 / 0.5 + 1 / 0.7 +0.4 / 1 ) / 35 +
+</span></span><span style="display:flex;"><span>(0.3 / 0.2 + 1 / 0.4 + 0.4 / 0.6  ) /40 +
+</span></span><span style="display:flex;"><span>(1 / 0 + 0.6 / 0.2 ) / 45
+</span></span></code></pre></div><p>Furthermore, $J_{x}\subseteq[0,1]$ is known as the primary membership and will be discussed in more detail in the next section.</p>
+<h4 id="vertical-slices">Vertical Slices</h4>
+<p>If we isolate a primary variable value, we notice that we obtain a type-1 fuzzy set called a vertical slice.</p>
+<p><img src="/post/img/type2_verticalslice_1a.png" alt="type_2 fuzzy set vertical slice"></p>
+<p><img src="/post/img/type2_verticalslice_2.png" alt="type_2 fuzzy set vertical slice"></p>
+<p>A vertical slice is therefore a Type-1 fuzzy set $\mu_{\tilde{A}}(x=x&rsquo;,u)$ for $x\in X$ and $\forall u \in J_{x&rsquo;}\subseteq[0,1]$, that formally defined as:</p>
+<p>$$\mu_{\tilde{A}}(x=x&rsquo;,u)=\int_{u\in J_{x&rsquo;}}f_{x&rsquo;}(u) / u$$</p>
+<p>where $0\leq f_{x&rsquo;}(u)\leq 1$</p>
+<p>The function resulting from a vertical slice is also referred to as a <strong>secondary membership function</strong>, written formally as  $\mu_{ \tilde{A} }(x&rsquo;)$, that is $\mu_{ \tilde{A} }(x=x&rsquo;, u)$ for $x \in X$ and $\forall u \in J_x \subseteq [0, 1]$</p>
+<p>$$\mu_{ \tilde{A} }(x=x&rsquo; , u) \equiv \mu_{ \tilde{A} }(x&rsquo;) = \int_{u \in J_{x&rsquo;}} f_{x&rsquo;}(u)/u ; J_{x&rsquo;}\subseteq[0,1]$$</p>
+<p>where $0 \leq f_{x&rsquo;}(u) \leq 1 $</p>
+<p>The secondary membership function at $x=20$ is, therefore:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>0.6 / 0.2 + 1 / 0.4 +0.7 / 0.6 
+</span></span></code></pre></div><p>The <strong>domain</strong> of a secondary membership function is called the <strong>primary membership</strong> of $x$. Hence in</p>
+<p>$$\tilde{A}=\int_{x \in X} \mu_{ \tilde{A} }(x) /x = \int_{x \in X} \left[  \int_{u\in J_{x}} f(u) / u \right]  /x$$</p>
+<p>As mentioned above, $J_{x}$ is also known as the <strong>primary membership function</strong>, where $J_{x} \subseteq [0,1]$ for $\forall x \in X$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>J_{20}= {.2, 0.4, 0.6}
+</span></span></code></pre></div><p>The <strong>amplitude</strong> of a secondary membership function is the <strong>secondary grade</strong>. Hence in</p>
+<p>$$\tilde{A}=\int_{x \in X} \mu_{ \tilde{A} }(x) /x = \int_{x \in X} \left[  \int_{u\in J_{x}} f(u) / u \right]  /x$$</p>
+<p>where $J_{x} \subseteq [0,1]$, $f(u)$ is the secondary grade.</p>
+<p>If $X$ and $J_{x}$ are discrete:</p>
+<p>$$\tilde{A} = \sum_{x \in X} \left[ \sum_{u \in J_{x}} f(u) / u \right] /x$$</p>
+<p>Regarding secondary grades, we can note that in</p>
+<p>$$\tilde{A} = {(x, u), \mu_{ \tilde{A} }(x, u)|\forall x\in X, \forall u \in J_{x} \subseteq [0,1]}$$</p>
+<p>$\mu(x&rsquo;, u&rsquo;)(x \in X, u&rsquo; \in J_{x&rsquo;})$ is a secondary grade.</p>
+<h4 id="embedded-type-2-sets">Embedded Type-2 Sets</h4>
+<p>For discrete  $X$ and $U$, an <strong>embedded type-2 set</strong>  can be created by taking a single element out of each secondary membership function in a set. Hence, if $X$ has $N$ elements, $\tilde{A_e}$ has exactly one element from $J_{x_{1}}, J_{x_{2}}, \dots , J_{x_{N}}$; namely $u_{1}, u_{2}, \dots , u_{N}$ each with associated grade namely $f_{x_{1}}(u_1), f_{x_{2}}(u_2), \dots , f_{x_{N}}(u_N)$, such that:</p>
+<p><img src="/post/img/type2_embedded_b.png" alt="embedded type_2 fuzzy set"></p>
+<p>$$\tilde{A_e} = \displaystyle \sum_{i=1}^{N} \left[ f_{x_{i}} (u_{i}) \right] / x_{i}$$</p>
+<p>where $u_{i} \in J_{x_{i}} \subseteq [0,1]$</p>
+<p>There are a total of: $ \displaystyle \prod_{i=1}^{N} M_i$ embedded sets in $\tilde{A}$</p>
+<p>The identified embedded type-2 fuzzy set, $\tilde{A_e}^1$, is therefore:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>1 / 0 / 15 + 0.6 / 0.2 / 20 + 0.4 / 0.6 / 25 + 0.4 / 0.6 /30 + 0.2 / 0.3 / 35 + 0.3 / 0.2 /40 + 1 / 0 / 45
+</span></span></code></pre></div><p>We also notice that our set contains</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>2 x 3 x 3 x 3 x 4 x 3 x 2 = 1296
+</span></span></code></pre></div><p>,embedded type-2 sets.</p>
+<p>We can also then represent a  type-2 fuzzy set by the collection of all the embedded type-2 sets, known as the <strong>wavy-slice representation</strong> or the <strong>Mendel-John representation</strong>. The wavy-slice representation is, therefore:</p>
+<p>$$\tilde{A}=\bigcup_{\forall j} \tilde{A}_{e}^{j}$$</p>
+<h4 id="type-1-fuzzy-sets">Type-1 fuzzy sets</h4>
+<p>A type-1 fuzzy set can be represented as a type-2 fuzzy set. Its type-2 representation is:
+$ \left( 1/ \mu(x) \right) / x $ or $ 1/\mu_{F}(x), \forall x\in X$.</p>
+<p>$1/ \mu_{F}(x)$ means that the secondary membership function has only one value in its domain, i.e. the primary membership $\mu_F(x)$ at which the secondary grade is equal to 1.</p>
+<h4 id="footprint-of-uncertainty">Footprint of Uncertainty</h4>
+<p>The 2D support of $\mu$ is called the <strong>footprint of uncertainty (FOU)</strong></p>
+<p>$$FOU(\tilde{A})= \left\lbrace  (x,u) \in X \times [0,1]  | \mu_{\tilde{A}}(x,u) &gt; 0 \right\rbrace $$</p>
+<p>FOU represents the uncertainty in the primary memberships of $\tilde{A}$. It is the union of all primary memberships.</p>
+<p>$$FOU(\tilde{A}) = \bigcup\limits_{x\in X} J_{x}$$</p>
+<p><img src="/post/img/type2_fou.png" alt="footprint of uncertainty"></p>
+<p>The shaded FOU implies a distribution at the top of the type-2 fuzzy set in the third dimension that depends on the choice of the secondary grades. When all the secondary grades are of a type-2 set are equal to 1, the set is called an <strong>interval type-2 fuzzy set</strong>.</p>
+<p>We notice that the footprint of uncertainty has upper and lower bound, referred to as the upper and lower membership functions:</p>
+<p>The <strong>lower membership function</strong></p>
+<p>$$LMF(\tilde{A}) = \underline{\mu_{\tilde{A}}} = \inf\left\lbrace u | u\in[0,1], \mu_{ \tilde{A} }(x,u) &gt;0 \right\rbrace $$</p>
+<p><img src="/post/img/type2_fou_lmf.png" alt="lower membership function"></p>
+<p>The <strong>upper membership function</strong></p>
+<p>$$LMF(\tilde{A}) = \overline{\mu_{\tilde{A}}} = \sup\left\lbrace u | u\in[0,1], \mu_{ \tilde{A} }(x,u) &gt;0 \right\rbrace $$</p>
+<p><img src="/post/img/type2_fou_umf.png" alt="upper membership function"></p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction/">Type Reduction of Interval Type-2 Fuzzy Sets</a></h4>
+    <h5>April 6, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/type2fuzzy_paper_zslices/">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a></h4>
+    <h5>A look at C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;, working of paper examples using T2Fuzz Library</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

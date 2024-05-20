@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Paper%20Implementation%20-%20C.%20Wagner%20and%20H.%20Hagras.%20%27Toward%20general%20type-2%20fuzzy%20logic%20systems%20based%20on%20zSlices.%27&amp;body=Paper%20Implementation%20-%20C.%20Wagner%20and%20H.%20Hagras.%20%27Toward%20general%20type-2%20fuzzy%20logic%20systems%20based%20on%20zSlices.%27%2c%20by%20Carmel%20Gafa%0a%0aA%20look%20at%20C.%20Wagner%20and%20H.%20Hagras.%20%27Toward%20general%20type-2%20fuzzy%20logic%20systems%20based%20on%20zSlices.%27%2c%20working%20of%20paper%20examples%20using%20T2Fuzz%20Library%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_zslices%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_zslices%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_paper_zslices%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</b></h2>
+        <h5>Sun March 27, 2022</h5>
+        
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>The <a href="https://d1wqtxts1xzle7.cloudfront.net/31004495/wagner2010-with-cover-page-v2.pdf?Expires=1648384380&amp;Signature=gfElNw7ckIhZsARlzuO3axX8j2sNdhhEXEXNxK-yPuUYbOuDHCvo4f6tCnViiUa6Di3kD1Gaz~kojOGHtr83n7FdwOO3OKcTDd918fwq~63EIdeBKywNWOjfaklzjfk2Swc5c9Quq6NKDgH5osOF~0aBTWbe~8Nd3RGaMu8tJvjtnBnnE4h8seUpZS-ZpEx6zaR6RUMjPPiNc2ZEKZI5podOlVrYsNkJNa4jL4A3LutyJoKiJnUbuJoF8VGJAYrWaN9G1ijIMZTxOUTpOCi99auZUIRyG3~gP~nJhglPVIX5kXnQqa-r2oYg72h4iR7PBh2jmpU463xjY4pNrzlpvw__&amp;Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">paper</a> by Wagner and Hagras explains the concept of zSlices as a way to implement type-2 fuzzy logic systems based on general type-2 fuzzy sets. The paper&rsquo;s appendices contain numeric examples of centroid computation based on zSlices. This post describes the steps involved in implementing the paper by Wagner and Hagras. It also lists the results obtained and compares them with those listed in the original document.</p>
+<h3 id="centroid-of-a-zsliced-based-type-2-set">Centroid of a zSliced Based Type-2 Set</h3>
+<p>The general type-2 fuzzy set used in these examples will result in the potential computation of the centroid of $3^{11}$ wavy slices. For this reason, a crudely discretized version of the set that contains only embedded type-2 fuzzy sets was used.</p>
+<p>The working in the paper starts with the classical wavy-slice equation to type-reduce a general type-2 fuzzy set,</p>
+<p>$$C_{\tilde{G}} = \int_{u_1\in J_{x_1}} \dots \int_{u_n\in J_{x_n}}  f_{x_1}(u_{1}) \star \dots \star f_{x_n}(u_{n}) / \frac{\sum_{i=1}^{N} u_{i}x_{i}}{\sum_{i=1}^{N} u_{i}}$$</p>
+<p>and used this method to find the centroid of a general type-2 fuzzy set,</p>
+<p>$$\tilde{G}_D = (0.33/0.0)/1 + (0.66/0)/2 + (0.66/0+0.66/0.5)/3 + (0.33/0 + 0.66/0.5)/4 +$$
+$$(1/1)/5 + (0.33/0.5)/6 + (0.33/0 + 1/0.5)/7 + (0.66/0)/8 + (0.66/0)/9$$</p>
+<p>we obtained the following type-reduced result:</p>
+<p>$$C_{\tilde{G}_D} = 0.33/5.33 + 0.33/5 + 0.33/4.75 + 0.33/4.6 + 0.33/5.75 + 0.33/5.4 + 0.33/5.2 + 0.33/5$$</p>
+<p>Which yields a defuzzified crisp value of $O{C_{\tilde{G}_D}} = 5.12875$ after using a standard centroid defuzzifier.</p>
+<p>Here, however, we notice a slight mistake in this calculation. The type-reduced centroid, $C_{\tilde{G}_D}$ contains two values at $x=5$ both of 0.33.
+However, in the original paper by Karnik, Mendel, and Qilian (Karnik, Nilesh Naval, Jerry M. Mendel, and Qilian Liang. &ldquo;Type-2 fuzzy logic systems.&rdquo; IEEE transactions on Fuzzy Systems 7.6 (1999): 643-658.) states that:</p>
+<p><strong>&ldquo;If more than one combination of $\theta_i$ gives us the same point in the centroid, we keep the one with the largest membership grade.&rdquo;</strong></p>
+<p>In this case, therefore, we should have kept only one of the two values, thus resulting in a  $O{C_{\tilde{G}_D}} = 5.14714$</p>
+<h4 id="code-and-results">Code and Results</h4>
+<p>This example can be implemented using the T2FUZZ-Library using the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> GeneralType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> gt2_mendeljohn_reduce
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> cog_defuzzify
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>set_definition <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39; (0.33/0.0)/1 + (0.66/0)/2 +
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (0.66/0+0.66/0.5)/3 +(0.33/0 + 0.66/0.5)/4 +
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (1/1)/5 + (0.33/0.5)/6 +(0.33/0 + 1/0.5)/7 +
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (0.66/0)/8 + (0.66/0)/9&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gt2fs <span style="color:#f92672">=</span> GeneralType2FuzzySet<span style="color:#f92672">.</span>from_representation(set_definition)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(gt2fs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>centroid <span style="color:#f92672">=</span> gt2_mendeljohn_reduce(gt2fs)
+</span></span><span style="display:flex;"><span>print(centroid)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>defuzz <span style="color:#f92672">=</span> cog_defuzzify(centroid)
+</span></span><span style="display:flex;"><span>print(defuzz)
+</span></span></code></pre></div><p>That yields the following results:</p>
+<p>$$\tilde{G}_D = $$
+$$(0.3300 / 0.0000) / 1.0000 + (0.6600 / 0.0000) / 2.0000 +$$
+$$(0.6600 / 0.0000 + 0.6600 / 0.5000) / 3.0000  + $$
+$$(0.3300 / 0.0000 + 0.6600 / 0.5000) / 4.0000 +$$
+$$(1.0000 / 1.0000) / 5.0000 + (0.3300 / 0.5000) / 6.0000 +$$
+$$(0.3300 / 0.0000 + 1.0000 / 0.5000) / 7.0000 +$$
+$$(0.6600 / 0.0000) / 8.0000 + (0.6600 / 0.0000) / 9.0000$$$$</p>
+<p>which is the general type-2 fuzzy set that is used</p>
+<p>$$C_{\tilde{G}_D} = 0.330/5.333 + 0.330/5.750 + $$
+$$0.330/5.000 + 0.330/5.400 + 0.330/4.750 + 0.330/5.200 + 0.330/4.600$$</p>
+<p>this is the result obtained in the paper, except that there is only one entry for $x=5$</p>
+<p>$$O{C_{\tilde{G}_D}} = 5.147619047619048$$, as calculated previously</p>
+<h3 id="computing-the-centroid-of-a-general-type-2-fuzzy-set-by-combining-the-centroids-of-its-zslices">Computing the centroid of a General Type-2 Fuzzy Set by combining the Centroids of its zSlices</h3>
+<p>The original general type-2 fuzzy set used in this paper contains three zSlices</p>
+<p>$$\tilde{Z}_{1} = \frac{1}{3}$$</p>
+<p>$$\tilde{Z}_{2} = \frac{2}{3}$$</p>
+<p>$$\tilde{Z}_{3} = 1$$</p>
+<p>The authors did not use $\tilde{Z}_{0}$ (= 0) as it will not have any effect on the crisp centroid.</p>
+<p>The membership values for the  upper and lower membership functions of each zSlice were summarized in the following table:</p>
+<p><img src="/post/img/type2fuzzy_paper_zslices_img1.JPG" alt="zSlices Table"></p>
+<p>The KM iterative procedure was applied to determine the centroid at each zSlice, obtaining the following results:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\tilde{Z}_{1}$  =</td>
+<td>[3.8656, 6.3$\bar{3}$]</td>
+</tr>
+<tr>
+<td>$\tilde{Z}_{2}$  =</td>
+<td>[4.5454, 5.8628]</td>
+</tr>
+<tr>
+<td>$\tilde{Z}_{3}$  =</td>
+<td>[5.3343, 5.3343]</td>
+</tr>
+</tbody>
+</table>
+<p>thus resulting in a centroid,</p>
+<p>$$C_{\tilde{Z}} = \frac{1}{3} / [3.8656, 6.3\bar{3}] + \frac{2}{3} / [4.5454, 5.8628]+ 1 / [5.3343, 5.3343]$$</p>
+<p>A centroid defuzzifier of the form,</p>
+<p>\begin{equation}
+y_c= \frac{(z_1(y_{l_1} + y_{r_1})/2) + \dots + (z_1(y_{l_N} + y_{r_N})/2)}{z_1+ \dots + z_N }
+\end{equation}</p>
+<p>resulting in a defuzzified crisp value $O_{C_{\tilde{Z}}} = 5.25176$</p>
+<h4 id="code-and-results-1">Code and Results</h4>
+<p>This example can be implemented using the T2FUZZ-Library using the following code. A general type-2 fuzzy set was constructed so that it will generate the same zSlices as specified in the paper.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> GeneralType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> ZSliceType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> zslice_hagras_reduce
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> zslice_centroid_defuzzify
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>set_definition <span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.2 + 0.34 / 0.10 + 0.34 / 0) / 1+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.4 + 0.34 / 0.30 + 0.67 / 0.25 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.67 / 0.20 + 0.67 / 0.10 + 0.67 / 0.00 )/2+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.6 + 0.67 / 0.50 + 0.67 / 0.40 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.67 / 0.30 + 1.00 / 0.33 + 0.67 / 0.2 + 0.67 / 0.1 + 0.67 / 0 )/3+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.8 + 0.67 / 0.75 + 0.67 / 0.70 + 1.00 / 0.67 + 0.67 / 0.60 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.67 / 0.5 + 0.33 / 0.4 + 0.33 / 0.3 + 0.34 / 0.2 + 0.34 / 0.1 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.34 / 0.00)/4+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(1.00 / 1.00)/5+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.8 + 0.67 / 0.78 + 1.00 / 0.75 + 0.67 / 0.70 + 0.67 / 0.6 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.34 / 0.5 + 0.34 / 0.4 + 0.34 / 0.33 )/6+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.6 + 0.67 / 0.56 + 1.00 / 0.50 + 0.67 / 0.40 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.67 / 0.3 + 0.67 / 0.2 + 0.34 / 0.1 + 0.34 / 0.00)/7+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.4 + 0.67 / 0.33 + 0.67 / 0.30 + 1.00 / 0.25 + 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">0.67 / 0.2 + 0.67 / 0.1 + 0.67 / 0.0)/8+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">(0.34 / 0.2 + 0.67 / 0.11 + 0.67 / 0.10 + 1.00 / 0.00 )/9
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create a general type-2 fuzzy set from the definition</span>
+</span></span><span style="display:flex;"><span>gt2fs <span style="color:#f92672">=</span> GeneralType2FuzzySet<span style="color:#f92672">.</span>from_representation(set_definition)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Number of Embedded Sets: </span><span style="color:#e6db74">{</span>gt2fs<span style="color:#f92672">.</span>embedded_type2_sets_count()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># generate a zslice type-2 fuzzy set fro a general type-2 set</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># specify the number opf slices</span>
+</span></span><span style="display:flex;"><span>zt2fs <span style="color:#f92672">=</span> ZSliceType2FuzzySet<span style="color:#f92672">.</span>from_general_type2_set(gt2fs, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;zSlices: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> </span><span style="color:#e6db74">{</span>zt2fs<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># reduce the zSlice type-2 set</span>
+</span></span><span style="display:flex;"><span>z_centroid <span style="color:#f92672">=</span> zslice_hagras_reduce(zt2fs)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;zSlices Centroid </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74"> </span><span style="color:#e6db74">{</span>z_centroid<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># defuzzify the zSlice centroid</span>
+</span></span><span style="display:flex;"><span>z_defuzz <span style="color:#f92672">=</span> zslice_centroid_defuzzify(z_centroid)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Crisp Centoid: </span><span style="color:#e6db74">{</span>z_defuzz<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Number of Embedded Sets: 2838528
+</span></span></code></pre></div><p>The general type-2 set yields a larger number of embedded type-2 set than that used by the authors.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>zSlices
+</span></span><span style="display:flex;"><span>-------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slice 0.0:
+</span></span><span style="display:flex;"><span>[0.00000, 0.20000]/1.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.40000]/2.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.60000]/3.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.80000]/4.0
+</span></span><span style="display:flex;"><span>+[1.00000]/5.0
+</span></span><span style="display:flex;"><span>+[0.33000, 0.80000]/6.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.60000]/7.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.40000]/8.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.20000]/9.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slice 0.3333333333333333:
+</span></span><span style="display:flex;"><span>[0.00000, 0.20000]/1.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.40000]/2.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.60000]/3.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.80000]/4.0
+</span></span><span style="display:flex;"><span>+[1.00000]/5.0
+</span></span><span style="display:flex;"><span>+[0.33000, 0.80000]/6.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.60000]/7.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.40000]/8.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.20000]/9.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slice 0.6666666666666666:
+</span></span><span style="display:flex;"><span>[0.00000, 0.25000]/2.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.50000]/3.0
+</span></span><span style="display:flex;"><span>+[0.50000, 0.75000]/4.0
+</span></span><span style="display:flex;"><span>+[1.00000]/5.0
+</span></span><span style="display:flex;"><span>+[0.60000, 0.78000]/6.0
+</span></span><span style="display:flex;"><span>+[0.20000, 0.56000]/7.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.33000]/8.0
+</span></span><span style="display:flex;"><span>+[0.00000, 0.11000]/9.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slice 1.0:
+</span></span><span style="display:flex;"><span>[0.33000]/3.0
+</span></span><span style="display:flex;"><span>+[0.67000]/4.0
+</span></span><span style="display:flex;"><span>+[1.00000]/5.0
+</span></span><span style="display:flex;"><span>+[0.75000]/6.0
+</span></span><span style="display:flex;"><span>+[0.50000]/7.0
+</span></span><span style="display:flex;"><span>+[0.25000]/8.0
+</span></span><span style="display:flex;"><span>+[0.00000]/9.0
+</span></span></code></pre></div><p>zSlices Centroid}, $C_{\tilde{Z}}$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>0.0 : [3.86561, 6.39526]
+</span></span><span style="display:flex;"><span>0.3333333333333333 : [3.86561, 6.39526]
+</span></span><span style="display:flex;"><span>0.6666666666666666 : [4.54545, 5.86280]
+</span></span><span style="display:flex;"><span>1.0 : [5.33429]
+</span></span></code></pre></div><p><strong>Crisp Centroid</strong>, $O_{C_{\tilde{Z}}}$: 5.256925833333334</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction/">Type Reduction of Interval Type-2 Fuzzy Sets</a></h4>
+    <h5>April 6, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/ml_linearreg_gradientdescent_analysis/">Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</a></h4>
+    <h5>March 12, 2022</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/linear-regression"><kbd class="item-tag">linear-regression</kbd></a>
+
+<a href="//localhost:1313/tags/gradient-descent"><kbd class="item-tag">gradient-descent</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

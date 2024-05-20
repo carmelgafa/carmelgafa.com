@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine-Learning on </title>
+    <link>//localhost:1313/tags/machine-learning/</link>
+    <description>Recent content in Machine-Learning on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logistic Regression</title>
+      <link>//localhost:1313/post/ml_logistic_regression/</link>
+      <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_logistic_regression/</guid>
+      <description>Logistic regression is a machine learning algorithm that is commonly used for binary classification tasks.&#xA;Given a feature vector $X \in \mathbb{R}^{n_x}$, the goal of logistic regression is to predict the probability $\hat{y}$ that a binary output variable $y$ takes the value 1, given $X$, that is $\hat{y} = P(y=1|X)$, $0\le y\le1$. For example, in the case of image classification, logistic regression can be used to predict the probability that an image contains a cat.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 11 - Model Validation in AzureML</title>
+      <link>//localhost:1313/post/azureml_end2end_validation/</link>
+      <pubDate>Thu, 09 Mar 2023 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_validation/</guid>
+      <description>Introduction After completing the model selection and optimization phase, the next step is to evaluate the final_model using the test dataset. The evaluation process involves executing the full pipeline to transform the test features and predict the corresponding labels. It is expected that the model&amp;rsquo;s performance on the test dataset will be slightly lower than that on the training and validation datasets.&#xA;The evaluation process is similar to the previous phases, where the models and test data are loaded, and the pipeline is executed to obtain the test predictors.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</title>
+      <link>//localhost:1313/post/azureml_end2end_modeloptimization/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_modeloptimization/</guid>
+      <description>Introduction In this second part of this series of posts, we will optimize the model we created in the previously by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</title>
+      <link>//localhost:1313/post/azureml_end2end_trainingpipeline/</link>
+      <pubDate>Sat, 18 Jun 2022 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_trainingpipeline/</guid>
+      <description>Introduction In the second section of this series, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called concrete_baseline. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.&#xA;AzureMl pipelines connect several functional steps we can execute in sequence in a machine learning workflow.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</title>
+      <link>//localhost:1313/post/azureml_end2end_introduction/</link>
+      <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_introduction/</guid>
+      <description>Introduction In the previous posts in this series, we have examined some of the various features of Azure Machine Learning. We have executed some experiments and have seen the results. We will now try to look into a more complete, end to end Machine Learning project in Azure that will utilize leverage the power of other Azure ML features such as:&#xA;Azure Machine Learning Pipelines. Azure ML pipelines are where we execute discrete steps (or subtasks) as a workflow.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model</title>
+      <link>//localhost:1313/post/azureml_training_2/</link>
+      <pubDate>Wed, 16 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_training_2/</guid>
+      <description>In this series&amp;rsquo;s previous post, we have seen how to create and execute a machine learning experiment in AzureML. Our experiment was not an actual ML experiment but a simple script that printed a message.&#xA;This post will see how to create and execute an ML experiment that involves training a model. It is important to note that this post is just the first step in creating a proper ML pipeline in AzureML and is therefore not the best of solutions.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 6 - Experiment Creation</title>
+      <link>//localhost:1313/post/azureml_training/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_training/</guid>
+      <description>In a previous post, we have seen how to create an ML workspace and provision a compute resource in Azure using AzureML SDK; now we will see how to execute an experiment the ML environment using AzureML SDK.&#xA;We will start by executing a simple experiment that will print a message. The steps required to run this trivial experiment are:&#xA;Create an experiment script to be executed.&#xA;Create and Experiment instance.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</title>
+      <link>//localhost:1313/post/ml_linearreg_gradientdescent_analysis/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_gradientdescent_analysis/</guid>
+      <description>**In this series of posts we have discussed the basics of linear regression and they introduced the gradient descent algorithm. We have also discussed the stochastic gradient descent algorithm and the mini-batch gradient descent as variations of batch gradient descent that can possibly reduce the time to convergence of the algorithm.&#xA;In this post we will summarize what we have discussed so far, and focus on the results that we have obtained from the various gradient descent algorithms.</description>
+    </item>
+    <item>
+      <title>Linear Regression Part 9 - Mini Batch Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_minibatchgd/</link>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_minibatchgd/</guid>
+      <description>In the last post we compared the stochastic gradient descent algorithm to the batch gradient descent algorithm that we has discussed in a previous post. We discussed that as the size of the training dataset increases, batch gradient descent, where we use all the examples of the training set in each iteration, becomes very computationally expensive and that we can therefore use stochastic gradient descent, where we use one example of the training set in each iteration, to have a more efficient way to approach the coefficients of our hypothesis function.</description>
+    </item>
+    <item>
+      <title>Linear Regression Part 8 - Stochastic Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_stochasticgd/</link>
+      <pubDate>Mon, 31 Jan 2022 16:24:09 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_stochasticgd/</guid>
+      <description>In a previous post, we have discussed the gradient descent algorithm for linear regression applied to multiple features. As the size of the training dataset increases, gradient descent becomes very computationally expensive. In particular, if we consider the computation of the cost function,&#xA;$$J = \frac{1}{2m} \sum_{i=1}^m \left( \hat{y}^{(i)} - {y}^{(i)} \right)^2$$,&#xA;which is a calculation that we need to compute for each training data iteration; we can can see that the cost function is expensive as m increases.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 7 - Multivariate Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariatedescent/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariatedescent/</guid>
+      <description>We have discussed the multivariate linear regression problem in the previous posts, and we have seen that in this case the hypothesis function becomes:&#xA;$$\hat{y} = a_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n$$&#xA;If we define $x_0$, such that $x_0 = 1$, then the hypothesis function becomes:&#xA;$$\hat{y} = a_0 x_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n$$&#xA;Let us now consider a dataset of $m$ points.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations</title>
+      <link>//localhost:1313/post/ml_linearreg_gradientdescent/</link>
+      <pubDate>Fri, 07 Jan 2022 11:08:45 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_gradientdescent/</guid>
+      <description>We started this series of posts with an examination of Cost Functions, and then moved on to derive and implement the solution to the linear regression problem for a single variable We extended this to a multi-variable linear regression problem, and we derived and implemented the solution for this case. Our final comment was that as the number of variables increases, the solution becomes computationally prohibitive.&#xA;In this post, we will look at gradient descent, an iterative optimization algorithm used to find the minimum of a function.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 5 - Azureml AutoML</title>
+      <link>//localhost:1313/post/azureml_automl/</link>
+      <pubDate>Thu, 06 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_automl/</guid>
+      <description>Automated machine learning (AutoML) automates the creation of machine learning models. Typically, the process of creating a model can be long and tedious. AutoML makes it possible for people who do not have coding experience to develop and use ML models.&#xA;In a typical machine learning application, we start with raw data for Training. The data might have missing fields, contain outliers, and require cleaning work. The following steps might be required:</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 4 - Creating Azure ML Datasets from a URL</title>
+      <link>//localhost:1313/post/azureml_datasetfromurl/</link>
+      <pubDate>Wed, 05 Jan 2022 11:08:45 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetfromurl/</guid>
+      <description>In a previous post, we discussed how to create a dataset from a datastore, but this is not the only way to create a dataset. This post will examine how to import a dataset from data available on the web.&#xA;The process is quite simple, consisting of only three steps:&#xA;Pasting the URL from the provider of the data. The data is retrieved and displayed. Changing some of the settings, like the delimiter or if the data contains a header, is possible.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 5 - Multivariate Solution Implementation in Python</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariatepython/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariatepython/</guid>
+      <description>In this post we will implement the multivariate linear regression model for 2 features in python. We gave already seen in the last post, that for this case, $a_0$, $a_1$ and $a_2$ can be solved by;&#xA;$$a_1 = \frac{ \sum_{i=1}^{n} X_{2i}^2 \sum_{i=1}^{n} X_{1i}y_i - \sum_{i=1}^{n} X_{1i}X_{2i} \sum_{i=1}^{n} X_{2i}y_i } {\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$&#xA;$$a_2 = \frac{ \sum_{i=1}^{n} X_{1i}^2 \sum_{i=1}^{n} X_{2i}y_i - \sum_{i=1}^{n} X_{1i}x_{2i} \sum_{i=1}^{n} X_{1i}y_i } {\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_sdk_workspace/</link>
+      <pubDate>Fri, 31 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_sdk_workspace/</guid>
+      <description>Introduction The Azure Machine Learning SDK for Python lets us interact with the Azure Machine Learning service using a Python environment. This post will discuss how to create, manage, and use Azure Machine Learning Workspaces, Computes, Datasets and Datastores using the Azure Machine Learning SDK for Python.&#xA;Create a Workspace Creating a workspace is shown below. The create method required a name for the workspace, a subscription ID, a resource group (that is created for the workspace by setting the create_resource_group flag to true), and a location.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 2 - Computation Options</title>
+      <link>//localhost:1313/post/azureml_computes/</link>
+      <pubDate>Tue, 28 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_computes/</guid>
+      <description>This post will very briefly discuss two of the computation options available in Azure Machine Learning; compute instances and compute clusters.&#xA;A Compute Instance in Azure Machine Learning is a cloud-based workstation, where all the necessary frameworks, tools and libraries are installed and configured, thus making it easy to run machine CPU or GPU based learning experiments and manage the Azure ML resources. We can create instances by selecting from one of the VM sizes available in Azure.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 1 - Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_datasetsstores/</link>
+      <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetsstores/</guid>
+      <description>Introduction In AzureML, the two essential concepts that help us work with data are Datastores and Datasets.&#xA;Datastores are used for storing connection information to Azure storage services Datasets are references to the location of the data source. Datastores Azure has various locations for storing data, such as;&#xA;Azure Blob Storage Azure SQL Database Azure Datafactory Azure Databricks These are the places where the data can exist.&#xA;An Azure storage account is a container for all the Azure Storage data objects blobs, file shares, queues, tables, and disks, making them accessible from anywhere in the world over HTTP or HTTPS.</description>
+    </item>
+    <item>
+      <title>Liner Regression, Part 4 - The Multi-variable scenario</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariate/</link>
+      <pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariate/</guid>
+      <description>Introduction In previous posts we discussed the univariate linear regression model and how we can implement the model in python.&#xA;We have seen how we can fit a line, $\hat{y} = a_0 + a_1 x$, to a dataset of given points, and how linear regression techniques estimate the values of $a_0$ and $a_1$ using the cost functions. We have seen that the residual is the difference between the observed values and the predicted values, that is, for any point $i$,</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 3 - Univariate Solution Implementation in Python</title>
+      <link>//localhost:1313/post/ml_linearreg_univariatepython/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_univariatepython/</guid>
+      <description>This post continues from the derivation of the univariate linear regression model as explained in the previous post. Here we will use the equations derived and the in practice to implement the model.&#xA;Univarite Function We start this discussion by considering the function used in this post. The function that we will use is&#xA;$$y = 2x + 15 + \xi$$&#xA;Where $\xi$ is a random variable that will introduce noise to the data.</description>
+    </item>
+    <item>
+      <title>Liner Regression, Part 2 - Deriving the Univariate case</title>
+      <link>//localhost:1313/post/ml_linearreg_univariatederivation/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_univariatederivation/</guid>
+      <description>This post is a continuation of a previous post where the cost functions used in linear regression scenarios are used. We will start by revisiting the mean square error (MSE) cost function;&#xA;$$MSE = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{n}$$&#xA;which, as explained in the previous post, is&#xA;$$MSE = \frac{\sum_{i=1}^{n} (y_i-a_0-a_1 x_i)^{2} }{n}$$&#xA;The objective is to adjust $a_0$ and $a_1$ such that the MSE is minimized. This is achieved by deriving the MSE with respect to $a_0$ and $a_1$, and finding the minimum case by equating to zero.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 1 - Cost Functions</title>
+      <link>//localhost:1313/post/ml_linearreg_costfunctions/</link>
+      <pubDate>Tue, 14 Dec 2021 14:33:57 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_costfunctions/</guid>
+      <description>The objective of regression is to fit a line through a given data set. Hence, if we are given a set of points;&#xA;$$ (x_1, y_1), (x_2, y_2), \dots, (x_i, y_i), \dots ,(x_n, y_n)$$&#xA;we want to fit the line $\hat{y} = a_0 + a_1 x$ through the given set of data. The equation $ a_0 + a_1 x$ is known as the hypothesis function.&#xA;It would be trivial if a line could exactly represent the data provided.</description>
+    </item>
+    <item>
+      <title>Mathematical prerequisites for some Clustering techniques</title>
+      <link>//localhost:1313/post/ml_mathematical_prerequisites/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_mathematical_prerequisites/</guid>
+      <description>Prerequisites Scalar Product Consider $\textbf{u}, \textbf{v} \in {R}^d$.&#xA;The scalar product $&amp;lt;\textbf{u};\textbf{v}&amp;gt;$ (sometimes written also as $\textbf{u} . \textbf{v}$) is&#xA;$$&amp;lt;\textbf{u};\textbf{v}&amp;gt; = \sum_{i=1}^{d} u_i v_i$$&#xA;$&amp;lt;\textbf{u};\textbf{v}&amp;gt;$ is&#xA;Symmetric. $ &amp;lt;\textbf{u};\textbf{v}&amp;gt; =&amp;lt;\textbf{v};\textbf{u}&amp;gt; $ Bilinear. $&amp;lt;\lambda\textbf{u} + \mu\textbf{u&amp;rsquo;};\textbf{v}&amp;gt; = \lambda{\textbf{u};\textbf{v}} + \mu&amp;lt;\textbf{u&amp;rsquo;};\textbf{v}&amp;gt;$ $\textbf{u}, \textbf{v} , \textbf{u&amp;rsquo;} \in {R}^{d}$ $\lambda, \mu \in {R}$ $&amp;lt;\textbf{z};\textbf{z}&amp;gt; = \parallel \textbf{z} \parallel^{2}$ Cauchy-Schwarz Inequality Consider non-zero $\textbf{x},\textbf{y} \in {R}^n$. The absolute value of the dot product;&#xA;$$|&amp;lt;\textbf{x},\textbf{y}&amp;gt;| \leq \parallel\textbf{x}\parallel \parallel\textbf{y}\parallel$$</description>
+    </item>
+    <item>
+      <title>Simple Python implementation of the Weiszfeld algorithm</title>
+      <link>//localhost:1313/post/ml_weiszfeld_python/</link>
+      <pubDate>Sun, 14 Mar 2021 15:32:17 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_weiszfeld_python/</guid>
+      <description>Following is a simple implementation of the Weiszfeld algortihm that was discussed in a previous post in python.&#xA;import numpy as np import math from numpy import array def weiszfeld(points): max_error = 0.0000000001 x=np.array([point[0] for point in points]) y=np.array([point[1] for point in points]) ext_condition = True start_x = np.average(x) start_y = np.average(y) while ext_condition: sod = (((x - start_x)**2) + ((y - start_y)**2))**0.5 new_x = sum(x/sod) / sum(1/sod) new_y = sum(y/sod) / sum(1/sod) ext_condition = (abs(new_x - start_x) &amp;gt; max_error) or (abs(new_y - start_y) &amp;gt; max_error) start_y = new_y start_x = new_x print(new_x, new_y) if __name__==&amp;#34;__main__&amp;#34;: weiszfeld([(2,1), (12,2), (3,9), (13,11)]) </description>
+    </item>
+    <item>
+      <title>Notes on Monte Carlo Simulation</title>
+      <link>//localhost:1313/post/ml_random_walk/</link>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_random_walk/</guid>
+      <description>Some notes taken from Prof. Guttag excellent discussion on the topic.&#xA;The technique was first developed by Stanislaw Ulam, a mathematician who worked on the Manhattan Project.&#xA;A method of estimating the value of an unknown quantity using the principles of inferential statistics.&#xA;Inferential Statistics Population : Set of examples Sample : proper subset of population Random sample tends to exhibit the same qualities as the population. Confidence depends on:</description>
+    </item>
+    <item>
+      <title>Weiszfeld Algorithm</title>
+      <link>//localhost:1313/post/ml_weiszfeld_method/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_weiszfeld_method/</guid>
+      <description>Pierre de Fermat 1607-1665 was a French lawyer and mathematician. In 1640, he proposed a problem to Evangelista Torricelli, a student of the famous Galileo Galilei. Fermat challenged Torricelli to find the point in a triangle whose sum of distances from the vertices is a minimum. Torricelli did solve the problem, in more than a single way, but over the years other solutions where found. In 1937, Endre Weitzfeld came up with an algorithmic solution of this problem, that we shall look into in this post.</description>
+    </item>
+    <item>
+      <title>Roc Display in Excel</title>
+      <link>//localhost:1313/post/ml_roc-display-in-excel/</link>
+      <pubDate>Sat, 03 Oct 2020 14:41:37 +0200</pubDate>
+      <guid>//localhost:1313/post/ml_roc-display-in-excel/</guid>
+      <description>A binary classifier is a function that can be applied to features X to produce a Y value of true (1) or false (0). It is a supervised learning technique; therefore, a test set is extracted from the available data so that the model is validated before deployed in production.&#xA;$$ f(x_1, x_2, x_3, \dots, x_n) = Y \in {0, 1} $$&#xA;The function will return a value between 0 and 1, and a threshold value is therefore operated to classify the result as a true or false.</description>
+    </item>
+  </channel>
+</rss>

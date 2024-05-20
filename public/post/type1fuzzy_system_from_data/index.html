@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Fuzzy Systems from Data</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Fuzzy Systems from Data</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Fuzzy%20Systems%20from%20Data&amp;body=Fuzzy%20Systems%20from%20Data%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype1fuzzy_system_from_data%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype1fuzzy_system_from_data%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype1fuzzy_system_from_data%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Fuzzy Systems from Data</b></h2>
+        <h5>Thu June 25, 2020</h5>
+        
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type1-fuzzy"><kbd class="item-tag">type1-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/learning"><kbd class="item-tag">learning</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>This article was first published in <a href="https://towardsdatascience.com/fuzzy-systems-from-data-51a53bcbc9b1">Towards Data Science</a>.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Fuzzy-Logic theory has introduced a framework whereby human knowledge can be formalized and used by machines in a wide variety of applications, ranging from cameras to trains. The basic ideas that we discussed in the earlier posts were concerned with only this aspect with regards to the use of Fuzzy Logic-based systems; that is the application of human experience into machine-driven applications. While there are numerous instances where such techniques are relevant; there are also applications where it is challenging for a human user to articulate the knowledge that they hold. Such applications include driving a car or recognizing images. Machine learning techniques provide an excellent platform in such circumstances, where sets of inputs and corresponding outputs are available, building a model that provides the transformation from the input data to the outputs using the available data.</p>
+<p>In this post, we will discuss an algorithm that constructs a Fuzzy System from data that was presented by Professor Li-Xin Wang and Professor Jerry Mendel. One exciting aspect of this and similar techniques is the ability to obtain knowledge that can be easily understood by humans in the form of fuzzy sets and rules from data.</p>
+<h2 id="procedure">Procedure</h2>
+<p>The objective of this exercise is, as we have explained in the introduction, given a set of input/output combinations, we will generate a ruleset that determines the mapping between the inputs and outputs. In this discussion, we will consider a two-input, single-output system. Extending this procedure for more complex systems should be a straightforward task to the reader.</p>
+<h3 id="step-1--divide-the-input-and-output-spaces-into-fuzzy-regions">Step 1 — Divide the input and output spaces into fuzzy regions.</h3>
+<p>We start by assigning some fuzzy sets to each input and output space. Wang and Mendel specified an odd number of evenly spaced fuzzy regions, determined by 2N+1 where N is an integer. As we will see later on, the value of N affects the performance of our models and can result in under/overfitting at times. N is, therefore, one of the hyperparameters that we will use to tweak this system’s performance.</p>
+<p><img src="/post/img/art3_fig2.jpg" alt="system"></p>
+<h3 id="step-2--generate-fuzzy-rules-from-data">Step 2 — Generate Fuzzy Rules from data.</h3>
+<p>We can use our input and output spaces, together with the fuzzy regions that we have just defined, and the dataset for the application to generate fuzzy rules in the form of:</p>
+<p><code>If {antecedent clauses} then {consequent clauses}</code></p>
+<p>We start by determining the degree of membership of each sample in the dataset to the different fuzzy regions in that space. If, as an example, we consider a sample depicted below:</p>
+<p><img src="/post/img/art3_fig3.jpg" alt="sample1"></p>
+<p>we obtain the following degrees of membership values.</p>
+<p><img src="/post/img/art3_fig4.jpg" alt="sample1doms"></p>
+<p>We then assign the region having the maximum degree of membership of to the spaces, which is indicated by the highlighted elements in the above table so that it is possible to obtain a rule:</p>
+<p><code>sample 1 =&gt; If x1 is b1 and x2 is s1 then y is ce =&gt; Rule 1</code></p>
+<p>The next illustration shows a second example, together with the degree of membership results that it generates.</p>
+<p><img src="/post/img/art3_fig5.jpg" alt="sample2doms"></p>
+<p>This sample will, therefore, produce the following rule:</p>
+<p><code>sample 2=&gt; If x1 is b1 and x2 is ce then y is b1 =&gt; Rule 2</code></p>
+<h3 id="step-3--assign-a-degree-to-each-rule">Step 3 — Assign a degree to each rule.</h3>
+<p>Step 2 is very straightforward to implement, yet it suffers from one problem; it will generate conflicting rules, that is, rules that have the same antecedent clauses but different consequent clauses. Wang and Medel solved this issue by assigning a degree to each rule, using a product strategy such that the degree is the product of all the degree-of-membership values from both antecedent and consequent spaces forming the rule. We retain the rule having the most significant degree, while we discard the rules having the same antecedent but a having a smaller degree.</p>
+<p>If we refer to the previous example, the degree of Rule 1 will equate to:</p>
+<p><img src="/post/img/art3_fig6.jpg" alt="degreesample1"></p>
+<p>and for Rule 2 we obtain:</p>
+<p><img src="/post/img/art3_fig7.jpg" alt="degreesample2"></p>
+<p>We notice that this procedure reduces the number of rules radically in practice.</p>
+<p>It is also possible to fuse human knowledge to the knowledge obtained from data by introducing a human element to the rule degree, that has high applicability in practice, as human supervision can assess the reliability of data, and hence the rules generated from it directly. In the cases where human intervention is not desirable, this factor is set to 1 for all rules. Rule 1 can be hence defined as follows;</p>
+<p><img src="/post/img/art3_fig8.jpg" alt="degreesample1user"></p>
+<h3 id="step-4--create-a-combined-fuzzy-rule-base">Step 4 — Create a Combined Fuzzy Rule Base</h3>
+<p>The notion of the Combined Fuzzy Rule Base was examined in a previous post. It is a matrix that holds the fuzzy rule-base information for a system. A Combined Fuzzy Rule Base can contain the rules that are generated numerically using the procedure described above, but also rules that are obtained from human experience.</p>
+<p><img src="/post/img/art3_fig9.jpg" alt="fdm"></p>
+<h3 id="step-5--determine-a-mapping-based-on-the-combined-fuzzy-rule-base">Step 5 — Determine a mapping based on the Combined Fuzzy Rule Base.</h3>
+<p>The final step in this procedure explains the defuzzification strategy used to determine the value of y, given (x1, x2). Wang and Mendel suggest a different approach to the max-min computation used by Mamdani. We have to consider that, in practical applications, the number of input spaces will be significant when compared to the typical control application where Fuzzy Logic is typically used. Besides, this procedure will generate a large number of rules, and therefore it would be impractical to compute an output using the ‘normal’ approach.
+For a given input combination (x1, x2), we combine the antecedents of a given rule to determine the degree of output control corresponding to (x1, x2) using the product operator. If</p>
+<p><img src="/post/img/art3_fig10.jpg" alt="mo"></p>
+<p>is the degree of output control for the ith Rule,</p>
+<p><img src="/post/img/art3_fig11.jpg" alt="moequation"></p>
+<p>Therefore for Rule 1</p>
+<p><code>If x1 is b1 and x2 is s1 then y is ce</code></p>
+<p><img src="/post/img/art3_fig12.jpg" alt="mcw"></p>
+<p>We now define the centre of a fuzzy region as the point that has the smallest absolute value among all points at which the membership function for this region is equal to 1 as illustrated below;</p>
+<p><img src="/post/img/art3_fig13.jpg" alt="center"></p>
+<p>The value of y for a given (x1, x2) combination is thus</p>
+<p><img src="/post/img/art3_fig14.jpg" alt="cog"></p>
+<p>where K is the number of rules.</p>
+<h2 id="testing">Testing</h2>
+<p>A (very dirty) implementation of the above algorithm was developed in Python to test it with real datasets. The code and data used are available in Github. Some considerations on this system include.</p>
+<ul>
+<li>
+<p>The fuzzy system is generated from the test data directly.</p>
+</li>
+<li>
+<p>The sets were created using the recommendation in the original paper, that is evenly spaced. It is, however, interesting to see the effects of changing this method. One idea is to have sets created around the dataset mean with a spread relatable to the standard deviation — this might be investigated in a future post.</p>
+</li>
+<li>
+<p>The system created does not cater for categorical data implicitly, and this is a future improvement that can affect the performance of the system considerably in real-life scenarios.</p>
+</li>
+</ul>
+<h3 id="testing-metrics">Testing metrics</h3>
+<p>We will use the coefficient of determination (R-Squared) to assess the performance of this system and to tune the hyperparameter that was identified, the number of fuzzy sets generated.</p>
+<p>To explain R-Squared, we must first define the sum of squares total and the sum of squares residual.</p>
+<p>The sum of squares total is the sum of the squared difference between the dependent variable (y) and the mean of the observed dependent variable.</p>
+<p><img src="/post/img/art3_fig16.jpg" alt="sst"></p>
+<p>The sum of squares residual is the sum of the squared difference between the actual and estimated value of the dependent variable.</p>
+<p><img src="/post/img/art3_fig17.jpg" alt="ssr"></p>
+<p>R-Squared can be then calculated as</p>
+<p><img src="/post/img/art3_fig18.jpg" alt="r2"></p>
+<p>we notice that R-Squared will have a value between 0 and 1, the larger, the better. If R-Squared =1, then there is no error and the estimated values will be equal to the actual values.</p>
+<h2 id="case-study-1--noisy-sensor">Case Study 1 — Noisy Sensor</h2>
+<p>We begin testing the procedure with a straightforward application; a single-input, single-output system that represents a hypothetical sensor that has an exponential response. To complicate things a little, we have added some noise to the sensor data as can be shown in the image below:</p>
+<p><img src="/post/img/art3_fig15.jpg" alt="sensor"></p>
+<p>We start by examining the various outcomes for the different values of N for x and y. The following illustrations formed the results that were obtained during the search for the best values.</p>
+<p><img src="/post/img/art3_fig19.jpg" alt=""></p>
+<p><img src="/post/img/art3_fig20.jpg" alt=""></p>
+<p>The best response is obtained when setting the value of N_x to 4 and N_y to 3, attaining an R-squared value of 0.985. The rules generated by the system are of particular interest as they can explain how the system is working in a way that can be easily understood;</p>
+<pre tabindex="0"><code>If x is s4 then Y is s3
+If x is s3 then Y is s3
+If x is s2 then Y is s3
+If x is s1 then Y is s3
+If x is ce then Y is s2
+If x is b1 then Y is s2
+If x is b2 then Y is s1
+If x is b3 then Y is ce
+If x is b4 then Y is b3
+</code></pre><p>We notice that the characteristics of a system displaying exponential properties are clearly explained. The output value remains the smallest possible for all small values of the input, increasing very rapidly as the values of the input increase further.</p>
+<p>The system is also susceptible to overfitting as can be noticed for the values like N_x=5 and N_y=2.</p>
+<p><img src="/post/img/art3_fig22.jpg" alt=""></p>
+<h2 id="case-study-2--temperature">Case Study 2 — Temperature</h2>
+<p>For a second test, we have used the Weather in Szeged 2006–2016 available at Kaggle. The dataset has over 96,000 training examples that consist of 12 features.</p>
+<pre tabindex="0"><code>Formatted Date               object
+Summary                      object
+Precip Type                  object
+Temperature (C)             float64
+Apparent Temperature (C)    float64
+Humidity                    float64
+Wind Speed (km/h)           float64
+Wind Bearing (degrees)      float64
+Visibility (km)             float64
+Loud Cover                  float64
+Pressure (millibars)        float64
+Daily Summary                object
+</code></pre><p>For this exercise, we will be discarding most of these features and assess if we can predict the temperature given the month and humidity.
+Upon examining the data, we notice that the average temperature varied between 1 and 23 degrees Celcius with a variability of about 20 degrees per month.</p>
+<p><img src="/post/img/art3_fig25.jpg" alt=""></p>
+<p>The average humidity varies between 0.63 and 0.85, but we also notice that it is always possible to reach 100%, irrelevant of the month.</p>
+<p><img src="/post/img/art3_fig26.jpg" alt=""></p>
+<p>The best Fuzzy system that was tested consisted of 3 fuzzy spaces (N=1) for the input variables and nine fuzzy spaces (N=4) for the temperature. The system generated the nine rules depicted in the Fuzzy Distribution Map below and attained an R-Squared value of 0.75, using a test sample of 20%.</p>
+<p><img src="/post/img/art3_fig24.jpg" alt=""></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The system described above produces human-readable rules from data that can help us gain insights on complex systems. Below are several observations and ideas for future work:</p>
+<ol>
+<li>The system needs a considerable dataset that needs to cover all possible rules that can be generated. Therefore larger datasets are required as the number of features increase, as the number of rules required will grow exponentially.</li>
+<li>It might be possible to generate missing rules by examining the neighbouring ones. If an absent rule can be illustrated in a Combined Fuzzy Rule Base surrounded by the same output space, probably, the rule would then belong to the same space. This idea will be tested in the future.</li>
+<li>The distribution of the fuzzy spaces affects the performance of the system, although preprocessing like standardization and normalization help to limit the effect of data distribution on the system.</li>
+<li>The effect of handcrafted rules has to be investigated. It is interesting to verify if human experience can indeed augment the performance of a machine-generated system.</li>
+<li>It is also interesting to examine the data responsible for a rule and use the information to determine why a test sample yields a significant error.</li>
+</ol>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction/">Type Reduction of Interval Type-2 Fuzzy Sets</a></h4>
+    <h5>April 6, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/type2fuzzy_paper_zslices/">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a></h4>
+    <h5>A look at C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;, working of paper examples using T2Fuzz Library</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

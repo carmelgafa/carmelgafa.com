@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mxchip on </title>
+    <link>//localhost:1313/tags/mxchip/</link>
+    <description>Recent content in Mxchip on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Feb 2020 16:12:58 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/mxchip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tinkering with a Microsoft MXChip IoT DevKit</title>
+      <link>//localhost:1313/post/iot_mxchip_first_try/</link>
+      <pubDate>Mon, 10 Feb 2020 16:12:58 +0100</pubDate>
+      <guid>//localhost:1313/post/iot_mxchip_first_try/</guid>
+      <description>The MXChip IoT Devkit byt Microsoft is a very interesting device, loaded with sensors and promises easy setup.&#xA;I followed the Microsoft tutorial to have a first look at the device, and indeed it was extremely straightforward process. I am writing this as I am approaching the end of the tutorial so not to forget any points:&#xA;Install Arduino studio 1.8.8. When I tried the 1.8.11 I was getting a Could not initialize class com.</description>
+    </item>
+  </channel>
+</rss>

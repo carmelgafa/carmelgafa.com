@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Excel on </title>
+    <link>//localhost:1313/tags/excel/</link>
+    <description>Recent content in Excel on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Dec 2021 08:11:47 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/excel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fuzzy Control System In Excel version 1.2</title>
+      <link>//localhost:1313/post/type1fuzzy_excel_2/</link>
+      <pubDate>Mon, 13 Dec 2021 08:11:47 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel_2/</guid>
+      <description>I have received some questions regarding the Fuzzy System in Excel that I posted some time ago, so here I am going through a slightly improvedc version that you can download from Github.&#xA;This system implemented in this workbook illustrates a two-input / single output fuzzy system with two rules in an excel sheet.&#xA;Sheets x1 and x2 define the inputs to the system. Each input variable consists of three triangular S, M, and L sets.</description>
+    </item>
+    <item>
+      <title>Roc Display in Excel</title>
+      <link>//localhost:1313/post/ml_roc-display-in-excel/</link>
+      <pubDate>Sat, 03 Oct 2020 14:41:37 +0200</pubDate>
+      <guid>//localhost:1313/post/ml_roc-display-in-excel/</guid>
+      <description>A binary classifier is a function that can be applied to features X to produce a Y value of true (1) or false (0). It is a supervised learning technique; therefore, a test set is extracted from the available data so that the model is validated before deployed in production.&#xA;$$ f(x_1, x_2, x_3, \dots, x_n) = Y \in {0, 1} $$&#xA;The function will return a value between 0 and 1, and a threshold value is therefore operated to classify the result as a true or false.</description>
+    </item>
+    <item>
+      <title>Fuzzy Control System In Excel</title>
+      <link>//localhost:1313/post/type1fuzzy_excel/</link>
+      <pubDate>Wed, 11 Mar 2020 18:30:40 +0100</pubDate>
+      <guid>//localhost:1313/post/type1fuzzy_excel/</guid>
+      <description>I am currently extending my Type-2 Fuzzy Logic Library so that fuzzy controllers can be implemented through its codebase. The implementation is straightforward if you have the correct structures in place; using an inference system, the most popular of which was discussed by Mamdani (Mamdani, Ebrahim H. &amp;ldquo;Application of fuzzy algorithms for control of simple dynamic plant.&amp;rdquo; Proceedings of the institution of electrical engineers. Vol. 121. No. 12. IET, 1974.). An illustration of the Mamdani inference system operation is below (taken from wikipedia):</description>
+    </item>
+  </channel>
+</rss>

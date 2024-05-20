@@ -50,7 +50,7 @@ where $\int\int$ is the union over admissible $x$ and $u$ for a continuous unive
 
 We can therefore describe the  type-2 set shown above as follows:
 
-```{math}
+```text
 (1 / 0 + 0.3 / 0.2)/15 +
 (0.6 / 0.2 + 1 / 0.4 +0.7 / 0.6 )/20 +
 (0.4 / 0.6 + 0.7 / 0.8 +1 / 1 )/25 +
@@ -84,7 +84,7 @@ where $0 \leq f_{x'}(u) \leq 1 $
 
 The secondary membership function at $x=20$ is, therefore:
 
-```{math}
+```text
 0.6 / 0.2 + 1 / 0.4 +0.7 / 0.6 
 ```
 
@@ -94,7 +94,7 @@ $$\tilde{A}=\int_{x \in X} \mu_{ \tilde{A} }(x) /x = \int_{x \in X} \left[  \int
 
 As mentioned above, $J_{x}$ is also known as the **primary membership function**, where $J_{x} \subseteq [0,1]$ for $\forall x \in X$
 
-```{math}
+```text
 J_{20}= {.2, 0.4, 0.6}
 ```
 
@@ -128,13 +128,13 @@ There are a total of: $ \displaystyle \prod_{i=1}^{N} M_i$ embedded sets in $\ti
 
 The identified embedded type-2 fuzzy set, $\tilde{A_e}^1$, is therefore:
 
-```{math}
+```text
 1 / 0 / 15 + 0.6 / 0.2 / 20 + 0.4 / 0.6 / 25 + 0.4 / 0.6 /30 + 0.2 / 0.3 / 35 + 0.3 / 0.2 /40 + 1 / 0 / 45
 ```
 
 We also notice that our set contains
 
-```{math}
+```text
 2 x 3 x 3 x 3 x 4 x 3 x 2 = 1296
 ```
 

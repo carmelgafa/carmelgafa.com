@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Paper%20Implementation%20-%20Uncertain%20rule-based%20fuzzy%20logic%20systems%20Introduction%20and%20new%20directions-Jerry%20M.%20Mendel%3b%20Prentice-Hall%2c%20PTR%2c%20Upper%20Saddle%20River%2c%20NJ%2c%202001%2c%c2%a0%20%c2%a0%20555pp.%2c%20ISBN%200-13-040969-3.%20Example%209-4%2c%20page%20261&amp;body=Paper%20Implementation%20-%20Uncertain%20rule-based%20fuzzy%20logic%20systems%20Introduction%20and%20new%20directions-Jerry%20M.%20Mendel%3b%20Prentice-Hall%2c%20PTR%2c%20Upper%20Saddle%20River%2c%20NJ%2c%202001%2c%c2%a0%20%c2%a0%20555pp.%2c%20ISBN%200-13-040969-3.%20Example%209-4%2c%20page%20261%2c%20by%20Carmel%20Gafa%0a%0a%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction_example%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction_example%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction_example%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</b></h2>
+        <h5>Sat October 8, 2022</h5>
+        
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>In this post, we will validate the implementation of the Karnik-Mendel algorithm found in the <a href="https://pypi.org/project/type2fuzzy/">type-2 fuzzy logic library</a> with a worked example available in Mendel&rsquo;s book <a href="https://www.amazon.co.uk/Uncertain-Rule-Based-Fuzzy-Systems-Introduction/dp/3319513699/ref=sr_1_3?keywords=jerry+mendel&amp;qid=1580743185&amp;sr=8-3">&ldquo;Uncertain rule-based fuzzy logic systems.&rdquo;</a></p>
+<p>The example calculates the centroid of interval type-2 fuzzy sets with uncertain means $m\in[m_1, m_2]$,  where  the UMF and LMF of the set are calculated as follows:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:right"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td style="text-align:right">$exp \left[ -0.5 \times (\frac{x-m_1}{\sigma})^2 \right]$</td>
+<td>,$x&lt;m_1$</td>
+</tr>
+<tr>
+<td>$UMF(\tilde{A})=$</td>
+<td style="text-align:right">$1$</td>
+<td>,$m_1, \geq x \geq m_2$</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">$exp \left[ -0.5 \times (\frac{x-m_2}{\sigma})^2 \right]$</td>
+<td>,$x&gt;m_2$</td>
+</tr>
+</tbody>
+</table>
+<p>$$
+LMF(\tilde{A}) = min \left(  exp \left[ -0.5 \times \left (\frac{x-m_1}{\sigma} \right)^2 \right], exp \left[ -0.5 \times \left( \frac{x-m_2}{\sigma} \right)^2 \right] \right)
+$$
+The example specifies nine $[m_1, m_2]$ sets having the following values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    [5,5],
+</span></span><span style="display:flex;"><span>    [4.875, 5.125],
+</span></span><span style="display:flex;"><span>    [4.75, 5.25],
+</span></span><span style="display:flex;"><span>    [4.625, 5.375],
+</span></span><span style="display:flex;"><span>    [4.5, 5.5],
+</span></span><span style="display:flex;"><span>    [4.25, 5.75],
+</span></span><span style="display:flex;"><span>    [4,6],
+</span></span><span style="display:flex;"><span>    [3.75, 6.25],
+</span></span><span style="display:flex;"><span>    [3.5, 6.]
+</span></span></code></pre></div><p>Note that the first case, where $m_1=m_2=5$ will produce a type-1 fuzzy set.</p>
+<p>The following python code is used to create the sets. As the sigma value is specified to be 1, it is not passed as a parameter in the generation function. The function expects the m-values as parameters and returns an <a href="http://t2fuzz.com/type2fuzzy/membership/intervaltype2fuzzyset.html">IntervalType2FuzzySet</a> class that contains <a href="http://t2fuzz.com/type2fuzzy/membership/index.html#type2fuzzy.membership.CrispSet">CrispSet</a> values having UMF and LMF for each primary domain value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_set_uncertain_mean</span>(m_1:int, m_2:int) <span style="color:#f92672">-&gt;</span> ItervalType2FuzzySet:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Generates an interval type-2 fuzzy set with uncertain mean as
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    specified by Jerry Mendel in his book.  The set has LMF and UMF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    constructed from two Gaussian functions with fixed standard  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    deviation and uncertain means that takes values in [m1. m2].
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Arguments:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ----------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    m_1 - lower mean value
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    m_2 - upper mean value
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    --------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    it2fs - Interval type-2 fuzzy set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Reference:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ----------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Uncertain rule-based fuzzy logic systems:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Introduction and new directions-Jerry M. Mendel;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    555pp., ISBN 0-13-040969-3.,  page 91
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># function to calculate UMF and LMF</span>
+</span></span><span style="display:flex;"><span>    sigma<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    u_A <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x,m: exp((((x<span style="color:#f92672">-</span>m)<span style="color:#f92672">/</span>sigma)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">*-</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># range of primary domain</span>
+</span></span><span style="display:flex;"><span>    primary_domain <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">101</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    it2fs <span style="color:#f92672">=</span> IntervalType2FuzzySet()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> x_val <span style="color:#f92672">in</span> primary_domain:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x_val <span style="color:#f92672">&lt;</span> m_1:
+</span></span><span style="display:flex;"><span>            it2fs<span style="color:#f92672">.</span>add_element(
+</span></span><span style="display:flex;"><span>                x_val,
+</span></span><span style="display:flex;"><span>                CrispSet(
+</span></span><span style="display:flex;"><span>                    u_A(x_val, m_2),
+</span></span><span style="display:flex;"><span>                    u_A(x_val, m_1))
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> x_val <span style="color:#f92672">&gt;</span>m_2:
+</span></span><span style="display:flex;"><span>            it2fs<span style="color:#f92672">.</span>add_element(
+</span></span><span style="display:flex;"><span>                x_val,
+</span></span><span style="display:flex;"><span>                CrispSet(
+</span></span><span style="display:flex;"><span>                    u_A(x_val, m_1),
+</span></span><span style="display:flex;"><span>                    u_A(x_val, m_2))
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            it2fs<span style="color:#f92672">.</span>add_element(
+</span></span><span style="display:flex;"><span>                x_val,
+</span></span><span style="display:flex;"><span>                CrispSet(
+</span></span><span style="display:flex;"><span>                    min(u_A(x_val, m_2), u_A(x_val, m_1)),
+</span></span><span style="display:flex;"><span>                    <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> it2fs
+</span></span></code></pre></div><p>When calculating the centroids, Mendel produces the following result in his book:</p>
+<p><img src="/post/img/type2fuzzy_IT2FS_TypeReduction_example_fig2.png" alt="book results, copyright Jerry Mendel"></p>
+<p>The next step is replicating this result using the type-2 fuzzy logic library. We will use the following classes in this exercise.</p>
+<ul>
+<li>The <a href="http://t2fuzz.com/type2fuzzy/type_reduction/it2_karnikmendel_reducer.html">it2_kernikmendel_reduce</a> function in the <a href="http://t2fuzz.com/type2fuzzy/type_reduction/index.html">type_reduction</a> module to calculate the centroids</li>
+<li>The <a href="http://t2fuzz.com/type2fuzzy/display/setplotter.html">SetPlotter</a> class found in the <a href="http://t2fuzz.com/type2fuzzy/display/index.html">display</a> module is used to plot the sets used in this exercise</li>
+<li>We will also use the <a href="https://pypi.org/project/prettytable/">PrettyTable</a> module so that the results can be displayed properly</li>
+</ul>
+<p>The code used to generate and plot the sets and calculate the centroids is below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mendel_example_9_4</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Computation of centroid of interval type-2 fuzzy sets
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    having Gaussian primary membership function with uncertain mean,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    m \in [m1, m2] with the following values:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [5,5],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4.875, 5.125],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4.75, 5.25],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4.625, 5.375],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4.5, 5.5],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4.25, 5.75],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [4,6],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [3.75, 6.25],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [3.5, 6.]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Note that the case where m1=m2=5 is the type-1 set.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Arguments:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ----------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    --------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Reference:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ----------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Uncertain rule-based fuzzy logic systems:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Introduction and new directions-Jerry M. Mendel;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    555pp., ISBN 0-13-040969-3. page 261
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># results table</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> PrettyTable()
+</span></span><span style="display:flex;"><span>    table<span style="color:#f92672">.</span>field_names<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;[m1, m2]&#39;</span>, <span style="color:#e6db74">&#39;m2-m1&#39;</span>, <span style="color:#e6db74">&#39;[cl, cr]&#39;</span>, <span style="color:#e6db74">&#39;cr-cl&#39;</span>]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Setplotter from type-2 fuzzy library to plot sets</span>
+</span></span><span style="display:flex;"><span>    set_plotter <span style="color:#f92672">=</span> SetPlotter()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ranges specified in the text</span>
+</span></span><span style="display:flex;"><span>    m_pairs <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4.875</span>, <span style="color:#ae81ff">5.125</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4.75</span>, <span style="color:#ae81ff">5.25</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4.625</span>, <span style="color:#ae81ff">5.375</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4.5</span>, <span style="color:#ae81ff">5.5</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4.25</span>, <span style="color:#ae81ff">5.75</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">3.75</span>, <span style="color:#ae81ff">6.25</span>),
+</span></span><span style="display:flex;"><span>        (<span style="color:#ae81ff">3.5</span>, <span style="color:#ae81ff">6.5</span>)
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> m1, m2 <span style="color:#f92672">in</span> m_pairs:
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># create set</span>
+</span></span><span style="display:flex;"><span>        i_set <span style="color:#f92672">=</span> generate_set_uncertain_mean(m1, m2)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># find its centroid</span>
+</span></span><span style="display:flex;"><span>        cen <span style="color:#f92672">=</span> it2_kernikmendel_reduce(i_set)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        table<span style="color:#f92672">.</span>add_row([
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;[</span><span style="color:#e6db74">{</span>m2<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>m1<span style="color:#e6db74">}</span><span style="color:#e6db74">]&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           m2<span style="color:#f92672">-</span>m1,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;[</span><span style="color:#e6db74">{</span>cen<span style="color:#f92672">.</span>right<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>cen<span style="color:#f92672">.</span>left<span style="color:#e6db74">}</span><span style="color:#e6db74">]&#39;</span>,
+</span></span><span style="display:flex;"><span>            round(cen<span style="color:#f92672">.</span>left<span style="color:#f92672">-</span>cen<span style="color:#f92672">.</span>right, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>        ])
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># add set to plt</span>
+</span></span><span style="display:flex;"><span>        set_plotter<span style="color:#f92672">.</span>add_invervaltype2set(i_set, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;[</span><span style="color:#e6db74">{</span>m2<span style="color:#e6db74">}</span><span style="color:#e6db74">, </span><span style="color:#e6db74">{</span>m1<span style="color:#e6db74">}</span><span style="color:#e6db74">]&#39;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    print(table)
+</span></span><span style="display:flex;"><span>    set_plotter<span style="color:#f92672">.</span>plot(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><h4 id="results">Results</h4>
+<p>We generated the following plots to illustrate the interval type-2 sets produced. As expected, the first example had a type-1 set.</p>
+<p><img src="/post/img/type2fuzzy_IT2FS_TypeReduction_example_fig1.png" alt="book results"></p>
+<p>The centroid results match those obtained by the author:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+----------------+-------+--------------------+--------+
+</span></span><span style="display:flex;"><span>|    [m1, m2]    | m2-m1 |      [cl, cr]      | cr-cl  |
+</span></span><span style="display:flex;"><span>+----------------+-------+--------------------+--------+
+</span></span><span style="display:flex;"><span>|     [5, 5]     |   0   |     [5.0, 5.0]     |  0.0   |
+</span></span><span style="display:flex;"><span>| [5.125, 4.875] |  0.25 | [4.87498, 5.12502] |  0.25  |
+</span></span><span style="display:flex;"><span>|  [5.25, 4.75]  |  0.5  | [4.74952, 5.25048] | 0.501  |
+</span></span><span style="display:flex;"><span>| [5.375, 4.625] |  0.75 | [4.62265, 5.37735] | 0.7547 |
+</span></span><span style="display:flex;"><span>|   [5.5, 4.5]   |  1.0  | [4.49285, 5.50715] | 1.0143 |
+</span></span><span style="display:flex;"><span>|  [5.75, 4.25]  |  1.5  | [4.21675, 5.78325] | 1.5665 |
+</span></span><span style="display:flex;"><span>|     [6, 4]     |   2   | [3.90697, 6.09303] | 2.1861 |
+</span></span><span style="display:flex;"><span>|  [6.25, 3.75]  |  2.5  | [3.55194, 6.44806] | 2.8961 |
+</span></span><span style="display:flex;"><span>|   [6.5, 3.5]   |  3.0  | [3.15053, 6.84947] | 3.6989 |
+</span></span><span style="display:flex;"><span>+----------------+-------+--------------------+--------+
+</span></span></code></pre></div></div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction/">Type Reduction of Interval Type-2 Fuzzy Sets</a></h4>
+    <h5>April 6, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/type2fuzzy_paper_zslices/">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a></h4>
+    <h5>A look at C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;, working of paper examples using T2Fuzz Library</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/ml_linearreg_gradientdescent_analysis/">Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</a></h4>
+    <h5>March 12, 2022</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/linear-regression"><kbd class="item-tag">linear-regression</kbd></a>
+
+<a href="//localhost:1313/tags/gradient-descent"><kbd class="item-tag">gradient-descent</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

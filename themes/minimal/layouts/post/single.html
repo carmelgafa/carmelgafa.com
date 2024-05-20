@@ -1,7 +1,7 @@
 {{ partial "header" . }}
 
 {{ $title := .Title }}
-{{ $url := printf "https://carmelgafa.com%s" .URL}}
+{{ $url := printf "https://carmelgafa.com%s" .RelPermalink}}
 {{ $body := print $title ", by Carmel Gafa\n\n" .Params.description "\n\n" $url "\n" }}
 
 

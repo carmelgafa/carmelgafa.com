@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vscode on </title>
+    <link>//localhost:1313/tags/vscode/</link>
+    <description>Recent content in Vscode on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Developing in the WSL with VSCode</title>
+      <link>//localhost:1313/post/dev_wsl_vscode/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/dev_wsl_vscode/</guid>
+      <description>The Windows Subsystem for Linux lets developers run a Linux environment on a Windows OS, which is considerably lighter than VMs. The following is the first post of a series that will detail the deployment of python applications in a Linux container on Azure.&#xA;Installation of WSL can be carried out by following the steps listed here.&#xA;It is necessary to enable two features to use the WSL environment:&#xA;VM Platform Windows subsystem for Linux.</description>
+    </item>
+  </channel>
+</rss>

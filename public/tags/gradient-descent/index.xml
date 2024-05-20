@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gradient-Descent on </title>
+    <link>//localhost:1313/tags/gradient-descent/</link>
+    <description>Recent content in Gradient-Descent on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/gradient-descent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</title>
+      <link>//localhost:1313/post/ml_linearreg_gradientdescent_analysis/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_gradientdescent_analysis/</guid>
+      <description>**In this series of posts we have discussed the basics of linear regression and they introduced the gradient descent algorithm. We have also discussed the stochastic gradient descent algorithm and the mini-batch gradient descent as variations of batch gradient descent that can possibly reduce the time to convergence of the algorithm.&#xA;In this post we will summarize what we have discussed so far, and focus on the results that we have obtained from the various gradient descent algorithms.</description>
+    </item>
+    <item>
+      <title>Linear Regression Part 9 - Mini Batch Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_minibatchgd/</link>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_minibatchgd/</guid>
+      <description>In the last post we compared the stochastic gradient descent algorithm to the batch gradient descent algorithm that we has discussed in a previous post. We discussed that as the size of the training dataset increases, batch gradient descent, where we use all the examples of the training set in each iteration, becomes very computationally expensive and that we can therefore use stochastic gradient descent, where we use one example of the training set in each iteration, to have a more efficient way to approach the coefficients of our hypothesis function.</description>
+    </item>
+    <item>
+      <title>Linear Regression Part 8 - Stochastic Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_stochasticgd/</link>
+      <pubDate>Mon, 31 Jan 2022 16:24:09 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_stochasticgd/</guid>
+      <description>In a previous post, we have discussed the gradient descent algorithm for linear regression applied to multiple features. As the size of the training dataset increases, gradient descent becomes very computationally expensive. In particular, if we consider the computation of the cost function,&#xA;$$J = \frac{1}{2m} \sum_{i=1}^m \left( \hat{y}^{(i)} - {y}^{(i)} \right)^2$$,&#xA;which is a calculation that we need to compute for each training data iteration; we can can see that the cost function is expensive as m increases.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 7 - Multivariate Gradient Descent</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariatedescent/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariatedescent/</guid>
+      <description>We have discussed the multivariate linear regression problem in the previous posts, and we have seen that in this case the hypothesis function becomes:&#xA;$$\hat{y} = a_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n$$&#xA;If we define $x_0$, such that $x_0 = 1$, then the hypothesis function becomes:&#xA;$$\hat{y} = a_0 x_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n$$&#xA;Let us now consider a dataset of $m$ points.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations</title>
+      <link>//localhost:1313/post/ml_linearreg_gradientdescent/</link>
+      <pubDate>Fri, 07 Jan 2022 11:08:45 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_gradientdescent/</guid>
+      <description>We started this series of posts with an examination of Cost Functions, and then moved on to derive and implement the solution to the linear regression problem for a single variable We extended this to a multi-variable linear regression problem, and we derived and implemented the solution for this case. Our final comment was that as the number of variables increases, the solution becomes computationally prohibitive.&#xA;In this post, we will look at gradient descent, an iterative optimization algorithm used to find the minimum of a function.</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 5 - Multivariate Solution Implementation in Python</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariatepython/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariatepython/</guid>
+      <description>In this post we will implement the multivariate linear regression model for 2 features in python. We gave already seen in the last post, that for this case, $a_0$, $a_1$ and $a_2$ can be solved by;&#xA;$$a_1 = \frac{ \sum_{i=1}^{n} X_{2i}^2 \sum_{i=1}^{n} X_{1i}y_i - \sum_{i=1}^{n} X_{1i}X_{2i} \sum_{i=1}^{n} X_{2i}y_i } {\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$&#xA;$$a_2 = \frac{ \sum_{i=1}^{n} X_{1i}^2 \sum_{i=1}^{n} X_{2i}y_i - \sum_{i=1}^{n} X_{1i}x_{2i} \sum_{i=1}^{n} X_{1i}y_i } {\sum_{i=1}^{n}X_{1i}^2 \sum_{i=1}^{n}X_{2i}^2 - (\sum_{i=1}^{n} X_{1i}X_{2i})^2}$$</description>
+    </item>
+    <item>
+      <title>Liner Regression, Part 4 - The Multi-variable scenario</title>
+      <link>//localhost:1313/post/ml_linearreg_multivariate/</link>
+      <pubDate>Wed, 22 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_multivariate/</guid>
+      <description>Introduction In previous posts we discussed the univariate linear regression model and how we can implement the model in python.&#xA;We have seen how we can fit a line, $\hat{y} = a_0 + a_1 x$, to a dataset of given points, and how linear regression techniques estimate the values of $a_0$ and $a_1$ using the cost functions. We have seen that the residual is the difference between the observed values and the predicted values, that is, for any point $i$,</description>
+    </item>
+    <item>
+      <title>Linear Regression, Part 3 - Univariate Solution Implementation in Python</title>
+      <link>//localhost:1313/post/ml_linearreg_univariatepython/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_univariatepython/</guid>
+      <description>This post continues from the derivation of the univariate linear regression model as explained in the previous post. Here we will use the equations derived and the in practice to implement the model.&#xA;Univarite Function We start this discussion by considering the function used in this post. The function that we will use is&#xA;$$y = 2x + 15 + \xi$$&#xA;Where $\xi$ is a random variable that will introduce noise to the data.</description>
+    </item>
+    <item>
+      <title>Liner Regression, Part 2 - Deriving the Univariate case</title>
+      <link>//localhost:1313/post/ml_linearreg_univariatederivation/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_univariatederivation/</guid>
+      <description>This post is a continuation of a previous post where the cost functions used in linear regression scenarios are used. We will start by revisiting the mean square error (MSE) cost function;&#xA;$$MSE = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{n}$$&#xA;which, as explained in the previous post, is&#xA;$$MSE = \frac{\sum_{i=1}^{n} (y_i-a_0-a_1 x_i)^{2} }{n}$$&#xA;The objective is to adjust $a_0$ and $a_1$ such that the MSE is minimized. This is achieved by deriving the MSE with respect to $a_0$ and $a_1$, and finding the minimum case by equating to zero.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arduino on </title>
+    <link>//localhost:1313/tags/arduino/</link>
+    <description>Recent content in Arduino on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jun 2020 16:25:12 +0200</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dallas 18B20 temperature sensor</title>
+      <link>//localhost:1313/post/iot_dallas18b20/</link>
+      <pubDate>Sat, 27 Jun 2020 16:25:12 +0200</pubDate>
+      <guid>//localhost:1313/post/iot_dallas18b20/</guid>
+      <description>The DS18B20 is a three-pin digital thermometer that provides digital temperature measurements as 9 to 12-bit packets over a single wire serial connection. Its temperature range is between -55 and 125 degrees Celcius, with excellent accuracy of 0.5 degrees between -10 and 85 degrees Celcius.&#xA;It can convert a temperature to a 12 bit reading in 750ms.&#xA;You can download the device datasheet from here.&#xA;Required libraries to use the DS18B20 To use the temperature sensor, one must include the Arduino Library for Maxim Temperature Integrated Circuits developed by Miles Burton.</description>
+    </item>
+  </channel>
+</rss>

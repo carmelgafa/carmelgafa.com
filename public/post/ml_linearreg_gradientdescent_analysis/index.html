@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Linear%20Regression%2c%20Part%2010%20-%20Analysis%20of%20Gradient%20Descent%20Algorithms%3b%20Results%20obtained&amp;body=Linear%20Regression%2c%20Part%2010%20-%20Analysis%20of%20Gradient%20Descent%20Algorithms%3b%20Results%20obtained%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent_analysis%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent_analysis%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent_analysis%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</b></h2>
+        <h5>Sat March 12, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/linear-regression"><kbd class="item-tag">linear-regression</kbd></a>
+
+<a href="//localhost:1313/tags/gradient-descent"><kbd class="item-tag">gradient-descent</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>**In this <a href="/tags/linear-regression/">series of posts</a> we have discussed the basics of linear regression and they introduced the gradient descent algorithm.  We have also discussed the stochastic gradient descent algorithm and the mini-batch gradient descent as variations of batch gradient descent that can possibly reduce the time to convergence of the algorithm.</p>
+<p>In this post we will summarize what we have discussed so far, and focus on the results that we have obtained from the various gradient descent algorithms.</p>
+<p>All the code that we have written so far is available in the <a href="https://github.com/carmelgafa/ml_from_scratch/tree/master/algorithms/linear_regression">GitHub repository</a>.**</p>
+<h2 id="data-generation">Data Generation</h2>
+<p>In this <a href="/tags/linear-regression/">series of posts</a> we have discussed the basics of linear regression, and they introduced the gradient descent algorithm.  We have also discussed the stochastic gradient descent algorithm and the mini-batch gradient descent as variations of batch gradient descent that can reduce the time to convergence of the algorithm.</p>
+<p>In this post, we will summarize what we have discussed so far and focus on the results obtained from the various gradient descent algorithms.</p>
+<p>All the code we have written so far is available in the <a href="https://github.com/carmelgafa/ml_from_scratch/tree/master/algorithms/linear_regression">GitHub repository</a>.</p>
+<h2 id="plotting-gradient-descent-data">Plotting Gradient Descent Data</h2>
+<p>In order to visualize gradient descent for the univariate case, it is useful to visualize the value of the cost function as a function the coefficients $a_0$ and $a_1$. This is done through the following code, where a plot of the cost function is shown as a surface and also as a contour plot so that additional information can be obtained.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>    <span style="color:#75715e"># read the data set</span>
+</span></span><span style="display:flex;"><span>    data_set <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(file, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>, index_col<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> len(data_set)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># plot the costs surface</span>
+</span></span><span style="display:flex;"><span>    a0, a1  <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>meshgrid(
+</span></span><span style="display:flex;"><span>        np<span style="color:#f92672">.</span>arange(a0_range[<span style="color:#ae81ff">0</span>], a0_range[<span style="color:#ae81ff">1</span>], a0_range[<span style="color:#ae81ff">2</span>]),
+</span></span><span style="display:flex;"><span>        np<span style="color:#f92672">.</span>arange(a1_range[<span style="color:#ae81ff">0</span>], a1_range[<span style="color:#ae81ff">1</span>], a1_range[<span style="color:#ae81ff">2</span>]))
+</span></span><span style="display:flex;"><span>    ii, jj <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>shape(a0)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    costs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(ii):
+</span></span><span style="display:flex;"><span>        cost_row <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(jj):
+</span></span><span style="display:flex;"><span>            y_hat <span style="color:#f92672">=</span> a0[i,j] <span style="color:#f92672">+</span> (a1[i,j] <span style="color:#f92672">*</span> data_set[<span style="color:#e6db74">&#39;x&#39;</span>])
+</span></span><span style="display:flex;"><span>            y_diff <span style="color:#f92672">=</span> y_hat <span style="color:#f92672">-</span> data_set[<span style="color:#e6db74">&#39;y&#39;</span>]
+</span></span><span style="display:flex;"><span>            y_diff_sq <span style="color:#f92672">=</span> y_diff <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            cost <span style="color:#f92672">=</span> sum(y_diff_sq) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> m)
+</span></span><span style="display:flex;"><span>            cost_row<span style="color:#f92672">.</span>append(cost)
+</span></span><span style="display:flex;"><span>        costs<span style="color:#f92672">.</span>append(cost_row)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># plot the gradient descent points</span>
+</span></span><span style="display:flex;"><span>    xx <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    yy <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    zz <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> gd_points:
+</span></span><span style="display:flex;"><span>        xx<span style="color:#f92672">.</span>append(item[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>        yy<span style="color:#f92672">.</span>append(item[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        zz<span style="color:#f92672">.</span>append(item[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#39;text.usetex&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+</span></span><span style="display:flex;"><span>    ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>axes(projection<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;3d&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>plot_surface(a0, a1, np<span style="color:#f92672">.</span>array(costs), rstride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, cstride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cividis&#39;</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>contour(a0, a1, np<span style="color:#f92672">.</span>array(costs), zdir<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;z&#39;</span>, offset<span style="color:#f92672">=-</span><span style="color:#ae81ff">0.5</span>, cmap<span style="color:#f92672">=</span>cm<span style="color:#f92672">.</span>coolwarm)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>plot(xx, yy, zz, <span style="color:#e6db74">&#39;r.--&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$a_0$&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$a_1$&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>set_zlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$J(a_0, a_1)$&#39;</span>)
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>For the function $y = 150 + 20x + \xi $ the following plot was obtained.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_cost1.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Generation of univariate training set from $y = 150 + 20x + \xi $</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>From this plot, it is not clear that the cost function has a single minimum. It is evident that the cost function has a minimum in the y ($a_1$) axis, but it is not visually obvious that the same is true for the x ($a_0$) axis. For this reason, we also plotted a slice of the cost function in the $a_0$ axis at $a_0 = 150$ and another slice at the $a_1$ axis at $a_1 = 20$. The plots are shown below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_cost2.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Cost function slice at $a_0=150$</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_cost3.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Cost function slice at $a_1=20$</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>We can conclude that the cost function does have a global minimum, but the rate of change in the $a_0$ axis is much lower than the rate of change in the $a_1$ axis. Therefore, we intuitively expect gradient descent to converge to the $a_1$ axis faster than the $a_0$ axis as the gradients in that axis are considerably larger.</p>
+<h2 id="linear-regression-analysis">Linear regression analysis</h2>
+<p>What is the best function that describes the data? In the linear regression post <a href="/post/ml_linearreg_univariatederivation">for the univariate case</a> and <a href="/post/ml_linearreg_multivariate">multivariate case</a> we have derived the function that can be used to fit the data. Using these functions on the data obtained from the generators can help us appreciate the effect of the random component of the data. It can also measure the accuracy of the techniques that we will use later on.</p>
+<p>For the univariate case, $y = 150 + 20x + \xi $, the function obtained is the following:
+$$y = 147.075 + 20.012 x$$</p>
+<p>For the multivariate case, $y = 12 + 5x_1 -3x_2 + \xi $, the function obtained is the following:
+$$y = 11.992 + 4.984 x_1 -2.998 x_2$$</p>
+<h2 id="batch-gradient-descent">Batch Gradient Descent</h2>
+<p>We then investigated the effect of gradient descent as an algorithm to minimize the cost function. In this phase, we had an opportunity to compare the performance difference between using vectorization and not. We have therefore implemented two versions of the gradient descent algorithm. As expected, using vectorization is much faster, around 50 times faster.</p>
+<p>Thanks to the visualization developed previously; we also had an opportunity to see the effect of $\alpha$ on the algorithm. As expected, large $\alpha$ values oscillate in the execution, especially when moving down the $a_1$ axis, where the gradient is steeper. The following graphs show the effect of two values of $\alpha$ on the algorithm.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_batch1.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Batch Gradient descent with $\alpha=0.00056$</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_batch2.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Batch Gradient descent with $\alpha=0.0004$</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>The results of the two functions batch gradient descent are shown below.</p>
+<h3 id="no-vectorization">no-vectorization</h3>
+<p>$a_0$ : 11.7278</p>
+<p>$a_1$ : 4.9834</p>
+<p>$a_2$ : -2.9898</p>
+<p>$J(a_0, a_1, a_2)$ : 12.8490</p>
+<p>Epochs to converge : 5739</p>
+<p>Execution time : 23.662</p>
+<h3 id="vectorization">vectorization</h3>
+<p>$a_0$ : 11.7278</p>
+<p>$a_1$ : 4.9834</p>
+<p>$a_2$ : -2.9898</p>
+<p>$J(a_0, a_1, a_2)$ : 12.8490</p>
+<p>Epochs to converge : 5739</p>
+<p>Execution time : <strong>0.6546</strong></p>
+<p>The benefits of using vectorization are obvious</p>
+<h2 id="stochastic-gradient-descent">Stochastic Gradient Descent</h2>
+<p>As seen in the<a href="/post/ml_linearreg_stochasticgd/">Stochastic Gradient Descent post</a>, the coefficients are updated after each training example is evaluated. Therefore, the result is a convergence to the minimum that does not necessarily improve the cost after each training example. The following graphs show the descent obtained with the stochastic gradient descent algorithm.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_stoc1.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Stochastic Gradient Descent</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_stoc2.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Stochastic Gradient Descent</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>We implemented two stochastic gradient descent functions. The first one exists after a preset number of iterations are reached.</p>
+<p>The second utilizes a validation set to determine if the algorithm has converged. The cost function is evaluated on the validation set, and the algorithm is stopped if the cost function converges.</p>
+<p>One important consideration is that the benefits of vectorization are entirely lost in the stochastic gradient descent algorithm as we are evaluating one training example at a time.</p>
+<p>The results of the stochastic gradient descent are shown below.</p>
+<h3 id="fixed-iterations-exit-10-epochs">Fixed-iterations Exit (10 epochs)</h3>
+<p>$a_0$ : 11.4043</p>
+<p>$a_1$ : 4.9771</p>
+<p>$a_2$ : -2.9735</p>
+<p>$J(a_0, a_1, a_2)$ : 12.90175</p>
+<p>Epochs to converge : 10</p>
+<p>Execution time : 1.6228</p>
+<h3 id="use-of-validation-set">Use of Validation Set</h3>
+<p>$a_0$ : 11.9018</p>
+<p>$a_1$ : 4.9691</p>
+<p>$a_2$ : -2.9735</p>
+<p>$J(a_0, a_1, a_2)$ : 12.8617</p>
+<p>Epochs to converge : 100</p>
+<p>Execution time : 12.0777</p>
+<h2 id="mini-batch-gradient-descent">Mini-Batch Gradient Descent</h2>
+<p>The final investigation that was performed was the mini-batch gradient descent algorithm. Mini-batch gradient descent is a variant of stochastic gradient descent that uses a subset of the training set to update the coefficients. Hence, the coefficients are updated more frequently (after each mini-batch) whilst still maintaining some of the advantages of vectorization that were lost in the stochastic gradient descent algorithm.</p>
+<p>The analysis plots show the results of the mini-batch gradient descent algorithm.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/ml_linearreg_gradientdescent_analysis_minibatch.jpeg" alt="image"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Mini-batch Gradient Descent</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+</tr>
+</tbody>
+</table>
+<p>We implemented two mini-batch gradient descent variants as we did to the stochastic gradient descent. The first one exists after a preset number of iterations is reached, whilst the second one utilizes a validation set to determine if the algorithm has converged. The cost function is evaluated on the validation set, and the algorithm is stopped if the cost function converges.</p>
+<p>The results of the mini-batch gradient descent are shown below.</p>
+<h3 id="fixed-iterations-exit">Fixed-iterations Exit</h3>
+<p>$a_0$ : 11.7030</p>
+<p>$a_1$ : 4.9852</p>
+<p>$a_2$ : -2.9912</p>
+<p>$J(a_0, a_1, a_2)$ : 12.85275</p>
+<p>Mini-batches to converge : 1000</p>
+<p>Execution time : 1.2512</p>
+<h3 id="validation-set">Validation Set</h3>
+<p>$a_0$ : 11.8963</p>
+<p>$a_1$ : 4.9850</p>
+<p>$a_2$ : -2.9965</p>
+<p>$J(a_0, a_1, a_2)$ : 12.8440</p>
+<p>Mini-batches to converge : 1320</p>
+<p>Execution time : 1.5632</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This series investigated several techniques to solve the linear regression problem. We investigated batch gradient descent, stochastic gradient descent, and mini-batch gradient descent. The analysis results were then presented in the form of graphs and tables..</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

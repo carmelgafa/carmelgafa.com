@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on </title>
+    <link>//localhost:1313/tags/r/</link>
+    <description>Recent content in R on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Feb 2020 16:24:22 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The R Notes - Part 3</title>
+      <link>//localhost:1313/post/r_part_3/</link>
+      <pubDate>Sat, 08 Feb 2020 16:24:22 +0100</pubDate>
+      <guid>//localhost:1313/post/r_part_3/</guid>
+      <description>Reading and Writing Data Reading tabular data - read.table &amp;amp; read.csv. there return a DataFrame. Equivalent for writing is write.table&#xA;read.table( file, header = FALSE, # has separator sep = &amp;#34;&amp;#34;, # seperator example &amp;#34;,&amp;#34;default is space quote = &amp;#34;\&amp;#34;&amp;#39;&amp;#34;, dec = &amp;#34;.&amp;#34;, numerals = c(&amp;#34;allow.loss&amp;#34;, &amp;#34;warn.loss&amp;#34;, &amp;#34;no.loss&amp;#34;), row.names, col.names, as.is = !stringsAsFactors, na.strings = &amp;#34;NA&amp;#34;, colClasses = NA, # character vector indicating the class # of each vector. not required nrows = -1, # number of rows.</description>
+    </item>
+    <item>
+      <title>The R Notes - Part 2</title>
+      <link>//localhost:1313/post/r_part_2/</link>
+      <pubDate>Sat, 08 Feb 2020 16:15:48 +0100</pubDate>
+      <guid>//localhost:1313/post/r_part_2/</guid>
+      <description>Factors Factors are used to store categorical data, ordered or unordered. Can be viewed as an integer vector where each entry has a label, better that categorizing with integers.&#xA;x&amp;lt;- factor(c(&amp;#34;low&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;high&amp;#34;)) print(x) will store the values in x. It will also tell you the labels in the list:&#xA;[1] low high high high low low high high Levels: high low Calling the table function will tell you the frequency of the tables</description>
+    </item>
+    <item>
+      <title>The R Notes - Part 1</title>
+      <link>//localhost:1313/post/r_part_1/</link>
+      <pubDate>Sat, 08 Feb 2020 16:00:59 +0100</pubDate>
+      <guid>//localhost:1313/post/r_part_1/</guid>
+      <description>Some quick and dirty notes on the R language:&#xA;Execute Script from Console source(&amp;ldquo;xxxx.r&amp;rdquo;)&#xA;Assign to Variable and Printing use &amp;lt;- to assign, comments following #&#xA;x&amp;lt;-1 print(x) y&amp;lt;-1:10 print(y) #hello message msg&amp;lt;-&amp;#34;hello&amp;#34; print(msg) Vectors and Lists Using Vector:&#xA;x&amp;lt;- vector() x[1] &amp;lt;- 2 x[2] &amp;lt;- 5 print(x) will produce: [1] 2 5&#xA;Storing items of different types, use List&#xA;#using list y&amp;lt;- list() y[1] &amp;lt;- 3 y[2] &amp;lt;- &amp;#34;hello&amp;#34; y[3] &amp;lt;- &amp;#39;w&amp;#39; print(y) Will produce</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pandas on </title>
+    <link>//localhost:1313/tags/pandas/</link>
+    <description>Recent content in Pandas on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 30 Mar 2020 13:21:20 +0200</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/pandas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Short notes about Pandas</title>
+      <link>//localhost:1313/post/dev_pandas/</link>
+      <pubDate>Mon, 30 Mar 2020 13:21:20 +0200</pubDate>
+      <guid>//localhost:1313/post/dev_pandas/</guid>
+      <description>I am currently using a lot more the Pandas library to load data into a fuzzy learning framework. This note summarizes my learning points on the library. For the process of this exercise the Wine Quality data set used by Cortes et all will be used&#xA;Pandas Terminology Series is a one-dimensional NumPy-like array. You can put any data type in here, and perform vectorized operations on it. A series is also a dictionary.</description>
+    </item>
+  </channel>
+</rss>

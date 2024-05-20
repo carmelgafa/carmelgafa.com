@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 11 - Model Validation in AzureML</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 11 - Model Validation in AzureML</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%2011%20-%20Model%20Validation%20in%20AzureML&amp;body=Notes%20about%20Azure%20ML%2c%20Part%2011%20-%20Model%20Validation%20in%20AzureML%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_validation%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_validation%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_validation%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 11 - Model Validation in AzureML</b></h2>
+        <h5>Thu March 9, 2023</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="introduction">Introduction</h2>
+<p>After completing the model selection and optimization phase, the next step is to evaluate the <code>final_model</code> using the test dataset. The evaluation process involves executing the full pipeline to transform the test features and predict the corresponding labels. It is expected that the model&rsquo;s performance on the test dataset will be slightly lower than that on the training and validation datasets.</p>
+<p>The evaluation process is similar to the previous phases, where the models and test data are loaded, and the pipeline is executed to obtain the test predictors. The obtained predictions are then evaluated using the test labels. This process is executed in the AzureML workspace and triggered by the loader script.</p>
+<p>The directory structure for this phase is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>validate
+</span></span><span style="display:flex;"><span>│   validate_model.py
+</span></span><span style="display:flex;"><span>|   requirements.txt
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└───src
+</span></span><span style="display:flex;"><span>│   │   data_transformer_builder.py
+</span></span><span style="display:flex;"><span>│   │   validate.py
+</span></span></code></pre></div><p>The <code>validate_model.py</code> script initiates the evaluation process and loads the required dependencies and configurations. The <code>src</code> directory contains the <code>data_transformer_builder.py</code> script that constructs the data transformer used to transform the test data and the <code>validate.py</code> script that executes the pipeline and evaluates the model&rsquo;s performance. The <code>requirements.txt</code> file contains the necessary Python package dependencies for the validation process.</p>
+<h3 id="initialization">Initialization</h3>
+<p>The code snippet below sets the stage for this optimization process. First, the necessary libraries are imported: <code>joblib</code>, <code>numpy</code>, and <code>pandas</code> for data manipulation, as well as <code>sklearn.metrics</code> for evaluation. Additionally, the code imports the <code>AzureML</code> <code>Run</code>, <code>Model</code>, and <code>Dataset</code> classes.</p>
+<p>Next, the code initializes the Run context and workspace from Azure ML. The Run context is an important object that tracks information about the model training run, including metrics, output files, and logs. The workspace is the top-level object for working with Azure ML, providing access to the underlying resources like compute clusters and data stores.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Optimization of model parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> joblib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.metrics <span style="color:#f92672">import</span> mean_squared_error
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Run, Model, Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get the run context and the workspace.</span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>workspace <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>experiment<span style="color:#f92672">.</span>workspace
+</span></span></code></pre></div><p>By retrieving the Run context and workspace, the code enables tracking and management of model training runs in Azure ML. The Run context object can be used to log metrics, upload output files, and retrieve input data. The workspace object, on the other hand, can be used to access and manage resources like compute targets and data stores.</p>
+<p>In the next steps, you might perform model training, parameter tuning, and validation with additional code. However, by initializing the Run context and workspace, you&rsquo;re already on your way to managing and optimizing your machine learning models in Azure ML.</p>
+<h3 id="mounting-the-datasets">Mounting the datasets</h3>
+<p>We retrieve and mount two datasets, test_X and test_y, from the Azure ML workspace. The datasets are then loaded into pandas DataFrames and converted to NumPy arrays for use in a machine learning model.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Get the dataset for X from the workspace and then mount it.</span>
+</span></span><span style="display:flex;"><span>mount_context_X <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(workspace, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_X&#39;</span>)<span style="color:#f92672">.</span>mount()
+</span></span><span style="display:flex;"><span>mount_context_X<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> mount_context_X<span style="color:#f92672">.</span>mount_point <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/data.txt&#39;</span>
+</span></span><span style="display:flex;"><span>test_X <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the dataset fot y from the workspace and then mount it.</span>
+</span></span><span style="display:flex;"><span>mount_context_y <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(workspace, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_y&#39;</span>)<span style="color:#f92672">.</span>mount()
+</span></span><span style="display:flex;"><span>mount_context_y<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> mount_context_y<span style="color:#f92672">.</span>mount_point <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/data.txt&#39;</span>
+</span></span><span style="display:flex;"><span>test_y <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span></code></pre></div><p>To start, the code initializes two mount contexts for the test_X and test_y datasets. The <code>Dataset.get_by_name()</code> method retrieves the dataset from the Azure ML workspace by name. Once the dataset is retrieved, the <code>mount()</code> method is called on the mount context object, which mounts the dataset to the compute target specified in the workspace configuration.</p>
+<p>After the datasets are mounted, the code reads the data files into pandas DataFrames using the <code>pd.read_csv()</code> method. The header=None argument specifies that there are no column names in the data files. Finally, the DataFrames are converted to NumPy arrays using the <code>to_numpy()</code> method, which returns a NumPy <code>ndarray</code> representation of the DataFrame.</p>
+<h3 id="load-the-data_transformer-from-the-model-store">Load the data_transformer from the model store</h3>
+<p>Next, load a data transformer and a machine learning model from the Azure ML model registry using Python code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Load the data_transformer from the model store.</span>
+</span></span><span style="display:flex;"><span>data_transformer_path <span style="color:#f92672">=</span> Model(workspace, <span style="color:#e6db74">&#39;data_transformer&#39;</span>)<span style="color:#f92672">.</span>download(exist_ok <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>data_transformer <span style="color:#f92672">=</span> joblib<span style="color:#f92672">.</span>load(data_transformer_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the model from the model store.</span>
+</span></span><span style="display:flex;"><span>model_path <span style="color:#f92672">=</span> Model(workspace, <span style="color:#e6db74">&#39;final_model&#39;</span>)<span style="color:#f92672">.</span>download(exist_ok <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> joblib<span style="color:#f92672">.</span>load(model_path)
+</span></span></code></pre></div><p>To start, the code initializes two variables, data_transformer_path and model_path, which point to the data transformer and machine learning model, respectively, in the Azure ML model registry. The <code>Model()</code> method retrieves the specified model from the workspace&rsquo;s model registry by name.</p>
+<p>Once the models are retrieved, the <code>download()</code> method is called on each model object to download the model artifacts to the local filesystem. The <code>exist_ok</code> argument specifies that it is okay to download the model even if the local file already exists. The downloaded model artifacts are then loaded into memory using the <code>joblib.load()</code> method.</p>
+<p>The data transformer is used to preprocess the input data before it is passed to the machine learning model. The machine learning model is the final model trained on the preprocessed data and is used to make predictions on new data.</p>
+<p>By loading a data transformer and a machine learning model from the model registry in this way, you can easily deploy models to production environments in Azure ML. Once the models are loaded into memory, they can be used to make predictions on new data using the <code>predict()</code> method of the machine learning model.</p>
+<h3 id="testing">Testing</h3>
+<p>After loading a data transformer and a machine learning model from the Azure ML model registry, the next step is to use the model to make predictions on new data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Transforming the test data using the data_transformer and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># then predicting the values using the model.</span>
+</span></span><span style="display:flex;"><span>processed_data <span style="color:#f92672">=</span> data_transformer<span style="color:#f92672">.</span>transform(test_X)
+</span></span><span style="display:flex;"><span>predictions <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(processed_data)
+</span></span></code></pre></div><p>In the code above, the <code>test_X</code> data is transformed using the <code>data_transformer.transform()</code> method. This applies the same data preprocessing steps that were applied to the training data when the model was trained. The resulting preprocessed data is then passed to the <code>model.predict()</code> method to generate predictions for the test set.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Calculating square root of the mean squared error.</span>
+</span></span><span style="display:flex;"><span>test_mse <span style="color:#f92672">=</span> mean_squared_error(test_y, predictions)
+</span></span><span style="display:flex;"><span>sqrt_mse <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(test_mse)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;sqrt_mse&#39;</span>, sqrt_mse)
+</span></span></code></pre></div><p>The code then calculates the mean squared error (MSE) between the actual test_y values and the predicted predictions values using the <code>mean_squared_error()</code> method from scikit-learn. The square root of the MSE is then taken and logged to the Azure ML run context using the <code>run.log()</code> method. This metric provides a measure of how well the machine learning model is performing on the test set.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mount_context_X<span style="color:#f92672">.</span>stop()
+</span></span><span style="display:flex;"><span>mount_context_y<span style="color:#f92672">.</span>stop()
+</span></span></code></pre></div><p>Finally, the code unmounts the test data used for prediction.</p>
+<h3 id="execution">Execution</h3>
+<p>The azureml Python library provides a convenient way to run experiments and validate the models within the Azure Machine Learning environment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Running the model on the test data
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, ScriptRunConfig, Environment
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azuremlproject <span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the workspace from the config file.</span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>w_space <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span></code></pre></div><p>The code above loads the Azure Machine Learning workspace from a configuration file. This file specifies the credentials and other settings needed to access the workspace.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create a ScriptRunConfig object.</span>
+</span></span><span style="display:flex;"><span>config <span style="color:#f92672">=</span> ScriptRunConfig(
+</span></span><span style="display:flex;"><span>    source_directory<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;src&#39;</span>),
+</span></span><span style="display:flex;"><span>    script<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;validate.py&#39;</span>,
+</span></span><span style="display:flex;"><span>    arguments<span style="color:#f92672">=</span>[],
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>INSTANCE_NAME)
+</span></span></code></pre></div><p>The <code>ScriptRunConfig</code> object is used to define the script to be executed and the environment it will be executed in. In this code, the <code>source_directory</code> points to the directory containing the Python script to be executed, and script specifies the name of the script to run. The <code>arguments</code> parameter can be used to pass arguments to the script, and <code>compute_target</code> specifies the name of the compute target to use for the experiment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>experiment <span style="color:#f92672">=</span> Experiment(w_space, <span style="color:#e6db74">&#39;concrete_validate&#39;</span>)
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(config)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>wait_for_completion(show_output<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check if the run is completed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> run<span style="color:#f92672">.</span>get_status() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Completed&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print the status of the run.</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;status&#39;</span>, run<span style="color:#f92672">.</span>get_status())
+</span></span></code></pre></div><p>Finally, the <code>Experiment</code> object is used to submit the experiment for execution. In this case, the experiment is given a name and associated with the specified workspace. The <code>submit()</code> method is used to start the experiment with the specified configuration.</p>
+<p>By using azureml to define and run experiments, you can automate and manage the machine learning development and validation process within the Azure Machine Learning environment.</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_trainingpipeline/">Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</a></h4>
+    <h5>Creation and execution of a multi-step AzureML pipeline the selects the best model for a given dataset.</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/pipeline"><kbd class="item-tag">pipeline</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

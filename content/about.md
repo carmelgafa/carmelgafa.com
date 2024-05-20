@@ -3,15 +3,15 @@ title: "About Carmel Gafa'"
 description: About Page
 ---
 
-I'm a practice lead at [KPMG Microsoft Business solutions](https://home.kpmg/mt/en/home/services/microsoft-business-solutions.html), who is perpetually curious about anything that is engineering, programming and ai. I'm particularly interested in soft computing and its applications in machine learning and robotics.
+I’m a practice lead at [KPMG Microsoft Business solutions](https://home.kpmg/mt/en/home/services/microsoft-business-solutions.html), who is perpetually curious about anything that is engineering, programming and ai. I’m particularly interested in soft computing and its applications in machine learning and robotics.
 
 ### "If you want to learn something well, explain it" - Richard Feynman
 
-This is  a place where I keep notes and references on the projects that I work on, in an attempt to learn properly, organize, motivate myself and hopefully help people working on similar topics.
+This website is my personal repository of notes and references from the projects I work on. It's a space where I strive to learn deeply, stay organized, stay motivated, and ideally, provide valuable insights to others tackling similar challenges.
 
 ![Me](/about.jpg)
 
-Comment on the pages that you like, your feedback is greatly appreciated.
+Feel free to comment on the pages that resonate with you—your feedback is highly appreciated.
 
 ---
 

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Type Reduction of Interval Type-2 Fuzzy Sets</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Type Reduction of Interval Type-2 Fuzzy Sets</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Type%20Reduction%20of%20Interval%20Type-2%20Fuzzy%20Sets&amp;body=Type%20Reduction%20of%20Interval%20Type-2%20Fuzzy%20Sets%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2ftype2fuzzy_it2fs_typereduction%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Type Reduction of Interval Type-2 Fuzzy Sets</b></h2>
+        <h5>Wed April 6, 2022</h5>
+        
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>This post will look at Interval Type-2 fuzzy set (IT2FS) and its reduction. We have already discussed the basics of Type-2 fuzzy sets in a <a href="/post/type2fuzzy_set">previous post</a>, and we have seen that a general type-2 fuzzy set can be defined as follows:</p>
+<p>$$\tilde{A}=\int_{x\in X}\int_{u\in J_{x}} \mu_{\tilde{A}}(x,u) / (x,u)$$</p>
+<p>where $J_{x}\subseteq[0,1]$</p>
+<p>And if, as an example, we consider the following general type-2 fuzzy set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>(1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6                       )/1+
+</span></span><span style="display:flex;"><span>(0.5/0 + 1.0/0.2 + 0.5/0.4 + 0.3/0.6 + 0.1/0.8             )/2+
+</span></span><span style="display:flex;"><span>(0.1/0 + 0.3/0.2 + 0.5/0.4 + 1.0/0.6 + 0.5/0.8 + 0.3/1.0   )/3+
+</span></span><span style="display:flex;"><span>(        0.1/0.2 + 0.3/0.4 + 0.5/0.6 + 1.0/0.8 + 0.5/1.0   )/4+
+</span></span><span style="display:flex;"><span>(1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6                       )/5
+</span></span></code></pre></div><p>The set can be created and displayed using the type2fuzzy library as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> GeneralType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy.display.generaltype2fuzzysetplot <span style="color:#f92672">import</span> GeneralType2FuzzySetPlot
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create a general type-2 fuzzy set</span>
+</span></span><span style="display:flex;"><span>gt2fs_rep <span style="color:#f92672">=</span>   <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> (1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6                       )/1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.5/0 + 1.0/0.2 + 0.5/0.4 + 0.3/0.6 + 0.1/0.8             )/2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(0.1/0 + 0.3/0.2 + 0.5/0.4 + 1.0/0.6 + 0.5/0.8 + 0.3/1.0   )/3
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(        0.1/0.2 + 0.3/0.4 + 0.5/0.6 + 1.0/0.8 + 0.5/1.0   )/4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+(1.0/0 + 0.5/0.2 + 0.3/0.4 + 0.1/0.6                       )/5&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gt2fs <span style="color:#f92672">=</span> GeneralType2FuzzySet<span style="color:#f92672">.</span>from_representation(gt2fs_rep)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot the general type-2 fuzzy set</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Set representation: </span><span style="color:#e6db74">{</span>gt2fs<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">=</span>fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>set_plt <span style="color:#f92672">=</span> GeneralType2FuzzySetPlot(gt2fs)
+</span></span><span style="display:flex;"><span>set_plt<span style="color:#f92672">.</span>plot(ax)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>which will result in the following plot:
+<img src="/post/img/type2fuzzy_it2fs_typereduction_type2_set.png" alt="type-2 fuzzy set"></p>
+<h3 id="interval-type-2-fuzzy-set-it2fs">Interval Type-2 fuzzy set (IT2FS)</h3>
+<p>An Interval Type-2 Fuzzy set (IT2FS) is a Type-2 fuzzy set where all the secondary grades are equal to 1. Therefore, secondary grades have no information; hence, we can describe the set by their Footprint of uncertainty and thus by their Lower and upper membership functions. Accordingly, an IT2FS is defined as follows:</p>
+<p>$$C_{\tilde{A}} = \int_{\theta_{1}\in J_{x_{1}}} \dots  \int_{\theta_{N}\in J_{x_{N}}} 1 / \frac{\sum_{i=1}^{N} x_i \theta_{i}}{\sum_{i=1}^{N} \theta_{i}}$$</p>
+<p>we can see by inspection that the IT2FS equivalent of the general tye-2 fuzzy set under examination is the following:</p>
+<pre tabindex="0"><code class="language-math" data-lang="math">[0.00000, 0.60000]/1.0+
+[0.00000, 0.80000]/2.0+
+[0.00000, 1.00000]/3.0+
+[0.20000, 1.00000]/4.0+
+[0.00000, 0.60000]/5.0
+</code></pre><p>We can obtain an instance of this set by using the type2fuzzy library as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy <span style="color:#f92672">import</span> IntervalType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy.display.intervaltype2fuzzysetplot <span style="color:#f92672">import</span> IntervalType2FuzzySetPlot
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>it2fs <span style="color:#f92672">=</span> IntervalType2FuzzySet<span style="color:#f92672">.</span>from_general_type2_set(gt2fs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Set representation: </span><span style="color:#e6db74">{</span>it2fs<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+</span></span><span style="display:flex;"><span>ax<span style="color:#f92672">=</span>fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>set_plt <span style="color:#f92672">=</span> IntervalType2FuzzySetPlot(it2fs)
+</span></span><span style="display:flex;"><span>set_plt<span style="color:#f92672">.</span>plot(ax)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>which will plot the following:</p>
+<p><img src="/post/img/type2fuzzy_it2fs_typereduction_type2_it2fs.png" alt="type-2 fuzzy set"></p>
+<h3 id="centroid-of-an-interval-type-2-fuzzy-set">Centroid of an Interval Type-2 fuzzy set</h3>
+<p>An iterative procedure to find the Centroid of an Interval Type-2 fuzzy is discussed in</p>
+<p><strong>&ldquo;Karnik, N. N., &amp; Mendel, J. M. (1998, May). Introduction to type-2 fuzzy logic systems. In 1998 IEEE international conference on fuzzy systems proceedings. IEEE world congress on computational intelligence (Cat. No. 98CH36228) (Vol. 2, pp. 915-920). IEEE.&rdquo;</strong></p>
+<p>Which addresses the following problem:</p>
+<p>Given $x_i \in \Re$ where ${i = 1, \dots, N} $ and $\omega_i \equiv \Omega_i \in [ \bar{\omega_i}, \overline{\omega_i} ]$ where ${i = 1, \dots, N} $</p>
+<p>such that</p>
+<p>$\underline{\omega_i} \leq \bar{\omega_i}$ for all ${i = 1, \dots, N} $</p>
+<p>we want to find</p>
+<p>$$Y = \frac{\sum_{i=1}^{N} x_i \Omega_i}{\sum_{i=1}^{N} \Omega_i} \equiv [y_l, y_r]$$</p>
+<p>where</p>
+<p>$$y_r \equiv \min_{x_i \in \Re, \forall i ; \omega_i \in [ \bar{\omega_i}, \overline{\omega_i} ], \forall i } \frac{\sum_{i=1}^{N} x_i \omega_i}{\sum_{i=1}^{N} \omega_i} $$</p>
+<p>and</p>
+<p>$$y_l \equiv \max_{x_i \in \Re, \forall i ; \omega_i \in [ \bar{\omega_i}, \overline{\omega_i} ], \forall i } \underline{x_2}  $$</p>
+<p>The original Karnik Mendel algorithm is as follows:</p>
+<hr>
+<ol>
+<li>
+<p>Sort $x_i$, $(i=1, \dots, N)$ such that $\underline{x_1} \leq \underline{x_2} \leq \dots \leq\underline{x_N}  $ . Ensure that $\omega_i$ remains matched to $x_i$.</p>
+</li>
+<li>
+<p>Initialize $$\omega_i = \frac{\underline{\omega_1} + \overline{\omega_i}}{2}$$ and compute$$ y = \frac{\sum_{i=1}^{N} x_i \omega_i}{\sum_{i=1}^{N} \omega_i}$$</p>
+</li>
+<li>
+<p>Find the switch point $k$, where $x_k \leq y$ and $x_{k} \leq y \leq x_{k+1}$</p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th>To find $y_l$</th>
+<th>      </th>
+<th>To find $y_r$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set $\omega_i  = \overline{\omega_i}$ for $i \leq k$</td>
+<td></td>
+<td>set $\omega_i  = \underline{\omega_i}$ for $i \leq k$</td>
+</tr>
+<tr>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+</tr>
+<tr>
+<td>set $\omega_i  = \underline{\omega_i}$ for $i &gt; k$</td>
+<td></td>
+<td>set $\omega_i  = \overline{\omega_i}$ for $i &gt; k$</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Compute $$ y&rsquo; = \frac{\sum_{i=1}^{N} x_i \omega_i}{\sum_{i=1}^{N} \omega_i}$$</p>
+</li>
+<li>
+<p>Evaluate;</p>
+<ul>
+<li>If $|y&rsquo;-y| \leq \xi$
+<ul>
+<li>STOP</li>
+<li>
+<table>
+<thead>
+<tr>
+<th>For $y_l$</th>
+<th>      </th>
+<th>For $y_r$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$y_l = y'$</td>
+<td></td>
+<td>$y_r = y'$</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>If $ |y&rsquo;-y | &gt; \xi$
+<ul>
+<li>Go to step 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="implementation-of-it2fs-type-reduction-algorithm">Implementation of IT2FS Type Reduction Algorithm</h3>
+<hr>
+<p>We implemented the above algorithm in the <a href="http://www.t2fuzz.com">type2fuzzy library</a> following function:</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_it2_kernikmendel_reduce_noinfo</span>(it2fs, precision<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    numerator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    error_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-5</span>
+</span></span><span style="display:flex;"><span>    primary_domain_elements <span style="color:#f92672">=</span> it2fs<span style="color:#f92672">.</span>primary_domain()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    centroid <span style="color:#f92672">=</span> CrispSet(
+</span></span><span style="display:flex;"><span>        primary_domain_elements[<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>        primary_domain_elements[len(primary_domain_elements)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    centroid_left <span style="color:#f92672">=</span> it2fs<span style="color:#f92672">.</span>mid_domain_element()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        centroid<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> centroid_left
+</span></span><span style="display:flex;"><span>        numerator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> domain_element <span style="color:#f92672">in</span> it2fs<span style="color:#f92672">.</span>primary_domain():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> domain_element <span style="color:#f92672">&gt;=</span> centroid_left:
+</span></span><span style="display:flex;"><span>                numerator <span style="color:#f92672">=</span> numerator <span style="color:#f92672">+</span> (domain_element <span style="color:#f92672">*</span> it2fs[domain_element]<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>                denominator <span style="color:#f92672">=</span> denominator <span style="color:#f92672">+</span> it2fs[domain_element]<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                numerator <span style="color:#f92672">=</span> numerator <span style="color:#f92672">+</span> (domain_element <span style="color:#f92672">*</span> it2fs[domain_element]<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>                denominator <span style="color:#f92672">=</span> denominator <span style="color:#f92672">+</span> it2fs[domain_element]<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> denominator <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            centroid<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> it2fs<span style="color:#f92672">.</span>mid_domain_element()
+</span></span><span style="display:flex;"><span>            logging<span style="color:#f92672">.</span>log(logging<span style="color:#f92672">.</span>ERROR, <span style="color:#e6db74">&#39;error in calculating z_l, denominator is 0&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        centroid_left <span style="color:#f92672">=</span> numerator <span style="color:#f92672">/</span> denominator
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> abs(centroid_left <span style="color:#f92672">-</span> centroid<span style="color:#f92672">.</span>left) <span style="color:#f92672">&lt;=</span> error_threshold:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><hr>
+<p>To demonstrate the use of the above algorithm, we will use the example defined in the following paper.</p>
+<p><strong>Morales, Omar Salazar, José Humberto Serrano Devia, and José Jairo Soriano Méndez. &ldquo;Centroid of an interval type-2 fuzzy set: Continuous vs. discrete.&rdquo; Ingeniería 16.2 (2011): 67-78.</strong></p>
+<p>In this paper, Salazar et al. investigate the type-reduction of an IT2FS defined as follows:</p>
+<p><img src="/post/img/type2fuzzy_IT2FS_TypeReduction._salazar.JPG" alt="Salazar et al. example"></p>
+<p>We will therefore perform the following steps to replicate the above example:</p>
+<ul>
+<li>generate the IT2FS defined in the paper</li>
+<li>use the <a href="http://www.t2fuzz.com">type2fuzzy library</a> to find its Centroid</li>
+</ul>
+<p>The following code will generate the IT2FS:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> exp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy_library.membership.intervaltype2fuzzyset <span style="color:#f92672">import</span> IntervalType2FuzzySet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy_library.display.intervaltype2fuzzysetplot <span style="color:#f92672">import</span> IntervalType2FuzzySetPlot
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> type2fuzzy_library.type_reduction.it2_karnikmendel_reducer <span style="color:#f92672">import</span> it2_kernikmendel_reduce
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>X_LOW <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>X_HIGH <span style="color:#f92672">=</span> <span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span>STEPS <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DELTA <span style="color:#f92672">=</span> (X_HIGH <span style="color:#f92672">-</span> X_LOW) <span style="color:#f92672">/</span> STEPS
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lmv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: <span style="color:#ae81ff">0.6</span><span style="color:#f92672">*</span>(x<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">19</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2.6</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0.4</span><span style="color:#f92672">*</span>(<span style="color:#ae81ff">14</span><span style="color:#f92672">-</span>x)<span style="color:#f92672">/</span><span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span>umv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>((x<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">7.185</span> <span style="color:#66d9ef">else</span> exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span><span style="color:#f92672">*</span>((x<span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">1.75</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>it2fs <span style="color:#f92672">=</span> IntervalType2FuzzySet()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> np<span style="color:#f92672">.</span>linspace(X_LOW, X_HIGH, STEPS):
+</span></span><span style="display:flex;"><span>    it2fs<span style="color:#f92672">.</span>add_point(x, lmv(x), umv(x))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+</span></span><span style="display:flex;"><span>plot <span style="color:#f92672">=</span> IntervalType2FuzzySetPlot(it2fs)
+</span></span><span style="display:flex;"><span>plot<span style="color:#f92672">.</span>plot(ax)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>We notice that we have also used the <strong>IntervalType2FuzzySetPlot</strong> class to plot the IT2FS. The following plot shows the IT2FS that we have generated:</p>
+<p><img src="/post/img/type2fuzzy_IT2FS_TypeReduction._salazar2.JPG" alt="Salazar et al. example"></p>
+<p>Finally, we generate the Centroid of the IT2FS. Using the <a href="http://www.t2fuzz.com">type2fuzzy library</a>, we can find the Centroid of the IT2FS as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>result <span style="color:#f92672">=</span>  it2_kernikmendel_reduce(it2fs, precision<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, information<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(result)
+</span></span></code></pre></div><p>which yields the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[0.37511, 7.15615]
+</span></span></code></pre></div><p>We can see that this is the Centroid reported by the original authors.</p>
+<p><img src="/post/img/type2fuzzy_IT2FS_TypeReduction._salazar3.JPG" alt="Salazar et al. example"></p>
+<h3 id="conclusion">Conclusion</h3>
+<p>In this post, we have looked at the Centroid of an IT2FS. We have also seen how to use the <a href="http://www.t2fuzz.com">type2fuzzy library</a> to find such Centroid.</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/type2fuzzy_paper_zslices/">Paper Implementation - C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;</a></h4>
+    <h5>A look at C. Wagner and H. Hagras. &#39;Toward general type-2 fuzzy logic systems based on zSlices.&#39;, working of paper examples using T2Fuzz Library</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/ml_linearreg_gradientdescent_analysis/">Linear Regression, Part 10 - Analysis of Gradient Descent Algorithms; Results obtained</a></h4>
+    <h5>March 12, 2022</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/linear-regression"><kbd class="item-tag">linear-regression</kbd></a>
+
+<a href="//localhost:1313/tags/gradient-descent"><kbd class="item-tag">gradient-descent</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

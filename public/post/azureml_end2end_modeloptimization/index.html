@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%2010%20-%20An%20end-to-end%20AzureML%20example%3b%20Model%20Optimization&amp;body=Notes%20about%20Azure%20ML%2c%20Part%2010%20-%20An%20end-to-end%20AzureML%20example%3b%20Model%20Optimization%2c%20by%20Carmel%20Gafa%0a%0aCreation%20and%20execution%20of%20an%20AzureML%20Model%20Optimization%20Experiment%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_modeloptimization%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_modeloptimization%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_modeloptimization%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</b></h2>
+        <h5>Sun July 3, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="introduction">Introduction</h2>
+<p>In this second part of this series of posts, we will optimize the model we created in the <a href="/post/azureml_pipeline_trainingpipeline">previously</a> by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.</p>
+<p>The problem of hyperparameter optimization is therefore in finding the optimal model in an $n$ dimensional space; where $n$ is the number of hyperparameters that are being optimized. We refer to this $n$ dimensional space as the <strong>search space</strong>.</p>
+<p>The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>optimize
+</span></span><span style="display:flex;"><span>│   optimize_model.py
+</span></span><span style="display:flex;"><span>|   requirements.txt
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└───src
+</span></span><span style="display:flex;"><span>│   │   data_transformer_builder.py
+</span></span><span style="display:flex;"><span>│   │   optimize.py
+</span></span></code></pre></div><h2 id="hyperparameter-tuning">Hyperparameter Tuning</h2>
+<p>In AzureML SDK, all modules related to hyperparameter tuning are located in the <strong>hyperdrive</strong> package. In this section, we will look very briefly at some of the available features. The objective in AzureML hyperparameter tuning is to create a <strong>HyperDriveConfig</strong> object that defines an optimization run.</p>
+<p>Hyperparameters can be discrete or continuous. We can specify continuous hyperparameters over a range of values or a set of values. Discrete hyperparameters are simply a set of values that we can choose and assign a single one to the model. AzureML contains functions to specify discrete and continuous hyperparameter distributions in the <strong>parameter_expressions</strong> library of the <strong>hyperdrive</strong> package, where we find the following functions:</p>
+<ul>
+<li><strong>choice()</strong> - Specifies a discrete hyperparameter space as a list of possible values.</li>
+<li><strong>lognormal()</strong> - Specifies a continuous hyperparameter space as a log-normal distribution with a mean and standard deviation.</li>
+<li><strong>loguniform()</strong> - Specifies a continuous hyperparameter space as a log-uniform distribution with a minimum and maximum.</li>
+<li><strong>uniform()</strong> - Specifies a continuous hyperparameter space as a uniform distribution with a minimum and maximum.</li>
+<li><strong>normal()</strong> - Specifies a continuous hyperparameter space as a normal distribution with a mean and standard deviation.</li>
+<li><strong>quniform()</strong> - Specifies a continuous hyperparameter space as a round uniform distribution with a minimum and maximum. <strong>quniform()</strong> is suitable for discrete hyperparameters.</li>
+<li><strong>qnormal()</strong> - Specifies a continuous hyperparameter space as a round-normal distribution with a mean and standard deviation. <strong>qnormal()</strong> is suitable for discrete hyperparameters.</li>
+<li><strong>randint()</strong> - Specifies a discrete hyperparameter space as random integers between zero and a maximum value.</li>
+</ul>
+<p>We also require a strategy to navigate the hyperparameter space. The following methods are commonly used in this context are also part of the <strong>hyperdrive</strong> package:</p>
+<ul>
+<li><strong>RandomParameterSampling</strong>. Random sampling selects a random hyperparameter value from the search space. It supports discrete and continuous hyperparameters. Related to the <strong>RandomParameterSampling</strong> strategy, we can also use the <strong>Sobol</strong> strategy that covers the search space more evenly.</li>
+<li><strong>GridParameterSampling</strong>. Grid sampling supports discrete hyperparameters; however, it is possible to create a discrete set from the distribution of hyperparameters. It goes through the search space defined by <strong>choice</strong> distributions in a grid fashion.</li>
+<li><strong>BayesianParameterSampling</strong> is a more sophisticated strategy that uses a Bayesian approach to select hyperparameters based on the performance of previous hyperparameter selections.</li>
+</ul>
+<p>The hyperparameter optimization strategy also requires a primary metric that is being reported in each tuning run. We also need to define the goal for this metric, that is, if our objective is to maximize or minimize it.</p>
+<p>Finally, it is also desirable to specify a termination policy that will stop the tuning process when specific parameters are attained.</p>
+<h2 id="model-optimization">Model Optimization</h2>
+<p>This exercise consists of two scripts; the first defines the model optimization strategy, and the second runs the optimization. We will start by looking at the first script.</p>
+<p>The first script starts with a definition of the arguments that we will use in the optimization.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Optimization of model parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> joblib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pickle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.metrics <span style="color:#f92672">import</span> mean_squared_error
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> RandomForestRegressor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.linear_model <span style="color:#f92672">import</span> LinearRegression
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.neighbors <span style="color:#f92672">import</span> KNeighborsRegressor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Run, Model, Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parsing the arguments passed to the script.</span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser()
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--n_estimators&#39;</span>, type<span style="color:#f92672">=</span>int, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Number of estimators&#39;</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--base_estimator&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Base estimator&#39;</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--max_samples&#39;</span>, type<span style="color:#f92672">=</span>float, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Max samples&#39;</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--max_features&#39;</span>, type<span style="color:#f92672">=</span>float, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Max features&#39;</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--bootstrap&#39;</span>, type<span style="color:#f92672">=</span>bool, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Bootstrap&#39;</span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span></code></pre></div><p>We then read the train features and labels from the AzureML datasets as numpy arrays.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># get the run context and the workspace.</span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>workspace <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>experiment<span style="color:#f92672">.</span>workspace
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the dataset for X from the workspace and then mount it.</span>
+</span></span><span style="display:flex;"><span>mount_context_X <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(workspace, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_X&#39;</span>)<span style="color:#f92672">.</span>mount()
+</span></span><span style="display:flex;"><span>mount_context_X<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> mount_context_X<span style="color:#f92672">.</span>mount_point <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/data.txt&#39;</span>
+</span></span><span style="display:flex;"><span>train_X <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the dataset fot y from the workspace and then mount it.</span>
+</span></span><span style="display:flex;"><span>mount_context_y <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(workspace, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_y&#39;</span>)<span style="color:#f92672">.</span>mount()
+</span></span><span style="display:flex;"><span>mount_context_y<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> mount_context_y<span style="color:#f92672">.</span>mount_point <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/data.txt&#39;</span>
+</span></span><span style="display:flex;"><span>train_y <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span></code></pre></div><p>We can then load the data transformer and the machine learning model we previously registered as AzureML models. It is important to note that we need the definition of the custom transformers (the aggregate transformer that was created as part of the train pipeline), and for this reason, we have included the <strong>data_transformer_builder.py</strong> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Load the data_transformer from the model store.</span>
+</span></span><span style="display:flex;"><span>data_transformer_path <span style="color:#f92672">=</span> Model(workspace, <span style="color:#e6db74">&#39;data_transformer&#39;</span>)<span style="color:#f92672">.</span>download(exist_ok <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>data_transformer <span style="color:#f92672">=</span> joblib<span style="color:#f92672">.</span>load(data_transformer_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load the model from the model store.</span>
+</span></span><span style="display:flex;"><span>model_path <span style="color:#f92672">=</span> Model(workspace, <span style="color:#e6db74">&#39;concrete_model&#39;</span>)<span style="color:#f92672">.</span>download(exist_ok <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> joblib<span style="color:#f92672">.</span>load(model_path)
+</span></span></code></pre></div><p>At this stage, we can define the machine learning model&rsquo;s hyperparameters from the arguments passed to the script.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># set the base estimator.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> args<span style="color:#f92672">.</span>base_estimator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;LinearRegression&#39;</span>:
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>set_params(base_estimator <span style="color:#f92672">=</span> LinearRegression())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">elif</span> args<span style="color:#f92672">.</span>base_estimator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;RandomForestRegressor&#39;</span>:
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>set_params(base_estimator <span style="color:#f92672">=</span> RandomForestRegressor())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">.</span>set_params(base_estimator <span style="color:#f92672">=</span> KNeighborsRegressor())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Setting the parameters of the model.</span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>set_params(n_estimators<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>n_estimators)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># model.set_params(base_estimator=args.base_estimator)</span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>set_params(max_samples<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>max_samples)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>set_params(max_features<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>max_features)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>set_params(bootstrap<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>bootstrap)
+</span></span></code></pre></div><p>The next step is to obtain the predictions for the train data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Transforming the test data using the data transformer and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># then predicting the values using the model.</span>
+</span></span><span style="display:flex;"><span>processed_data <span style="color:#f92672">=</span> data_transformer<span style="color:#f92672">.</span>transform(train_X)
+</span></span><span style="display:flex;"><span>predictions <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(processed_data)
+</span></span></code></pre></div><p>Since we have the predictions, we can calculate the RMSE for this set of hyperparameters. We conclude this script by logging the RMSE and storing the model we have created to have a model and metric record for each hyperparameter trial run.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Calculating square root of the mean squared error.</span>
+</span></span><span style="display:flex;"><span>test_mse <span style="color:#f92672">=</span> mean_squared_error(train_y, predictions)
+</span></span><span style="display:flex;"><span>sqrt_mse <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(test_mse)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;sqrt_mse&#39;</span>, sqrt_mse)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Saving the model to a file.</span>
+</span></span><span style="display:flex;"><span>model_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;outputs&#39;</span>, <span style="color:#e6db74">&#39;model.pkl&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(model_path, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> handle:
+</span></span><span style="display:flex;"><span>    pickle<span style="color:#f92672">.</span>dump(model, handle, protocol<span style="color:#f92672">=</span>pickle<span style="color:#f92672">.</span>HIGHEST_PROTOCOL)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mount_context_X<span style="color:#f92672">.</span>stop()
+</span></span><span style="display:flex;"><span>mount_context_y<span style="color:#f92672">.</span>stop()
+</span></span></code></pre></div><h3 id="execution-of-optimization-process">Execution of Optimization Process</h3>
+<p>We will now look at how we can execute the optimization process and how to obtain the best model. We start by creating a new <strong>ScriptRunConfig</strong> object that contains the script&rsquo;s name that we will execute for each tuning run. we notice that this scripts is executed in the compute target so that we can take advantage of the number of cores available.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Running of experiment_1.py
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, ScriptRunConfig, Environment
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.train.hyperdrive.runconfig <span style="color:#f92672">import</span> HyperDriveConfig
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.train.hyperdrive.sampling <span style="color:#f92672">import</span> RandomParameterSampling
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.train.hyperdrive.run <span style="color:#f92672">import</span> PrimaryMetricGoal, HyperDriveRun
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.train.hyperdrive.parameter_expressions <span style="color:#f92672">import</span> choice
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azuremlproject <span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading the workspace from the config file.</span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)), <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>w_space <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creating a ScriptRunConfig object.</span>
+</span></span><span style="display:flex;"><span>config <span style="color:#f92672">=</span> ScriptRunConfig(
+</span></span><span style="display:flex;"><span>    source_directory<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;src&#39;</span>),
+</span></span><span style="display:flex;"><span>    script<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;optimize.py&#39;</span>,
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>TARGET_NAME)
+</span></span></code></pre></div><p>We next define the environment that we will use for the experiment. We will attempt to use the same environment we used for the train pipeline, and create it if it does not exist.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;concrete_env&#39;</span> <span style="color:#f92672">in</span> w_space<span style="color:#f92672">.</span>environments<span style="color:#f92672">.</span>keys():
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>run_config<span style="color:#f92672">.</span>environment <span style="color:#f92672">=</span> Environment<span style="color:#f92672">.</span>get(workspace<span style="color:#f92672">=</span>w_space, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete_env&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Creating an environment from the requirements.txt file.</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">=</span> Environment<span style="color:#f92672">.</span>from_pip_requirements(
+</span></span><span style="display:flex;"><span>        name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete_env&#39;</span>,
+</span></span><span style="display:flex;"><span>        file_path<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;requirements.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>run_config<span style="color:#f92672">.</span>environment <span style="color:#f92672">=</span> environment
+</span></span></code></pre></div><p>We create the hyperparameter search space by instantiating a <strong>RandomParameterSampling</strong> object that will sample over the hyperparameter search space randomly. The constructor defines the search space as a dictionary of parameter names and ranges. In our case, we are sampling over the following Bagging Regressor hyperparameters:</p>
+<ul>
+<li><strong>n_estimators</strong>: Values in the set {5, 10, 15, 20, 25}</li>
+<li><strong>base_estimator</strong>: Values in the set {&lsquo;LinearRegression&rsquo;, &lsquo;RandomForestRegressor&rsquo;, &lsquo;KNeighborsRegressor&rsquo;}</li>
+<li><strong>max_samples</strong>: Values in the set {0.5, 1.0}</li>
+<li><strong>max_features</strong>: Values in the set {0.5, 1.0}</li>
+<li><strong>bootstrap</strong>: Values in the set [{True, False}</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Creating a dictionary of parameters to be used in the hyperparameter tuning.</span>
+</span></span><span style="display:flex;"><span>param_sampling <span style="color:#f92672">=</span> RandomParameterSampling( {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--base_estimator&#39;</span>: choice(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;LinearRegression&#39;</span>, <span style="color:#e6db74">&#39;RandomForestRegressor&#39;</span>, <span style="color:#e6db74">&#39;KNeighborsRegressor&#39;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;--n_estimators&#34;</span>: choice(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">25</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--max_samples&#39;</span>: choice(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--max_features&#39;</span>: choice(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">1.0</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--bootstrap&#39;</span>: choice(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>We can then create a <strong>HyperDriveConfig</strong> object that we will use to execute the optimization process. The constructor defines several parameters, including:</p>
+<ul>
+<li>The instance of the <strong>RunConfig</strong> object will be used to execute the script.</li>
+<li>The instance of the <strong>ParameterSampling</strong> object that will be used to sample over the hyperparameter search space.</li>
+<li>The <strong>Primary Metric Name</strong> or the parameter that will be used to compare the various hyperparameter trials.</li>
+<li>The <strong>Primary Metric Goal</strong> defines our objective with the metric, maximization or minimization.</li>
+<li>The <strong>Maximum Number of Trials</strong> that will be used to execute the optimization process. The trial will terminate when this number of trials is reached.</li>
+<li>The <strong>Number of concurrent trials</strong> will be used to execute the optimization process. This number depends on the AzureML compute we selected to run the experiment.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Creating a hyperdrive configuration object.</span>
+</span></span><span style="display:flex;"><span>hyperdrive_config <span style="color:#f92672">=</span> HyperDriveConfig(run_config<span style="color:#f92672">=</span>config,
+</span></span><span style="display:flex;"><span>                                    hyperparameter_sampling<span style="color:#f92672">=</span>param_sampling,
+</span></span><span style="display:flex;"><span>                                    primary_metric_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sqrt_mse&#39;</span>,
+</span></span><span style="display:flex;"><span>                                    primary_metric_goal<span style="color:#f92672">=</span>PrimaryMetricGoal<span style="color:#f92672">.</span>MINIMIZE,
+</span></span><span style="display:flex;"><span>                                    max_total_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>                                    max_concurrent_runs<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+</span></span></code></pre></div><p>We can then submit the experiment to the workspace for execution. We have used the name <strong>concrete_tune</strong> as the experiment&rsquo;s name.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># This is submitting the hyperdrive configuration to the experiment.</span>
+</span></span><span style="display:flex;"><span>experiment <span style="color:#f92672">=</span> Experiment(w_space, <span style="color:#e6db74">&#39;concrete_tune&#39;</span>)
+</span></span><span style="display:flex;"><span>run:HyperDriveRun <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(hyperdrive_config )
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>wait_for_completion(show_output<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><p>We assert that the experiment has been completed successfully.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Checking if the run is completed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> run<span style="color:#f92672">.</span>get_status() <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Completed&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Printing the status of the run.</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;status&#39;</span>, run<span style="color:#f92672">.</span>get_status())
+</span></span></code></pre></div><p>We can then get the best model from the experiment. In this case, we are printing the RMSE and the values of the hyperparameters of the best run. We then register the best model to the workspace with the name <strong>final_model</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>best_run <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>get_best_run_by_primary_metric()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;best_run&#39;</span>, best_run)
+</span></span><span style="display:flex;"><span>best_run_metrics <span style="color:#f92672">=</span> best_run<span style="color:#f92672">.</span>get_metrics()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;best_run_metrics&#39;</span>, best_run_metrics)
+</span></span><span style="display:flex;"><span>parameter_values <span style="color:#f92672">=</span> best_run<span style="color:#f92672">.</span>get_details()[<span style="color:#e6db74">&#39;runDefinition&#39;</span>][<span style="color:#e6db74">&#39;arguments&#39;</span>]
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;parameter_values&#39;</span>, parameter_values)
+</span></span><span style="display:flex;"><span>best_run<span style="color:#f92672">.</span>register_model(model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;final_model&#39;</span>, model_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;outputs/model.pkl&#34;</span>)
+</span></span></code></pre></div><h2 id="execution">Execution</h2>
+<p>Navigating the workspace experiments, we notice a new experiment called <strong>concrete_tune</strong>. The experiment will contain all the runs that we executed for this experiment.</p>
+<p><img src="/post/img/azureml_pipeline_introduction_optimization.jpg" alt="Experiment Details"></p>
+<p>Each run will contain information about the execution organized in some tabs:</p>
+<ul>
+<li><strong>Metrics</strong>: This tab contains the metrics calculated during the run.</li>
+<li><strong>Overview</strong>: This tab contains a summary of the run.</li>
+<li><strong>Trials</strong>: This tab contains the trials (different hyperparameter combinations) we executed during the run.</li>
+<li><strong>Output+Logs</strong>: This tab contains the output and logs files of the run.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_optimization_run_overview.jpg" alt="ML Pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Overview of the run. Observe the search space definition</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_optimization_run_trials.jpg" alt="ML Pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>The trials tab provides valuable information about the run. The parallel coordinates chart shows the various hyperparameter combination effect on the cost function</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>Now, we can see the workspace models; we can see that the best model has been registered to the workspace with the name <strong>final_model</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_optimization_run_model.jpg" alt="ML Pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>The final model</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>The run execution also leaves some interesting information in our console, including the hyperparameters that we used to train the best model.</p>
+<p><img src="/post/img/azureml_pipeline_introduction_optimization_run_terminal.jpg" alt="Terminal"></p>
+<h2 id="references">References</h2>
+<p>[1] Microsoft, <a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters">Hyperparameter tuning a model (v2) - Azure Machine Learning</a> [online] [Accessed 20 June 2022]</p>
+<p>[2] Microsoft <a href="https://docs.microsoft.com/en-us/python/api/azureml-train-core/azureml.train.hyperdrive?view=azure-ml-py">azureml.train.hyperdrive package</a> [online] [Accessed 1 July 2022].</p>
+<p>[3] Brownlee, J., <a href="https://machinelearningmastery.com/hyperparameter-optimization-with-random-search-and-grid-search/">Machine Learning Mastery - Hyperparameter Optimization With Random Search and Grid Search</a> [online] [Accessed 2 July 2022]</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_trainingpipeline/">Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</a></h4>
+    <h5>Creation and execution of a multi-step AzureML pipeline the selects the best model for a given dataset.</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/pipeline"><kbd class="item-tag">pipeline</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

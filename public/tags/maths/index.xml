@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maths on </title>
+    <link>//localhost:1313/tags/maths/</link>
+    <description>Recent content in Maths on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/maths/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mathematical prerequisites for some Clustering techniques</title>
+      <link>//localhost:1313/post/ml_mathematical_prerequisites/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/ml_mathematical_prerequisites/</guid>
+      <description>Prerequisites Scalar Product Consider $\textbf{u}, \textbf{v} \in {R}^d$.&#xA;The scalar product $&amp;lt;\textbf{u};\textbf{v}&amp;gt;$ (sometimes written also as $\textbf{u} . \textbf{v}$) is&#xA;$$&amp;lt;\textbf{u};\textbf{v}&amp;gt; = \sum_{i=1}^{d} u_i v_i$$&#xA;$&amp;lt;\textbf{u};\textbf{v}&amp;gt;$ is&#xA;Symmetric. $ &amp;lt;\textbf{u};\textbf{v}&amp;gt; =&amp;lt;\textbf{v};\textbf{u}&amp;gt; $ Bilinear. $&amp;lt;\lambda\textbf{u} + \mu\textbf{u&amp;rsquo;};\textbf{v}&amp;gt; = \lambda{\textbf{u};\textbf{v}} + \mu&amp;lt;\textbf{u&amp;rsquo;};\textbf{v}&amp;gt;$ $\textbf{u}, \textbf{v} , \textbf{u&amp;rsquo;} \in {R}^{d}$ $\lambda, \mu \in {R}$ $&amp;lt;\textbf{z};\textbf{z}&amp;gt; = \parallel \textbf{z} \parallel^{2}$ Cauchy-Schwarz Inequality Consider non-zero $\textbf{x},\textbf{y} \in {R}^n$. The absolute value of the dot product;&#xA;$$|&amp;lt;\textbf{x},\textbf{y}&amp;gt;| \leq \parallel\textbf{x}\parallel \parallel\textbf{y}\parallel$$</description>
+    </item>
+  </channel>
+</rss>

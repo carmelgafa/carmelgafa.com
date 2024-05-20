@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on </title>
+    <link>//localhost:1313/tags/tools/</link>
+    <description>Recent content in Tools on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Jan 2020 11:53:38 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>So finally I organized my electronics workbench</title>
+      <link>//localhost:1313/post/general_my_workshop/</link>
+      <pubDate>Fri, 24 Jan 2020 11:53:38 +0100</pubDate>
+      <guid>//localhost:1313/post/general_my_workshop/</guid>
+      <description>I finally found the time and will to put some order where I work with electronics. This is how it is looking:&#xA;I found the shelf at Lidl and it was a perfect fit on the bench. Some of the tools that I have:&#xA;My ancient Trio 25Mhz dual channel oscilloscope. I bought this one 33 years ago and it has been a faithful companion over the years. Variable bench power supply.</description>
+    </item>
+  </channel>
+</rss>

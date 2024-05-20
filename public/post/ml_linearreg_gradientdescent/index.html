@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Linear%20Regression%2c%20Part%206%20-%20The%20Gradient%20Descent%20Algorithm%2c%20Univariate%20Considerations&amp;body=Linear%20Regression%2c%20Part%206%20-%20The%20Gradient%20Descent%20Algorithm%2c%20Univariate%20Considerations%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_linearreg_gradientdescent%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Linear Regression, Part 6 - The Gradient Descent Algorithm, Univariate Considerations</b></h2>
+        <h5>Fri January 7, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/linear-regression"><kbd class="item-tag">linear-regression</kbd></a>
+
+<a href="//localhost:1313/tags/gradient-descent"><kbd class="item-tag">gradient-descent</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><p>We started this series of posts with an examination of <a href="/post/ml_linearreg_costfunctions">Cost Functions</a>, and then moved on to <a href="/post/ml_linearreg_univariatederivation">derive</a> and <a href="/post/ml_linearreg_univariatepython">implement</a> the solution to the linear regression problem for a single variable We extended this to a multi-variable linear regression problem, and we <a href="/post/ml_linearreg_multivariate">derived</a> and <a href="/post/ml_linearreg_multivariatepython">implemented</a> the solution for this case. Our final comment was that as the number of variables increases, the solution becomes computationally prohibitive.</p>
+<p>In this post, we will look at <strong>gradient descent</strong>, an iterative optimization algorithm used to find the minimum of a function. The basic idea is to iteratively move in the opposite direction of the gradient at a given point, thus moving in the direction of the steepest descent.</p>
+<h3 id="recap-of-the-univariate-linear-regression-problem">Recap of the univariate linear regression problem</h3>
+<p>We have seen in the previous posts that given a hypothesis function.</p>
+<p>$$ a_0 + a_1 x $$</p>
+<p>we can vary our parameters $a_0$ and $a_1$ minimize a cost function. The cost function that we used in the previous posts is the Mean Square Error,</p>
+<p>$$MSE = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{n}$$</p>
+<p>In this post, we will use a slightly different version of MSE, that is,</p>
+<p>$$MSE = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{2n}$$</p>
+<p>The purpose of the factor of two in the denominator is to simplify the calculations that we will meet further on. Adding a factor of two to the denominator does not modify the effect of the cost function, but as the MSE contains a squared term, the derivation will produce a factor of two in the numerator. Having a scaled MSE will mean that the factor of 2 will cancel out when deriving.</p>
+<h3 id="gradient-descent">Gradient Descent</h3>
+<p>The basic algorithm for gradient descent is simple, and we will use the following notation:</p>
+<ul>
+<li>start initial values for the parameters $a_0$ and $a_1$</li>
+<li>keep changing the parameters until the cost function is minimized</li>
+</ul>
+<p>We can formally write the algorithm as follows:</p>
+<p>repeat until convergence</p>
+<ul>
+<li>$$ a_0 := a_0 - \alpha \frac{\partial}{\partial a_0} MSE(a_0, a_1)$$</li>
+<li>$$ a_1 := a_1 - \alpha \frac{\partial}{\partial a_1} MSE(a_0, a_1)$$</li>
+</ul>
+<p>We will update the two parameters simultaneously, and the cost function is evaluated at each iteration. A visual representation of the algorithm for one parameter, in this case, $a_1$ is shown below.</p>
+<h4 id="a-note-about-the-value-of-alpha">A note about the value of $\alpha$</h4>
+<p>The value of $\alpha$ is the step size. It affects the precision and the speed of convergence and should be tuned to the problem at hand.</p>
+<ul>
+<li>The smaller the step size, the more accurate the solution will be, but the longer it will take to converge.
+The more significant the step size, the gradient descent can overshoot and may fail to converge or diverge.</li>
+</ul>
+<p>One important thing to note is that the term,</p>
+<p>$$  \alpha \frac{\partial}{\partial a} MSE(a_0, a_1)$$</p>
+<p>will become smaller in magnitude as a result moves closer to a minimum. Hence, gradient descent will take smaller stems as a local minimum is approached, and therefore there is no need to adjust the step size by adjusting $\alpha$.</p>
+<p><img src="/post/img/ml_linearreg_gradientdescent_fig1.jpg" alt="Gradient Descent"></p>
+<h3 id="gradient-descent-for-linear-regression">Gradient Descent for Linear Regression</h3>
+<p>We have seen that the function that we want to minimize is</p>
+<p>$$MSE(a_0, a_1) = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^{2} }{2n}$$</p>
+<p>Differentiating this function with respect to $a_0$ gives us:</p>
+<p>$$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^2}{2n}$$</p>
+<p>$$ = \frac{\partial}{\partial a_0} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(1)}{2n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)}{n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i)}{n}$$</p>
+<p>and similarly for $a_1$.</p>
+<p>$$\frac{\partial MSE(a_0, a_1)}{\partial a_0} = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} ( \hat{y}_i-y_i )^2}{2n}$$</p>
+<p>$$ = \frac{\partial}{\partial a_1} \frac{\sum_{i=1}^{n} (a_0 + a_1 x_i - y_i)^2}{2n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} 2(a_0 + a_1 x_i - y_i)(x_i)}{2n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} (x_i)(a_0 + a_1 x_i - y_i)}{n}$$</p>
+<p>$$ = \frac{\sum_{i=1}^{n} (x_i)(\hat{y}_i-y_i)}{n}$$</p>
+<p>Therefore, our algorithm becomes the following:</p>
+<p>repeat until convergence</p>
+<ul>
+<li>$$ a_0 := a_0 - \frac{\alpha}{n} \sum_{i=1}^{n} ( \hat{y}_i-y_i)$$</li>
+<li>$$ a_1 := a_1 - \frac{\alpha}{n} \sum_{i=1}^{n} ( \hat{y}_i-y_i)(x_i)$$</li>
+</ul>
+<h3 id="gradient-descent-for-univariate-linear-regression---python-implementation">Gradient Descent for Univariate Linear Regression - Python Implementation</h3>
+<p>In a <a href="/post/ml_linearreg_univariatepython">previous post</a>, we implemented the linear regression algorithm for the single variable problem. Below is an implementation the gradient descent algorithm for a univariate linear regression problem using Python.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib
+</span></span><span style="display:flex;"><span>matplotlib<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#39;text.usetex&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UnivariateGradientDescent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Gradient Descent Univariate utilizing numpy
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    not very efficient but easier to follow
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, alpha):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__training_data <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">=</span> alpha
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__threshold_iterations <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__threshold_cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__load_training_data</span>(self, file):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Loads the training data from a file
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        current_directory <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(__file__)
+</span></span><span style="display:flex;"><span>        full_filename <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(current_directory, file)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__training_data <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>loadtxt(full_filename, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>, skiprows<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_y_value</span>(self, x_value):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        return an estimated y value given an x value based on the training results
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__calculate_hypothesis(x_value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train</span>(self, file):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        starts the training procedure
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__load_training_data(file)
+</span></span><span style="display:flex;"><span>        counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        costs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        a_1s <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            cost <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__calculate_cost_function()
+</span></span><span style="display:flex;"><span>            counter <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            costs<span style="color:#f92672">.</span>append(cost)
+</span></span><span style="display:flex;"><span>            a_1s<span style="color:#f92672">.</span>append(self<span style="color:#f92672">.</span>__a1)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> cost <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>__threshold_cost <span style="color:#f92672">or</span> counter <span style="color:#f92672">&gt;</span> self<span style="color:#f92672">.</span>__threshold_iterations:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Cost Function: </span><span style="color:#e6db74">{</span>cost<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Iterations: </span><span style="color:#e6db74">{</span>counter<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#39;text.usetex&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>plot(a_1s[:], costs[:], <span style="color:#e6db74">&#39;--bx&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, mec<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;a1&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;cost&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Cost Function vs. a1, with $\alpha$ =&#39;</span> <span style="color:#f92672">+</span> str(self<span style="color:#f92672">.</span>__alpha))
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__calculate_cost_function</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        returns the cost function
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        training_count <span style="color:#f92672">=</span> len(self<span style="color:#f92672">.</span>__training_data)
+</span></span><span style="display:flex;"><span>        sum_a0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>        sum_a1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>        sum_cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>        cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, training_count):
+</span></span><span style="display:flex;"><span>            y_value <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__training_data[idx][<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            x_value <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__training_data[idx][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            y_hat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__calculate_hypothesis(x_value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            sum_a0 <span style="color:#f92672">+=</span> (y_hat <span style="color:#f92672">-</span> y_value)
+</span></span><span style="display:flex;"><span>            sum_a1 <span style="color:#f92672">+=</span> ((y_hat <span style="color:#f92672">-</span> y_value) <span style="color:#f92672">*</span> x_value)
+</span></span><span style="display:flex;"><span>            sum_cost <span style="color:#f92672">+=</span> pow((y_hat <span style="color:#f92672">-</span> y_value), <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">-=</span> ((self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">*</span> sum_a0) <span style="color:#f92672">/</span> training_count)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">-=</span> ((self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">*</span> sum_a1) <span style="color:#f92672">/</span> training_count)
+</span></span><span style="display:flex;"><span>        cost <span style="color:#f92672">=</span> ((<span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> training_count)) <span style="color:#f92672">*</span> sum_cost)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__calculate_hypothesis</span>(self, x_value):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        calculates the hypothesis for a value of x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        hypothesis <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">+</span> (self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">*</span> x_value)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> hypothesis
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_hypothesis</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        prints the hypothesis equation
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;y = </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>__a0<span style="color:#e6db74">}</span><span style="color:#e6db74"> x + </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>__a1<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    gradient_descent <span style="color:#f92672">=</span> UnivariateGradientDescent(<span style="color:#ae81ff">0.00005</span>)
+</span></span><span style="display:flex;"><span>    gradient_descent<span style="color:#f92672">.</span>train(<span style="color:#e6db74">&#39;data.csv&#39;</span>)
+</span></span><span style="display:flex;"><span>    gradient_descent<span style="color:#f92672">.</span>print_hypothesis()
+</span></span></code></pre></div><p>The program plots the values of $a_1$ with the cost function as the algorithm converges. It is then possible to see the effect of the learning rate on the convergence. For example a reasonably large learning rate will produce the following results:</p>
+<p><img src="/post/img/ml_linearreg_gradientdescent_alpha_large.jpeg" alt="Large alpha gradient descent"></p>
+<p>Whereas a small learning rate will produce the following results:</p>
+<p><img src="/post/img/ml_linearreg_gradientdescent_alpha_small.jpeg" alt="Small alpha gradient descent"></p>
+<p>A variation of the program, using pandas, is shown below. In this case the program is comparing the decrease of the cost function and using the difference as a stopping criteria.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib
+</span></span><span style="display:flex;"><span>matplotlib<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#39;text.usetex&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UnivariateGradientDescent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Gradient Descent Univariate utilizing pandas
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, alpha):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__training_data <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">=</span> alpha
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__threshold_iterations <span style="color:#f92672">=</span> <span style="color:#ae81ff">100000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__load_training_data</span>(self, file):
+</span></span><span style="display:flex;"><span>        full_filename <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(__file__), file)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__training_data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(full_filename, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>, names<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>], index_col<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_y_value</span>(self, x_value):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        return an estimated y value given an x value based on the training results
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__calculate_hypothesis(x_value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train</span>(self, file):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        starts the training procedure
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__load_training_data(file)
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">=</span> len(self<span style="color:#f92672">.</span>__training_data)
+</span></span><span style="display:flex;"><span>        iterations <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        previous_cost <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>float_info<span style="color:#f92672">.</span>max
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        costs <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        a_1s <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># calculate the hypothesis function for all training data</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">+</span> (self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;x&#39;</span>])
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># calculate the difference between the hypothesis function and the</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># actual y value for all training data</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat-y&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat&#39;</span>] <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y&#39;</span>]
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># multiply the difference by the x value for all training data</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y-hat-y.x&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat-y&#39;</span>] <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;x&#39;</span>]
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># square the difference for all training data</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y-hat-y_sq&#39;</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat-y&#39;</span>] <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># update the a0 and a1 values</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__a0 <span style="color:#f92672">-=</span> (self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>m) <span style="color:#f92672">*</span> sum(self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y_hat-y&#39;</span>]))
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__a1 <span style="color:#f92672">-=</span> (self<span style="color:#f92672">.</span>__alpha <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>m) <span style="color:#f92672">*</span> sum(self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y-hat-y.x&#39;</span>]))
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># calculate the cost function</span>
+</span></span><span style="display:flex;"><span>            cost <span style="color:#f92672">=</span> sum(self<span style="color:#f92672">.</span>__training_data[<span style="color:#e6db74">&#39;y-hat-y_sq&#39;</span>]) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> m)
+</span></span><span style="display:flex;"><span>            iterations <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># record the cost and a1 values for plotting</span>
+</span></span><span style="display:flex;"><span>            costs<span style="color:#f92672">.</span>append(cost)
+</span></span><span style="display:flex;"><span>            a_1s<span style="color:#f92672">.</span>append(self<span style="color:#f92672">.</span>__a1)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            cost_difference <span style="color:#f92672">=</span> previous_cost <span style="color:#f92672">-</span> cost
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Iteration: </span><span style="color:#e6db74">{</span>iterations<span style="color:#e6db74">}</span><span style="color:#e6db74">, cost: </span><span style="color:#e6db74">{</span>cost<span style="color:#e6db74">:</span><span style="color:#e6db74">.3f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, difference: </span><span style="color:#e6db74">{</span>cost_difference<span style="color:#e6db74">:</span><span style="color:#e6db74">.6f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>            previous_cost <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># check if the cost function is diverging, if so, break</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> cost_difference <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Cost function is diverging. Stopping training.&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># check if the cost function is close enough to 0, if so, break or if the number of </span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># iterations is greater than the threshold, break</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> abs(cost_difference) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.00001</span> <span style="color:#f92672">or</span> iterations <span style="color:#f92672">&gt;</span> self<span style="color:#f92672">.</span>__threshold_iterations:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># plot the cost function and a1 values</span>
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>plot(a_1s[:], costs[:], <span style="color:#e6db74">&#39;--bx&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightblue&#39;</span>, mec<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;a1&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;cost&#39;</span>)
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Cost Function vs. a1, with $\alpha$ =&#39;</span> <span style="color:#f92672">+</span> str(self<span style="color:#f92672">.</span>__alpha))
+</span></span><span style="display:flex;"><span>        plt<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_hypothesis</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        prints the hypothesis equation
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;y = </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>__a0<span style="color:#e6db74">}</span><span style="color:#e6db74"> x + </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>__a1<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    gradient_descent <span style="color:#f92672">=</span> UnivariateGradientDescent(<span style="color:#ae81ff">0.00055</span>)
+</span></span><span style="display:flex;"><span>    gradient_descent<span style="color:#f92672">.</span>train(<span style="color:#e6db74">&#39;data.csv&#39;</span>)
+</span></span><span style="display:flex;"><span>    gradient_descent<span style="color:#f92672">.</span>print_hypothesis()
+</span></span></code></pre></div><h3 id="conclusions">Conclusions</h3>
+<p>We used the code to replicate the results in the <a href="/post/ml_linearreg_univariatepython">previous post</a>. We observed the following:</p>
+<ul>
+<li>We achieved convergence to a reasonable value of $a_0$ and $a_1$ relatively quickly, but convergence to a comparable value of $a_0$ and $a_1$ took a long time.</li>
+<li>the value of $\alpha$ is critical to the algorithm&rsquo;s convergence.</li>
+</ul>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
+    <h5>October 8, 2022</h5>
+    
+<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
+
+<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
+
+<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
+
+<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
+
+<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

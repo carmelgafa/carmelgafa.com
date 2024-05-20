@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: #f7f8fa;
+    }
+
+    :root {
+        --accent: #660608;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="//localhost:1313/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.125.2">
+        
+
+        
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVC27KVMVZ"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments)};
+              gtag('js', new Date());
+              gtag('config', 'G-EVC27KVMVZ');
+            </script>
+        
+
+        
+            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+
+        
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    
+        
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+    </head>
+
+    <body>
+        
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand visible-xs" href="#">Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</a>
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/about/">About</a></li>
+                            
+                                <li><a href="/post/">Tech Posts</a></li>
+                            
+                                <li><a href="/project/">Tech Projects</a></li>
+                            
+                                <li><a href="/ww2/">World War 2</a></li>
+                            
+                        </ul>
+                    
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:carmelafa@hotmail.com"><i class="fas fa-envelope"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/carmelgafa/"><i class="fab fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/carmel-gafa-200aa37/"><i class="fab fa-linkedin"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject=Notes%20about%20Azure%20ML%2c%20Part%209%20-%20An%20end-to-end%20AzureML%20example%20Pipeline%20creation%20and%20execution&amp;body=Notes%20about%20Azure%20ML%2c%20Part%209%20-%20An%20end-to-end%20AzureML%20example%20Pipeline%20creation%20and%20execution%2c%20by%20Carmel%20Gafa%0a%0aCreation%20and%20execution%20of%20a%20multi-step%20AzureML%20pipeline%20the%20selects%20the%20best%20model%20for%20a%20given%20dataset.%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_trainingpipeline%2f%0a" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_trainingpipeline%2f" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fazureml_end2end_trainingpipeline%2f" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</b></h2>
+        <h5>Sat June 18, 2022</h5>
+        
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/pipeline"><kbd class="item-tag">pipeline</kbd></a>
+
+
+    </div>
+
+    <div align="start" class="content"><h2 id="introduction">Introduction</h2>
+<p>In the second section of this series, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called <strong><code>concrete_baseline</code></strong>. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.</p>
+<p>AzureMl pipelines connect several functional steps we can execute in sequence in a machine learning workflow. They enable development teams to work efficiently as each pipeline step can be developed and optimized individually. The various pipeline steps can be connected using a well-defined interface. Pipelines can be parametrized, thus allowing us to investigate different scenarios and variations of the same AzureML-pipeline.</p>
+<p>It is helpful to spend a moment at this stage to discuss the final goal of this Pipeline. We will use this Pipeline to create two models:</p>
+<ul>
+<li>a data transformation model that will be used to transform the data into a format that the machine learning model can use.</li>
+<li>a machine learning model that will be used to predict the concrete strength of the concrete.</li>
+</ul>
+<p>The two models will be used in conjunction in our final deployment. It is also possible to create a single model that will execute both steps, but we opted for the two models approach to show how to use different models together.</p>
+<p>An outline of the Pipeline implemented in this example is shown in the diagram below. The illustration below shows the steps that are part of the Pipeline and the outputs of each step.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_pipeline.jpg" alt="ML Pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Pipeline in this example</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>The work described in this section is contained in the following folder structure. In the sections below, we will go through all these files individually.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>train
+</span></span><span style="display:flex;"><span>│   train_model.py
+</span></span><span style="display:flex;"><span>|   requirements.txt
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└───src
+</span></span><span style="display:flex;"><span>│   │   data_transformer_builder.py
+</span></span><span style="display:flex;"><span>│   │   model_evaluation.py
+</span></span><span style="display:flex;"><span>|   │   step_prepare_data.py
+</span></span><span style="display:flex;"><span>│   │   step_train_test_split.py
+</span></span><span style="display:flex;"><span>│   │   step_train.py
+</span></span></code></pre></div><h2 id="data-passing-mechanisms">Data passing mechanisms</h2>
+<p>There are various options whereby data can be passed from one step to another within an AzureML pipeline; an excellent article on this topic can be found in Vlad Ilescu&rsquo;s blog [1]. Three options that are available are:</p>
+<ul>
+<li>
+<p>Using AzureMl datasets as pipeline inputs. We have already created a dataset called <strong>concrete_baseline</strong>that contains the concrete strength data. We will use this dataset as the input for the first step of the Pipeline.</p>
+</li>
+<li>
+<p>Using <strong>PipelineData</strong>. <strong>PipelineData</strong> is a very versatile object that can be used to pass data of any type between steps in the Pipeline; this is a great choice for passing data that is necessary for the context of the Pipeline. In our example, we will create a dataset with the transformed train features dataset that will also be used as the input to the training step. Similarly, the data preparation model will also be created in the data preparation step and will be used as the input to the training step, albeit it will also be registered as an AzureML model. The natural choice for these entities is the PipelineData object.</p>
+</li>
+<li>
+<p>Using <strong>OutputFileDatasetConfig</strong> has many similarities to the PipelineData object, but we can also register it as an AzureML dataset. In our example, we would need to use the train and test datasets in the phases that follow the Pipeline, namely;</p>
+<ul>
+<li>
+<p>In the model hyperparameter tuning phase, we will use the train datasets as the input to the model hyperparameter tuning step.</p>
+</li>
+<li>
+<p>In the validation phase, we will use the test datasets as our input.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Therefore OutputFileDatasetConfig was considered an excellent choice for these cases.</p>
+<h2 id="pipeline-steps">Pipeline steps</h2>
+<p>In this section, we will look at the steps in more detail. We will also present the code for each step.</p>
+<h3 id="step-1-creation-of-test-and-train-datasets">Step 1: Creation of Test and Train Datasets</h3>
+<p>In our experiment, we will base our work on the premise that the amount of cement in our mixture is a vital attribute in predicting the strength of concrete. We will use this information and the stratified sampling technique to create the test and train datasets based on the cement content. This technique will place all records in one of five buckets based on cement content. In practice, we carry out this assignment by creating a temporary field called <strong><code>cement_cat</code></strong> that will hold the cement content bucket. We will then use Scikit Learn&rsquo;s <strong><code>StratifiedShuffleSplit</code></strong> class to split the data into train and test sets based on <strong><code>cement_cat</code></strong>. The process will yield a test set with a size of 20% and a train set containing 80% of the original data. We will further split the train and test sets into the features and the labels datasets, and the four sets are saved and published as AzureML datasets to be used later on. Naturally, we delete <strong><code>cement_cat</code></strong> at the end of this process.</p>
+<p>So, the first pipeline step will use the created <strong><code>concrete_baseline</code></strong> dataset to create the train and test sets and will output four attributes:</p>
+<ul>
+<li><strong><code>train_features</code></strong>: the features dataset for the train set.</li>
+<li><strong><code>train_labels</code></strong>: the labels dataset for the train set.</li>
+<li><strong><code>test_features</code></strong>: the features dataset for the test set.</li>
+<li><strong><code>test_labels</code></strong>: the labels dataset for the test set.</li>
+</ul>
+<p>We specify the location of these entities as arguments for this pipeline step, as we shall see later on.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Split Train / Test Pipeline Step
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Run
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> StratifiedShuffleSplit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RANDOM_STATE <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parsing the arguments passed to the script.</span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser()
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_X_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_X_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_y_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_y_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--test_X_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_X_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--test_y_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_y_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span></code></pre></div><p>Execution of this pipeline step starts with retrieving the <strong><code>concrete_baseline</code></strong> dataset from the AzureML datasets. To do this, we need to get an instance of the current trial&rsquo;s <strong><code>run</code></strong> context. This is done by calling the <strong><code>get_context()</code></strong> method of the <strong><code>Run</code></strong> class. We can then get the <strong><code>concrete_base</code></strong> dataset through the <strong><code>input_datasets</code></strong> property of the <strong><code>RunContext</code></strong> class, referencing the dataset name. We can convert the dataset to a pandas <strong><code>Dataframe</code></strong> using the <strong><code>to_pandas_dataframe()</code></strong> method so we can use it later on.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># This is the code that is used to read the data from the dataset </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># that was created in the previous step.</span>
+</span></span><span style="display:flex;"><span>concrete_dataset <span style="color:#f92672">=</span> run<span style="color:#f92672">.</span>input_datasets[<span style="color:#e6db74">&#39;concrete_baseline&#39;</span>]
+</span></span><span style="display:flex;"><span>df_concrete <span style="color:#f92672">=</span> concrete_dataset<span style="color:#f92672">.</span>to_pandas_dataframe()
+</span></span></code></pre></div><p>As explained above, the <strong><code>concrete_baseline</code></strong> dataset is then split into train and test sets using the <strong><code>StratifiedShuffleSplit</code></strong> class. The <strong><code>StratifiedShuffleSplit</code></strong> class is a cross-validation iterator that provides train/test indices to split data into train/test sets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># prepare the data, we will use a stratified split to create a train and test set</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># first we split the data into 5 buckets according to the cement content</span>
+</span></span><span style="display:flex;"><span>df_concrete[<span style="color:#e6db74">&#39;cement_cat&#39;</span>] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ceil((df_concrete[<span style="color:#e6db74">&#39;cement&#39;</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">540</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>train_set, test_set <span style="color:#f92672">=</span>  <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># we use a stratified split to create a train and test set</span>
+</span></span><span style="display:flex;"><span>split <span style="color:#f92672">=</span> StratifiedShuffleSplit(n_splits<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>, random_state<span style="color:#f92672">=</span>RANDOM_STATE)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> train_idx, test_idx <span style="color:#f92672">in</span> split<span style="color:#f92672">.</span>split(df_concrete, df_concrete[<span style="color:#e6db74">&#39;cement_cat&#39;</span>]):
+</span></span><span style="display:flex;"><span>    train_set <span style="color:#f92672">=</span> df_concrete<span style="color:#f92672">.</span>loc[train_idx]
+</span></span><span style="display:flex;"><span>    test_set <span style="color:#f92672">=</span> df_concrete<span style="color:#f92672">.</span>loc[test_idx]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># remove cement_cat in train and test datasets</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> set_ <span style="color:#f92672">in</span> (train_set, test_set):
+</span></span><span style="display:flex;"><span>    set_<span style="color:#f92672">.</span>drop(<span style="color:#e6db74">&#39;cement_cat&#39;</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is splitting the data into training and test sets.</span>
+</span></span><span style="display:flex;"><span>X_train <span style="color:#f92672">=</span> train_set<span style="color:#f92672">.</span>drop(<span style="color:#e6db74">&#39;strength&#39;</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>y_train <span style="color:#f92672">=</span> train_set[<span style="color:#e6db74">&#39;strength&#39;</span>]<span style="color:#f92672">.</span>copy()
+</span></span><span style="display:flex;"><span>X_test <span style="color:#f92672">=</span> test_set<span style="color:#f92672">.</span>drop(<span style="color:#e6db74">&#39;strength&#39;</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>y_test <span style="color:#f92672">=</span> test_set[<span style="color:#e6db74">&#39;strength&#39;</span>]<span style="color:#f92672">.</span>copy()
+</span></span></code></pre></div><p>The four pandas Dataframes are saved to CSV files in the locations specified as arguments to this pipeline step using the numpy <strong>to_csv</strong> method. As they were created using the <strong>OutputFileDatasetConfig</strong> process, they will be automatically registered as AzureML datasets, as we will see later on.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Write outputs</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>savetxt(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_X_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>), X_test, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>)
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>savetxt(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_y_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>), y_test, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>savetxt(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>test_X_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>), X_test, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>)
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>savetxt(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>test_y_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>), y_test, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>)
+</span></span></code></pre></div><p>This step also outputs some metrics that the user can use to validate the correct execution using the logging capabilities of the trial&rsquo;s run. Logging is done through the <strong>log()</strong> method of the <strong>Run</strong> class.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># This is logging the shape of the data.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;X_train&#39;</span>, X_train<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;y_train&#39;</span>, y_train<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;X_test&#39;</span>, X_test<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;y_test&#39;</span>, y_test<span style="color:#f92672">.</span>shape)
+</span></span></code></pre></div><h3 id="step-2-preparing-the-data">Step 2: Preparing the Data</h3>
+<p>In this step, we will use the AzureML SDK and Scikit Learn to prepare the data for training. The result of this step is a Scikit Learn transformation pipeline that will consist of two stages:</p>
+<ul>
+<li>A <strong><code>Custom Transformer</code></strong>, called <strong><code>CombinedAggregateAdder</code></strong>, will add coarse and fine aggregate features into a new feature called <strong><code>Aggregate</code></strong>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Data Transformer Builder
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Creates a data transformer comprising of the following steps:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- combines the fine aggregate and coarse aggregate into a single feature
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- scales the data using StandardScaler
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Transforms the data and returns the transformed data, and the transformer
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.base <span style="color:#f92672">import</span> BaseEstimator, TransformerMixin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.pipeline <span style="color:#f92672">import</span> Pipeline
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.preprocessing <span style="color:#f92672">import</span> StandardScaler
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>coarse_agg_ix, fine_agg_ix <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CombinedAggregateAdder</span>(BaseEstimator, TransformerMixin):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sums the aggregate features in the dataset
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        initializes the class
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fit</span>(self, X, y<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        fit function. returns self
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">transform</span>(self, x_val, y_val<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Transformation function
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        aggregate_total <span style="color:#f92672">=</span> x_val[:, coarse_agg_ix] <span style="color:#f92672">+</span> x_val[:, fine_agg_ix]
+</span></span><span style="display:flex;"><span>        x_val <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>delete(x_val, [coarse_agg_ix, fine_agg_ix], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>c_[x_val, aggregate_total]
+</span></span></code></pre></div><ul>
+<li>A <strong><code>Standardization Transformer</code></strong> that will standardize the features using Scikit Learn&rsquo;s <strong><code>StandardScaler</code></strong>.</li>
+</ul>
+<p>The two transformers are chained together using Scikit Learn&rsquo;s <strong><code>Pipeline</code></strong> class. It is essential to mention that this is not the typical approach to preparing the data, as Microsoft Azure provides many tools, such as <strong><code>Azure Databricks</code></strong>, that are better suited for this task. But in our small project, we will use the coding approach.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">transformation_pipeline</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Scikit learn Pipeline Creator : the transformer
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Creating a pipeline that will first add the</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># two aggregate features and then scale the data.</span>
+</span></span><span style="display:flex;"><span>    pipeline <span style="color:#f92672">=</span> Pipeline([
+</span></span><span style="display:flex;"><span>        (<span style="color:#e6db74">&#39;CombinedAggregateAdder&#39;</span>, CombinedAggregateAdder()),
+</span></span><span style="display:flex;"><span>        (<span style="color:#e6db74">&#39;StandardScaler&#39;</span>, StandardScaler())
+</span></span><span style="display:flex;"><span>    ])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pipeline
+</span></span></code></pre></div><p>The code to generate the data transformation pipeline is shown below. The method <strong><code>pipeline_fit_transform_save()</code></strong> is used return the  the pipeline and transformed data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">data_transform</span>(data):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Creates a transformation pipeline using data.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Returns the transformed data and the Pipeline.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    data_transformer <span style="color:#f92672">=</span> transformation_pipeline()
+</span></span><span style="display:flex;"><span>    transformed_data <span style="color:#f92672">=</span> data_transformer<span style="color:#f92672">.</span>fit_transform(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> data_transformer, transformed_data
+</span></span></code></pre></div><p>The second step of the Pipeline will use the transformation specified above to prepare the data for training. As mentioned previously, this step will create a  Scikit learn data preparation pipeline that we will use to transform our data so that our machine learning model can use it. This data preparation pipeline will be registered as an AzureML model that can be easily loaded and used in other phases of this project in conjunction with the Machine Learning Model.</p>
+<p>This pipeline step has three arguments.</p>
+<ul>
+<li>An input argument, the training features dataset location.</li>
+<li>Two output arguments; the transformed training features dataset location and the data preparation pipeline location.</li>
+</ul>
+<p>In this approach, we will be passing the location of the data preparation pipeline and the transformed features data as pipeline parameters. Nonetheless, as we have seen previously, other methods are possible.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Data Preprocessor step of the Pipeline.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pickle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Run
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> data_transformer_builder <span style="color:#f92672">import</span> data_transform
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The dataset is specified at the pipeline definition level.</span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parsing the arguments passed to the script.</span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser()
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_X_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_X_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_Xt_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_Xt_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--data_transformer_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data_transformer_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading the data from the data store.</span>
+</span></span><span style="display:flex;"><span>X_train_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_X_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>X_train <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(X_train_path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;X_train&#39;</span>, X_train<span style="color:#f92672">.</span>shape)
+</span></span></code></pre></div><p>The pipeline step will call the <strong><code>pipeline_fit_transform_save()</code></strong>, passing the train features data to obtain the data-transformer and the transformed data features. The transformed data is then saved to the specified location and registered as an AzureML model.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Fitting the data transformer to the training data.</span>
+</span></span><span style="display:flex;"><span>data_transformer, X_train_transformed <span style="color:#f92672">=</span> data_transform(X_train)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;X_train_transf&#39;</span>, X_train_transformed<span style="color:#f92672">.</span>shape)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;data_transformer&#39;</span>, data_transformer)
+</span></span></code></pre></div><p>Finally, we save the data-transformer to the specified location and register it as an AzureML model with the name <strong><code>data_transformer</code></strong>. We also save the transformed data to its specified location so that it can be used in the next step of the Pipeline.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(args<span style="color:#f92672">.</span>train_Xt_folder):
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>mkdir(args<span style="color:#f92672">.</span>train_Xt_folder)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Saving the transformed data to the data store.</span>
+</span></span><span style="display:flex;"><span>np<span style="color:#f92672">.</span>savetxt(
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_Xt_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>),
+</span></span><span style="display:flex;"><span>    X_train_transformed,
+</span></span><span style="display:flex;"><span>    delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>,
+</span></span><span style="display:flex;"><span>    fmt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(args<span style="color:#f92672">.</span>data_transformer_folder):
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>mkdir(args<span style="color:#f92672">.</span>data_transformer_folder)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Saving the transformer to a file.</span>
+</span></span><span style="display:flex;"><span>data_transformer_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>data_transformer_folder, <span style="color:#e6db74">&#39;data_transformer.pkl&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(data_transformer_path, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> handle:
+</span></span><span style="display:flex;"><span>    pickle<span style="color:#f92672">.</span>dump(data_transformer, handle, protocol<span style="color:#f92672">=</span>pickle<span style="color:#f92672">.</span>HIGHEST_PROTOCOL)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Registering the model in the Azure ML workspace.</span>
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>upload_file(data_transformer_path,data_transformer_path)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>register_model(model_path<span style="color:#f92672">=</span>data_transformer_path, model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;data_transformer&#39;</span>)
+</span></span></code></pre></div><h3 id="step-3-train-and-select-the-model">Step 3: Train and select the Model</h3>
+<p>The last step of the Pipeline is to train several models, evaluate their performance and select the best one. The models that are considered are the following:</p>
+<ul>
+<li><strong><code>Linear Regression</code></strong>, using Scikit Learn&rsquo;s <strong><code>LinearRegression</code></strong> class.</li>
+<li><strong><code>Random Forest</code></strong>, using Scikit Learn&rsquo;s <strong><code>RandomForestRegressor</code></strong> class.</li>
+<li><strong><code>Gradient Boosting</code></strong>, using Scikit Learn&rsquo;s <strong><code>GradientBoostingRegressor</code></strong> class.</li>
+<li><strong><code>Bagging Regressor</code></strong>, using Scikit Learn&rsquo;s <strong><code>BaggingRegressor</code></strong> class.</li>
+</ul>
+<p>The models are evaluated using the  root mean squared error (RMSE) metric, where</p>
+<p>$$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y_i})^2}$$</p>
+<p>, where $y_i$ is the actual value and $\hat{y_i}$ is the predicted value for the ith test record.</p>
+<p>Let us break down the code of this step.</p>
+<p>We start the development of this step by creating the cost function to be used for the model evaluation. The code presented is very straightforward; the predicted values are calculated from the model and compared to the test-lables. Obviously, this is not the only or best way to evaluate our models.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Evaluation functions for the model
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.metrics <span style="color:#f92672">import</span> mean_squared_error
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rmse_evaluate</span>(model, X_val, y_val):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Calculates the root of the mean squared error of the model
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Calculating the root of mean squared error of the model.</span>
+</span></span><span style="display:flex;"><span>    prediction <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(X_val)
+</span></span><span style="display:flex;"><span>    test_mse <span style="color:#f92672">=</span> mean_squared_error(y_val, prediction)
+</span></span><span style="display:flex;"><span>    sqrt_mse <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(test_mse)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sqrt_mse
+</span></span></code></pre></div><p>Next, we present the training step code. The code is very similar in nature to what we presented in the previous steps; however there are some differences:</p>
+<ul>
+<li>
+<p>This Pipeline step will use some pipeline arguments that will allow us to modify some of the models&rsquo; hyperparameters at this stage, thus helping us in selecting the best model. This step has the following arguments:</p>
+<ul>
+<li>train_y_folder, the location of the training labels that we have previously stored in a data store.</li>
+<li>train_Xt_folder, the location of the transformed training features that we have previously stored in a data store.</li>
+<li>model_folder, the location where the model that we will select in this step will be saved.</li>
+<li>bag_regressor_n_estimators, the number of trees in the bagging regressor. This is a pipeline argument that will have an initial value that we will define during pipeline creation. This argument, as we shall see later on, can be modified so that a new selection trial is carried out without resubmitting the entire pipeline code.</li>
+<li>decision_tree_max_depth, the maximum depth of the decision tree. Similar to the argument above, this is a pipeline argument.</li>
+<li>random_forest_n_estimators, the number of trees in the random forest. Similar to the argument above, this is a pipeline argument.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Train step. Trains various models and selects the best one.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pickle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Run
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.ensemble <span style="color:#f92672">import</span> BaggingRegressor, RandomForestRegressor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.linear_model <span style="color:#f92672">import</span> LinearRegression
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeRegressor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> model_evaluation <span style="color:#f92672">import</span> evaluate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Getting the run context.</span>
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> Run<span style="color:#f92672">.</span>get_context()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Parsing the arguments passed to the script.</span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser()
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_y_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_y_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--train_Xt_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;train_Xt_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--model_folder&#39;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;model_folder&#39;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--bag_regressor_n_estimators&#39;</span>,
+</span></span><span style="display:flex;"><span>    dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bag_regressor_n_estimators&#39;</span>,
+</span></span><span style="display:flex;"><span>    required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--decision_tree_max_depth&#39;</span>,
+</span></span><span style="display:flex;"><span>    dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;decision_tree_max_depth&#39;</span>,
+</span></span><span style="display:flex;"><span>    required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>parser<span style="color:#f92672">.</span>add_argument(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;--random_forest_n_estimators&#39;</span>,
+</span></span><span style="display:flex;"><span>    dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;random_forest_n_estimators&#39;</span>,
+</span></span><span style="display:flex;"><span>    required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reading the data from the `X_train_trans.txt` file and converting it to a numpy array.</span>
+</span></span><span style="display:flex;"><span>X_t_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_Xt_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>X_train_trans <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(X_t_path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reading the data from the `y_train.txt` file and converting it to a numpy array.</span>
+</span></span><span style="display:flex;"><span>y_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>train_y_folder, <span style="color:#e6db74">&#34;data.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>y_train <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(y_path, header<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>)<span style="color:#f92672">.</span>to_numpy()
+</span></span></code></pre></div><ul>
+<li>
+<p>This step loads the training labels and the transformed training features from the data store and executes the training of the models. The models are assigned the hyperparameters that we have specified during the pipeline creation. Obviously, we could have added more parameters to have better criteria for selecting our model, but we have chosen to keep the number of parameters as low as possible.</p>
+</li>
+<li>
+<p>The cost function is evaluated for each model and logged to the pipeline step metrics by using the <strong><code>run.log()</code></strong> function. We also store the model and the resulting RMSE in a dictionary.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Creating an empty dictionary.</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Training a linear regression model and evaluating it.</span>
+</span></span><span style="display:flex;"><span>lin_regression <span style="color:#f92672">=</span> LinearRegression()
+</span></span><span style="display:flex;"><span>lin_regression<span style="color:#f92672">.</span>fit(X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>sqrt_mse<span style="color:#f92672">=</span> evaluate(lin_regression, X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>results[lin_regression] <span style="color:#f92672">=</span> sqrt_mse
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;LinearRegression&#39;</span>, sqrt_mse)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Training a bagging regressor model and evaluating it.</span>
+</span></span><span style="display:flex;"><span>bag_regressor <span style="color:#f92672">=</span> BaggingRegressor(
+</span></span><span style="display:flex;"><span>    n_estimators<span style="color:#f92672">=</span>int(args<span style="color:#f92672">.</span>bag_regressor_n_estimators),
+</span></span><span style="display:flex;"><span>    random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>bag_regressor<span style="color:#f92672">.</span>fit(X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>sqrt_mse<span style="color:#f92672">=</span> evaluate(bag_regressor, X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>results[bag_regressor] <span style="color:#f92672">=</span> sqrt_mse
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;BaggingRegressor&#39;</span>, sqrt_mse)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Training a decision tree regressor model and evaluating it.</span>
+</span></span><span style="display:flex;"><span>dec_tree_regressor <span style="color:#f92672">=</span> DecisionTreeRegressor(
+</span></span><span style="display:flex;"><span>    max_depth<span style="color:#f92672">=</span>int(args<span style="color:#f92672">.</span>decision_tree_max_depth))
+</span></span><span style="display:flex;"><span>dec_tree_regressor<span style="color:#f92672">.</span>fit(X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>sqrt_mse<span style="color:#f92672">=</span> evaluate(dec_tree_regressor, X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>results[dec_tree_regressor] <span style="color:#f92672">=</span> sqrt_mse
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;DecisionTreeRegressor&#39;</span>,sqrt_mse)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Training a random forest regressor model and evaluating it.</span>
+</span></span><span style="display:flex;"><span>random_forest_regressor <span style="color:#f92672">=</span> RandomForestRegressor(
+</span></span><span style="display:flex;"><span>    n_estimators<span style="color:#f92672">=</span>int(args<span style="color:#f92672">.</span>random_forest_n_estimators),
+</span></span><span style="display:flex;"><span>    random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>random_forest_regressor<span style="color:#f92672">.</span>fit(X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>sqrt_mse<span style="color:#f92672">=</span> evaluate(random_forest_regressor, X_train_trans, y_train)
+</span></span><span style="display:flex;"><span>results[random_forest_regressor] <span style="color:#f92672">=</span> sqrt_mse
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;RandomForestRegressor&#39;</span>, sqrt_mse)
+</span></span></code></pre></div><ul>
+<li>The selected model is obtained by looking for the minimum RMSE in the dictionary. The selected model name is also logged to the pipeline step metrics.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Selecting the model with the lowest RMSE.</span>
+</span></span><span style="display:flex;"><span>selected_model <span style="color:#f92672">=</span>  min(results, key<span style="color:#f92672">=</span>results<span style="color:#f92672">.</span>get)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>log(<span style="color:#e6db74">&#39;selected_model&#39;</span>, selected_model)
+</span></span></code></pre></div><ul>
+<li>Finally, the selected model is saved to the data store in the location specified by the model_folder argument. The model is also registered in the AzureML workspace with the name of <strong><code>concrete_model</code></strong>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(args<span style="color:#f92672">.</span>model_folder):
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>mkdir(args<span style="color:#f92672">.</span>model_folder)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Saving the model to a file.</span>
+</span></span><span style="display:flex;"><span>model_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(args<span style="color:#f92672">.</span>model_folder, <span style="color:#e6db74">&#39;model.pkl&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(model_path, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> handle:
+</span></span><span style="display:flex;"><span>    pickle<span style="color:#f92672">.</span>dump(selected_model, handle, protocol<span style="color:#f92672">=</span>pickle<span style="color:#f92672">.</span>HIGHEST_PROTOCOL)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Uploading the model to the Azure ML workspace and registering it.</span>
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>upload_file(model_path,model_path)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>register_model(model_path<span style="color:#f92672">=</span>model_path, model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete_model&#39;</span>)
+</span></span></code></pre></div><h3 id="putting-it-all-together---pipeline-creation">Putting it all together - Pipeline creation</h3>
+<p>Finally, all this work comes together when we create the Pipeline that will be used to train the model. We start this process by</p>
+<ul>
+<li>getting an instance of our AzureML workspace. In order to do this, we will use the configuration file that we created when we created the workspace.</li>
+<li>creating a <strong><code>RunConfiguration</code></strong> object. This object will be used to specify the configuration of the Pipeline.</li>
+<li>defining an <strong><code>Environment</code></strong> object. This object will be used to specify the environment in which the Pipeline will be executed. In our case, we will create the environment from a pip specification file. This specification file contains the list of packages that will be used in the Pipeline and is as follows:</li>
+</ul>
+<pre tabindex="0"><code class="language-config" data-lang="config">scikit-learn
+pandas
+azureml-core
+azureml-dataset-runtime
+azureml-defaults
+</code></pre><ul>
+<li>we then assign the <strong>environment</strong> attribute of our <strong>RunConfiguration</strong> object to the created <strong>Environment</strong> object.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Execute the training pipeline with the following steps:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Step 1: Split the data into train and test sets
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Step 2: Prepare the train data for training and generate a prepare-data pipeline
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- Step 3: Train the model using various algorithms and select the best one
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.pipeline.steps.python_script_step <span style="color:#f92672">import</span> PythonScriptStep
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.pipeline.core <span style="color:#f92672">import</span> Pipeline, PipelineParameter
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core <span style="color:#f92672">import</span> Workspace, Experiment, Dataset, Datastore
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.runconfig <span style="color:#f92672">import</span> RunConfiguration
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.core.environment <span style="color:#f92672">import</span> Environment
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.pipeline.core <span style="color:#f92672">import</span> PipelineData
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azureml.data.output_dataset_config <span style="color:#f92672">import</span> OutputFileDatasetConfig
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> azuremlproject <span style="color:#f92672">import</span> constants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Loading the workspace from the config file.</span>
+</span></span><span style="display:flex;"><span>config_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;..&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;.azureml&#39;</span>)
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> Workspace<span style="color:#f92672">.</span>from_config(path<span style="color:#f92672">=</span>config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create a new run_config object</span>
+</span></span><span style="display:flex;"><span>run_config <span style="color:#f92672">=</span> RunConfiguration()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Creating a new environment with the name concrete_env and </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># installing the packages in the requirements.txt file.</span>
+</span></span><span style="display:flex;"><span>environment <span style="color:#f92672">=</span> Environment<span style="color:#f92672">.</span>from_pip_requirements(
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;concrete_env&#39;</span>,
+</span></span><span style="display:flex;"><span>    file_path<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;requirements.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>run_config<span style="color:#f92672">.</span>environment <span style="color:#f92672">=</span> environment
+</span></span></code></pre></div><p>We then specify the location of source files containing the pipeline steps. This folder is uploaded to the AzureML workspace so that the Pipeline is created and executed. This location is during the creation of each pipeline step.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Path to the folder containing the scripts that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># will be executed by the pipeline.</span>
+</span></span><span style="display:flex;"><span>source_directory <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>realpath(__file__)),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;src&#39;</span>)
+</span></span></code></pre></div><p>We also get a reference to the AzureML data store that will be used to store the various assets that will be created by this Pipeline. As discussed earlier, we will use the data store that we created during the creation of the workspace, whose name is specified in a constants file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>data_store <span style="color:#f92672">=</span> Datastore(ws, constants<span style="color:#f92672">.</span>DATASTORE_NAME)
+</span></span></code></pre></div><p>We then define the entities that will hold our assets as described previously.</p>
+<ul>
+<li>
+<p>We will use the <strong>OutputFileDatasetConfig</strong> class to store the train and test features and labels. We also use the <strong>register_on_complete</strong> method to register the train and test features and labels as AzureML datasets.</p>
+</li>
+<li>
+<p>We use the <strong>PipelineData</strong> class to store the transformed train features as this data is not required outside the Pipeline.</p>
+</li>
+<li>
+<p>We use the <strong>PipelineData</strong> class to store the <strong>data_transformer</strong> and the selected <strong>model</strong>. These items will be registered as AzureML models when they are created.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>train_X_folder <span style="color:#f92672">=</span> OutputFileDatasetConfig(
+</span></span><span style="display:flex;"><span>    destination<span style="color:#f92672">=</span>(data_store, <span style="color:#e6db74">&#39;train_X_folder&#39;</span>))<span style="color:#f92672">.</span>register_on_complete(<span style="color:#e6db74">&#39;train_X&#39;</span>)
+</span></span><span style="display:flex;"><span>train_y_folder <span style="color:#f92672">=</span> OutputFileDatasetConfig(
+</span></span><span style="display:flex;"><span>    destination<span style="color:#f92672">=</span>(data_store, <span style="color:#e6db74">&#39;train_y_folder&#39;</span>))<span style="color:#f92672">.</span>register_on_complete(<span style="color:#e6db74">&#39;train_y&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test_X_folder <span style="color:#f92672">=</span> OutputFileDatasetConfig(
+</span></span><span style="display:flex;"><span>    destination<span style="color:#f92672">=</span>(data_store, <span style="color:#e6db74">&#39;test_X_folder&#39;</span>))<span style="color:#f92672">.</span>register_on_complete(<span style="color:#e6db74">&#39;test_X&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test_y_folder <span style="color:#f92672">=</span> OutputFileDatasetConfig(
+</span></span><span style="display:flex;"><span>    destination<span style="color:#f92672">=</span>(data_store, <span style="color:#e6db74">&#39;test_y_folder&#39;</span>))<span style="color:#f92672">.</span>register_on_complete(<span style="color:#e6db74">&#39;test_y&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>train_Xt_folder <span style="color:#f92672">=</span> PipelineData(<span style="color:#e6db74">&#39;train_Xt_folder&#39;</span>, datastore<span style="color:#f92672">=</span>data_store, is_directory<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_transformer_folder <span style="color:#f92672">=</span> PipelineData(<span style="color:#e6db74">&#39;data_transformer_folder&#39;</span>, datastore<span style="color:#f92672">=</span>data_store)
+</span></span><span style="display:flex;"><span>model_folder <span style="color:#f92672">=</span> PipelineData(<span style="color:#e6db74">&#39;model_folder&#39;</span>, datastore<span style="color:#f92672">=</span>data_store)
+</span></span></code></pre></div><p>Next, we get an instance of the <strong>concrete_baseline</strong> dataset that we created earlier. This data is the starting point of our Pipeline and will be used to drive the entire process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>concrete_dataset <span style="color:#f92672">=</span> Dataset<span style="color:#f92672">.</span>get_by_name(ws, <span style="color:#e6db74">&#39;concrete_baseline&#39;</span>)
+</span></span><span style="display:flex;"><span>ds_input <span style="color:#f92672">=</span> concrete_dataset<span style="color:#f92672">.</span>as_named_input(<span style="color:#e6db74">&#39;concrete_baseline&#39;</span>)
+</span></span></code></pre></div><p>Next, we create the pipeline steps using the <strong>PythonScriptStep</strong> class. The constructor of this class takes the following arguments:</p>
+<ul>
+<li>Name of the script file that contains the code for this step.</li>
+<li>A list of arguments that will be passed to the script.</li>
+<li>A list of input arguments that will be used by the script.</li>
+<li>A list of output arguments that will be generated by the script.</li>
+<li>The compute where the script will be executed. As explained earlier, instance and target computes are created during the creation of the workspace and have their names specified in a constants file. The pipeline steps are executed in the compute instance.</li>
+<li>The instance of the run configuration that will be used to configure the execution of the Pipeline.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>step_train_test_split <span style="color:#f92672">=</span> PythonScriptStep(
+</span></span><span style="display:flex;"><span>    script_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;step_train_test_split.py&#39;</span>,
+</span></span><span style="display:flex;"><span>    arguments<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_X_folder&#39;</span>, train_X_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_y_folder&#39;</span>, train_y_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--test_X_folder&#39;</span>, test_X_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--test_y_folder&#39;</span>, test_y_folder],
+</span></span><span style="display:flex;"><span>    inputs<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        ds_input],
+</span></span><span style="display:flex;"><span>    outputs<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        train_X_folder,
+</span></span><span style="display:flex;"><span>        train_y_folder,
+</span></span><span style="display:flex;"><span>        test_X_folder,
+</span></span><span style="display:flex;"><span>        test_y_folder],
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>INSTANCE_NAME,
+</span></span><span style="display:flex;"><span>    source_directory<span style="color:#f92672">=</span>source_directory,
+</span></span><span style="display:flex;"><span>    runconfig<span style="color:#f92672">=</span>run_config
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>step_prepare_data <span style="color:#f92672">=</span> PythonScriptStep(
+</span></span><span style="display:flex;"><span>    script_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;step_prepare_data.py&#39;</span>,
+</span></span><span style="display:flex;"><span>    arguments<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_X_folder&#39;</span>, train_X_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_Xt_folder&#39;</span>, train_Xt_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--data_transformer_folder&#39;</span>, data_transformer_folder],
+</span></span><span style="display:flex;"><span>    outputs<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        train_Xt_folder,
+</span></span><span style="display:flex;"><span>        data_transformer_folder],
+</span></span><span style="display:flex;"><span>    inputs<span style="color:#f92672">=</span>[train_X_folder],
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>INSTANCE_NAME,
+</span></span><span style="display:flex;"><span>    source_directory<span style="color:#f92672">=</span>source_directory,
+</span></span><span style="display:flex;"><span>    runconfig<span style="color:#f92672">=</span>run_config
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>The final step of our pipeline uses several pipeline parameters that give us the flexibility to fine-tune the various models so that we can select the best one. We use the <strong>PipelineParameter</strong> class to create these parameters, giving them names and default values.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>param_bag_regressor_n_estimators <span style="color:#f92672">=</span> PipelineParameter(
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;The number of estimators of the bagging regressor&#39;</span>,
+</span></span><span style="display:flex;"><span>    default_value<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>param_decision_tree_max_depth <span style="color:#f92672">=</span> PipelineParameter(
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;The maximum depth of the decision tree&#39;</span>,
+</span></span><span style="display:flex;"><span>    default_value<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>param_random_forest_n_estimators <span style="color:#f92672">=</span> PipelineParameter(
+</span></span><span style="display:flex;"><span>    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;The number of estimators of the random forest&#39;</span>,
+</span></span><span style="display:flex;"><span>    default_value<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>training_step <span style="color:#f92672">=</span> PythonScriptStep(
+</span></span><span style="display:flex;"><span>    script_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;step_train.py&#39;</span>,
+</span></span><span style="display:flex;"><span>    arguments<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_Xt_folder&#39;</span>, train_Xt_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--train_y_folder&#39;</span>, train_y_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--model_folder&#39;</span>, model_folder,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--bag_regressor_n_estimators&#39;</span>, param_bag_regressor_n_estimators,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--decision_tree_max_depth&#39;</span>, param_decision_tree_max_depth,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;--random_forest_n_estimators&#39;</span>, param_random_forest_n_estimators],
+</span></span><span style="display:flex;"><span>    inputs<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        train_Xt_folder,
+</span></span><span style="display:flex;"><span>        train_y_folder],
+</span></span><span style="display:flex;"><span>    outputs<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        model_folder],
+</span></span><span style="display:flex;"><span>    compute_target<span style="color:#f92672">=</span>constants<span style="color:#f92672">.</span>INSTANCE_NAME,
+</span></span><span style="display:flex;"><span>    source_directory<span style="color:#f92672">=</span>source_directory,
+</span></span><span style="display:flex;"><span>    runconfig<span style="color:#f92672">=</span>run_config
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>We can now create a pipeline that will execute the steps in the order that we defined them by using the  <strong>Pipeline</strong> class. The constructor of this class takes the following arguments:</p>
+<ul>
+<li>the workspace where the Pipeline will be created.</li>
+<li>a list of steps that will be executed in the order that they are defined.</li>
+</ul>
+<p>We can then execute the Pipeline by creating an <strong>Experiment</strong> object and calling the <strong>submit()</strong> method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pipeline <span style="color:#f92672">=</span> Pipeline(
+</span></span><span style="display:flex;"><span>    workspace<span style="color:#f92672">=</span>ws,
+</span></span><span style="display:flex;"><span>    steps<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        step_train_test_split,
+</span></span><span style="display:flex;"><span>        step_prepare_data,
+</span></span><span style="display:flex;"><span>        training_step
+</span></span><span style="display:flex;"><span>    ])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>experiment <span style="color:#f92672">=</span> Experiment(ws, <span style="color:#e6db74">&#39;concrete_train&#39;</span>)
+</span></span><span style="display:flex;"><span>run <span style="color:#f92672">=</span> experiment<span style="color:#f92672">.</span>submit(pipeline)
+</span></span><span style="display:flex;"><span>run<span style="color:#f92672">.</span>wait_for_completion()
+</span></span></code></pre></div><h2 id="execution">Execution</h2>
+<p>When a pipeline is first executed, AzureML does a couple of things [3]:</p>
+<ul>
+<li>Downloads the project to the compute from the Blob storage associated with the workspace.</li>
+<li>Builds a Docker image corresponding to each step in the Pipeline.</li>
+<li>Downloads the Docker image for each step to the compute from the container registry.</li>
+<li>Configures access to Dataset and OutputFileDatasetConfig objects.</li>
+<li>Runs the step in the compute target specified in the step definition.</li>
+<li>Creates artefacts, such as logs, stdout and stderr, metrics, and output specified by the step. These artefacts are then uploaded and kept in the user&rsquo;s default datastore.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_run_an_experiment_as_a_pipeline.png" alt="Running experiment as a pipeline process - Image from Microsoft"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Running experiment as a pipeline process - Image from Microsoft</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>Navigating into the AzureML portal, we will be able to see the experiment name (<strong>concrete_train</strong>) in the experiments tab, and upon clicking on it, we will see the various trials that were executed.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_pipeline_run.jpg" alt="Execution"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Experiment in AzureML</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>Each trial will show a pictorial representation of the execution steps of the Pipeline, with an indication of whether the step was executed correctly (green marker) or if an error was encountered(red marker). We can also view some general information about the Pipeline, the pipeline parameters that were used for the trial, log files for the execution, the pipeline metrics and information about any jobs that were triggered by the Pipeline.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_pipeline_execution.jpg" alt="AzureML pipeline visualization"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>AzureML pipeline visualization</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>Navigation to each pipeline step, we can obtain more information about the execution of the step. Each step has a number of tabs, including:</p>
+<ul>
+<li><strong>An overview</strong> will give us generic information such as the execution time for the step, the name of the script for the step, and the arguments used.</li>
+<li><strong>Parameters</strong> information, including the location of each argument.</li>
+<li>Complete <strong>Logging</strong> for the execution of the step.</li>
+<li><strong>Metrics</strong>, or the information that we had logged using the <strong>run.log()</strong> method in the pipeline</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_step_parameters_overview.jpg" alt="AzureML Pipeline Step Overview"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>AzureML Pipeline Step Overview</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_step_parameters_parameters.jpg" alt="AzureML Pipeline Step Parameters"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>AzureML Pipeline Step Overview</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_step_parameters_logs.jpg" alt="AzureML Pipeline Step Logs"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>AzureML Pipeline Step Logs</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_step_parameters_metrics.jpg" alt="AzureML Pipeline Step Metrics"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>AzureML Pipeline Step Metrics</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>The metrics of the final step will show us the result of this Pipeline. We can see that the Bagging Regressor obtained the lowest Root Mean Square Error and therefore was saved as our selected model.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_pipleine_results.jpg" alt="Results for this Pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Results for this Pipeline</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>We can have a look at the models that were registered in the workspace during the execution of the Pipeline by navigating to the <strong>Models</strong> tab. We can verify that two models were registered, one for the data transformer and one for the Bagging regressor model.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_pipeline_models.jpg" alt="Models registered by pipeline"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Models registered by Pipeline</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<p>Finally, it is possible to re-run the Pipeline with different parameters without resubmitting the code by selecting the <strong>Resubmit</strong> option for the Pipeline. This will give us the option to input new values for the parameters and re-run the Pipeline in a new trial.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/post/img/azureml_pipeline_introduction_resubmit.jpg" alt="Pipeline Resubmit"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Pipeline Resubmit</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this post, we have seen how we can create and execute a pipeline in AzureML that tests various ML models and selects the best one. We have seen that for our dataset, with the transformations that we applied, the <strong>Bagging Regressor</strong> obtained the lowest Root Mean Square Error of <strong>3.142</strong>.</p>
+<p>In the next post, we will see how AzureMl can optime the model so that we can deploy the best possible model to our production environment.</p>
+<h2 id="references">References</h2>
+<p>[1] V. Iliescu, <a href="https://vladiliescu.net/">Vlad Iliescu</a> [Online]. [Accessed: June 08, 2022].</p>
+<p>[2] Li et al, <a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-pipeline-parameter">Use pipeline parameters to build versatile pipelines - azure machine learning</a> | Microsoft Docs. [Online]. [Accessed: June 09, 2022].</p>
+<p>[3] Nils Pohlmann. (n.d.).<a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-machine-learning-pipelines">Create and run ML pipelines - azure machine learning. Create and run ML pipelines - Azure Machine Learning | Microsoft Docs.</a> [Online]. [Accessed June 17, 2022]</p>
+</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    
+    
+    
+        <h4 class="page-header"><b>Related</b></h4>
+         <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
+    <h5>Derivation of logistic regression</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
+    <h5>March 9, 2023</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+  <div class="item">
+
+    
+    
+    
+
+    
+      
+
+    <h4><a href="/post/azureml_end2end_modeloptimization/">Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</a></h4>
+    <h5>Creation and execution of an AzureML Model Optimization Experiment</h5>
+    
+<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
+
+<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
+
+<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
+
+<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
+
+
+
+</div>
+ 
+    
+
+    
+    
+        <h4 class="page-header"><b>Comments</b></h4>
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "carmelgafa-com-1" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+</main>
+
+        
+
+        <div>
+
+    <script type="text/javascript" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+    data-name="bmc-button" data-slug="carmelgafa" data-color="#FFDD00" data-emoji=""  
+    data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" 
+    data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+</div>
+        <br>
+        <br>
+        
+<div id="theme-tagcloud" class="col-sm-12" style="margin-bottom: 15px;">
+  
+  
+  
+  
+  
+  
+  <a href="/tags/machine-learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >machine-learning <span class="badge">27</span></a>
+  
+  
+  
+  
+  <a href="/tags/python" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >python <span class="badge">21</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy <span class="badge">14</span></a>
+  
+  
+  
+  
+  <a href="/tags/azure%20ml" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >azure ml <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/hugo_cms" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hugo_cms <span class="badge">11</span></a>
+  
+  
+  
+  
+  <a href="/tags/linear-regression" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >linear-regression <span class="badge">10</span></a>
+  
+  
+  
+  
+  <a href="/tags/gradient-descent" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >gradient-descent <span class="badge">9</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type2-fuzzy-library" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type2-fuzzy-library <span class="badge">8</span></a>
+  
+  
+  
+  
+  <a href="/tags/type1-fuzzy" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >type1-fuzzy <span class="badge">5</span></a>
+  
+  
+  
+  
+  <a href="/tags/cnc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cnc <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/dataset" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >dataset <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/datastore" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >datastore <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/it2fs" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >it2fs <span class="badge">4</span></a>
+  
+  
+  
+  
+  <a href="/tags/excel" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >excel <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/paper-workout" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >paper-workout <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/r" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >r <span class="badge">3</span></a>
+  
+  
+  
+  
+  <a href="/tags/c" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/c-sharp" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >c-sharp <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/experiment" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >experiment <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/hyperparameter%20tuning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >hyperparameter tuning <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/iot" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >iot <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/model%20optimization" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >model optimization <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/programming" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >programming <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/robotics" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >robotics <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/weiszfeld_algorithm" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >weiszfeld_algorithm <span class="badge">2</span></a>
+  
+  
+  
+  
+  <a href="/tags/arduino" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >arduino <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/automl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >automl <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/classifier" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >classifier <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/computation" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >computation <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/cost-functions" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >cost-functions <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/development" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >development <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/embedded" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >embedded <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/fuzzy-logic" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >fuzzy-logic <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/game" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >game <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/javascript" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >javascript <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/learning" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >learning <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mathjax" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mathjax <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/maths" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >maths <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/mxchip" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >mxchip <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pandas" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pandas <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/pipeline" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >pipeline <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/random_walk" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >random_walk <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/roc" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >roc <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/tools" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >tools <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/vscode" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >vscode <span class="badge">1</span></a>
+  
+  
+  
+  
+  <a href="/tags/wsl" class="btn btn-default" role="button" style="text-transform: uppercase; font-size: 12px; padding-right: 5px; padding-left: 5px;" >wsl <span class="badge">1</span></a>
+  
+  
+</div>
+
+    </body>
+
+</html>
+

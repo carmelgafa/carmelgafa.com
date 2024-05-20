@@ -21,7 +21,7 @@ LMF(\tilde{A}) = min \left(  exp \left[ -0.5 \times \left (\frac{x-m_1}{\sigma} 
 $$
 The example specifies nine $[m_1, m_2]$ sets having the following values:
 
-```{text}
+```text
     [5,5],
     [4.875, 5.125],
     [4.75, 5.25],

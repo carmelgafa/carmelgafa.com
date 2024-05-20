@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Azure Ml on </title>
+    <link>//localhost:1313/tags/azure-ml/</link>
+    <description>Recent content in Azure Ml on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Mar 2023 13:31:51 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/azure-ml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes about Azure ML, Part 11 - Model Validation in AzureML</title>
+      <link>//localhost:1313/post/azureml_end2end_validation/</link>
+      <pubDate>Thu, 09 Mar 2023 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_validation/</guid>
+      <description>Introduction After completing the model selection and optimization phase, the next step is to evaluate the final_model using the test dataset. The evaluation process involves executing the full pipeline to transform the test features and predict the corresponding labels. It is expected that the model&amp;rsquo;s performance on the test dataset will be slightly lower than that on the training and validation datasets.&#xA;The evaluation process is similar to the previous phases, where the models and test data are loaded, and the pipeline is executed to obtain the test predictors.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 10 - An end-to-end AzureML example; Model Optimization</title>
+      <link>//localhost:1313/post/azureml_end2end_modeloptimization/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_modeloptimization/</guid>
+      <description>Introduction In this second part of this series of posts, we will optimize the model we created in the previously by selecting the best set of hyperparameters, or model configuration parameters, that affect the training process. Hyperparameters differ from model parameters in that they are not learnt through some automated process but are chosen by the data scientist. In general, we cannot use techniques to understand model parameters, such as gradient descent, to learn hyperparameters, although they ultimately affect the loss function as well.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 9 - An end-to-end AzureML example Pipeline creation and execution</title>
+      <link>//localhost:1313/post/azureml_end2end_trainingpipeline/</link>
+      <pubDate>Sat, 18 Jun 2022 13:31:51 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_trainingpipeline/</guid>
+      <description>Introduction In the second section of this series, we will show how to use the Azure Machine SDK to create a training pipeline. In the previous section, we uploaded the concrete strength data to an AzureML datastore and published it in a dataset called concrete_baseline. This section will create an AzureML pipeline that will use that dataset to train several models, evaluate their performance, and select the best one.&#xA;AzureMl pipelines connect several functional steps we can execute in sequence in a machine learning workflow.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 8 - An end-to-end AzureML example; Workspace creation and data upload</title>
+      <link>//localhost:1313/post/azureml_end2end_introduction/</link>
+      <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_end2end_introduction/</guid>
+      <description>Introduction In the previous posts in this series, we have examined some of the various features of Azure Machine Learning. We have executed some experiments and have seen the results. We will now try to look into a more complete, end to end Machine Learning project in Azure that will utilize leverage the power of other Azure ML features such as:&#xA;Azure Machine Learning Pipelines. Azure ML pipelines are where we execute discrete steps (or subtasks) as a workflow.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 7 - The Concrete Strength Example; training a model</title>
+      <link>//localhost:1313/post/azureml_training_2/</link>
+      <pubDate>Wed, 16 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_training_2/</guid>
+      <description>In this series&amp;rsquo;s previous post, we have seen how to create and execute a machine learning experiment in AzureML. Our experiment was not an actual ML experiment but a simple script that printed a message.&#xA;This post will see how to create and execute an ML experiment that involves training a model. It is important to note that this post is just the first step in creating a proper ML pipeline in AzureML and is therefore not the best of solutions.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 6 - Experiment Creation</title>
+      <link>//localhost:1313/post/azureml_training/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_training/</guid>
+      <description>In a previous post, we have seen how to create an ML workspace and provision a compute resource in Azure using AzureML SDK; now we will see how to execute an experiment the ML environment using AzureML SDK.&#xA;We will start by executing a simple experiment that will print a message. The steps required to run this trivial experiment are:&#xA;Create an experiment script to be executed.&#xA;Create and Experiment instance.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 5 - Azureml AutoML</title>
+      <link>//localhost:1313/post/azureml_automl/</link>
+      <pubDate>Thu, 06 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_automl/</guid>
+      <description>Automated machine learning (AutoML) automates the creation of machine learning models. Typically, the process of creating a model can be long and tedious. AutoML makes it possible for people who do not have coding experience to develop and use ML models.&#xA;In a typical machine learning application, we start with raw data for Training. The data might have missing fields, contain outliers, and require cleaning work. The following steps might be required:</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 4 - Creating Azure ML Datasets from a URL</title>
+      <link>//localhost:1313/post/azureml_datasetfromurl/</link>
+      <pubDate>Wed, 05 Jan 2022 11:08:45 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetfromurl/</guid>
+      <description>In a previous post, we discussed how to create a dataset from a datastore, but this is not the only way to create a dataset. This post will examine how to import a dataset from data available on the web.&#xA;The process is quite simple, consisting of only three steps:&#xA;Pasting the URL from the provider of the data. The data is retrieved and displayed. Changing some of the settings, like the delimiter or if the data contains a header, is possible.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 3 - Azure Machine Learning SDK, working with Workspaces, Computes, Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_sdk_workspace/</link>
+      <pubDate>Fri, 31 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_sdk_workspace/</guid>
+      <description>Introduction The Azure Machine Learning SDK for Python lets us interact with the Azure Machine Learning service using a Python environment. This post will discuss how to create, manage, and use Azure Machine Learning Workspaces, Computes, Datasets and Datastores using the Azure Machine Learning SDK for Python.&#xA;Create a Workspace Creating a workspace is shown below. The create method required a name for the workspace, a subscription ID, a resource group (that is created for the workspace by setting the create_resource_group flag to true), and a location.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 2 - Computation Options</title>
+      <link>//localhost:1313/post/azureml_computes/</link>
+      <pubDate>Tue, 28 Dec 2021 12:50:00 +0100</pubDate>
+      <guid>//localhost:1313/post/azureml_computes/</guid>
+      <description>This post will very briefly discuss two of the computation options available in Azure Machine Learning; compute instances and compute clusters.&#xA;A Compute Instance in Azure Machine Learning is a cloud-based workstation, where all the necessary frameworks, tools and libraries are installed and configured, thus making it easy to run machine CPU or GPU based learning experiments and manage the Azure ML resources. We can create instances by selecting from one of the VM sizes available in Azure.</description>
+    </item>
+    <item>
+      <title>Notes about Azure ML, Part 1 - Datasets and Datastores</title>
+      <link>//localhost:1313/post/azureml_datasetsstores/</link>
+      <pubDate>Thu, 23 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/azureml_datasetsstores/</guid>
+      <description>Introduction In AzureML, the two essential concepts that help us work with data are Datastores and Datasets.&#xA;Datastores are used for storing connection information to Azure storage services Datasets are references to the location of the data source. Datastores Azure has various locations for storing data, such as;&#xA;Azure Blob Storage Azure SQL Database Azure Datafactory Azure Databricks These are the places where the data can exist.&#xA;An Azure storage account is a container for all the Azure Storage data objects blobs, file shares, queues, tables, and disks, making them accessible from anywhere in the world over HTTP or HTTPS.</description>
+    </item>
+  </channel>
+</rss>

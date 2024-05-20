@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cost-Functions on </title>
+    <link>//localhost:1313/tags/cost-functions/</link>
+    <description>Recent content in Cost-Functions on </description>
+    <generator>Hugo 0.125.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Dec 2021 14:33:57 +0100</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/cost-functions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linear Regression, Part 1 - Cost Functions</title>
+      <link>//localhost:1313/post/ml_linearreg_costfunctions/</link>
+      <pubDate>Tue, 14 Dec 2021 14:33:57 +0100</pubDate>
+      <guid>//localhost:1313/post/ml_linearreg_costfunctions/</guid>
+      <description>The objective of regression is to fit a line through a given data set. Hence, if we are given a set of points;&#xA;$$ (x_1, y_1), (x_2, y_2), \dots, (x_i, y_i), \dots ,(x_n, y_n)$$&#xA;we want to fit the line $\hat{y} = a_0 + a_1 x$ through the given set of data. The equation $ a_0 + a_1 x$ is known as the hypothesis function.&#xA;It would be trivial if a line could exactly represent the data provided.</description>
+    </item>
+  </channel>
+</rss>
