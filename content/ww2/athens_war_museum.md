@@ -2,6 +2,7 @@
 title: "Athens war museum"
 description: ""
 draft: false
+date: "2024-05-20T06:34:11+01:00"
 ---
 
 On October 28, 1940, at around 3:00 am, the Italian ambassador to Greece issued an ultimatum, but before it expired, Mussolini's forces attacked from Albania, expecting a swift victory. The Greek army mounted a fierce resistance, aided by the bad weather, and successfully pushed the Italians back. This unexpected Greek success marked the first significant Allied land victory against the Axis powers and boosted morale among the Allies.
