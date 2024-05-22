@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>//localhost:1313/ww2/athens_war_museum/</loc>
+    <lastmod>2024-05-20T06:34:11+01:00</lastmod>
+  </url><url>
     <loc>//localhost:1313/</loc>
-    <lastmod>2023-04-10T00:00:00+00:00</lastmod>
+    <lastmod>2024-05-20T06:34:11+01:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/ww2/</loc>
+    <lastmod>2024-05-20T06:34:11+01:00</lastmod>
   </url><url>
     <loc>//localhost:1313/post/ml_logistic_regression/</loc>
     <lastmod>2023-04-10T00:00:00+00:00</lastmod>
@@ -357,8 +363,6 @@
   </url><url>
     <loc>//localhost:1313/about/</loc>
   </url><url>
-    <loc>//localhost:1313/ww2/athens_war_museum/</loc>
-  </url><url>
     <loc>//localhost:1313/categories/</loc>
   </url><url>
     <loc>//localhost:1313/tags/game/</loc>
@@ -366,7 +370,5 @@
     <loc>//localhost:1313/tags/javascript/</loc>
   </url><url>
     <loc>//localhost:1313/project/project_ozzy_floaters/</loc>
-  </url><url>
-    <loc>//localhost:1313/ww2/</loc>
   </url>
 </urlset>

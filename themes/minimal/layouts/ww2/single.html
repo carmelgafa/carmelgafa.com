@@ -1,0 +1,63 @@
+{{ partial "header" . }}
+
+{{ $title := .Title }}
+{{ $url := printf "https://carmelgafa.com%s" .RelPermalink}}
+{{ $body := print $title ", by Carmel Gafa\n\n" .Params.description "\n\n" $url "\n" }}
+
+
+<div class="sr-sharebar sr-sb-vl sr-sb-left">
+  <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
+    <span class="sr-email">
+      <a href="mailto:?subject={{$title}}&amp;body={{$body}}" target="_blank" title="Share to Email">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </span>
+    <span class="sr-rss">
+      <a href="" target="_blank" title="Share to RSS">
+        <i class="fa fa-rss"></i>
+      </a>
+    </span>
+    <span class="sr-whatsapp">
+      <a href="https://api.whatsapp.com/send?text={{$url}}" target="_blank" title="Share to WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </span>
+    <span class="sr-print">
+      <a href="https://www.printfriendly.com/print?url={{$url}}" target="_blank" title="Print">
+        <i class="fa fa-print"></i>
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<main>
+
+    <div>
+        <h2><b>{{ .Title }}</b></h2>
+        <h5>{{ .Date.Format (.Site.Params.dateFormat | default "Mon January 2, 2006") }}</h5>
+        {{ partial "tags" . }}
+    </div>
+
+    <div align="start" class="content">{{ .Content }}</div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    <!-- Related posts -->
+    {{ $related := first 3 (where (where (where .Site.Pages.ByDate.Reverse ".Type" "==" "post") ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
+    {{ if $related }}
+        <h4 class="page-header"><b>Related</b></h4>
+        {{ range $related }} {{ partial "list-item" . }} {{ end }}
+    {{ end }}
+
+    <!-- Disquis comments -->
+    {{ if and .Site.DisqusShortname (not .Params.disableComments) }}
+        <h4 class="page-header"><b>Comments</b></h4>
+        {{ template "_internal/disqus.html" . }}
+    {{ end }}
+
+</main>
+
+{{ partial "footer" . }}
