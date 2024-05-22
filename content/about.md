@@ -19,7 +19,7 @@ Feel free to comment on the pages that resonate with you—your feedback is high
 
 ---
 
-This site is based the following technologies:
+#### This site is based the following technologies
 
 - [Hugo](https://gohugo.io/) and the [Minimal Theme](https://themes.gohugo.io/themes/minimal/)
 - [Netlify](https://www.netlify.com/)
@@ -28,7 +28,7 @@ This site is based the following technologies:
 - [Disqus](https://disqus.com/)
 - [GitHub](http://GitHub.com)
 
-- Other technologies and tools that I use:
+#### Other technologies and tools that I use
 
 - [Latex Studio](https://www.latex-studio.com/)
 - [Draw.io](https://www.draw.io/)
