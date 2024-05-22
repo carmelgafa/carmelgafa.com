@@ -3,9 +3,13 @@ title: "About Carmel Gafa'"
 description: About Page
 ---
 
-I’m a practice lead at [KPMG Microsoft Business solutions](https://home.kpmg/mt/en/home/services/microsoft-business-solutions.html), who is perpetually curious about anything that is engineering, programming and ai. I’m particularly interested in soft computing and its applications in machine learning and robotics.
+I’m a practice lead at [KPMG Microsoft Business solutions](https://home.kpmg/mt/en/home/services/microsoft-business-solutions.html), driven by an unending curiosity for engineering, programming, and artificial intelligence. My particular passion lies in soft computing and its transformative applications in machine learning and robotics.
 
 ### "If you want to learn something well, explain it" - Richard Feynman
+
+I also have a personal fascination with the events that unfolded in the 1930s and 1940s, delving into their evolution and the profound impact they had on history. This era, marked by immense turmoil and tragedy, offers deep insights into human behavior and the forces that shaped one of the darkest periods in our history.
+
+### "The malice of the wicked was reinforced by the weakness of the virtuous" - Sir Winston Churchill
 
 This website is my personal repository of notes and references from the projects I work on. It's a space where I strive to learn deeply, stay organized, stay motivated, and ideally, provide valuable insights to others tackling similar challenges.
 
