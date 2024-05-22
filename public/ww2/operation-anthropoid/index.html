@@ -6,7 +6,7 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Simple Python implementation of the Weiszfeld algorithm</title>
+        <title> Saints Cyril and Methodius Church in Prague - Operation Anthropoid</title>
         
         <style>
 
@@ -108,7 +108,7 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand visible-xs" href="#">Simple Python implementation of the Weiszfeld algorithm</a>
+                    <a class="navbar-brand visible-xs" href="#"> Saints Cyril and Methodius Church in Prague - Operation Anthropoid</a>
                     <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -155,7 +155,7 @@
 <div class="sr-sharebar sr-sb-vl sr-sb-left">
   <div class="socializer a sr-32px sr-opacity sr-vertical sr-icon-white sr-pad">
     <span class="sr-email">
-      <a href="mailto:?subject=Simple%20Python%20implementation%20of%20the%20Weiszfeld%20algorithm&amp;body=Simple%20Python%20implementation%20of%20the%20Weiszfeld%20algorithm%2c%20by%20Carmel%20Gafa%0a%0a%3cnil%3e%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fpost%2fml_weiszfeld_python%2f%0a" target="_blank" title="Share to Email">
+      <a href="mailto:?subject=%20Saints%20Cyril%20and%20Methodius%20Church%20in%20Prague%20-%20Operation%20Anthropoid&amp;body=%20Saints%20Cyril%20and%20Methodius%20Church%20in%20Prague%20-%20Operation%20Anthropoid%2c%20by%20Carmel%20Gafa%0a%0a%0a%0ahttps%3a%2f%2fcarmelgafa.com%2fww2%2foperation-anthropoid%2f%0a" target="_blank" title="Share to Email">
         <i class="fa fa-envelope"></i>
       </a>
     </span>
@@ -165,12 +165,12 @@
       </a>
     </span>
     <span class="sr-whatsapp">
-      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_weiszfeld_python%2f" target="_blank" title="Share to WhatsApp">
+      <a href="https://api.whatsapp.com/send?text=https%3a%2f%2fcarmelgafa.com%2fww2%2foperation-anthropoid%2f" target="_blank" title="Share to WhatsApp">
         <i class="fab fa-whatsapp"></i>
       </a>
     </span>
     <span class="sr-print">
-      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fpost%2fml_weiszfeld_python%2f" target="_blank" title="Print">
+      <a href="https://www.printfriendly.com/print?url=https%3a%2f%2fcarmelgafa.com%2fww2%2foperation-anthropoid%2f" target="_blank" title="Print">
         <i class="fa fa-print"></i>
       </a>
     </span>
@@ -181,55 +181,102 @@
 <main>
 
     <div>
-        <h2><b>Simple Python implementation of the Weiszfeld algorithm</b></h2>
-        <h5>Sun March 14, 2021</h5>
+        <h2><b> Saints Cyril and Methodius Church in Prague - Operation Anthropoid</b></h2>
+        <h5>Wed May 22, 2024</h5>
         
-<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
-
-<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
-
-<a href="//localhost:1313/tags/weiszfeld_algorithm"><kbd class="item-tag">weiszfeld_algorithm</kbd></a>
-
 
     </div>
 
-    <div align="start" class="content"><p>Following is a simple implementation of the Weiszfeld algortihm that was discussed in a previous post in python.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> numpy <span style="color:#f92672">import</span> array
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">weiszfeld</span>(points):
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    max_error <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0000000001</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>array([point[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">for</span> point <span style="color:#f92672">in</span>  points])
-</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>array([point[<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">for</span> point <span style="color:#f92672">in</span>  points])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    ext_condition <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    start_x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>average(x)
-</span></span><span style="display:flex;"><span>    start_y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>average(y)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ext_condition:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        sod <span style="color:#f92672">=</span> (((x <span style="color:#f92672">-</span> start_x)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> ((y <span style="color:#f92672">-</span> start_y)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>))<span style="color:#f92672">**</span><span style="color:#ae81ff">0.5</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        new_x <span style="color:#f92672">=</span> sum(x<span style="color:#f92672">/</span>sod) <span style="color:#f92672">/</span> sum(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>sod)
-</span></span><span style="display:flex;"><span>        new_y <span style="color:#f92672">=</span> sum(y<span style="color:#f92672">/</span>sod) <span style="color:#f92672">/</span> sum(<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>sod)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        ext_condition <span style="color:#f92672">=</span> (abs(new_x <span style="color:#f92672">-</span> start_x) <span style="color:#f92672">&gt;</span> max_error) <span style="color:#f92672">or</span> 
-</span></span><span style="display:flex;"><span>            (abs(new_y <span style="color:#f92672">-</span> start_y) <span style="color:#f92672">&gt;</span> max_error)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        start_y <span style="color:#f92672">=</span> new_y
-</span></span><span style="display:flex;"><span>        start_x <span style="color:#f92672">=</span> new_x
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        print(new_x, new_y)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;__main__&#34;</span>:
-</span></span><span style="display:flex;"><span>    weiszfeld([(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">9</span>), (<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">11</span>)])
-</span></span></code></pre></div></div>
+    <div align="start" class="content"><p>Operation Anthropoid was a daring and high-stakes World War II mission executed by the Czechoslovak government-in-exile in collaboration with the British Special Operations Executive (SOE). The operation’s goal was to assassinate Reinhard Heydrich, one of the principal architects of the Holocaust and the acting Reichsprotektor of Bohemia and Moravia. Known for his brutal efficiency and ruthless suppression of the Czech resistance, Heydrich was a key figure in Nazi Germany&rsquo;s security apparatus and a primary planner of the Final Solution.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-1.png" alt="Reinhard Heydrich"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Reinhard Heydrich</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>Two Czech paratroopers, Jozef Gabčík and Jan Kubiš, were trained in Britain, where they planned the mission and parachuted into Czechoslovakia in late December 1941. Over the next few months, they integrated into local resistance networks and gathered intelligence while preparing for the assassination.</p>
+<p>On May 27, 1942, Gabčík and Kubiš ambushed Heydrich&rsquo;s car in Prague. Gabčík&rsquo;s submachine gun jammed, forcing Kubiš to throw a modified anti-tank grenade at the vehicle. The explosion severely injured Heydrich, who succumbed to his wounds on June 4, 1942. Despite initial reports of Heydrich&rsquo;s survival, the attack was ultimately successful, marking the highest-ranking Nazi official to be assassinated during the war.</p>
+<p>The aftermath of Operation Anthropoid was brutal. The Nazis launched a massive reprisal campaign, including the infamous massacres at Lidice and Ležáky, where entire villages were destroyed and their inhabitants killed or deported. Gabčík and Kubiš, along with their fellow operatives, were eventually betrayed and perished in a final stand at crypt of the Church of Saints Cyril and Methodius in Prague.</p>
+<p>Visiting the church and the crypt, that is now a museum where the final act of Operation Anthropoid unfolded is a profoundly moving experience. This historic site bears silent witness to the heroism and sacrifice of those who stood against tyranny during one of the darkest periods of World War II.</p>
+<br/>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-2.jpg" alt="bomb"></th>
+<th></th>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-3.jpg" alt="shoe"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Replica of the bomb used to assassinate Heidrich and  Gabčík&rsquo;s army ID card</td>
+<td>-</td>
+<td style="text-align:center">Josef Bublík&rsquo;s shoe and a book stained with the blood of one of the heroes</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>After the successful assassination of Reinhard Heydrich on May 27, 1942,  Gabčík,  Kubiš, and other paratroopers involved in the operation sought refuge in this Baroque church. For several weeks, they evaded the relentless Nazi manhunt, but a betrayal by Karel Čurda, a fellow resistance member who revealed their location to the Gestapo, sealed their fate.</p>
+<br/>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-4.jpg" alt="stone"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-5.jpg" alt="crypt"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">The stone that sealed the crypt were the heroes hid.</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">The crypt Church of Saints Cyril and Methodius</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>On June 18, 1942, the Nazis surrounded the church. A fierce battle ensued as the heavily outnumbered and outgunned paratroopers fought bravely from their positions within the church&rsquo;s crypt and main building. Despite their desperate resistance, the Gestapo forces, using tear gas, water pumps, and explosives, managed to breach the defenders&rsquo; positions.</p>
+<br/>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-6.jpg" alt="window"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"><img src="/ww2/img/img-operation-anthropoid-7.jpg" alt="window"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">The bullet hole riddled window that marks the initial futile attempts of the Nazis to break the Czech heroes</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">The  window through which  Gabčík, Kubiš and the others defended themselves</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<p>As a visitor, stepping into the church&rsquo;s crypt, where the final stand took place, is an intensely poignant experience. The dimly lit, narrow space, with its preserved bullet holes and memorial plaques, evokes a sense of the claustrophobic and desperate last moments of the resistance fighters. One can almost hear the echoes of gunfire and the shouts of the brave men who, faced with capture, chose to take their own lives rather than surrender.</p>
+<br/>
+<table>
+<thead>
+<tr>
+<th><img src="/ww2/img/img-operation-anthropoid-8.jpg" alt="crypt"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10242.215172573224!2d14.406763517382812!3d50.07591759999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94f406e2f04f%3A0x2f34adba12c788b9!2sSs.%20Cyril%20and%20Methodius%20Cathedral!5e0!3m2!1sen!2smt!4v1716410658149!5m2!1sen!2smt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 
 
     <br/>
@@ -237,76 +284,6 @@
     <br/>
     
     
-    
-        <h4 class="page-header"><b>Related</b></h4>
-         <div class="item">
-
-    
-    
-    
-
-    
-      
-
-    <h4><a href="/post/ml_logistic_regression/">Logistic Regression</a></h4>
-    <h5>Derivation of logistic regression</h5>
-    
-<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
-
-
-
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <h4><a href="/post/azureml_end2end_validation/">Notes about Azure ML, Part 11 - Model Validation in AzureML</a></h4>
-    <h5>March 9, 2023</h5>
-    
-<a href="//localhost:1313/tags/machine-learning"><kbd class="item-tag">machine-learning</kbd></a>
-
-<a href="//localhost:1313/tags/azure-ml"><kbd class="item-tag">azure ml</kbd></a>
-
-<a href="//localhost:1313/tags/hyperparameter-tuning"><kbd class="item-tag">hyperparameter tuning</kbd></a>
-
-<a href="//localhost:1313/tags/model-optimization"><kbd class="item-tag">model optimization</kbd></a>
-
-
-
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <h4><a href="/post/type2fuzzy_it2fs_typereduction_example/">Paper Implementation - Uncertain rule-based fuzzy logic systems Introduction and new directions-Jerry M. Mendel; Prentice-Hall, PTR, Upper Saddle River, NJ, 2001,    555pp., ISBN 0-13-040969-3. Example 9-4, page 261</a></h4>
-    <h5>October 8, 2022</h5>
-    
-<a href="//localhost:1313/tags/type2-fuzzy"><kbd class="item-tag">type2-fuzzy</kbd></a>
-
-<a href="//localhost:1313/tags/type2-fuzzy-library"><kbd class="item-tag">type2-fuzzy-library</kbd></a>
-
-<a href="//localhost:1313/tags/fuzzy"><kbd class="item-tag">fuzzy</kbd></a>
-
-<a href="//localhost:1313/tags/python"><kbd class="item-tag">python</kbd></a>
-
-<a href="//localhost:1313/tags/it2fs"><kbd class="item-tag">IT2FS</kbd></a>
-
-<a href="//localhost:1313/tags/paper-workout"><kbd class="item-tag">paper-workout</kbd></a>
-
-
-
-</div>
- 
     
 
     
